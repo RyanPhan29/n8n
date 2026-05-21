@@ -21,7 +21,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Tinh ngay hom qua theo Asia/Ho_Chi_Minh\nconst now = new Date();\nconst vnNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));\nconst yesterday = new Date(vnNow);\nyesterday.setDate(vnNow.getDate() - 1);\n\nconst yyyy = yesterday.getFullYear();\nconst mm = String(yesterday.getMonth() + 1).padStart(2, '0');\nconst dd = String(yesterday.getDate()).padStart(2, '0');\nconst yesterdayISO = `${yyyy}-${mm}-${dd}`;\nconst yesterdayVN = `${dd}/${mm}/${yyyy}`;\n\nconst todayHuman = `${String(vnNow.getDate()).padStart(2,'0')}/${String(vnNow.getMonth()+1).padStart(2,'0')}/${vnNow.getFullYear()}`;\n\nreturn [{ json: { yesterdayISO, yesterdayVN, todayHuman } }];"
+        "jsCode": "const now = new Date();\nconst vnNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));\nconst yesterday = new Date(vnNow);\nyesterday.setDate(vnNow.getDate() - 1);\n\nconst yyyy = yesterday.getFullYear();\nconst mm = String(yesterday.getMonth() + 1).padStart(2, '0');\nconst dd = String(yesterday.getDate()).padStart(2, '0');\nconst yesterdayISO = `${yyyy}-${mm}-${dd}`;\nconst yesterdayVN = `${dd}/${mm}/${yyyy}`;\n\nconst todayHuman = `${String(vnNow.getDate()).padStart(2,'0')}/${String(vnNow.getMonth()+1).padStart(2,'0')}/${vnNow.getFullYear()}`;\n\nreturn [{ json: { yesterdayISO, yesterdayVN, todayHuman } }];"
       },
       "id": "compute-date",
       "name": "Tinh ngay hom qua",
@@ -45,7 +45,8 @@
       "name": "Get Sales (all)",
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
-      "position": [680, 200]
+      "position": [680, 300],
+      "executeOnce": true
     },
     {
       "parameters": {
@@ -63,17 +64,18 @@
       "name": "Get Leads (all)",
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2.2,
-      "position": [680, 400]
+      "position": [900, 300],
+      "executeOnce": true
     },
     {
       "parameters": {
-        "jsCode": "// Tong hop dashboard cho ngay hom qua\nconst dateInfo = $('Tinh ngay hom qua').first().json;\nconst yesterdayISO = dateInfo.yesterdayISO;\nconst yesterdayVN = dateInfo.yesterdayVN;\nconst todayHuman = dateInfo.todayHuman;\n\n// 1) Sales: filter Ngay chot = yesterday\nconst salesAll = $('Get Sales (all)').all();\nconst salesYesterday = salesAll.filter(item => {\n  const props = item.json.properties || {};\n  const ngayChot = props['Ngày chốt']?.date?.start;\n  return ngayChot && ngayChot.startsWith(yesterdayISO);\n});\n\nlet tongDoanhThu = 0;\nlet tongDaThu = 0;\nconst salePerformance = { 'Bích': 0, 'Trân': 0, 'Ryan': 0 };\nconst productBreak = {};\n\nfor (const s of salesYesterday) {\n  const p = s.json.properties;\n  const giatri = p['Giá trị (VNĐ)']?.number || 0;\n  const dathu = p['Đã thu (VNĐ)']?.number || 0;\n  tongDoanhThu += giatri;\n  tongDaThu += dathu;\n  const sale = p['Sale']?.select?.name;\n  if (sale && salePerformance[sale] !== undefined) salePerformance[sale] += giatri;\n  const product = p['Sản phẩm/Khóa']?.select?.name;\n  if (product) productBreak[product] = (productBreak[product] || 0) + giatri;\n}\n\n// 2) Leads: filter Ngay tao = yesterday\nconst leadsAll = $('Get Leads (all)').all();\nconst leadsYesterday = leadsAll.filter(item => {\n  const props = item.json.properties || {};\n  const ngayTao = props['Ngày tạo']?.created_time;\n  return ngayTao && ngayTao.startsWith(yesterdayISO);\n});\n\nconst leadSources = {};\nfor (const l of leadsYesterday) {\n  const src = l.json.properties['Nguồn']?.select?.name || 'Chưa rõ';\n  leadSources[src] = (leadSources[src] || 0) + 1;\n}\n\n// Format VND\nconst formatVND = (n) => n.toLocaleString('vi-VN') + ' VNĐ';\n\n// Compose Telegram message (Markdown)\nlet msg = `*📊 DRSKIN DASHBOARD — ${todayHuman}*\\n`;\nmsg += `_Báo cáo ngày ${yesterdayVN}_\\n\\n`;\n\nmsg += `💰 *DOANH THU*\\n`;\nmsg += `• Ký hợp đồng: *${formatVND(tongDoanhThu)}*\\n`;\nmsg += `• Đã thu thực: *${formatVND(tongDaThu)}*\\n`;\nmsg += `• Số deal: *${salesYesterday.length}*\\n\\n`;\n\nif (Object.keys(productBreak).length > 0) {\n  msg += `📦 *Theo sản phẩm:*\\n`;\n  for (const [prod, amt] of Object.entries(productBreak).sort((a,b)=>b[1]-a[1])) {\n    msg += `  • ${prod}: ${formatVND(amt)}\\n`;\n  }\n  msg += `\\n`;\n}\n\nconst saleEntries = Object.entries(salePerformance).filter(([s,amt]) => amt > 0);\nif (saleEntries.length > 0) {\n  msg += `👤 *Sale performance:*\\n`;\n  for (const [s, amt] of saleEntries) {\n    msg += `  • ${s}: ${formatVND(amt)}\\n`;\n  }\n  msg += `\\n`;\n}\n\nmsg += `🎯 *LEADS MỚI*\\n`;\nmsg += `• Tổng: *${leadsYesterday.length}* lead\\n`;\nif (Object.keys(leadSources).length > 0) {\n  for (const [src, n] of Object.entries(leadSources).sort((a,b)=>b[1]-a[1])) {\n    msg += `  • ${src}: ${n}\\n`;\n  }\n}\n\nif (salesYesterday.length === 0 && leadsYesterday.length === 0) {\n  msg += `\\n⚠️ Không có data cho ngày này. Check Notion xem Bích/Trân đã nhập chưa.`;\n}\n\nmsg += `\\n\\n🤖 _n8n auto-generated • ${new Date().toLocaleString('vi-VN', {timeZone:'Asia/Ho_Chi_Minh'})}_`;\n\nreturn [{ json: { message: msg, salesCount: salesYesterday.length, leadsCount: leadsYesterday.length, totalRevenue: tongDoanhThu } }];"
+        "jsCode": "// Tong hop dashboard cho ngay hom qua\nconst dateInfo = $('Tinh ngay hom qua').first().json;\nconst yesterdayISO = dateInfo.yesterdayISO;\nconst yesterdayVN = dateInfo.yesterdayVN;\nconst todayHuman = dateInfo.todayHuman;\n\n// Sales: filter Ngay chot = yesterday\nconst salesAll = $('Get Sales (all)').all();\nconst salesYesterday = salesAll.filter(item => {\n  const props = item.json.properties || {};\n  const ngayChot = props['Ngày chốt']?.date?.start;\n  return ngayChot && ngayChot.startsWith(yesterdayISO);\n});\n\nlet tongDoanhThu = 0;\nlet tongDaThu = 0;\nconst salePerformance = { 'Bích': 0, 'Trân': 0, 'Ryan': 0 };\nconst productBreak = {};\n\nfor (const s of salesYesterday) {\n  const p = s.json.properties;\n  const giatri = p['Giá trị (VNĐ)']?.number || 0;\n  const dathu = p['Đã thu (VNĐ)']?.number || 0;\n  tongDoanhThu += giatri;\n  tongDaThu += dathu;\n  const sale = p['Sale']?.select?.name;\n  if (sale && salePerformance[sale] !== undefined) salePerformance[sale] += giatri;\n  const product = p['Sản phẩm/Khóa']?.select?.name;\n  if (product) productBreak[product] = (productBreak[product] || 0) + giatri;\n}\n\n// Leads: filter Ngay tao = yesterday\nconst leadsAll = $input.all();\nconst leadsYesterday = leadsAll.filter(item => {\n  const props = item.json.properties || {};\n  const ngayTao = props['Ngày tạo']?.created_time;\n  return ngayTao && ngayTao.startsWith(yesterdayISO);\n});\n\nconst leadSources = {};\nfor (const l of leadsYesterday) {\n  const src = l.json.properties['Nguồn']?.select?.name || 'Chưa rõ';\n  leadSources[src] = (leadSources[src] || 0) + 1;\n}\n\nconst formatVND = (n) => n.toLocaleString('vi-VN') + ' VNĐ';\n\nlet msg = `*📊 DRSKIN DASHBOARD — ${todayHuman}*\\n`;\nmsg += `_Báo cáo ngày ${yesterdayVN}_\\n\\n`;\n\nmsg += `💰 *DOANH THU*\\n`;\nmsg += `• Ký hợp đồng: *${formatVND(tongDoanhThu)}*\\n`;\nmsg += `• Đã thu thực: *${formatVND(tongDaThu)}*\\n`;\nmsg += `• Số deal: *${salesYesterday.length}*\\n\\n`;\n\nif (Object.keys(productBreak).length > 0) {\n  msg += `📦 *Theo sản phẩm:*\\n`;\n  for (const [prod, amt] of Object.entries(productBreak).sort((a,b)=>b[1]-a[1])) {\n    msg += `  • ${prod}: ${formatVND(amt)}\\n`;\n  }\n  msg += `\\n`;\n}\n\nconst saleEntries = Object.entries(salePerformance).filter(([s,amt]) => amt > 0);\nif (saleEntries.length > 0) {\n  msg += `👤 *Sale performance:*\\n`;\n  for (const [s, amt] of saleEntries) {\n    msg += `  • ${s}: ${formatVND(amt)}\\n`;\n  }\n  msg += `\\n`;\n}\n\nmsg += `🎯 *LEADS MỚI*\\n`;\nmsg += `• Tổng: *${leadsYesterday.length}* lead\\n`;\nif (Object.keys(leadSources).length > 0) {\n  for (const [src, n] of Object.entries(leadSources).sort((a,b)=>b[1]-a[1])) {\n    msg += `  • ${src}: ${n}\\n`;\n  }\n}\n\nif (salesYesterday.length === 0 && leadsYesterday.length === 0) {\n  msg += `\\n⚠️ Không có data cho ngày này. Check Notion xem Bích/Trân đã nhập chưa.`;\n}\n\nmsg += `\\n\\n🤖 _n8n auto-generated • ${new Date().toLocaleString('vi-VN', {timeZone:'Asia/Ho_Chi_Minh'})}_`;\n\nreturn [{ json: { message: msg, salesCount: salesYesterday.length, leadsCount: leadsYesterday.length, totalRevenue: tongDoanhThu } }];"
       },
       "id": "aggregate",
       "name": "Tong hop dashboard",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 300]
+      "position": [1120, 300]
     },
     {
       "parameters": {
@@ -87,7 +89,7 @@
       "name": "Send Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1120, 300]
+      "position": [1340, 300]
     }
   ],
   "connections": {
@@ -95,13 +97,10 @@
       "main": [[{ "node": "Tinh ngay hom qua", "type": "main", "index": 0 }]]
     },
     "Tinh ngay hom qua": {
-      "main": [[
-        { "node": "Get Sales (all)", "type": "main", "index": 0 },
-        { "node": "Get Leads (all)", "type": "main", "index": 0 }
-      ]]
+      "main": [[{ "node": "Get Sales (all)", "type": "main", "index": 0 }]]
     },
     "Get Sales (all)": {
-      "main": [[{ "node": "Tong hop dashboard", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "Get Leads (all)", "type": "main", "index": 0 }]]
     },
     "Get Leads (all)": {
       "main": [[{ "node": "Tong hop dashboard", "type": "main", "index": 0 }]]
