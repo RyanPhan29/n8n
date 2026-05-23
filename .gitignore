@@ -25,3 +25,6 @@ build-storybook.log
 *.junit.xml
 junit.xml
 DRSKIN_N8N_DEPLOYMENT_CONTEXT.md
+
+# Tài liệu nội bộ chứa số liệu tài chính — không commit
+DrSkin_Academy_*.pdf
