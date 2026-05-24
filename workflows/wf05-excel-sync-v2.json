@@ -1,0 +1,292 @@
+{
+  "name": "WF#5 v2 — Excel Sync (idempotent) 6:30AM",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "hours", "triggerAtHour": 6, "triggerAtMinute": 30 } ] }
+      },
+      "id": "node-schedule",
+      "name": "Schedule 6:30AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [120, 400]
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "BC_T",
+        "filter": {
+          "whatToSearch": "files",
+          "fileTypes": ["application/vnd.google-apps.spreadsheet", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]
+        },
+        "options": { "fields": ["id", "name", "modifiedTime", "mimeType"] }
+      },
+      "id": "node-drive-search",
+      "name": "Drive: Find BC_TÀI_CHÍNH",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [340, 400],
+      "credentials": { "googleDriveOAuth2Api": { "id": "REPLACE_DRIVE_CRED", "name": "Google Drive account" } }
+    },
+    {
+      "parameters": {
+        "jsCode": "const files = $input.all().map(i => i.json);\nconst c = files.filter(f => {\n  const n = (f.name || '').toUpperCase();\n  return n.includes('BC') && (n.includes('TÀI') || n.includes('TAI') || n.includes('T_I'));\n});\nif (c.length === 0) throw new Error('Không tìm thấy file BC_TÀI_CHÍNH trong Drive');\nc.sort((a, b) => new Date(b.modifiedTime) - new Date(a.modifiedTime));\nreturn [{ json: { fileId: c[0].id, fileName: c[0].name, modifiedTime: c[0].modifiedTime } }];"
+      },
+      "id": "node-pick-latest",
+      "name": "Pick Latest File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [560, 400]
+    },
+    {
+      "parameters": {
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $json.fileId }}/export?mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "options": { "response": { "response": { "responseFormat": "file", "outputPropertyName": "data" } } }
+      },
+      "id": "node-drive-export",
+      "name": "Drive: Export XLSX",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [780, 400],
+      "credentials": { "googleDriveOAuth2Api": { "id": "REPLACE_DRIVE_CRED", "name": "Google Drive account" } }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse XLSX → cash/lead/expense/revenue (carry-forward số dư đầu ngày)\nconst XLSX = require('xlsx');\nconst buf = await this.helpers.getBinaryDataBuffer(0, 'data');\nconst wb = XLSX.read(buf, { type: 'buffer', cellDates: false });\n\nconst num = (v) => { if (v==null||v==='') return 0; if (typeof v==='number') return v; const n=parseFloat(String(v).replace(/[^0-9.-]/g,'')); return isNaN(n)?0:n; };\nconst getCell = (s, r) => { const c = s[r]; return c ? c.v : null; };\nfunction parseSheetDate(sn){ const s=(sn||'').trim(); if(s.toUpperCase().includes('TỔNG')||s.toUpperCase().includes('TONG')) return null; const m=s.match(/^(\\d{1,2})(\\d)$/); if(!m) return null; const day=parseInt(m[1],10), month=parseInt(m[2],10); if(day<1||day>31||month<1||month>12) return null; return {day,month,iso:`2026-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`}; }\nfunction hashRow(...p){ const str=p.map(x=>String(x??'')).join('|'); let h=0; for(let i=0;i<str.length;i++){h=((h<<5)-h)+str.charCodeAt(i); h|=0;} return Math.abs(h).toString(36); }\nfunction mapCat(note){ const n=String(note||'').toLowerCase();\n  if(n.includes('lương')||n.includes('luong')) return 'Lương NV';\n  if(n.includes('thuê')||n.includes('thue nha')) return 'Thuê nhà';\n  if(n.includes('điện')||n.includes('nước')||n.includes('mạng')||n.includes('rác')) return 'Điện nước';\n  if(n.includes('vật tư')||n.includes('vat tu')) return 'Vật tư';\n  if(n.includes('bảo hiểm')||n.includes('bao hiem')) return 'Bảo hiểm';\n  if(n.includes('fb ads')||n.includes('gg ads')||n.includes('quảng cáo')) return 'Quảng cáo';\n  if(n.includes('ncc')||n.includes('nhà cung cấp')) return 'Mua hàng NCC';\n  if(n.includes('ship')) return 'Vận chuyển';\n  if(n.includes('chuyển')||n.includes('rút')||n.includes('chuyen')||n.includes('rut')) return 'Chuyển-Rút';\n  if(n.includes('hoàn')||n.includes('hoan')) return 'Hoàn KH';\n  return 'Khác'; }\n\nconst days=[];\nfor(const sn of wb.SheetNames){ const d=parseSheetDate(sn); if(d) days.push({sn,d}); }\ndays.sort((a,b)=> (a.d.month-b.d.month) || (a.d.day-b.d.day));\n\nconst cashRecords=[], leadRecords=[], expenseRecords=[], revenueRecords=[];\nconst allISO=[];\nlet prevPK=0, prevCTY=0;\nfor(const {sn,d} of days){\n  const ws=wb.Sheets[sn]; if(!ws) continue;\n  allISO.push(d.iso);\n  const ngayText=`${String(d.day).padStart(2,'0')}/${String(d.month).padStart(2,'0')}/2026`;\n  const H1=num(getCell(ws,'H1')), M1=num(getCell(ws,'M1'));\n  const B3=num(getCell(ws,'B3')), B17=num(getCell(ws,'B17'));\n  const tkPKCuoi=H1+M1-B17, tkCTYCuoi=B17;\n  let tongRa=0;\n  for(let r=14;r<=26;r++){ tongRa+=num(getCell(ws,`H${r}`)); tongRa+=num(getCell(ws,`M${r}`)); }\n  cashRecords.push({ ngayText, ngayISO:d.iso, tkPKDau:prevPK, tkPKCuoi, tkCTYDau:prevCTY, tkCTYCuoi, tongVao:B3, tongRa });\n  prevPK=tkPKCuoi; prevCTY=tkCTYCuoi;\n\n  const fb=num(getCell(ws,'I29')),yt=num(getCell(ws,'J29')),gg=num(getCell(ws,'K29')),cu=num(getCell(ws,'L29')),kh=num(getCell(ws,'M29'));\n  if(fb+yt+gg+cu+kh>0) leadRecords.push({ ngayText, ngayISO:d.iso, facebook:fb, youtube:yt, google:gg, khCu:cu, khac:kh });\n\n  for(let r=14;r<=26;r++){\n    const amt=num(getCell(ws,`H${r}`)); if(amt<=0) continue;\n    const code=getCell(ws,`I${r}`), note=getCell(ws,`J${r}`); const cat=mapCat(note);\n    expenseRecords.push({ mota:`${cat} ${d.iso} #${r}-NH`, ngayISO:d.iso, hangMuc:cat, soTien:amt, phuongThuc:'Chuyển khoản', taiKhoan:'TK Phòng Khám', ghiChu:String(note||'').trim(), hash:hashRow(d.iso,'NH',r,amt,code,note) });\n  }\n  for(let r=14;r<=26;r++){\n    const amt=num(getCell(ws,`M${r}`)); if(amt<=0) continue;\n    const code=getCell(ws,`N${r}`), note=getCell(ws,`O${r}`), note2=getCell(ws,`P${r}`); const cat=mapCat(note);\n    expenseRecords.push({ mota:`${cat} ${d.iso} #${r}-TM`, ngayISO:d.iso, hangMuc:cat, soTien:amt, phuongThuc:'Tiền mặt', taiKhoan:'TK Phòng Khám', ghiChu:[note,note2].filter(Boolean).map(s=>String(s).trim()).join(' | '), hash:hashRow(d.iso,'TM',r,amt,code,note) });\n  }\n\n  const rDT=num(getCell(ws,'C5')), rDV=num(getCell(ws,'C6'));\n  if(rDT>0) revenueRecords.push({ mota:`Khóa học ${d.iso}`, ngayISO:d.iso, sale:'Chung', loai:'Khóa học', soTien:rDT, hash:hashRow(d.iso,'REV','DT',rDT) });\n  if(rDV>0) revenueRecords.push({ mota:`Dịch vụ & mỹ phẩm ${d.iso}`, ngayISO:d.iso, sale:'Chung', loai:'Dịch vụ', soTien:rDV, hash:hashRow(d.iso,'REV','DV',rDV) });\n}\nconst minISO = allISO.length ? allISO[0] : '2026-01-01';\nconst maxISO = allISO.length ? allISO[allISO.length-1] : '2026-12-31';\nreturn [{ json: { summary:{ cashCount:cashRecords.length, leadCount:leadRecords.length, expenseCount:expenseRecords.length, revenueCount:revenueRecords.length }, minISO, maxISO, cashRecords, leadRecords, expenseRecords, revenueRecords } }];"
+      },
+      "id": "node-parse",
+      "name": "Parse XLSX",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 400],
+      "notes": "Cần env NODE_FUNCTION_ALLOW_EXTERNAL=xlsx"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/2231d31d-2cfb-47f2-aef2-3ff1c8390956/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": { \"and\": [\n    { \"property\": \"Ngày\", \"date\": { \"on_or_after\": \"{{ $('Parse XLSX').first().json.minISO }}\" } },\n    { \"property\": \"Ngày\", \"date\": { \"on_or_before\": \"{{ $('Parse XLSX').first().json.maxISO }}\" } }\n  ] },\n  \"page_size\": 100\n}",
+        "options": {}
+      },
+      "id": "node-q-old-cash",
+      "name": "Query Old Cash",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1220, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/803b59a8-ae8c-4886-8d5e-abaf05ef4b2a/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": { \"and\": [\n    { \"property\": \"Ngày\", \"date\": { \"on_or_after\": \"{{ $('Parse XLSX').first().json.minISO }}\" } },\n    { \"property\": \"Ngày\", \"date\": { \"on_or_before\": \"{{ $('Parse XLSX').first().json.maxISO }}\" } },\n    { \"property\": \"Nguồn\", \"select\": { \"equals\": \"Excel sync\" } }\n  ] },\n  \"page_size\": 100\n}",
+        "options": {}
+      },
+      "id": "node-q-old-rev",
+      "name": "Query Old Revenue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1440, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/66f2ac8e-286d-429f-8441-8be51e9b7a46/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": { \"and\": [\n    { \"property\": \"Ngày\", \"date\": { \"on_or_after\": \"{{ $('Parse XLSX').first().json.minISO }}\" } },\n    { \"property\": \"Ngày\", \"date\": { \"on_or_before\": \"{{ $('Parse XLSX').first().json.maxISO }}\" } },\n    { \"property\": \"Nguồn\", \"select\": { \"equals\": \"Excel sync\" } }\n  ] },\n  \"page_size\": 100\n}",
+        "options": {}
+      },
+      "id": "node-q-old-exp",
+      "name": "Query Old Expenses",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1660, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ids=[];\nfor(const name of ['Query Old Cash','Query Old Revenue','Query Old Expenses']){\n  const res=$(name).first().json.results||[];\n  for(const p of res) ids.push(p.id);\n}\nif(ids.length===0) return [{ json:{ pageId:'__none__' } }];\nreturn ids.map(id=>({ json:{ pageId:id } }));"
+      },
+      "id": "node-collect-ids",
+      "name": "Collect Archive IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1880, 400]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.notion.com/v1/pages/{{ $json.pageId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"archived\": true }",
+        "options": {}
+      },
+      "id": "node-archive",
+      "name": "Archive Old Pages",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2100, 400],
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// collapse to 1 item so Split runs once\nreturn [{ json: { purged: true } }];"
+      },
+      "id": "node-resume",
+      "name": "Purge Done",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2320, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $('Parse XLSX').first().json;\nconst out=[];\nfor(const r of d.cashRecords) out.push({ json:{ kind:'cash', ...r } });\nfor(const r of d.leadRecords) out.push({ json:{ kind:'lead', ...r } });\nfor(const r of d.expenseRecords) out.push({ json:{ kind:'expense', ...r } });\nfor(const r of d.revenueRecords) out.push({ json:{ kind:'revenue', ...r } });\nreturn out;"
+      },
+      "id": "node-split",
+      "name": "Split Records",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2540, 400]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            { "conditions": { "options": { "caseSensitive": true, "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.kind }}", "rightValue": "cash", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "cash" },
+            { "conditions": { "options": { "caseSensitive": true, "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.kind }}", "rightValue": "lead", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "lead" },
+            { "conditions": { "options": { "caseSensitive": true, "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.kind }}", "rightValue": "expense", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "expense" },
+            { "conditions": { "options": { "caseSensitive": true, "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.kind }}", "rightValue": "revenue", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "revenue" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-switch",
+      "name": "Switch by Kind",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [2760, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"2231d31d-2cfb-47f2-aef2-3ff1c8390956\" },\n  \"properties\": {\n    \"Ngày (text)\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.ngayText }}\" } }] },\n    \"Ngày\": { \"date\": { \"start\": \"{{ $json.ngayISO }}\" } },\n    \"TK Phòng Khám đầu (VNĐ)\": { \"number\": {{ $json.tkPKDau }} },\n    \"TK Phòng Khám cuối (VNĐ)\": { \"number\": {{ $json.tkPKCuoi }} },\n    \"TK CTY đầu (VNĐ)\": { \"number\": {{ $json.tkCTYDau }} },\n    \"TK CTY cuối (VNĐ)\": { \"number\": {{ $json.tkCTYCuoi }} },\n    \"Tổng tiền vào (VNĐ)\": { \"number\": {{ $json.tongVao }} },\n    \"Tổng tiền ra (VNĐ)\": { \"number\": {{ $json.tongRa }} }\n  }\n}",
+        "options": {}
+      },
+      "id": "node-notion-cash",
+      "name": "Notion: Insert Cash",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3000, 120]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"4778759d-24ae-4015-8c81-8ce1139cb8d7\" },\n  \"properties\": {\n    \"Ngày (text)\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.ngayText }}\" } }] },\n    \"Ngày\": { \"date\": { \"start\": \"{{ $json.ngayISO }}\" } },\n    \"Facebook\": { \"number\": {{ $json.facebook }} },\n    \"YouTube\": { \"number\": {{ $json.youtube }} },\n    \"Google\": { \"number\": {{ $json.google }} },\n    \"KH Cũ\": { \"number\": {{ $json.khCu }} },\n    \"Khác\": { \"number\": {{ $json.khac }} }\n  }\n}",
+        "options": {}
+      },
+      "id": "node-notion-lead",
+      "name": "Notion: Insert Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3000, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"66f2ac8e-286d-429f-8441-8be51e9b7a46\" },\n  \"properties\": {\n    \"Mô tả\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.mota }}\" } }] },\n    \"Ngày\": { \"date\": { \"start\": \"{{ $json.ngayISO }}\" } },\n    \"Hạng mục\": { \"select\": { \"name\": \"{{ $json.hangMuc }}\" } },\n    \"Số tiền ra (VNĐ)\": { \"number\": {{ $json.soTien }} },\n    \"Phương thức\": { \"select\": { \"name\": \"{{ $json.phuongThuc }}\" } },\n    \"Tài khoản\": { \"select\": { \"name\": \"{{ $json.taiKhoan }}\" } },\n    \"Ghi chú\": { \"rich_text\": [{ \"text\": { \"content\": \"{{ $json.ghiChu }}\" } }] },\n    \"Nguồn\": { \"select\": { \"name\": \"Excel sync\" } },\n    \"Excel row hash\": { \"rich_text\": [{ \"text\": { \"content\": \"{{ $json.hash }}\" } }] }\n  }\n}",
+        "options": {}
+      },
+      "id": "node-notion-expense",
+      "name": "Notion: Insert Expense",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3000, 480]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"803b59a8-ae8c-4886-8d5e-abaf05ef4b2a\" },\n  \"properties\": {\n    \"Mô tả\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.mota }}\" } }] },\n    \"Ngày\": { \"date\": { \"start\": \"{{ $json.ngayISO }}\" } },\n    \"Sale\": { \"select\": { \"name\": \"{{ $json.sale }}\" } },\n    \"Loại\": { \"select\": { \"name\": \"{{ $json.loai }}\" } },\n    \"Số tiền vào (VNĐ)\": { \"number\": {{ $json.soTien }} },\n    \"Nguồn\": { \"select\": { \"name\": \"Excel sync\" } },\n    \"Excel row hash\": { \"rich_text\": [{ \"text\": { \"content\": \"{{ $json.hash }}\" } }] }\n  }\n}",
+        "options": {}
+      },
+      "id": "node-notion-revenue",
+      "name": "Notion: Insert Revenue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3000, 660]
+    },
+    {
+      "parameters": {
+        "chatId": "5239928968",
+        "text": "=✅ Excel sync xong {{ $now.format('dd/MM/yyyy HH:mm') }}\nKỳ: {{ $('Parse XLSX').first().json.minISO }} → {{ $('Parse XLSX').first().json.maxISO }}\n• Cash: {{ $('Parse XLSX').first().json.summary.cashCount }}\n• Lead: {{ $('Parse XLSX').first().json.summary.leadCount }}\n• Expense: {{ $('Parse XLSX').first().json.summary.expenseCount }}\n• Revenue: {{ $('Parse XLSX').first().json.summary.revenueCount }}",
+        "additionalFields": {}
+      },
+      "id": "node-tele",
+      "name": "Telegram: Sync OK",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [3260, 800]
+    }
+  ],
+  "connections": {
+    "Schedule 6:30AM": { "main": [[{ "node": "Drive: Find BC_TÀI_CHÍNH", "type": "main", "index": 0 }]] },
+    "Drive: Find BC_TÀI_CHÍNH": { "main": [[{ "node": "Pick Latest File", "type": "main", "index": 0 }]] },
+    "Pick Latest File": { "main": [[{ "node": "Drive: Export XLSX", "type": "main", "index": 0 }]] },
+    "Drive: Export XLSX": { "main": [[{ "node": "Parse XLSX", "type": "main", "index": 0 }]] },
+    "Parse XLSX": { "main": [[{ "node": "Query Old Cash", "type": "main", "index": 0 }]] },
+    "Query Old Cash": { "main": [[{ "node": "Query Old Revenue", "type": "main", "index": 0 }]] },
+    "Query Old Revenue": { "main": [[{ "node": "Query Old Expenses", "type": "main", "index": 0 }]] },
+    "Query Old Expenses": { "main": [[{ "node": "Collect Archive IDs", "type": "main", "index": 0 }]] },
+    "Collect Archive IDs": { "main": [[{ "node": "Archive Old Pages", "type": "main", "index": 0 }]] },
+    "Archive Old Pages": { "main": [[{ "node": "Purge Done", "type": "main", "index": 0 }]] },
+    "Purge Done": { "main": [[{ "node": "Split Records", "type": "main", "index": 0 }]] },
+    "Split Records": { "main": [[{ "node": "Switch by Kind", "type": "main", "index": 0 }]] },
+    "Switch by Kind": {
+      "main": [
+        [{ "node": "Notion: Insert Cash", "type": "main", "index": 0 }],
+        [{ "node": "Notion: Insert Lead", "type": "main", "index": 0 }],
+        [{ "node": "Notion: Insert Expense", "type": "main", "index": 0 }],
+        [{ "node": "Notion: Insert Revenue", "type": "main", "index": 0 }]
+      ]
+    },
+    "Notion: Insert Cash": { "main": [[{ "node": "Telegram: Sync OK", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "pinData": {},
+  "tags": []
+}
