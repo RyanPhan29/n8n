@@ -1,0 +1,220 @@
+{
+  "name": "WF#5 — Excel Sync (BC_TÀI_CHÍNH → Notion) 6:30AM",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "hours", "triggerAtHour": 6, "triggerAtMinute": 30 }
+          ]
+        }
+      },
+      "id": "node-schedule",
+      "name": "Schedule 6:30AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [120, 300]
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "BC_T",
+        "filter": {
+          "whatToSearch": "files",
+          "fileTypes": ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"]
+        },
+        "options": {
+          "fields": ["id", "name", "modifiedTime", "mimeType"]
+        }
+      },
+      "id": "node-drive-search",
+      "name": "Drive: Find BC_TÀI_CHÍNH",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [340, 300],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "REPLACE_WITH_ACADEMY_DRIVE_CREDENTIAL_ID",
+          "name": "Google Drive - Academy"
+        }
+      },
+      "notes": "Search file BC_TÀI_CHÍNH trong toàn bộ Drive academy. Picks newest by modifiedTime."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Find latest file matching BC_TÀI_CHÍNH pattern\nconst files = $input.all().map(i => i.json);\nconst candidates = files.filter(f => {\n  const n = (f.name || '').toUpperCase();\n  return n.includes('BC') && (n.includes('TÀI') || n.includes('TAI') || n.includes('T_I'));\n});\nif (candidates.length === 0) {\n  throw new Error('Không tìm thấy file BC_TÀI_CHÍNH trong Drive');\n}\ncandidates.sort((a, b) => new Date(b.modifiedTime) - new Date(a.modifiedTime));\nreturn [{ json: { fileId: candidates[0].id, fileName: candidates[0].name, modifiedTime: candidates[0].modifiedTime } }];"
+      },
+      "id": "node-pick-latest",
+      "name": "Pick Latest File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [560, 300]
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": "={{ $json.fileId }}",
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            }
+          }
+        }
+      },
+      "id": "node-drive-download",
+      "name": "Drive: Download XLSX",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [780, 300],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "REPLACE_WITH_ACADEMY_DRIVE_CREDENTIAL_ID",
+          "name": "Google Drive - Academy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse XLSX binary → extract daily records per Notion target DB\n// Requires NODE_FUNCTION_ALLOW_EXTERNAL=xlsx env var on n8n container\nconst XLSX = require('xlsx');\n\nconst bin = $input.first().binary?.data;\nif (!bin) throw new Error('Không có binary data từ Drive Download');\n\nconst buf = Buffer.from(bin.data, 'base64');\nconst wb = XLSX.read(buf, { type: 'buffer', cellDates: false });\n\n// Sheet name pattern: '15' = ngày 1/5, '215' = ngày 21/5\n// Format: <DD><M> where DD = day, M = month digit (last char)\nfunction parseSheetDate(sheetName) {\n  const s = (sheetName || '').trim();\n  // BC TỔNG is master, skip\n  if (s.toUpperCase().includes('TỔNG') || s.toUpperCase().includes('TONG')) return null;\n  const m = s.match(/^(\\d{1,2})(\\d)$/);\n  if (!m) return null;\n  const day = parseInt(m[1], 10);\n  const month = parseInt(m[2], 10);\n  const year = 2026; // TODO: derive from file name\n  if (day < 1 || day > 31 || month < 1 || month > 12) return null;\n  return { day, month, year, iso: `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}` };\n}\n\nfunction num(v) {\n  if (v === null || v === undefined || v === '') return 0;\n  if (typeof v === 'number') return v;\n  const s = String(v).replace(/[^0-9.-]/g, '');\n  const n = parseFloat(s);\n  return isNaN(n) ? 0 : n;\n}\n\nfunction getCell(sheet, cellRef) {\n  const c = sheet[cellRef];\n  return c ? c.v : null;\n}\n\nfunction hashRow(...parts) {\n  // Simple deterministic hash for idempotency\n  const str = parts.map(p => String(p ?? '')).join('|');\n  let h = 0;\n  for (let i = 0; i < str.length; i++) {\n    h = ((h << 5) - h) + str.charCodeAt(i);\n    h |= 0;\n  }\n  return Math.abs(h).toString(36);\n}\n\n// Map ghi chú text → Hạng mục select\nfunction mapExpenseCategory(note) {\n  const n = String(note || '').toLowerCase();\n  if (n.includes('lương') || n.includes('luong')) return 'Lương NV';\n  if (n.includes('thuê') || n.includes('thue nha')) return 'Thuê nhà';\n  if (n.includes('điện') || n.includes('nước') || n.includes('mạng') || n.includes('rác')) return 'Điện nước';\n  if (n.includes('vật tư') || n.includes('vat tu')) return 'Vật tư';\n  if (n.includes('bảo hiểm') || n.includes('bao hiem')) return 'Bảo hiểm';\n  if (n.includes('đồ cúng') || n.includes('do cung')) return 'Đồ cúng';\n  if (n.includes('chuyển') || n.includes('rút') || n.includes('chuyen') || n.includes('rut')) return 'Chuyển-Rút';\n  if (n.includes('hoàn') || n.includes('hoan')) return 'Hoàn KH';\n  return 'Khác';\n}\n\n// Map mã GD code → enum\nfunction mapMaGD(code, isCash) {\n  const c = String(code || '').toUpperCase().trim();\n  // Income codes (cash IN to bank or cash)\n  if (c.startsWith('TTHD')) return 'TTHD';\n  if (c.startsWith('TTM') && !c.includes('CTD')) return 'TTM';\n  if (c.startsWith('TNH')) return 'TNH';\n  if (c.startsWith('TT') && !c.startsWith('TTM') && !c.startsWith('TTHD')) return 'TT';\n  // Expense codes\n  if (c.startsWith('CNH')) return 'CNH';\n  if (c.startsWith('CTM')) return 'CTM';\n  if (c.startsWith('PCPN') || c.startsWith('PC')) return 'PCPN';\n  if (c.startsWith('CTD')) return 'CTD_TTM';\n  return null;\n}\n\nconst cashRecords = [];\nconst leadRecords = [];\nconst expenseRecords = [];\nconst revenueRecords = [];\n\nfor (const sheetName of wb.SheetNames) {\n  const d = parseSheetDate(sheetName);\n  if (!d) continue;\n  const ws = wb.Sheets[sheetName];\n  if (!ws) continue;\n\n  // ===== Cash Position Daily =====\n  // H1 = số dư TK NH cuối ngày, M1 = tiền mặt cuối ngày\n  // B3 = tổng tiền vào ngày (recognized to TK)\n  // B17 = lưu két riêng, B22 = két cuối ngày\n  const tkNHCuoi = num(getCell(ws, 'H1'));\n  const tkTMCuoi = num(getCell(ws, 'M1'));\n  const tongVao = num(getCell(ws, 'B3'));\n  const ketCuoi = num(getCell(ws, 'B22'));\n  const ketRieng = num(getCell(ws, 'B17'));\n  // Tổng tiền ra = sum chi NH (H14-H26) + chi TM (M14-M26)\n  let tongRa = 0;\n  for (let r = 14; r <= 26; r++) {\n    tongRa += num(getCell(ws, `H${r}`));\n    tongRa += num(getCell(ws, `M${r}`));\n  }\n  cashRecords.push({\n    ngayText: `${String(d.day).padStart(2,'0')}/${String(d.month).padStart(2,'0')}/${d.year}`,\n    ngayISO: d.iso,\n    tkPKDau: 0, // TODO: lấy từ ngày trước hoặc cell khác\n    tkPKCuoi: tkNHCuoi + tkTMCuoi - ketRieng, // approx — gộp NH+TM trừ két riêng\n    tkCTYDau: 0,\n    tkCTYCuoi: ketRieng, // approx — két riêng coi như TK CTY\n    tongVao: tongVao,\n    tongRa: tongRa,\n    sheetName: sheetName.trim()\n  });\n\n  // ===== Lead Source Daily =====\n  // Row 29: I=FB, J=YT, K=Google, L=KH cũ, M=Khác\n  const fb = num(getCell(ws, 'I29'));\n  const yt = num(getCell(ws, 'J29'));\n  const gg = num(getCell(ws, 'K29'));\n  const cu = num(getCell(ws, 'L29'));\n  const kh = num(getCell(ws, 'M29'));\n  if (fb + yt + gg + cu + kh > 0) {\n    leadRecords.push({\n      ngayText: `${String(d.day).padStart(2,'0')}/${String(d.month).padStart(2,'0')}/${d.year}`,\n      ngayISO: d.iso,\n      facebook: fb, youtube: yt, google: gg, khCu: cu, khac: kh\n    });\n  }\n\n  // ===== Expenses (granular) =====\n  // NH expenses: rows 14-26, col H=số tiền, I=mã GD, J=vấn đề chi\n  for (let r = 14; r <= 26; r++) {\n    const amt = num(getCell(ws, `H${r}`));\n    if (amt <= 0) continue;\n    const code = getCell(ws, `I${r}`);\n    const note = getCell(ws, `J${r}`);\n    const cat = mapExpenseCategory(note);\n    const maGD = mapMaGD(code, false);\n    expenseRecords.push({\n      mota: `${cat} ${d.iso} #${r} (NH)`,\n      ngayISO: d.iso,\n      hangMuc: cat,\n      soTien: amt,\n      maGD: maGD,\n      phuongThuc: 'Chuyển khoản',\n      taiKhoan: 'TK Phòng Khám',\n      ghiChu: String(note || '').trim(),\n      hash: hashRow(d.iso, 'NH', r, amt, code, note)\n    });\n  }\n  // Cash expenses: rows 14-26, col M=số tiền, N=mã GD, O=vấn đề chi, P=note\n  for (let r = 14; r <= 26; r++) {\n    const amt = num(getCell(ws, `M${r}`));\n    if (amt <= 0) continue;\n    const code = getCell(ws, `N${r}`);\n    const note = getCell(ws, `O${r}`);\n    const note2 = getCell(ws, `P${r}`);\n    const cat = mapExpenseCategory(note);\n    const maGD = mapMaGD(code, true);\n    expenseRecords.push({\n      mota: `${cat} ${d.iso} #${r} (TM)`,\n      ngayISO: d.iso,\n      hangMuc: cat,\n      soTien: amt,\n      maGD: maGD,\n      phuongThuc: 'Tiền mặt',\n      taiKhoan: 'TK Phòng Khám',\n      ghiChu: [note, note2].filter(Boolean).map(s => String(s).trim()).join(' | '),\n      hash: hashRow(d.iso, 'TM', r, amt, code, note)\n    });\n  }\n\n  // ===== Revenue summary (Đào tạo + Dịch vụ) =====\n  const doanhThuDaoTao = num(getCell(ws, 'C5'));\n  const doanhThuDichVu = num(getCell(ws, 'C6'));\n  if (doanhThuDaoTao > 0) {\n    revenueRecords.push({\n      mota: `Khóa học ${d.iso}`,\n      ngayISO: d.iso,\n      sale: 'Chung', loai: 'Khóa học',\n      soTien: doanhThuDaoTao,\n      maGD: null, phuongThuc: null, taiKhoan: null,\n      hash: hashRow(d.iso, 'REV', 'DT', doanhThuDaoTao)\n    });\n  }\n  if (doanhThuDichVu > 0) {\n    revenueRecords.push({\n      mota: `Dịch vụ & mỹ phẩm ${d.iso}`,\n      ngayISO: d.iso,\n      sale: 'Chung', loai: 'Dịch vụ',\n      soTien: doanhThuDichVu,\n      maGD: null, phuongThuc: null, taiKhoan: null,\n      hash: hashRow(d.iso, 'REV', 'DV', doanhThuDichVu)\n    });\n  }\n}\n\nreturn [{\n  json: {\n    summary: {\n      cashCount: cashRecords.length,\n      leadCount: leadRecords.length,\n      expenseCount: expenseRecords.length,\n      revenueCount: revenueRecords.length\n    },\n    cashRecords, leadRecords, expenseRecords, revenueRecords\n  }\n}];"
+      },
+      "id": "node-parse-xlsx",
+      "name": "Parse XLSX",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 300],
+      "notes": "YÊU CẦU: n8n env NODE_FUNCTION_ALLOW_EXTERNAL=xlsx phải được set trên container Hostinger VPS"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Split records into separate items for parallel processing per DB\nconst d = $input.first().json;\nconst out = [];\nfor (const r of d.cashRecords) out.push({ json: { kind: 'cash', ...r } });\nfor (const r of d.leadRecords) out.push({ json: { kind: 'lead', ...r } });\nfor (const r of d.expenseRecords) out.push({ json: { kind: 'expense', ...r } });\nfor (const r of d.revenueRecords) out.push({ json: { kind: 'revenue', ...r } });\nreturn out;"
+      },
+      "id": "node-split-records",
+      "name": "Split Records",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1220, 300]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.kind }}", "rightValue": "cash", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "cash" },
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.kind }}", "rightValue": "lead", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "lead" },
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.kind }}", "rightValue": "expense", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "expense" },
+            { "conditions": { "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.kind }}", "rightValue": "revenue", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "revenue" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-switch",
+      "name": "Switch by Kind",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [1440, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"2231d31d-2cfb-47f2-aef2-3ff1c8390956\" },\n  \"properties\": {\n    \"Ngày (text)\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.ngayText }}\" } }] },\n    \"Ngày\": { \"date\": { \"start\": \"{{ $json.ngayISO }}\" } },\n    \"TK Phòng Khám đầu (VNĐ)\": { \"number\": {{ $json.tkPKDau }} },\n    \"TK Phòng Khám cuối (VNĐ)\": { \"number\": {{ $json.tkPKCuoi }} },\n    \"TK CTY đầu (VNĐ)\": { \"number\": {{ $json.tkCTYDau }} },\n    \"TK CTY cuối (VNĐ)\": { \"number\": {{ $json.tkCTYCuoi }} },\n    \"Tổng tiền vào (VNĐ)\": { \"number\": {{ $json.tongVao }} },\n    \"Tổng tiền ra (VNĐ)\": { \"number\": {{ $json.tongRa }} }\n  }\n}",
+        "options": {}
+      },
+      "id": "node-notion-cash",
+      "name": "Notion: Upsert Cash",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1700, 80]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"4778759d-24ae-4015-8c81-8ce1139cb8d7\" },\n  \"properties\": {\n    \"Ngày (text)\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.ngayText }}\" } }] },\n    \"Ngày\": { \"date\": { \"start\": \"{{ $json.ngayISO }}\" } },\n    \"Facebook\": { \"number\": {{ $json.facebook }} },\n    \"YouTube\": { \"number\": {{ $json.youtube }} },\n    \"Google\": { \"number\": {{ $json.google }} },\n    \"KH Cũ\": { \"number\": {{ $json.khCu }} },\n    \"Khác\": { \"number\": {{ $json.khac }} }\n  }\n}",
+        "options": {}
+      },
+      "id": "node-notion-lead",
+      "name": "Notion: Upsert Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1700, 240]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"66f2ac8e-286d-429f-8441-8be51e9b7a46\" },\n  \"properties\": {\n    \"Mô tả\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.mota }}\" } }] },\n    \"Ngày\": { \"date\": { \"start\": \"{{ $json.ngayISO }}\" } },\n    \"Hạng mục\": { \"select\": { \"name\": \"{{ $json.hangMuc }}\" } },\n    \"Số tiền ra (VNĐ)\": { \"number\": {{ $json.soTien }} },\n    \"Phương thức\": { \"select\": { \"name\": \"{{ $json.phuongThuc }}\" } },\n    \"Tài khoản\": { \"select\": { \"name\": \"{{ $json.taiKhoan }}\" } },\n    \"Ghi chú\": { \"rich_text\": [{ \"text\": { \"content\": \"{{ $json.ghiChu }}\" } }] },\n    \"Nguồn\": { \"select\": { \"name\": \"Excel sync\" } },\n    \"Excel row hash\": { \"rich_text\": [{ \"text\": { \"content\": \"{{ $json.hash }}\" } }] }\n  }\n}",
+        "options": {}
+      },
+      "id": "node-notion-expense",
+      "name": "Notion: Insert Expense",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1700, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"parent\": { \"database_id\": \"803b59a8-ae8c-4886-8d5e-abaf05ef4b2a\" },\n  \"properties\": {\n    \"Mô tả\": { \"title\": [{ \"text\": { \"content\": \"{{ $json.mota }}\" } }] },\n    \"Ngày\": { \"date\": { \"start\": \"{{ $json.ngayISO }}\" } },\n    \"Sale\": { \"select\": { \"name\": \"{{ $json.sale }}\" } },\n    \"Loại\": { \"select\": { \"name\": \"{{ $json.loai }}\" } },\n    \"Số tiền vào (VNĐ)\": { \"number\": {{ $json.soTien }} },\n    \"Nguồn\": { \"select\": { \"name\": \"Excel sync\" } },\n    \"Excel row hash\": { \"rich_text\": [{ \"text\": { \"content\": \"{{ $json.hash }}\" } }] }\n  }\n}",
+        "options": {}
+      },
+      "id": "node-notion-revenue",
+      "name": "Notion: Insert Revenue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1700, 560]
+    },
+    {
+      "parameters": {
+        "chatId": "5239928968",
+        "text": "=✅ Excel sync xong {{ $now.format('dd/MM/yyyy HH:mm') }}\n• Cash records: {{ $('Parse XLSX').first().json.summary.cashCount }}\n• Lead records: {{ $('Parse XLSX').first().json.summary.leadCount }}\n• Expense records: {{ $('Parse XLSX').first().json.summary.expenseCount }}\n• Revenue records: {{ $('Parse XLSX').first().json.summary.revenueCount }}",
+        "additionalFields": {}
+      },
+      "id": "node-tele-success",
+      "name": "Telegram: Sync OK",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1940, 720]
+    }
+  ],
+  "connections": {
+    "Schedule 6:30AM": { "main": [[{ "node": "Drive: Find BC_TÀI_CHÍNH", "type": "main", "index": 0 }]] },
+    "Drive: Find BC_TÀI_CHÍNH": { "main": [[{ "node": "Pick Latest File", "type": "main", "index": 0 }]] },
+    "Pick Latest File": { "main": [[{ "node": "Drive: Download XLSX", "type": "main", "index": 0 }]] },
+    "Drive: Download XLSX": { "main": [[{ "node": "Parse XLSX", "type": "main", "index": 0 }]] },
+    "Parse XLSX": { "main": [[{ "node": "Split Records", "type": "main", "index": 0 }, { "node": "Telegram: Sync OK", "type": "main", "index": 0 }]] },
+    "Split Records": { "main": [[{ "node": "Switch by Kind", "type": "main", "index": 0 }]] },
+    "Switch by Kind": {
+      "main": [
+        [{ "node": "Notion: Upsert Cash", "type": "main", "index": 0 }],
+        [{ "node": "Notion: Upsert Lead", "type": "main", "index": 0 }],
+        [{ "node": "Notion: Insert Expense", "type": "main", "index": 0 }],
+        [{ "node": "Notion: Insert Revenue", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "pinData": {},
+  "tags": []
+}

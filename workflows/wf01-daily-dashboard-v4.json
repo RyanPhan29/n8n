@@ -1,0 +1,175 @@
+{
+  "name": "WF#1 — Daily Dashboard CCO 7AM (v4)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "triggerAtHour": 7,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "node-schedule",
+      "name": "Schedule 7AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [120, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst vnNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));\nconst yesterday = new Date(vnNow);\nyesterday.setDate(vnNow.getDate() - 1);\n\nconst pad = (n) => String(n).padStart(2, '0');\nconst fmtISO = (d) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;\nconst fmtVN = (d) => `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;\n\nreturn [{\n  json: {\n    yesterdayISO: fmtISO(yesterday),\n    todayISO: fmtISO(vnNow),\n    yesterdayVN: fmtVN(yesterday),\n    todayVN: fmtVN(vnNow),\n    yesterdayStart: `${fmtISO(yesterday)}T00:00:00.000+07:00`,\n    todayStart: `${fmtISO(vnNow)}T00:00:00.000+07:00`\n  }\n}];"
+      },
+      "id": "node-dates",
+      "name": "Compute Dates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [320, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/6b1f1546-49f7-4d90-b170-c13bf327df5c/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": {\n    \"property\": \"Ngày chốt\",\n    \"date\": {\n      \"equals\": \"{{ $('Compute Dates').first().json.yesterdayISO }}\"\n    }\n  },\n  \"page_size\": 100\n}",
+        "options": {}
+      },
+      "id": "node-query-sales",
+      "name": "Query Sales (Notion)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [540, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/e308fb9e-013f-4ede-951d-5d9c284c72be/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": {\n    \"and\": [\n      {\n        \"timestamp\": \"created_time\",\n        \"created_time\": { \"on_or_after\": \"{{ $('Compute Dates').first().json.yesterdayStart }}\" }\n      },\n      {\n        \"timestamp\": \"created_time\",\n        \"created_time\": { \"before\": \"{{ $('Compute Dates').first().json.todayStart }}\" }\n      }\n    ]\n  },\n  \"page_size\": 100\n}",
+        "options": {}
+      },
+      "id": "node-query-leads",
+      "name": "Query Leads (Notion)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [760, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/2231d31d-2cfb-47f2-aef2-3ff1c8390956/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": {\n    \"property\": \"Ngày\",\n    \"date\": {\n      \"equals\": \"{{ $('Compute Dates').first().json.yesterdayISO }}\"\n    }\n  },\n  \"page_size\": 100\n}",
+        "options": {}
+      },
+      "id": "node-query-cash",
+      "name": "Query Cash (Notion)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [980, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/803b59a8-ae8c-4886-8d5e-abaf05ef4b2a/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": {\n    \"property\": \"Ngày\",\n    \"date\": {\n      \"equals\": \"{{ $('Compute Dates').first().json.yesterdayISO }}\"\n    }\n  },\n  \"page_size\": 100\n}",
+        "options": {}
+      },
+      "id": "node-query-revenue",
+      "name": "Query Revenue (Notion)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1200, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/66f2ac8e-286d-429f-8441-8be51e9b7a46/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": {\n    \"property\": \"Ngày\",\n    \"date\": {\n      \"equals\": \"{{ $('Compute Dates').first().json.yesterdayISO }}\"\n    }\n  },\n  \"page_size\": 100\n}",
+        "options": {}
+      },
+      "id": "node-query-expenses",
+      "name": "Query Expenses (Notion)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1420, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "const dateInfo = $('Compute Dates').first().json;\nconst yesterdayVN = dateInfo.yesterdayVN;\nconst todayVN = dateInfo.todayVN;\n\nconst salesResults = $('Query Sales (Notion)').first().json.results || [];\nconst leadsResults = $('Query Leads (Notion)').first().json.results || [];\nconst cashResults = $('Query Cash (Notion)').first().json.results || [];\nconst revenueResults = $('Query Revenue (Notion)').first().json.results || [];\nconst expenseResults = $('Query Expenses (Notion)').first().json.results || [];\n\nconst fmtVND = (n) => Math.round(n).toLocaleString('vi-VN') + ' đ';\nconst esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');\n\n// ===== 1. Sales Tracker (per-deal, sales tự nhập) =====\nlet stDoanhThu = 0, stDaThu = 0;\nconst salePerf = {};\nfor (const s of salesResults) {\n  const p = s.properties || {};\n  const giatri = p['Giá trị (VNĐ)']?.number || 0;\n  const dathu = p['Đã thu (VNĐ)']?.number || 0;\n  stDoanhThu += giatri; stDaThu += dathu;\n  const sale = p['Sale']?.select?.name;\n  if (sale) salePerf[sale] = (salePerf[sale] || 0) + giatri;\n}\n\n// ===== 2. Revenue Daily (từ Excel — tiền thực vào) =====\nlet revTong = 0;\nconst revByLoai = {};\nfor (const r of revenueResults) {\n  const p = r.properties || {};\n  const amt = p['Số tiền vào (VNĐ)']?.number || 0;\n  revTong += amt;\n  const loai = p['Loại']?.select?.name || 'Khác';\n  revByLoai[loai] = (revByLoai[loai] || 0) + amt;\n}\n\n// ===== 3. Cash Position (1 record/ngày) =====\nlet cashVao = 0, cashRa = 0, tkPK = 0, tkCTY = 0;\nif (cashResults.length > 0) {\n  const p = cashResults[0].properties || {};\n  cashVao = p['Tổng tiền vào (VNĐ)']?.number || 0;\n  cashRa = p['Tổng tiền ra (VNĐ)']?.number || 0;\n  tkPK = p['TK Phòng Khám cuối (VNĐ)']?.number || 0;\n  tkCTY = p['TK CTY cuối (VNĐ)']?.number || 0;\n}\n\n// ===== 4. Expenses (chi tiết) =====\nlet chiTong = 0;\nconst chiByCat = {};\nfor (const e of expenseResults) {\n  const p = e.properties || {};\n  const amt = p['Số tiền ra (VNĐ)']?.number || 0;\n  chiTong += amt;\n  const cat = p['Hạng mục']?.select?.name || 'Khác';\n  chiByCat[cat] = (chiByCat[cat] || 0) + amt;\n}\n\n// ===== Build message =====\nlet msg = `<b>📊 DRSKIN DASHBOARD — ${todayVN}</b>\\n`;\nmsg += `<i>Báo cáo ngày ${yesterdayVN}</i>\\n\\n`;\n\n// Dòng tiền tổng quan\nmsg += `<b>📊 DÒNG TIỀN (Excel)</b>\\n`;\nif (cashResults.length > 0) {\n  msg += `• Tiền vào: <b>${fmtVND(cashVao)}</b>\\n`;\n  msg += `• Tiền ra: <b>${fmtVND(cashRa)}</b>\\n`;\n  msg += `• TK Phòng Khám cuối: ${fmtVND(tkPK)}\\n`;\n  msg += `• Két riêng (CTY) cuối: ${fmtVND(tkCTY)}\\n\\n`;\n} else {\n  msg += `• ⚠️ Chưa có data Excel ngày này\\n\\n`;\n}\n\n// Doanh thu từ Excel (theo loại)\nmsg += `<b>📚 DOANH THU GHI NHẬN (Excel)</b>\\n`;\nif (revTong > 0) {\n  for (const [loai, amt] of Object.entries(revByLoai).sort((a,b)=>b[1]-a[1])) {\n    if (amt > 0) msg += `  • ${esc(loai)}: ${fmtVND(amt)}\\n`;\n  }\n  msg += `  • <b>Tổng: ${fmtVND(revTong)}</b>\\n\\n`;\n} else {\n  msg += `  • Không có doanh thu ghi nhận\\n\\n`;\n}\n\n// Chi tiêu\nmsg += `<b>💸 CHI TIÊU (Excel)</b>\\n`;\nif (chiTong > 0) {\n  const topCats = Object.entries(chiByCat).sort((a,b)=>b[1]-a[1]).slice(0, 5);\n  for (const [cat, amt] of topCats) {\n    msg += `  • ${esc(cat)}: ${fmtVND(amt)}\\n`;\n  }\n  msg += `  • <b>Tổng chi: ${fmtVND(chiTong)}</b> (${expenseResults.length} khoản)\\n\\n`;\n} else {\n  msg += `  • Không có chi tiêu\\n\\n`;\n}\n\n// Sales Tracker (deal sales nhập tay)\nmsg += `<b>💰 SALES TRACKER (deal)</b>\\n`;\nmsg += `• Ký hợp đồng: <b>${fmtVND(stDoanhThu)}</b>\\n`;\nmsg += `• Đã thu: <b>${fmtVND(stDaThu)}</b>\\n`;\nmsg += `• Số deal: <b>${salesResults.length}</b>\\n`;\nconst saleEntries = Object.entries(salePerf).filter(([,a]) => a > 0).sort((a,b)=>b[1]-a[1]);\nfor (const [s, amt] of saleEntries) {\n  msg += `  • ${esc(s)}: ${fmtVND(amt)}\\n`;\n}\nmsg += `\\n`;\n\n// ===== ĐỐI SOÁT: Sales Tracker vs Revenue Excel =====\nmsg += `<b>⚖️ ĐỐI SOÁT</b>\\n`;\nconst chenh = stDoanhThu - revTong;\nconst absChenh = Math.abs(chenh);\nif (revTong === 0 && stDoanhThu === 0) {\n  msg += `• Không có giao dịch để đối soát\\n`;\n} else if (absChenh <= 1000) {\n  msg += `• ✅ Khớp: Sales Tracker = Excel (${fmtVND(revTong)})\\n`;\n} else {\n  msg += `• ⚠️ LỆCH ${fmtVND(absChenh)}\\n`;\n  msg += `  - Sales Tracker (deal ký): ${fmtVND(stDoanhThu)}\\n`;\n  msg += `  - Excel (tiền ghi nhận): ${fmtVND(revTong)}\\n`;\n  msg += `  → Kiểm tra: sales nhập thiếu deal hoặc tiền chưa về TK\\n`;\n}\nmsg += `\\n`;\n\n// Leads\nconst leadSources = {};\nfor (const l of leadsResults) {\n  const src = l.properties?.['Nguồn']?.select?.name || 'Chưa rõ';\n  leadSources[src] = (leadSources[src] || 0) + 1;\n}\nmsg += `<b>🎯 LEADS MỚI</b>\\n`;\nmsg += `• Tổng: <b>${leadsResults.length}</b> lead\\n`;\nfor (const [src, n] of Object.entries(leadSources).sort((a,b)=>b[1]-a[1])) {\n  msg += `  • ${esc(src)}: ${n}\\n`;\n}\n\nconst genTime = new Date().toLocaleString('vi-VN', {timeZone:'Asia/Ho_Chi_Minh'});\nmsg += `\\n🤖 <i>n8n auto • ${genTime}</i>`;\n\nreturn [{\n  json: {\n    message: msg,\n    salesCount: salesResults.length,\n    revenueTotal: revTong,\n    cashVao: cashVao,\n    chiTong: chiTong,\n    leadsCount: leadsResults.length,\n    chenhDoiSoat: chenh\n  }\n}];"
+      },
+      "id": "node-aggregate",
+      "name": "Build Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1640, 400]
+    },
+    {
+      "parameters": {
+        "chatId": "5239928968",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "node-telegram",
+      "name": "Send Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1860, 400]
+    }
+  ],
+  "connections": {
+    "Schedule 7AM": {
+      "main": [[{ "node": "Compute Dates", "type": "main", "index": 0 }]]
+    },
+    "Compute Dates": {
+      "main": [[{ "node": "Query Sales (Notion)", "type": "main", "index": 0 }]]
+    },
+    "Query Sales (Notion)": {
+      "main": [[{ "node": "Query Leads (Notion)", "type": "main", "index": 0 }]]
+    },
+    "Query Leads (Notion)": {
+      "main": [[{ "node": "Query Cash (Notion)", "type": "main", "index": 0 }]]
+    },
+    "Query Cash (Notion)": {
+      "main": [[{ "node": "Query Revenue (Notion)", "type": "main", "index": 0 }]]
+    },
+    "Query Revenue (Notion)": {
+      "main": [[{ "node": "Query Expenses (Notion)", "type": "main", "index": 0 }]]
+    },
+    "Query Expenses (Notion)": {
+      "main": [[{ "node": "Build Message", "type": "main", "index": 0 }]]
+    },
+    "Build Message": {
+      "main": [[{ "node": "Send Telegram", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "pinData": {},
+  "tags": []
+}
