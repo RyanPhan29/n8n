@@ -1,0 +1,214 @@
+{
+  "name": "ROAS Khối 3 — Monthly (Tự động)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "days", "triggerAtHour": 6, "triggerAtMinute": 30 }
+          ]
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000001",
+      "name": "Lịch 6h30 hàng ngày",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-560, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "c1", "name": "META_TOKEN", "value": "PASTE_META_TOKEN_CO_ADS_READ", "type": "string" },
+            { "id": "c2", "name": "AD_ACCOUNT", "value": "act_236950791594584", "type": "string" },
+            { "id": "c3", "name": "REVENUE_DB", "value": "803b59a8ae8c48868d5eabaf05ef4b2a", "type": "string" },
+            { "id": "c4", "name": "ROAS_DB", "value": "0103f31bb2984821b482df1e37acef7b", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000002",
+      "name": "Cấu hình",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-360, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst y = now.getFullYear();\nconst m = now.getMonth();\nconst pad = (n) => String(n).padStart(2, '0');\nconst since = `${y}-${pad(m + 1)}-01`;\nconst lastDay = new Date(y, m + 1, 0).getDate();\nconst monthEnd = `${y}-${pad(m + 1)}-${pad(lastDay)}`;\nconst today = now.toISOString().slice(0, 10);\nconst label = `Tháng ${m + 1}/${y}`;\nreturn [{ json: { since, monthEnd, today, label, year: y, month: m + 1 } }];"
+      },
+      "id": "a1000000-0000-4000-8000-000000000003",
+      "name": "Kỳ tháng",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-160, 300]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v23.0/{{ $('Cấu hình').item.json.AD_ACCOUNT }}/insights",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "level", "value": "campaign" },
+            { "name": "fields", "value": "spend,campaign_name,actions" },
+            { "name": "time_range", "value": "={{ JSON.stringify({ since: $('Kỳ tháng').item.json.since, until: $('Kỳ tháng').item.json.today }) }}" },
+            { "name": "limit", "value": "50" },
+            { "name": "access_token", "value": "={{ $('Cấu hình').item.json.META_TOKEN }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000004",
+      "name": "Meta — Insights tháng",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [40, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const resp = $input.first().json;\nconst rows = resp.data || [];\nlet spend = 0;\nlet leads = 0;\nfor (const r of rows) {\n  const name = (r.campaign_name || '').toUpperCase();\n  if (name.includes('BSH')) continue; // loại trừ brand khác\n  spend += parseFloat(r.spend || 0);\n  const acts = r.actions || [];\n  const conv = acts.find((a) => a.action_type === 'onsite_conversion.messaging_conversation_started_7d');\n  if (conv) leads += parseInt(conv.value, 10);\n}\nreturn [{ json: { spend: Math.round(spend), leads } }];"
+      },
+      "id": "a1000000-0000-4000-8000-000000000005",
+      "name": "Tổng hợp Meta (trừ BSH)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/{{ $('Cấu hình').item.json.REVENUE_DB }}/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Notion-Version", "value": "2022-06-28" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ filter: { and: [ { property: 'Loại', select: { equals: 'Khóa học' } }, { property: 'Ngày', date: { on_or_after: $('Kỳ tháng').item.json.since } }, { property: 'Ngày', date: { on_or_before: $('Kỳ tháng').item.json.monthEnd } } ] }, page_size: 100 }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000006",
+      "name": "Notion — DT khóa học",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const meta = $('Tổng hợp Meta (trừ BSH)').item.json;\nconst ky = $('Kỳ tháng').item.json;\nconst resp = $input.first().json;\nconst rows = resp.results || [];\nlet dt = 0;\nfor (const p of rows) {\n  const amt = (p.properties && p.properties['Số tiền vào (VNĐ)'] && p.properties['Số tiền vào (VNĐ)'].number) || 0;\n  dt += amt;\n}\nconst spend = meta.spend || 0;\nconst leads = meta.leads || 0;\nconst roas = spend > 0 ? Math.round((dt / spend) * 100) / 100 : 0;\nconst ghichu = `Tự động ${new Date().toISOString().slice(0,10)} · Chi ads Meta DrSkin (trừ BSH) · DT Excel sync (đã thu, ${rows.length} ngày) · ROAS ${roas}x`;\nreturn [{ json: { label: ky.label, since: ky.since, monthEnd: ky.monthEnd, spend, dt, leads, roas, ghichu } }];"
+      },
+      "id": "a1000000-0000-4000-8000-000000000007",
+      "name": "Tổng hợp + ROAS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/{{ $('Cấu hình').item.json.ROAS_DB }}/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Notion-Version", "value": "2022-06-28" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ filter: { property: 'Tháng', title: { equals: $('Tổng hợp + ROAS').item.json.label } }, page_size: 1 }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000008",
+      "name": "Notion — Tìm row tháng",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [840, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [
+            {
+              "id": "ifc1",
+              "leftValue": "={{ $json.results.length }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "gt" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000009",
+      "name": "Đã có row tháng?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [1040, 300]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.notion.com/v1/pages/{{ $('Notion — Tìm row tháng').item.json.results[0].id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Notion-Version", "value": "2022-06-28" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ properties: { 'Chi ads DrSkin': { number: $('Tổng hợp + ROAS').item.json.spend }, 'DT khóa học': { number: $('Tổng hợp + ROAS').item.json.dt }, 'Lead': { number: $('Tổng hợp + ROAS').item.json.leads }, 'Nguồn': { select: { name: 'Meta + Excel sync' } }, 'Ghi chú': { rich_text: [ { text: { content: $('Tổng hợp + ROAS').item.json.ghichu } } ] } } }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-00000000000a",
+      "name": "Notion — Cập nhật row",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1280, 180]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.notion.com/v1/pages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Notion-Version", "value": "2022-06-28" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ parent: { database_id: $('Cấu hình').item.json.ROAS_DB }, properties: { 'Tháng': { title: [ { text: { content: $('Tổng hợp + ROAS').item.json.label } } ] }, 'Kỳ': { date: { start: $('Tổng hợp + ROAS').item.json.since, end: $('Tổng hợp + ROAS').item.json.monthEnd } }, 'Chi ads DrSkin': { number: $('Tổng hợp + ROAS').item.json.spend }, 'DT khóa học': { number: $('Tổng hợp + ROAS').item.json.dt }, 'Lead': { number: $('Tổng hợp + ROAS').item.json.leads }, 'Nguồn': { select: { name: 'Meta + Excel sync' } }, 'Ghi chú': { rich_text: [ { text: { content: $('Tổng hợp + ROAS').item.json.ghichu } } ] } } }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-00000000000b",
+      "name": "Notion — Tạo row mới",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1280, 420]
+    }
+  ],
+  "connections": {
+    "Lịch 6h30 hàng ngày": { "main": [[{ "node": "Cấu hình", "type": "main", "index": 0 }]] },
+    "Cấu hình": { "main": [[{ "node": "Kỳ tháng", "type": "main", "index": 0 }]] },
+    "Kỳ tháng": { "main": [[{ "node": "Meta — Insights tháng", "type": "main", "index": 0 }]] },
+    "Meta — Insights tháng": { "main": [[{ "node": "Tổng hợp Meta (trừ BSH)", "type": "main", "index": 0 }]] },
+    "Tổng hợp Meta (trừ BSH)": { "main": [[{ "node": "Notion — DT khóa học", "type": "main", "index": 0 }]] },
+    "Notion — DT khóa học": { "main": [[{ "node": "Tổng hợp + ROAS", "type": "main", "index": 0 }]] },
+    "Tổng hợp + ROAS": { "main": [[{ "node": "Notion — Tìm row tháng", "type": "main", "index": 0 }]] },
+    "Notion — Tìm row tháng": { "main": [[{ "node": "Đã có row tháng?", "type": "main", "index": 0 }]] },
+    "Đã có row tháng?": { "main": [[{ "node": "Notion — Cập nhật row", "type": "main", "index": 0 }], [{ "node": "Notion — Tạo row mới", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
