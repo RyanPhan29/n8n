@@ -1,0 +1,33 @@
+{
+  "name": "[CK] Thăm dò nguồn dữ liệu khối ngoại (chạy 1 lần rồi xoá)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Bấm Execute để thăm dò",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// THĂM DÒ 5 NGUỒN DỮ LIỆU KHỐI NGOẠI - mã thử: VNM\n// Chạy xong gửi kết quả (tab JSON) để chọn nguồn sống.\n// ============================================================\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\n\nconst sources = [\n  {\n    name: 'A. VNDirect finfo (api-finfo)',\n    url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:VNM&size=5&sort=tradingDate:desc',\n    headers: { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' },\n  },\n  {\n    name: 'B. VNDirect finfo (finfo-api)',\n    url: 'https://finfo-api.vndirect.com.vn/v4/foreigns?q=code:VNM&size=5&sort=tradingDate:desc',\n    headers: { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' },\n  },\n  {\n    name: 'C. DNSE - thông tin mã',\n    url: 'https://services.entrade.com.vn/dnse-financial-product/securities/VNM',\n    headers: { 'User-Agent': UA, 'Accept': 'application/json' },\n  },\n  {\n    name: 'D. SSI iboard',\n    url: 'https://iboard-query.ssi.com.vn/stock/VNM',\n    headers: { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://iboard.ssi.com.vn/' },\n  },\n  {\n    name: 'E. Vietstock (api tài chính)',\n    url: 'https://api.vietstock.vn/ta/history?symbol=VNM&resolution=D&from=1748736000&to=1781000000',\n    headers: { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://stockchart.vietstock.vn/' },\n  },\n];\n\nconst results = [];\nfor (const s of sources) {\n  try {\n    const res = await this.helpers.httpRequest({\n      method: 'GET', url: s.url, headers: s.headers, json: false, timeout: 20000,\n    });\n    const body = typeof res === 'string' ? res : JSON.stringify(res);\n    results.push({ source: s.name, status: '✅ SỐNG', sample: body.slice(0, 400) });\n  } catch (e) {\n    results.push({ source: s.name, status: '❌ ' + (e.message || String(e)), sample: '' });\n  }\n}\n\nreturn results.map(r => ({ json: r }));"
+      },
+      "id": "probe-foreign",
+      "name": "Thăm dò 5 nguồn",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 300]
+    }
+  ],
+  "connections": {
+    "Bấm Execute để thăm dò": {
+      "main": [[{ "node": "Thăm dò 5 nguồn", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [{ "name": "investment" }, { "name": "probe" }]
+}
