@@ -1,0 +1,79 @@
+{
+  "name": "[CK] Backtest tín hiệu - hàng tuần",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 6"
+            }
+          ]
+        }
+      },
+      "id": "schedule-weekly",
+      "name": "Lịch chạy (9h sáng thứ 7)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  CẤU HÌNH BACKTEST\n// ===========================================================================\nconst WATCHLIST = ['VNM', 'FPT', 'HPG', 'MWG', 'VCB', 'SSI', 'DGC', 'VND', 'MBB', 'STB'];\n\nconst YEARS_BACK  = 3;            // quét bao nhiêu năm lịch sử\nconst HOLD_DAYS   = 10;           // giữ bao nhiêu phiên sau tín hiệu\nconst STOP_WINDOW = 20;           // cửa sổ phiên để thử ngưỡng cắt lỗ\nconst COOLDOWN    = 5;            // tín hiệu cùng loại trên 1 mã cách nhau ít nhất N phiên\nconst STOP_LEVELS = [5, 7, 9, 11];// các ngưỡng cắt lỗ % cần thử\n\n// Ngưỡng tín hiệu - giống hệ cảnh báo đang chạy\nconst VOL_SPIKE  = 2.0;\nconst PRICE_CORE = 3.0;   // %\nconst PRICE_HOT  = 5.0;   // %\nconst NET_MIN_TY = 1;     // tỷ đồng\nconst STREAK_MIN = 3;     // chuỗi khối ngoại\n// ===========================================================================\n\nconst to   = Math.floor(Date.now() / 1000);\nconst from = to - YEARS_BACK * 365 * 86400;\n\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst headers = { 'User-Agent': UA, 'Accept': '*/*' };\n\nconst dateOf = (unix) => new Date(unix * 1000).toLocaleDateString('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' });\n\n// Nguồn giá: DNSE chính, VNDirect dự phòng (mảng song song t/o/h/l/c/v, cũ -> mới)\nconst fetchBars = async (ticker) => {\n  try {\n    const res = await this.helpers.httpRequest({\n      method: 'GET',\n      url: 'https://services.entrade.com.vn/chart-api/v2/ohlcs/stock',\n      qs: { symbol: ticker, from, to, resolution: '1D' },\n      headers, json: true, timeout: 25000,\n    });\n    if (res && Array.isArray(res.t) && res.t.length) return { src: 'DNSE', d: res };\n  } catch (e) { /* dự phòng */ }\n  const res = await this.helpers.httpRequest({\n    method: 'GET',\n    url: 'https://dchart-api.vndirect.com.vn/dchart/history',\n    qs: { symbol: ticker, resolution: 'D', from, to },\n    headers: { ...headers, Referer: 'https://dchart.vndirect.com.vn/' },\n    json: true, timeout: 25000,\n  });\n  if (res && Array.isArray(res.t) && res.t.length) return { src: 'VNDirect', d: res };\n  throw new Error('cả 2 nguồn giá đều không có dữ liệu');\n};\n\n// Khối ngoại: VNDirect finfo, thử size lớn trước\nconst fetchFlows = async (ticker) => {\n  const h = { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\n  for (const size of [800, 100]) {\n    try {\n      const res = await this.helpers.httpRequest({\n        method: 'GET',\n        url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + ticker + '&size=' + size + '&sort=tradingDate:desc',\n        headers: h, json: true, timeout: 25000,\n      });\n      const data = (res && res.data) || [];\n      if (data.length) return data;\n    } catch (e) { /* thử size nhỏ hơn */ }\n  }\n  return [];\n};\n\nconst debug = [];\nconst rets = { s1: [], s2: [], s3: [], s4: [], s5: [], s6: [], base: [] };\nconst stopStats = STOP_LEVELS.map(sl => ({ sl, n: 0, hit: 0, sum: 0 }));\nconst noStop = { n: 0, sum: 0 };\nlet firstDate = '9999-99-99', lastDate = '';\nlet flowMinCount = Infinity, flowOldest = '0000-00-00';\n\nfor (const ticker of WATCHLIST) {\n  try {\n    const { src, d } = await fetchBars(ticker);\n    const n = d.t.length;\n    if (n < 60) { debug.push(ticker + ': chỉ ' + n + ' phiên, bỏ qua'); continue; }\n    if (dateOf(d.t[0]) < firstDate) firstDate = dateOf(d.t[0]);\n    if (dateOf(d.t[n - 1]) > lastDate) lastDate = dateOf(d.t[n - 1]);\n\n    const flowsArr = await fetchFlows(ticker);\n    const flows = {};\n    for (const f of flowsArr) flows[f.tradingDate] = (f.netVal || 0) / 1e9;\n    if (flowsArr.length) {\n      flowMinCount = Math.min(flowMinCount, flowsArr.length);\n      const oldest = flowsArr[flowsArr.length - 1].tradingDate || '';\n      if (oldest > flowOldest) flowOldest = oldest;\n    }\n\n    const t = d.t, o = d.o, c = d.c, l = d.l, v = d.v;\n\n    // Vào lệnh = giá MỞ CỬA phiên kế tiếp (nhận cảnh báo hôm nay, mua sáng mai)\n    const evalTrade = (i) => {\n      const ei = i + 1, xi = i + 1 + HOLD_DAYS;\n      if (xi >= n || !o[ei] || !c[xi]) return null;\n      return c[xi] / o[ei] - 1;\n    };\n\n    const stopTest = (i) => {\n      const ei = i + 1, xi = i + 1 + STOP_WINDOW;\n      if (xi >= n || !o[ei] || !c[xi]) return;\n      const entry = o[ei];\n      const endRet = c[xi] / entry - 1;\n      noStop.n++; noStop.sum += endRet;\n      for (const s of stopStats) {\n        const lvl = entry * (1 - s.sl / 100);\n        let stopped = false;\n        for (let k = ei + 1; k <= xi; k++) { if (l[k] && l[k] <= lvl) { stopped = true; break; } }\n        s.n++;\n        if (stopped) { s.hit++; s.sum += -s.sl / 100; } else { s.sum += endRet; }\n      }\n    };\n\n    const lastFire = { s1: -99, s2: -99, s3: -99, s4: -99, s5: -99, s6: -99 };\n    const fire = (key, i) => {\n      if (i - lastFire[key] < COOLDOWN) return;\n      lastFire[key] = i;\n      const r = evalTrade(i);\n      if (r !== null) rets[key].push(r);\n      if (key === 's1') stopTest(i);\n    };\n\n    let run = 0, prevSign = 0;\n    for (let i = 21; i < n; i++) {\n      let sumV = 0;\n      for (let k = i - 20; k < i; k++) sumV += v[k] || 0;\n      const avgV = sumV / 20;\n      const pct = c[i - 1] ? (c[i] / c[i - 1] - 1) * 100 : 0;\n      const spike = avgV > 0 && v[i] >= VOL_SPIKE * avgV;\n\n      if (spike && pct >= PRICE_CORE) fire('s1', i);\n      if (spike)                      fire('s2', i);\n      if (pct >= PRICE_HOT)           fire('s3', i);\n      if (pct <= -PRICE_CORE)         fire('s4', i);\n\n      const net = flows[dateOf(t[i])];\n      const sgn = net === undefined ? 0 : net >= NET_MIN_TY ? 1 : net <= -NET_MIN_TY ? -1 : 0;\n      run = (sgn !== 0 && sgn === prevSign) ? run + 1 : (sgn !== 0 ? 1 : 0);\n      prevSign = sgn;\n      if (run === STREAK_MIN && sgn === 1)  fire('s5', i);\n      if (run === STREAK_MIN && sgn === -1) fire('s6', i);\n\n      const r = evalTrade(i);\n      if (r !== null) rets.base.push(r);\n    }\n\n    debug.push(ticker + ': OK (' + src + ', ' + n + ' phiên giá, ' + flowsArr.length + ' phiên KN)');\n  } catch (e) {\n    debug.push(ticker + ': ❌ ' + (e.message || String(e)));\n  }\n}\n\n// ----------------- Thống kê & soạn báo cáo -----------------\nconst stat = (arr) => {\n  if (!arr.length) return null;\n  const nWin = arr.filter(r => r > 0).length;\n  const avg = arr.reduce((a, b) => a + b, 0) / arr.length;\n  let worst = arr[0];\n  for (const r of arr) if (r < worst) worst = r;\n  return { count: arr.length, win: 100 * nWin / arr.length, avg: 100 * avg, worst: 100 * worst };\n};\n\nconst fmtP = (x) => (x >= 0 ? '+' : '') + x.toFixed(1) + '%';\nconst base = stat(rets.base);\n\nconst line = (s) => s\n  ? s.count + ' lần · thắng ' + s.win.toFixed(0) + '% · TB ' + fmtP(s.avg) + ' · tệ nhất ' + fmtP(s.worst) + (s.count < 15 ? ' _(mẫu nhỏ)_' : '')\n  : '_không đủ dữ liệu_';\n\nconst verdict = (s, invert) => {\n  if (!s || !base) return '';\n  const dAvg = s.avg - base.avg;\n  if (invert) {\n    if (dAvg <= -1) return '\\n→ ✅ đúng vai cảnh báo: sau tín hiệu này giá đi kém hẳn nền';\n    return '\\n→ ➖ chưa thấy khác biệt rõ so với nền';\n  }\n  if (dAvg >= 1 && s.win >= base.win + 3) return '\\n→ ✅ tốt hơn nền rõ rệt — đáng tin';\n  if (dAvg <= -1) return '\\n→ 🔻 kém hơn nền — cân nhắc bỏ tín hiệu này';\n  return '\\n→ ➖ không khác nền đáng kể';\n};\n\nlet message = '';\nif (!base) {\n  message = '⚠️ *BACKTEST THẤT BẠI* — không lấy được dữ liệu giá.\\n\\n' + debug.join('\\n');\n} else {\n  const secs = [];\n  secs.push('*1️⃣ Phá vỡ: KL x' + VOL_SPIKE + ' + giá tăng ≥' + PRICE_CORE + '%*\\n' + line(stat(rets.s1)) + verdict(stat(rets.s1), false));\n  secs.push('*2️⃣ KL đột biến x' + VOL_SPIKE + ' (mọi hướng)*\\n' + line(stat(rets.s2)) + verdict(stat(rets.s2), false));\n  secs.push('*3️⃣ Giá tăng ≥' + PRICE_HOT + '% (ngưỡng nhóm sóng)*\\n' + line(stat(rets.s3)) + verdict(stat(rets.s3), false));\n  secs.push('*4️⃣ Giá giảm ≥' + PRICE_CORE + '% (thử \"bắt dao rơi\")*\\n' + line(stat(rets.s4)) + verdict(stat(rets.s4), false));\n  secs.push('*5️⃣ Khối ngoại GOM ≥' + STREAK_MIN + ' phiên*\\n' + line(stat(rets.s5)) + verdict(stat(rets.s5), false));\n  secs.push('*6️⃣ Khối ngoại XẢ ≥' + STREAK_MIN + ' phiên*\\n' + line(stat(rets.s6)) + verdict(stat(rets.s6), true));\n  secs.push('*⚖️ NỀN CHUNG (mua bất kỳ phiên nào)*\\n' + line(base) + '\\n→ Tín hiệu có giá trị phải THẮNG được nền này.');\n\n  if (noStop.n) {\n    let bestAvg = -Infinity;\n    for (const s of stopStats) { const a = s.sum / s.n; if (a > bestAvg) bestAvg = a; }\n    const stopLines = stopStats.map(s => {\n      const a = s.sum / s.n;\n      return '• Cắt ' + s.sl + '%: dính ' + (100 * s.hit / s.n).toFixed(0) + '% số lần · kết quả TB ' + fmtP(100 * a) + (a === bestAvg ? ' ⭐' : '');\n    }).join('\\n');\n    secs.push('*🛑 QUÉT NGƯỠNG CẮT LỖ* — sau tín hiệu phá vỡ (1️⃣), cửa sổ ' + STOP_WINDOW + ' phiên, ' + noStop.n + ' lần\\n'\n      + stopLines\n      + '\\n• Không cắt lỗ: kết quả TB ' + fmtP(100 * noStop.sum / noStop.n)\n      + '\\n→ ⭐ = ngưỡng giữ tiền tốt nhất trong quá khứ');\n  }\n\n  const flowNote = isFinite(flowMinCount)\n    ? 'Khối ngoại: ~' + flowMinCount + ' phiên gần nhất/mã (từ ' + flowOldest.split('-').reverse().join('/') + ')'\n    : 'Khối ngoại: không có dữ liệu';\n\n  message = '📋 *BACKTEST ' + YEARS_BACK + ' NĂM — ' + WATCHLIST.length + ' MÃ WATCHLIST*\\n'\n    + '_Giá: ' + firstDate.split('-').reverse().join('/') + ' → ' + lastDate.split('-').reverse().join('/') + ' · ' + flowNote + '_\\n'\n    + '_Vào lệnh giá mở cửa phiên kế tiếp · giữ ' + HOLD_DAYS + ' phiên · tín hiệu cùng loại cách nhau ≥' + COOLDOWN + ' phiên_\\n\\n'\n    + secs.join('\\n\\n———\\n\\n')\n    + '\\n\\n⚠️ _Quá khứ không đảm bảo tương lai. Chưa tính phí, trượt giá, T+2.5. Dùng để LOẠI luật tệ và đặt kỳ vọng đúng — không phải máy in tiền._';\n}\n\nreturn [{ json: { message, debug } }];"
+      },
+      "id": "run-backtest",
+      "name": "Chạy backtest (DNSE/VNDirect)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Cắt báo cáo thành các đoạn <= 3800 ký tự cho vừa giới hạn Telegram\nconst full = $input.first().json.message || '⚠️ Không có nội dung báo cáo.';\nconst SIZE = 3800;\nconst parts = [];\nlet s = full;\nwhile (s.length > SIZE) {\n  let cut = s.lastIndexOf('\\n', SIZE);\n  if (cut < SIZE * 0.5) cut = SIZE;\n  parts.push(s.slice(0, cut));\n  s = s.slice(cut);\n}\nif (s.trim()) parts.push(s);\nreturn parts.map(p => ({ json: { message: p } }));"
+      },
+      "id": "split-report",
+      "name": "Cắt tin cho Telegram",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [760, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "PASTE_CHAT_ID_HERE",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1020, 300],
+      "webhookId": "backtest-telegram",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Lịch chạy (9h sáng thứ 7)": {
+      "main": [[{ "node": "Chạy backtest (DNSE/VNDirect)", "type": "main", "index": 0 }]]
+    },
+    "Chạy backtest (DNSE/VNDirect)": {
+      "main": [[{ "node": "Cắt tin cho Telegram", "type": "main", "index": 0 }]]
+    },
+    "Cắt tin cho Telegram": {
+      "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [{ "name": "investment" }, { "name": "stock" }, { "name": "backtest" }]
+}

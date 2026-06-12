@@ -18,7 +18,7 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 | **2** | Gom tin tức nhiều nguồn + Claude AI tóm tắt → báo cáo sáng 7h | ✅ Xong |
 | **2b** | Dòng tiền khối ngoại: gom/xả N phiên, mua bán ròng mạnh, đảo chiều | ✅ Xong |
 | 3 | Module bất động sản (giá rao theo khu vực) | ⏳ Kế tiếp |
-| 4 | Backtest đơn giản + tinh chỉnh ngưỡng | ⏳ |
+| **4** | Backtest tín hiệu hàng tuần + quét ngưỡng cắt lỗ | ✅ Xong |
 
 ---
 
@@ -217,6 +217,43 @@ watchlist (nguồn VNDirect api-finfo, miễn phí) và gửi về Telegram:
 
 > 💡 File `workflows/probe-foreign-flow.json` là workflow thăm dò nguồn dữ liệu
 > (chạy 1 lần khi nghi nguồn chết) — không cần Active.
+
+---
+
+## Giai đoạn 4 — Backtest tín hiệu hàng tuần
+
+**File workflow:** [`workflows/backtest-weekly.json`](workflows/backtest-weekly.json)
+
+### Workflow làm gì?
+Chạy **9h sáng thứ 7** (hoặc bấm Execute bất kỳ lúc nào), quét **3 năm** dữ
+liệu giá (DNSE/VNDirect) + dữ liệu khối ngoại trên watchlist, rồi gửi về
+Telegram một bảng kiểm chứng:
+
+- **6 tín hiệu** được đo tỷ lệ thắng / lãi trung bình / lỗ tệ nhất sau khi giữ
+  10 phiên: phá vỡ (KL x2 + giá ≥3%), KL đột biến đơn thuần, giá ≥5%, giảm ≥3%
+  ("bắt dao"), khối ngoại gom ≥3 phiên, khối ngoại xả ≥3 phiên.
+- **Nền chung** (mua bất kỳ phiên nào) làm mốc so sánh — tín hiệu chỉ đáng tin
+  khi THẮNG nền; mỗi tín hiệu được tự chấm ✅/➖/🔻.
+- **Quét ngưỡng cắt lỗ** 5/7/9/11%: tỷ lệ "dính" và kết quả trung bình của
+  từng ngưỡng, đánh dấu ⭐ ngưỡng giữ tiền tốt nhất.
+
+Phương pháp: vào lệnh **giá mở cửa phiên kế tiếp** sau tín hiệu (sát thực tế
+nhận cảnh báo rồi mua sáng hôm sau), tín hiệu cùng loại trên một mã cách nhau
+tối thiểu 5 phiên để tránh đếm trùng.
+
+> ⚠️ **Đọc kết quả cho đúng:** backtest dùng để LOẠI luật tệ và đặt kỳ vọng
+> đúng, không phải tìm "chén thánh". Chưa tính phí, trượt giá, T+2.5 — kết quả
+> thật luôn kém hơn backtest một chút. Khối ngoại chỉ có ~vài trăm phiên gần
+> nhất nên tín hiệu 5️⃣/6️⃣ có mẫu nhỏ hơn các tín hiệu giá.
+
+### Cài đặt
+1. Import `backtest-weekly.json` → node **Gửi Telegram** chọn credential + Chat ID.
+2. **Execute workflow** (chạy ~30–60 giây vì tải 3 năm dữ liệu × 2 nguồn).
+3. **Activate** → tự chạy mỗi sáng thứ 7.
+
+### Tuỳ chỉnh (đầu node backtest)
+`WATCHLIST` · `YEARS_BACK` · `HOLD_DAYS` (số phiên giữ) · `STOP_LEVELS` (các
+ngưỡng cắt lỗ cần thử) · các ngưỡng tín hiệu (để giống hệ cảnh báo đang chạy).
 
 ---
 
