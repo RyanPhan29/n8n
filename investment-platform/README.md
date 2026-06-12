@@ -18,6 +18,7 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 | **2** | Gom tin tức nhiều nguồn + Claude AI tóm tắt → báo cáo sáng 7h | ✅ Xong |
 | **2b** | Dòng tiền khối ngoại: gom/xả N phiên, mua bán ròng mạnh, đảo chiều | ✅ Xong |
 | 3 | Module bất động sản (giá rao theo khu vực) | ⏳ Kế tiếp |
+| **3A** | Nhịp ngành BĐS phục vụ quyết định chứng khoán (AI) | ✅ Xong |
 | **4** | Backtest tín hiệu hàng tuần + quét ngưỡng cắt lỗ | ✅ Xong |
 
 ---
@@ -260,6 +261,30 @@ tối thiểu 5 phiên để tránh đếm trùng.
 ### Tuỳ chỉnh (đầu node backtest)
 `WATCHLIST` · `YEARS_BACK` · `HOLD_DAYS` (số phiên giữ) · `STOP_LEVELS` (các
 ngưỡng cắt lỗ cần thử) · các ngưỡng tín hiệu (để giống hệ cảnh báo đang chạy).
+
+---
+
+## Giai đoạn 3A — Nhịp ngành Bất động sản (phục vụ chứng khoán)
+
+**File workflow:** [`workflows/sector-realestate-pulse.json`](workflows/sector-realestate-pulse.json)
+
+**Vì sao có module này?** Một phần lớn cổ phiếu trên sàn "phơi nhiễm bất động
+sản": chủ đầu tư (VHM, NVL, DXG...), BĐS khu công nghiệp (BCM, KBC...), ngân hàng
+cho vay BĐS (VCB, BID, TCB...), xây dựng-vật liệu (HPG, HSG...). Sức khoẻ ngành
+nhà đất tác động trực tiếp tới định giá các nhóm này. Module 3A theo dõi *cấp
+ngành* để hỗ trợ quyết định cổ phiếu (khác với việc theo dõi giá rao nhà đất để
+tự đầu tư BĐS vật lý — đó là một nhánh riêng).
+
+**Làm gì:** Chạy **6h45 sáng thứ 2 hàng tuần**, đo hiệu suất giá + dòng tiền khối
+ngoại 5 phiên của rổ ~21 mã (chia 4 nhóm con), gom tin ngành (BĐS, tín dụng, trái
+phiếu, lãi suất), rồi để **`claude-opus-4-8`** viết báo cáo: sức khoẻ từng nhóm,
+**read-through tới BID & BCM** (2 mã được đánh dấu ⭐), và mâu thuẫn tin–dòng tiền.
+
+**Cài đặt:** Import → node **Claude phân tích ngành** chọn credential
+`Anthropic API` + node **Gửi Telegram** chọn credential Telegram & Chat ID →
+Execute để test → Activate.
+
+**Tuỳ chỉnh:** sửa `BASKET` (rổ ngành) và `FOCUS` (mã đánh dấu ⭐) ở đầu node gom.
 
 ---
 

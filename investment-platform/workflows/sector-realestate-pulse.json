@@ -1,0 +1,95 @@
+{
+  "name": "[CK] Nhịp ngành Bất động sản - AI",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "45 6 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "schedule-weekly",
+      "name": "Lịch chạy (6h45 sáng thứ 2)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  CẤU HÌNH - rổ cổ phiếu \"phơi nhiễm bất động sản\"\n// ===========================================================================\nconst BASKET = [\n  { t: 'VHM', g: 'Chủ đầu tư' }, { t: 'VIC', g: 'Chủ đầu tư' }, { t: 'NVL', g: 'Chủ đầu tư' },\n  { t: 'KDH', g: 'Chủ đầu tư' }, { t: 'DXG', g: 'Chủ đầu tư' }, { t: 'NLG', g: 'Chủ đầu tư' },\n  { t: 'PDR', g: 'Chủ đầu tư' }, { t: 'DIG', g: 'Chủ đầu tư' },\n  { t: 'BCM', g: 'BĐS Khu công nghiệp' }, { t: 'KBC', g: 'BĐS Khu công nghiệp' },\n  { t: 'IDC', g: 'BĐS Khu công nghiệp' }, { t: 'SZC', g: 'BĐS Khu công nghiệp' },\n  { t: 'VCB', g: 'Ngân hàng (cho vay BĐS)' }, { t: 'BID', g: 'Ngân hàng (cho vay BĐS)' },\n  { t: 'CTG', g: 'Ngân hàng (cho vay BĐS)' }, { t: 'TCB', g: 'Ngân hàng (cho vay BĐS)' },\n  { t: 'MBB', g: 'Ngân hàng (cho vay BĐS)' }, { t: 'STB', g: 'Ngân hàng (cho vay BĐS)' },\n  { t: 'HPG', g: 'Xây dựng & vật liệu' }, { t: 'HSG', g: 'Xây dựng & vật liệu' }, { t: 'CTD', g: 'Xây dựng & vật liệu' },\n];\nconst FOCUS = ['BID', 'BCM'];  // mã anh đang quan tâm - Claude đọc kỹ read-through tới đây\n// ===========================================================================\n\nconst to   = Math.floor(Date.now() / 1000);\nconst from = to - 60 * 60 * 24 * 30;\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst hBar = { 'User-Agent': UA, 'Accept': '*/*' };\nconst hFlow = { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\n\nconst fetchBars = async (ticker) => {\n  try {\n    const res = await this.helpers.httpRequest({\n      method: 'GET', url: 'https://services.entrade.com.vn/chart-api/v2/ohlcs/stock',\n      qs: { symbol: ticker, from, to, resolution: '1D' }, headers: hBar, json: true, timeout: 15000,\n    });\n    if (res && Array.isArray(res.c) && res.c.length) return res;\n  } catch (e) { /* dự phòng */ }\n  const res = await this.helpers.httpRequest({\n    method: 'GET', url: 'https://dchart-api.vndirect.com.vn/dchart/history',\n    qs: { symbol: ticker, resolution: 'D', from, to },\n    headers: { ...hBar, Referer: 'https://dchart.vndirect.com.vn/' }, json: true, timeout: 15000,\n  });\n  if (res && Array.isArray(res.c) && res.c.length) return res;\n  return null;\n};\n\nconst fetchNet5 = async (ticker) => {\n  try {\n    const res = await this.helpers.httpRequest({\n      method: 'GET',\n      url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + ticker + '&size=5&sort=tradingDate:desc',\n      headers: hFlow, json: true, timeout: 15000,\n    });\n    const data = (res && res.data) || [];\n    return data.reduce((s, x) => s + (x.netVal || 0) / 1e9, 0);\n  } catch (e) { return null; }\n};\n\nconst groups = {};\nconst debug = [];\n\nfor (const { t, g } of BASKET) {\n  try {\n    const d = await fetchBars(t);\n    if (!d || d.c.length < 6) { debug.push(t + ': thiếu dữ liệu giá'); continue; }\n    const n = d.c.length;\n    const pctDay = d.c[n - 2] ? (d.c[n - 1] / d.c[n - 2] - 1) * 100 : 0;\n    const pct5   = d.c[n - 6] ? (d.c[n - 1] / d.c[n - 6] - 1) * 100 : 0;\n    const net5   = await fetchNet5(t);\n    groups[g] = groups[g] || { rows: [], sumDay: 0, sum5: 0, sumNet: 0, n: 0, netOk: 0 };\n    const gr = groups[g];\n    gr.rows.push({ t, pctDay, pct5, net5 });\n    gr.sumDay += pctDay; gr.sum5 += pct5; gr.n++;\n    if (net5 !== null) { gr.sumNet += net5; gr.netOk++; }\n    debug.push(t + ': OK (ngày ' + pctDay.toFixed(1) + '%, 5p ' + pct5.toFixed(1) + '%, KN5p ' + (net5 === null ? 'n/a' : net5.toFixed(1)) + ')');\n  } catch (e) {\n    debug.push(t + ': ❌ ' + (e.message || String(e)));\n  }\n}\n\n// Soạn phần dữ liệu cho Claude\nlet perf = '';\nfor (const g of Object.keys(groups)) {\n  const gr = groups[g];\n  perf += '[' + g + '] ' + gr.n + ' mã · TB hôm nay ' + (gr.sumDay / gr.n).toFixed(2) + '% · TB 5 phiên ' + (gr.sum5 / gr.n).toFixed(2) + '%'\n        + ' · KN ròng 5 phiên ' + (gr.netOk ? gr.sumNet.toFixed(1) + ' tỷ' : 'n/a') + '\\n';\n  for (const r of gr.rows.sort((a, b) => b.pct5 - a.pct5)) {\n    perf += '   ' + r.t + (FOCUS.includes(r.t) ? ' ⭐' : '') + ': hôm nay ' + r.pctDay.toFixed(1) + '%, 5 phiên ' + r.pct5.toFixed(1) + '%, KN ròng 5 phiên ' + (r.net5 === null ? 'n/a' : r.net5.toFixed(1) + ' tỷ') + '\\n';\n  }\n  perf += '\\n';\n}\n\n// Tin ngành (Google News)\nconst gn = (q) => 'https://news.google.com/rss/search?q=' + encodeURIComponent(q) + '&hl=vi&gl=VN&ceid=VN:vi';\nconst NEWS_FEEDS = [\n  gn('bất động sản OR \"thị trường nhà đất\" when:5d'),\n  gn('tín dụng bất động sản OR \"trái phiếu doanh nghiệp\" OR \"khu công nghiệp\" when:5d'),\n  gn('lãi suất OR \"Ngân hàng Nhà nước\" OR \"room tín dụng\" when:5d'),\n];\nconst pick = (xml, tag) => {\n  const m = xml.match(new RegExp('<' + tag + '[^>]*>([\\\\s\\\\S]*?)<\\\\/' + tag + '>', 'i'));\n  if (!m) return '';\n  return m[1].replace(/<!\\[CDATA\\[/g, '').replace(/\\]\\]>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>')\n    .replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&#39;/g, \"'\").replace(/\\s+/g, ' ').trim();\n};\nconst news = [];\nconst seen = new Set();\nfor (const url of NEWS_FEEDS) {\n  try {\n    const body = await this.helpers.httpRequest({ method: 'GET', url, headers: { 'User-Agent': UA, 'Accept': '*/*' }, json: false, timeout: 20000 });\n    const xml = typeof body === 'string' ? body : String(body);\n    const blocks = (xml.match(/<item[\\s\\S]*?<\\/item>/gi) || []).slice(0, 8);\n    for (const it of blocks) {\n      const title = pick(it, 'title');\n      const key = title.toLowerCase().slice(0, 70);\n      if (title && !seen.has(key)) { seen.add(key); news.push(title); }\n    }\n  } catch (e) { debug.push('Tin: ❌ ' + (e.message || String(e))); }\n}\nconst newsText = news.length ? news.map((x, i) => (i + 1) + '. ' + x).join('\\n') : '(không lấy được tin ngành)';\n\nconst today = new Date().toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', day: 'numeric', month: 'numeric', year: 'numeric' });\n\nconst system = 'Bạn là chuyên viên phân tích NGÀNH Bất động sản & Tài chính Việt Nam, hỗ trợ một nhà đầu tư cá nhân. '\n  + 'Nhiệm vụ: đọc dữ liệu hiệu suất + dòng tiền khối ngoại của rổ cổ phiếu phơi nhiễm bất động sản (chủ đầu tư, BĐS khu công nghiệp, ngân hàng cho vay BĐS, xây dựng-vật liệu) + tin ngành, viết BÁO CÁO NHỊP NGÀNH ngắn gọn bằng tiếng Việt.\\n\\n'\n  + 'Nguyên tắc bắt buộc:\\n'\n  + '- Đánh giá sức khoẻ TỪNG NHÓM CON: đang được dòng tiền ủng hộ hay bị rút ra? (dựa vào TB % và KN ròng 5 phiên).\\n'\n  + '- READ-THROUGH cụ thể tới 2 mã đánh dấu ⭐ (BID, BCM): bối cảnh ngành đang thuận hay nghịch gió với 2 mã này?\\n'\n  + '- ĐỐI CHIẾU tin ngành với dòng tiền: tin tốt mà khối ngoại rút (hoặc ngược lại) là MÂU THUẪN cần nêu.\\n'\n  + '- Nêu yếu tố VĨ MÔ chi phối ngành (lãi suất, room tín dụng, trái phiếu doanh nghiệp) nếu tin có đề cập.\\n'\n  + '- Bố cục: (1) 🏗️ Tổng quan sức khoẻ ngành, (2) 🔍 Read-through BID & BCM, (3) ⚠️ Rủi ro & mâu thuẫn.\\n'\n  + '- TUYỆT ĐỐI KHÔNG khuyến nghị mua/bán cụ thể. KHÔNG bịa số liệu. Chưa rõ thì ghi \"cần kiểm chứng\".\\n'\n  + '- Ngắn gọn, dễ đọc trên điện thoại. Markdown đơn giản. Tối đa ~500 từ.';\n\nconst userContent = 'Tuần bắt đầu ' + today + '. Dữ liệu rổ ngành bất động sản (% giá: dương=tăng; KN ròng: dương=khối ngoại mua ròng, tỷ đồng):\\n\\n'\n  + '=== HIỆU SUẤT & DÒNG TIỀN THEO NHÓM ===\\n\\n' + (perf || '(không lấy được dữ liệu rổ)')\n  + '\\n=== TIN NGÀNH ===\\n\\n' + newsText\n  + '\\n\\nHãy viết báo cáo nhịp ngành theo đúng bố cục. Thiếu dữ liệu phần nào thì nói rõ.';\n\nconst requestBody = { model: 'claude-opus-4-8', max_tokens: 4000, system, messages: [{ role: 'user', content: userContent }] };\n\nreturn [{ json: { requestBody, debug } }];"
+      },
+      "id": "gather-sector",
+      "name": "Gom nhịp ngành BĐS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 320]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "anthropic-version", "value": "2023-06-01" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": { "timeout": 120000 }
+      },
+      "id": "claude-call",
+      "name": "Claude phân tích ngành",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 320],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID",
+          "name": "Anthropic API (x-api-key)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $input.first().json;\nlet text = '';\nif (res && Array.isArray(res.content)) text = res.content.filter(b => b.type === 'text').map(b => b.text).join('\\n').trim();\nif (!text) {\n  if (res && res.type === 'error' && res.error) text = '⚠️ Lỗi API: ' + (res.error.message || JSON.stringify(res.error));\n  else if (res && res.stop_reason === 'refusal') text = '⚠️ Yêu cầu bị từ chối bởi bộ lọc an toàn.';\n  else text = '⚠️ Không tạo được báo cáo (phản hồi rỗng).';\n}\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst full = '🏘️ *NHỊP NGÀNH BẤT ĐỘNG SẢN*\\n_' + now + '_\\n\\n' + text + '\\n\\n_Rổ BĐS/Ngân hàng/Xây dựng · DNSE/VNDirect + Google News · Tổng hợp bởi Claude AI · không phải khuyến nghị đầu tư_';\nconst SIZE = 3800;\nconst parts = [];\nlet s = full;\nwhile (s.length > SIZE) { let cut = s.lastIndexOf('\\n', SIZE); if (cut < SIZE * 0.5) cut = SIZE; parts.push(s.slice(0, cut)); s = s.slice(cut); }\nif (s.trim()) parts.push(s);\nreturn parts.map(p => ({ json: { message: p } }));"
+      },
+      "id": "format-report",
+      "name": "Định dạng báo cáo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 320]
+    },
+    {
+      "parameters": {
+        "chatId": "PASTE_CHAT_ID_HERE",
+        "text": "={{ $json.message }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1200, 320],
+      "webhookId": "sector-re-telegram",
+      "credentials": {
+        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+      }
+    }
+  ],
+  "connections": {
+    "Lịch chạy (6h45 sáng thứ 2)": { "main": [[{ "node": "Gom nhịp ngành BĐS", "type": "main", "index": 0 }]] },
+    "Gom nhịp ngành BĐS": { "main": [[{ "node": "Claude phân tích ngành", "type": "main", "index": 0 }]] },
+    "Claude phân tích ngành": { "main": [[{ "node": "Định dạng báo cáo", "type": "main", "index": 0 }]] },
+    "Định dạng báo cáo": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "stock" }, { "name": "ai" }]
+}
