@@ -41,6 +41,20 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 
 ## Hướng dẫn cài đặt
 
+### Bước 0 — Kiểm tra nguồn dữ liệu (làm trên VPS trước khi import)
+Chạy script test để xác nhận API TCBS sống và dữ liệu đúng:
+
+```bash
+node investment-platform/scripts/test-tcbs.js
+# hoặc chọn mã cụ thể:
+node investment-platform/scripts/test-tcbs.js VNM FPT HPG
+```
+
+- Nếu in ra giá/khối lượng hợp lý → nguồn OK, làm tiếp Bước 1.
+- Script cũng in **1 phiên dữ liệu thô** để bạn xác nhận **đơn vị giá**: nếu
+  `close` dạng `64.5` là nghìn đồng (workflow đã `*1000` đúng); nếu dạng `64500`
+  thì mở node phân tích bỏ phần `*1000`.
+
 ### Bước 1 — Tạo Telegram Bot
 1. Mở Telegram, chat với **@BotFather** → gõ `/newbot` → đặt tên → nhận
    **Bot Token** (dạng `123456:ABC-DEF...`).
