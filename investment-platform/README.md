@@ -14,8 +14,9 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 
 | Giai đoạn | Nội dung | Trạng thái |
 |-----------|----------|-----------|
-| **1** | Watchlist cổ phiếu + cảnh báo giá/khối lượng bất thường qua Telegram | ✅ Xong |
+| **1** | Watchlist 2 nhóm ngưỡng + cảnh báo cắt lỗ/chốt lời qua Telegram | ✅ Xong |
 | **2** | Gom tin tức nhiều nguồn + Claude AI tóm tắt → báo cáo sáng 7h | ✅ Xong |
+| **2b** | Dòng tiền khối ngoại: gom/xả N phiên, mua bán ròng mạnh, đảo chiều | ✅ Xong |
 | 3 | Module bất động sản (giá rao theo khu vực) | ⏳ Kế tiếp |
 | 4 | Backtest đơn giản + tinh chỉnh ngưỡng | ⏳ |
 
@@ -187,6 +188,35 @@ Mở node **Gom tin tức (RSS)**, sửa phần CẤU HÌNH:
 - `MAX_PER_FEED`, `MAX_AGE_HOURS` — số tin và khoảng thời gian lấy tin.
 
 > 💡 Muốn đổi văn phong/độ dài báo cáo: sửa biến `system` trong cùng node đó.
+
+---
+
+## Giai đoạn 2b — Dòng tiền khối ngoại
+
+**File workflow:** [`workflows/foreign-flow-alerts.json`](workflows/foreign-flow-alerts.json)
+
+### Workflow làm gì?
+Chạy **15h45 sau phiên (T2–T6)**, quét khối ngoại mua/bán ròng từng mã trong
+watchlist (nguồn VNDirect api-finfo, miễn phí) và gửi về Telegram:
+- 🚨 **Tín hiệu:** mua/bán ròng mạnh trong phiên (mặc định ≥20 tỷ), chuỗi
+  gom/xả ≥3 phiên liên tiếp kèm tổng giá trị, và **đảo chiều** (đang gom nhiều
+  phiên bỗng chuyển sang xả hoặc ngược lại).
+- 📊 **Toàn cảnh:** ròng từng mã trong phiên, sắp theo độ lớn.
+- Tự bỏ qua ngày nghỉ/lễ (dữ liệu mới nhất không phải hôm nay → không gửi).
+
+### Cài đặt
+1. Import `foreign-flow-alerts.json` → node **Gửi Telegram** chọn credential
+   Telegram + điền Chat ID.
+2. **Execute workflow** để test (nếu chạy ngoài ngày giao dịch, tạm đổi
+   `TEST_MODE = true` trong node phân tích).
+3. **Activate**.
+
+### Tuỳ chỉnh (đầu node phân tích)
+`WATCHLIST` (mã theo dõi) · `BIG_NET_TY` (ngưỡng ròng mạnh, tỷ đồng) ·
+`STREAK_MIN` (số phiên thành chuỗi) · `NET_MIN_TY` (dưới mức này coi là trung tính).
+
+> 💡 File `workflows/probe-foreign-flow.json` là workflow thăm dò nguồn dữ liệu
+> (chạy 1 lần khi nghi nguồn chết) — không cần Active.
 
 ---
 
