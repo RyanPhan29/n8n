@@ -60,7 +60,7 @@
     },
     {
       "parameters": {
-        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "chatId": "PASTE_CHAT_ID_HERE",
         "text": "={{ $json.message }}",
         "additionalFields": {
           "parse_mode": "Markdown"

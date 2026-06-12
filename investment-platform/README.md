@@ -64,27 +64,19 @@ node investment-platform/scripts/test-tcbs.js VNM FPT HPG
    - Tìm `"chat":{"id":<CHAT_ID>}` → đó là Chat ID của bạn.
    - (Muốn gửi vào nhóm thì thêm bot vào nhóm, Chat ID nhóm là số âm.)
 
-### Bước 2 — Thêm biến môi trường trên VPS
-Để không hard-code Chat ID trong workflow, thêm vào file cấu hình n8n
-(ví dụ `docker-compose.yml` hoặc `.env`):
-
-```env
-TELEGRAM_CHAT_ID=123456789
-```
-Khởi động lại n8n để biến có hiệu lực.
-
-### Bước 3 — Tạo Credential Telegram trong n8n
+### Bước 2 — Tạo Credential Telegram trong n8n
 1. n8n → **Credentials** → **New** → tìm **Telegram API**.
 2. Dán **Bot Token** ở Bước 1 → Save (đặt tên ví dụ `Telegram Bot (CK)`).
 
-### Bước 4 — Import & nối credential
+### Bước 3 — Import & nối credential
 1. n8n → **Workflows** → **Import from File** → chọn
    `stock-watchlist-alerts.json`.
-2. Mở node **Gửi Telegram** → ở mục Credential chọn `Telegram Bot (CK)` vừa tạo
-   (thay cho placeholder trong file).
+2. Mở node **Gửi Telegram**:
+   - Ở mục Credential chọn `Telegram Bot (CK)` vừa tạo.
+   - Ô **Chat ID**: thay `PASTE_CHAT_ID_HERE` bằng Chat ID của bạn (Bước 1).
 3. **Activate** workflow (bật công tắc góc trên phải).
 
-### Bước 5 — Chạy thử
+### Bước 4 — Chạy thử
 - Bấm **Execute Workflow** (hoặc **Test step** trên node Telegram) để kiểm tra
   ngay, không cần đợi tới giờ chạy.
 - Nếu chưa có mã nào bất thường, workflow chạy xong mà không gửi tin — đó là
