@@ -27,33 +27,39 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 
 ### Workflow làm gì?
 1. **Lịch chạy:** cứ 15 phút/lần trong giờ giao dịch (9h–15h, T2–T6).
-2. **Lấy dữ liệu:** gọi API công khai của TCBS cho từng mã trong watchlist.
+2. **Lấy dữ liệu:** gọi API công khai của DNSE cho từng mã trong watchlist
+   (tự động chuyển sang VNDirect nếu DNSE lỗi).
 3. **Phân tích:** so sánh khối lượng hôm nay với trung bình 20 phiên, và % thay
    đổi giá so với phiên trước.
 4. **Cảnh báo:** nếu phát hiện bất thường (KL ≥ 2x trung bình, hoặc giá biến
    động ≥ 3%) → gửi 1 tin tổng hợp về Telegram.
 
 ### Nguồn dữ liệu
-- **TCBS public API** (`apipubaws.tcbs.com.vn`) — miễn phí, là nguồn mà thư viện
-  `vnstock` cũng dùng. Không cần API key cho dữ liệu giá cơ bản.
+- **Chính: DNSE/Entrade** (`services.entrade.com.vn/chart-api`) — miễn phí,
+  không cần API key, trả về OHLCV theo ngày.
+- **Dự phòng: VNDirect dchart** (`dchart-api.vndirect.com.vn`) — workflow tự
+  chuyển sang nguồn này khi DNSE lỗi (cần headers giả lập trình duyệt, đã có sẵn
+  trong code).
+- ~~TCBS public API~~ — endpoint cũ trả 404 từ 06/2026, đã bỏ. Bài học: nguồn
+  miễn phí có thể chết bất kỳ lúc nào → luôn có nguồn dự phòng + chạy lại
+  script Bước 0 khi thấy cảnh báo im ắng bất thường.
 
 ---
 
 ## Hướng dẫn cài đặt
 
-### Bước 0 — Kiểm tra nguồn dữ liệu (làm trên VPS trước khi import)
-Chạy script test để xác nhận API TCBS sống và dữ liệu đúng:
+### Bước 0 — Kiểm tra nguồn dữ liệu (chạy ở máy nào có Node 18+ cũng được)
+Chạy script test để xác nhận nguồn dữ liệu sống:
 
 ```bash
-node investment-platform/scripts/test-tcbs.js
+node investment-platform/scripts/test-datasource.js
 # hoặc chọn mã cụ thể:
-node investment-platform/scripts/test-tcbs.js VNM FPT HPG
+node investment-platform/scripts/test-datasource.js VNM FPT HPG
 ```
 
 - Nếu in ra giá/khối lượng hợp lý → nguồn OK, làm tiếp Bước 1.
-- Script cũng in **1 phiên dữ liệu thô** để bạn xác nhận **đơn vị giá**: nếu
-  `close` dạng `64.5` là nghìn đồng (workflow đã `*1000` đúng); nếu dạng `64500`
-  thì mở node phân tích bỏ phần `*1000`.
+- Đơn vị giá được **tự nhận diện** (nguồn trả `64.5` nghìn đồng hay `64500`
+  đồng đều hiển thị đúng), không cần chỉnh tay.
 
 ### Bước 1 — Tạo Telegram Bot
 1. Mở Telegram, chat với **@BotFather** → gõ `/newbot` → đặt tên → nhận
@@ -80,28 +86,30 @@ node investment-platform/scripts/test-tcbs.js VNM FPT HPG
 - Bấm **Execute Workflow** (hoặc **Test step** trên node Telegram) để kiểm tra
   ngay, không cần đợi tới giờ chạy.
 - Nếu chưa có mã nào bất thường, workflow chạy xong mà không gửi tin — đó là
-  bình thường. Muốn test tin nhắn, tạm hạ ngưỡng trong node phân tích (xem dưới).
+  bình thường (nhánh `false` của node "Có cảnh báo?" sẽ sáng "1 item").
+- **Muốn ép gửi tin test:** mở node phân tích, đổi `TEST_MODE = false` thành
+  `true` → Execute workflow → nhận tin → **đổi lại `false`** rồi mới Activate.
 
 ---
 
 ## Tuỳ chỉnh
 
-Mở node **Lấy dữ liệu & Phân tích (TCBS)**, sửa phần CẤU HÌNH đầu file:
+Mở node **Lấy dữ liệu & Phân tích (DNSE/VNDirect)**, sửa phần CẤU HÌNH đầu file:
 
 ```js
 const WATCHLIST  = ['VNM','FPT','HPG','MWG','VCB','SSI','DGC','VND','MBB','STB'];
-const VOL_SPIKE  = 2.0;   // KL hôm nay >= 2x trung bình -> cảnh báo
-const PRICE_MOVE = 3.0;   // |thay đổi giá| >= 3% -> cảnh báo
-const LOOKBACK   = 20;    // số phiên tính trung bình KL
+const TEST_MODE  = false; // true = ép gửi tin test (ngưỡng 0.1) — test xong trả về false!
+const VOL_SPIKE  = TEST_MODE ? 0.1 : 2.0;   // KL hôm nay >= 2x trung bình -> cảnh báo
+const PRICE_MOVE = TEST_MODE ? 0.1 : 3.0;   // |thay đổi giá| >= 3% -> cảnh báo
+const LOOKBACK   = 20;                      // số phiên tính trung bình KL
 ```
 
 - **Thêm mã:** chỉ cần bỏ thêm mã vào mảng `WATCHLIST`.
-- **Nhạy hơn:** giảm `VOL_SPIKE` (vd 1.5) hoặc `PRICE_MOVE` (vd 2.0).
+- **Nhạy hơn:** giảm `2.0` (vd 1.5) hoặc `3.0` (vd 2.0) ở 2 dòng ngưỡng.
 - **Đổi tần suất:** node **Lịch chạy** → sửa cron `*/15 9-15 * * 1-5`
   (vd `*/5` = 5 phút/lần).
-
-> 💡 **Đơn vị giá:** TCBS trả giá theo *nghìn đồng*, workflow đã `*1000` khi hiển
-> thị. Nếu thấy giá lệch, chỉnh lại hệ số trong node phân tích.
+- **Khi nghi nguồn dữ liệu chết:** xem mảng `debug` trong OUTPUT của node phân
+  tích — mỗi mã sẽ ghi `OK (DNSE, 60 phiên)` hoặc dòng lỗi cụ thể.
 
 ---
 
@@ -110,7 +118,7 @@ const LOOKBACK   = 20;    // số phiên tính trung bình KL
 | Khoản | Chi phí | Ghi chú |
 |-------|---------|---------|
 | VPS | (đã có) | Chạy n8n 24/7 |
-| Dữ liệu giá TCBS | **0đ** | API công khai |
+| Dữ liệu giá (DNSE/VNDirect) | **0đ** | API công khai |
 | Telegram | **0đ** | |
 | Claude API (giai đoạn 2 – tóm tắt tin) | ~600k–1tr | Tuỳ lượng tin |
 | Proxy scrape BĐS (giai đoạn 3) | ~300k–500k | Tránh chặn IP |
