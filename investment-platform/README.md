@@ -14,9 +14,9 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 
 | Giai đoạn | Nội dung | Trạng thái |
 |-----------|----------|-----------|
-| **1** | Watchlist cổ phiếu + cảnh báo giá/khối lượng bất thường qua Telegram | ✅ Có sẵn |
-| 2 | Gom tin tức nhiều nguồn + AI tóm tắt → báo cáo sáng mỗi ngày | ⏳ Kế tiếp |
-| 3 | Module bất động sản (giá rao theo khu vực) | ⏳ |
+| **1** | Watchlist cổ phiếu + cảnh báo giá/khối lượng bất thường qua Telegram | ✅ Xong |
+| **2** | Gom tin tức nhiều nguồn + Claude AI tóm tắt → báo cáo sáng 7h | ✅ Xong |
+| 3 | Module bất động sản (giá rao theo khu vực) | ⏳ Kế tiếp |
 | 4 | Backtest đơn giản + tinh chỉnh ngưỡng | ⏳ |
 
 ---
@@ -129,6 +129,57 @@ các giai đoạn sau.
 
 ---
 
+---
+
+## Giai đoạn 2 — Báo cáo sáng (Tin tức + Claude AI)
+
+**File workflow:** [`workflows/morning-news-report.json`](workflows/morning-news-report.json)
+
+### Workflow làm gì?
+1. **Lịch chạy:** 7h sáng mỗi ngày T2–T6.
+2. **Gom tin:** đọc nhiều RSS của CafeF (chứng khoán, ngân hàng, doanh nghiệp,
+   vĩ mô), lọc tin trong ~30h gần nhất.
+3. **Claude phân tích:** gửi toàn bộ tin cho **`claude-opus-4-8`** với yêu cầu
+   lọc nhiễu, ưu tiên watchlist, đánh giá tác động (tích cực/tiêu cực) + độ tin cậy.
+4. **Gửi Telegram:** báo cáo sáng có cấu trúc (tin nóng watchlist / bối cảnh
+   chung / cảnh báo rủi ro), tự cắt nhỏ nếu dài quá giới hạn Telegram.
+
+> ⚠️ Báo cáo do AI tổng hợp từ báo chí — **không phải khuyến nghị mua/bán**,
+> luôn kiểm chứng nguồn gốc trước khi hành động.
+
+### Cài đặt
+
+**Bước 1 — Lấy Anthropic API key** (để n8n gọi được Claude)
+1. Vào [console.anthropic.com](https://console.anthropic.com) → đăng ký/đăng nhập.
+2. Vào **Billing** → nạp tín dụng tối thiểu (vài USD là chạy được hàng tháng).
+3. Vào **API Keys** → **Create Key** → copy key dạng `sk-ant-api03-...`.
+
+**Bước 2 — Tạo Credential trong n8n**
+1. n8n → **Credentials** → **New** → chọn **Header Auth**.
+2. **Name** = `x-api-key`, **Value** = dán API key vừa copy → Save
+   (đặt tên ví dụ `Anthropic API (x-api-key)`).
+
+**Bước 3 — Import & nối**
+1. Import `morning-news-report.json` (giống cách import workflow GĐ1).
+2. Node **Claude viết báo cáo** → mục Credential chọn `Anthropic API (x-api-key)`.
+3. Node **Gửi Telegram** → chọn lại credential Telegram + điền **Chat ID** của bạn.
+4. Bấm **Execute Workflow** để test ngay (không cần đợi 7h sáng).
+5. Xem báo cáo về Telegram → nếu ổn thì **Activate**.
+
+### Chi phí
+Mỗi báo cáo sáng tốn rất ít token (~vài nghìn–vài chục nghìn đồng/ngày tuỳ
+lượng tin). Cả tháng thường dưới 500k — nằm gọn trong ngân sách.
+
+### Tuỳ chỉnh
+Mở node **Gom tin tức (RSS)**, sửa phần CẤU HÌNH:
+- `FEEDS` — thêm/bớt nguồn RSS. Nếu nguồn nào chết, xem mảng `debug` ở OUTPUT.
+- `WATCHLIST` — danh mục để Claude ưu tiên tin liên quan.
+- `MAX_PER_FEED`, `MAX_AGE_HOURS` — số tin và khoảng thời gian lấy tin.
+
+> 💡 Muốn đổi văn phong/độ dài báo cáo: sửa biến `system` trong cùng node đó.
+
+---
+
 ## Bước tiếp theo
-Khi giai đoạn 1 chạy ổn, báo lại để mình dựng tiếp **giai đoạn 2** (gom tin tức
-CafeF/Vietstock + Claude tóm tắt → báo cáo sáng 7h mỗi ngày).
+Khi GĐ1 + GĐ2 chạy ổn, dựng tiếp **Giai đoạn 3** (bất động sản: theo dõi giá rao
+theo khu vực) và **Giai đoạn 4** (backtest + tinh chỉnh ngưỡng).

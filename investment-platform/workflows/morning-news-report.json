@@ -1,0 +1,120 @@
+{
+  "name": "[CK] Báo cáo sáng - Tin tức + Claude AI",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "schedule-morning",
+      "name": "Lịch chạy (7h sáng, T2-T6)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  CẤU HÌNH\n// ===========================================================================\n// Nguồn tin RSS (thêm/bớt tuỳ ý). Nếu nguồn nào chết, xem mảng debug ở OUTPUT.\nconst FEEDS = [\n  { name: 'CafeF - Chứng khoán', url: 'https://cafef.vn/thi-truong-chung-khoan.rss' },\n  { name: 'CafeF - Tài chính NH', url: 'https://cafef.vn/tai-chinh-ngan-hang.rss' },\n  { name: 'CafeF - Doanh nghiệp',  url: 'https://cafef.vn/doanh-nghiep.rss' },\n  { name: 'CafeF - Vĩ mô',         url: 'https://cafef.vn/vi-mo-dau-tu.rss' },\n];\n\n// Danh mục theo dõi - để Claude ưu tiên tin liên quan các mã này\nconst WATCHLIST = ['VNM', 'FPT', 'HPG', 'MWG', 'VCB', 'SSI', 'DGC', 'VND', 'MBB', 'STB'];\n\nconst MAX_PER_FEED  = 8;    // số tin lấy mỗi nguồn\nconst MAX_AGE_HOURS = 30;   // chỉ lấy tin trong N giờ gần nhất (30h để phủ qua đêm/cuối tuần)\n// ===========================================================================\n\nconst headers = {\n  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',\n  'Accept': 'application/rss+xml, application/xml, text/xml, */*',\n};\nconst cutoff = Date.now() - MAX_AGE_HOURS * 3600 * 1000;\n\n// Lấy nội dung 1 thẻ XML đầu tiên, bỏ CDATA và tag con\nconst pick = (xml, tag) => {\n  const m = xml.match(new RegExp('<' + tag + '[^>]*>([\\\\s\\\\S]*?)<\\\\/' + tag + '>', 'i'));\n  if (!m) return '';\n  return m[1]\n    .replace(/<!\\[CDATA\\[/g, '').replace(/\\]\\]>/g, '')\n    .replace(/<[^>]+>/g, ' ')\n    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\")\n    .replace(/\\s+/g, ' ').trim();\n};\n\nconst items = [];\nconst debug = [];\n\nfor (const f of FEEDS) {\n  try {\n    const body = await this.helpers.httpRequest({ method: 'GET', url: f.url, headers, json: false });\n    const xml  = typeof body === 'string' ? body : String(body);\n    const blocks = xml.match(/<item[\\s\\S]*?<\\/item>/gi) || [];\n    let count = 0;\n    for (const it of blocks) {\n      if (count >= MAX_PER_FEED) break;\n      const title = pick(it, 'title');\n      const pub   = pick(it, 'pubDate');\n      const desc  = pick(it, 'description').slice(0, 280);\n      const t = pub ? new Date(pub).getTime() : Date.now();\n      if (title && (!pub || isNaN(t) || t >= cutoff)) {\n        items.push({ source: f.name, title, desc });\n        count++;\n      }\n    }\n    debug.push(f.name + ': ' + count + ' tin');\n  } catch (e) {\n    debug.push(f.name + ': ❌ ' + (e.message || String(e)));\n  }\n}\n\nconst newsText = items.length\n  ? items.map((x, i) => (i + 1) + '. [' + x.source + '] ' + x.title + (x.desc ? '\\n   ' + x.desc : '')).join('\\n\\n')\n  : '(Không lấy được tin nào - kiểm tra mảng debug, có thể URL RSS đã đổi)';\n\nconst today = new Date().toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' });\n\nconst system = 'Bạn là chuyên viên phân tích chứng khoán Việt Nam, hỗ trợ một nhà đầu tư cá nhân. '\n  + 'Nhiệm vụ: đọc tin tức thị trường, lọc nhiễu, viết BÁO CÁO SÁNG ngắn gọn bằng tiếng Việt.\\n\\n'\n  + 'Nguyên tắc bắt buộc:\\n'\n  + '- Ưu tiên tin tác động tới danh mục theo dõi: ' + WATCHLIST.join(', ') + '.\\n'\n  + '- Với mỗi tin quan trọng: nêu mã/ngành liên quan, tóm tắt 1 dòng, đánh giá tác động (Tích cực/Tiêu cực/Trung tính) kèm mức độ tin cậy (cao/trung bình/thấp).\\n'\n  + '- Bố cục: (1) 🔥 Tin nóng tác động watchlist, (2) 🌐 Bối cảnh thị trường chung, (3) ⚠️ Cảnh báo rủi ro (nếu có).\\n'\n  + '- TUYỆT ĐỐI KHÔNG khuyến nghị mua/bán cụ thể. KHÔNG bịa số liệu. Tin chưa rõ thì ghi \"cần kiểm chứng\".\\n'\n  + '- Ngắn gọn, dễ đọc trên điện thoại. Dùng Markdown đơn giản (*đậm*, gạch đầu dòng). Tối đa ~500 từ.';\n\nconst userContent = 'Hôm nay là ' + today + '. Dưới đây là tin tức thu thập được sáng nay:\\n\\n'\n  + newsText\n  + '\\n\\nHãy viết báo cáo sáng theo đúng bố cục yêu cầu. Nếu phần tin trống, nói rõ là chưa lấy được tin.';\n\nconst requestBody = {\n  model: 'claude-opus-4-8',\n  max_tokens: 4000,\n  system,\n  messages: [{ role: 'user', content: userContent }],\n};\n\nreturn [{ json: { requestBody, itemCount: items.length, debug } }];"
+      },
+      "id": "gather-news",
+      "name": "Gom tin tức (RSS)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 320]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "claude-call",
+      "name": "Claude viết báo cáo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 320],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID",
+          "name": "Anthropic API (x-api-key)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Trích phần text từ phản hồi Claude và cắt nhỏ cho vừa giới hạn Telegram (4096 ký tự/tin)\nconst res = $input.first().json;\n\nlet text = '';\nif (res && Array.isArray(res.content)) {\n  text = res.content.filter(b => b.type === 'text').map(b => b.text).join('\\n').trim();\n}\n\n// Bắt lỗi API hoặc bị từ chối\nif (!text) {\n  if (res && res.type === 'error' && res.error) {\n    text = '⚠️ Lỗi API: ' + (res.error.message || JSON.stringify(res.error));\n  } else if (res && res.stop_reason === 'refusal') {\n    text = '⚠️ Yêu cầu bị từ chối bởi bộ lọc an toàn.';\n  } else {\n    text = '⚠️ Không tạo được báo cáo (phản hồi rỗng).';\n  }\n}\n\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst full = '☀️ *BÁO CÁO SÁNG THỊ TRƯỜNG*\\n_' + now + '_\\n\\n' + text + '\\n\\n_Nguồn: CafeF · Tổng hợp bởi Claude AI · không phải khuyến nghị đầu tư_';\n\n// Cắt thành các đoạn <= 3800 ký tự, ưu tiên cắt ở dấu xuống dòng\nconst SIZE = 3800;\nconst parts = [];\nlet s = full;\nwhile (s.length > SIZE) {\n  let cut = s.lastIndexOf('\\n', SIZE);\n  if (cut < SIZE * 0.5) cut = SIZE;\n  parts.push(s.slice(0, cut));\n  s = s.slice(cut);\n}\nif (s.trim()) parts.push(s);\n\nreturn parts.map(p => ({ json: { message: p } }));"
+      },
+      "id": "format-report",
+      "name": "Định dạng báo cáo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 320]
+    },
+    {
+      "parameters": {
+        "chatId": "PASTE_CHAT_ID_HERE",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1200, 320],
+      "webhookId": "morning-report-telegram",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Lịch chạy (7h sáng, T2-T6)": {
+      "main": [[{ "node": "Gom tin tức (RSS)", "type": "main", "index": 0 }]]
+    },
+    "Gom tin tức (RSS)": {
+      "main": [[{ "node": "Claude viết báo cáo", "type": "main", "index": 0 }]]
+    },
+    "Claude viết báo cáo": {
+      "main": [[{ "node": "Định dạng báo cáo", "type": "main", "index": 0 }]]
+    },
+    "Định dạng báo cáo": {
+      "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [
+    { "name": "investment" },
+    { "name": "stock" },
+    { "name": "ai" }
+  ]
+}
