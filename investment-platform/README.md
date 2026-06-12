@@ -110,10 +110,16 @@ const WATCHLIST_CORE = ['VNM','FPT','HPG','MWG','VCB','MBB'];
 const WATCHLIST_HOT  = ['SSI','VND','DGC','STB'];
 
 // Danh mục đang giữ — đơn vị giá vốn là NGHÌN ĐỒNG (25.5 = 25.500đ)
+// stopLossPct gợi ý 8-9% (backtest: cắt 5% bị rũ oan 57% số lần)
 const PORTFOLIO = {
-  'HPG': { costBasis: 25.5,  stopLossPct: 7, takeProfitPct: 15 },
-  'FPT': { costBasis: 118.0, stopLossPct: 8, takeProfitPct: 0  },
+  'HPG': { costBasis: 25.5,  stopLossPct: 9, takeProfitPct: 15 },
+  'FPT': { costBasis: 118.0, stopLossPct: 9, takeProfitPct: 0  },
 };
+
+// Cảnh báo "giảm sâu — theo dõi hồi phục" (mean-reversion, tín hiệu duy nhất
+// thắng nền khi backtest). ⚠️ KHÔNG phải lệnh mua — bắt dao rơi rủi ro cao.
+const DIP_ALERT = true;
+const DIP_PCT   = 4;   // giảm >= % này trong phiên -> tag theo dõi
 ```
 
 - **Ngưỡng từng nhóm:** sửa `THRESHOLDS` ngay dưới phần cấu hình.
