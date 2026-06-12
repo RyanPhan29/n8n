@@ -31,8 +31,13 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
    (tự động chuyển sang VNDirect nếu DNSE lỗi).
 3. **Phân tích:** so sánh khối lượng hôm nay với trung bình 20 phiên, và % thay
    đổi giá so với phiên trước.
-4. **Cảnh báo:** nếu phát hiện bất thường (KL ≥ 2x trung bình, hoặc giá biến
-   động ≥ 3%) → gửi 1 tin tổng hợp về Telegram.
+4. **Cảnh báo:** gửi 1 tin tổng hợp về Telegram khi:
+   - **Biến động bất thường** theo 2 nhóm ngưỡng: nhóm nền tảng (giá ±3%, KL
+     ≥2x) và nhóm sóng mạnh (giá ±5%, KL ≥2.5x — cao hơn để đỡ nhiễu).
+   - **Cắt lỗ / chốt lời:** khai giá vốn trong `PORTFOLIO` → rớt quá
+     `stopLossPct` hoặc vượt `takeProfitPct` là báo ngay.
+   - **Chống spam:** cùng một cảnh báo không lặp lại trong 3 giờ (chỉ áp dụng
+     khi workflow Active; chạy test tay không lưu trạng thái).
 
 ### Nguồn dữ liệu
 - **Chính: DNSE/Entrade** (`services.entrade.com.vn/chart-api`) — miễn phí,
@@ -94,22 +99,27 @@ node investment-platform/scripts/test-datasource.js VNM FPT HPG
 
 ## Tuỳ chỉnh
 
-Mở node **Lấy dữ liệu & Phân tích (DNSE/VNDirect)**, sửa phần CẤU HÌNH đầu file:
+Mở node **Lấy dữ liệu & Phân tích (DNSE/VNDirect)**, sửa 3 khối CẤU HÌNH đầu file:
 
 ```js
-const WATCHLIST  = ['VNM','FPT','HPG','MWG','VCB','SSI','DGC','VND','MBB','STB'];
-const TEST_MODE  = false; // true = ép gửi tin test (ngưỡng 0.1) — test xong trả về false!
-const VOL_SPIKE  = TEST_MODE ? 0.1 : 2.0;   // KL hôm nay >= 2x trung bình -> cảnh báo
-const PRICE_MOVE = TEST_MODE ? 0.1 : 3.0;   // |thay đổi giá| >= 3% -> cảnh báo
-const LOOKBACK   = 20;                      // số phiên tính trung bình KL
+const TEST_MODE = false; // true = ép gửi tin test — test xong trả về false!
+
+// Nhóm nền tảng (giá ±3%, KL x2) và nhóm sóng mạnh (giá ±5%, KL x2.5)
+const WATCHLIST_CORE = ['VNM','FPT','HPG','MWG','VCB','MBB'];
+const WATCHLIST_HOT  = ['SSI','VND','DGC','STB'];
+
+// Danh mục đang giữ — đơn vị giá vốn là NGHÌN ĐỒNG (25.5 = 25.500đ)
+const PORTFOLIO = {
+  'HPG': { costBasis: 25.5,  stopLossPct: 7, takeProfitPct: 15 },
+  'FPT': { costBasis: 118.0, stopLossPct: 8, takeProfitPct: 0  },
+};
 ```
 
-- **Thêm mã:** chỉ cần bỏ thêm mã vào mảng `WATCHLIST`.
-- **Nhạy hơn:** giảm `2.0` (vd 1.5) hoặc `3.0` (vd 2.0) ở 2 dòng ngưỡng.
-- **Đổi tần suất:** node **Lịch chạy** → sửa cron `*/15 9-15 * * 1-5`
-  (vd `*/5` = 5 phút/lần).
+- **Ngưỡng từng nhóm:** sửa `THRESHOLDS` ngay dưới phần cấu hình.
+- **Tần suất chống lặp:** sửa `SUPPRESS_HOURS` (mặc định 3 giờ).
+- **Đổi tần suất quét:** node **Lịch chạy** → cron `*/15 9-15 * * 1-5`.
 - **Khi nghi nguồn dữ liệu chết:** xem mảng `debug` trong OUTPUT của node phân
-  tích — mỗi mã sẽ ghi `OK (DNSE, 60 phiên)` hoặc dòng lỗi cụ thể.
+  tích — mỗi mã ghi `OK (DNSE, 60 phiên)` hoặc dòng lỗi cụ thể.
 
 ---
 
