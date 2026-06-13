@@ -1,0 +1,30 @@
+{
+  "name": "[CK] Thăm dò nguồn ROE/Nợ (chạy 1 lần rồi xoá)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Bấm Execute để thăm dò",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// THĂM DÒ NGUỒN ROE / ROA / NỢ / BIÊN LN - mã thử: VNM\n// ratios/latest chỉ có P/E,P/B,cổ tức -> tìm endpoint khác.\n// Chạy xong gửi kết quả (tab JSON) để chọn nguồn.\n// ============================================================\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst Hv = { 'User-Agent': UA, 'Accept': 'application/json, text/plain, */*', 'Referer': 'https://dstock.vndirect.com.vn/' };\nconst H = { 'User-Agent': UA, 'Accept': 'application/json, text/plain, */*' };\n\nconst sources = [\n  {\n    name: 'A. VNDirect financial_models (modelType:1)',\n    url: 'https://api-finfo.vndirect.com.vn/v4/financial_models?q=code:VNM~modelType:1&sort=reportDate:desc&size=5',\n    headers: Hv,\n  },\n  {\n    name: 'B. VNDirect financial_models (không filter phụ)',\n    url: 'https://api-finfo.vndirect.com.vn/v4/financial_models?q=code:VNM&size=5',\n    headers: Hv,\n  },\n  {\n    name: 'C. VNDirect ratios (filter ROE/nợ trực tiếp)',\n    url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:VNM~itemCode:51003,51004,52001,53008&sort=reportDate:desc&size=20',\n    headers: Hv,\n  },\n  {\n    name: 'D. VNDirect financial_statements',\n    url: 'https://api-finfo.vndirect.com.vn/v4/financial_statements?q=code:VNM~reportType:QUARTER~modelType:1&sort=reportDate:desc&size=3',\n    headers: Hv,\n  },\n  {\n    name: 'E. SSI iboard - finance ratio',\n    url: 'https://iboard-query.ssi.com.vn/statistics/company/finance-ratio?symbol=VNM',\n    headers: { ...H, Referer: 'https://iboard.ssi.com.vn/' },\n  },\n  {\n    name: 'F. Simplize - financial ratio',\n    url: 'https://api.simplize.vn/api/company/financial-ratio/VNM',\n    headers: H,\n  },\n  {\n    name: 'G. Simplize - key indicators',\n    url: 'https://api.simplize.vn/api/company/key-statistics/VNM',\n    headers: H,\n  },\n];\n\nconst results = [];\nfor (const s of sources) {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: s.url, headers: s.headers, json: false, timeout: 20000 });\n    const body = typeof res === 'string' ? res : JSON.stringify(res);\n    results.push({ source: s.name, status: '✅ SỐNG', sample: body.slice(0, 700) });\n  } catch (e) {\n    results.push({ source: s.name, status: '❌ ' + (e.message || String(e)), sample: '' });\n  }\n}\n\nreturn results.map(r => ({ json: r }));"
+      },
+      "id": "probe-quality",
+      "name": "Thăm dò 7 nguồn ROE/Nợ",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 300]
+    }
+  ],
+  "connections": {
+    "Bấm Execute để thăm dò": {
+      "main": [[{ "node": "Thăm dò 7 nguồn ROE/Nợ", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "probe" }]
+}
