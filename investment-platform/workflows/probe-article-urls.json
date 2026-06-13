@@ -1,0 +1,28 @@
+{
+  "name": "[CK] Thăm dò lấy URL bài gốc (Jina+RSS) - chạy 1 lần",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Bấm Execute để thăm dò",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// Mục tiêu: lấy được DANH SÁCH URL BÀI GỐC (cafef/vietstock...) để đưa Jina đọc full.\n// Link Google News bị Jina chặn 451 -> thử lấy URL qua RSS đọc bằng Jina.\n// ============================================================\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst H = { 'User-Agent': UA, 'Accept': 'text/plain, */*' };\n\nconst jina = async (url) => {\n  const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://r.jina.ai/' + url, headers: H, json: false, timeout: 30000 });\n  return typeof res === 'string' ? res : String(res);\n};\n\nconst out = [];\n\n// Các RSS báo VN (đọc qua Jina để né chặn IP)\nconst rssList = [\n  { name: 'CafeF CK', url: 'https://cafef.vn/thi-truong-chung-khoan.rss' },\n  { name: 'CafeF DN', url: 'https://cafef.vn/doanh-nghiep.rss' },\n  { name: 'Vietstock', url: 'https://vietstock.vn/145/chung-khoan/thi-truong.rss' },\n];\n\nfor (const r of rssList) {\n  try {\n    const body = await jina(r.url);\n    // Tìm URL bài gốc: cafef.vn/...html|.chn  hoặc  vietstock.vn/...htm\n    const urls = (body.match(/https?:\\/\\/(?:[a-z]+\\.)?(?:cafef\\.vn|vietstock\\.vn)\\/[^\\s)\\]\"'>]+\\.(?:html?|chn)/gi) || []);\n    const uniq = [...new Set(urls)].slice(0, 5);\n    out.push({ json: { rss: r.name, status: '✅ Jina đọc được (' + body.length + ' ký tự)', soBaiTimThay: uniq.length, mauURL: uniq } });\n  } catch (e) {\n    out.push({ json: { rss: r.name, status: '❌ ' + (e.message || String(e)), soBaiTimThay: 0, mauURL: [] } });\n  }\n}\n\n// Nếu tìm được 1 URL bài, thử Jina đọc full bài đó để xác nhận có nội dung\nlet firstArticle = '';\nfor (const o of out) { if (o.json.mauURL && o.json.mauURL.length) { firstArticle = o.json.mauURL[0]; break; } }\nif (firstArticle) {\n  try {\n    const art = await jina(firstArticle);\n    out.push({ json: { rss: '>>> TEST đọc full 1 bài', status: '✅ (' + art.length + ' ký tự)', url: firstArticle, sample: art.replace(/\\s+/g, ' ').slice(0, 500) } });\n  } catch (e) {\n    out.push({ json: { rss: '>>> TEST đọc full 1 bài', status: '❌ ' + (e.message || String(e)), url: firstArticle } });\n  }\n}\n\nreturn out;"
+      },
+      "id": "probe",
+      "name": "Thăm dò URL + full bài",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 300]
+    }
+  ],
+  "connections": {
+    "Bấm Execute để thăm dò": { "main": [[{ "node": "Thăm dò URL + full bài", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "probe" }]
+}
