@@ -21,6 +21,7 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 | **3A** | Nhịp ngành BĐS phục vụ quyết định chứng khoán (AI) | ✅ Xong |
 | **4** | Định giá cơ bản: P/E, P/B (+ dải lịch sử), ROE → "rẻ hay đắt" (AI) | ✅ Xong |
 | **5** | Sổ điểm sống: hệ thống tự chấm tín hiệu bằng dữ liệu thật (NL #8) | ✅ Xong |
+| **6** | Máy tính khối lượng & R:R — "vào bao nhiêu" (NL #5) | ✅ Xong |
 | **4** | Backtest tín hiệu hàng tuần + quét ngưỡng cắt lỗ | ✅ Xong |
 
 ---
@@ -341,6 +342,28 @@ chạy đều vài tuần mới có đủ lệnh "đến hạn chốt" để th�
 
 > 💡 Lưu trạng thái bằng `$getWorkflowStaticData` của n8n — chỉ tích luỹ khi
 > workflow **Active** (chạy tay không lưu sổ).
+
+---
+
+## Giai đoạn 6 — Máy tính khối lượng & R:R (Position Sizing)
+
+**File workflow:** [`workflows/position-sizing.json`](workflows/position-sizing.json)
+**Nền tảng triết lý:** nguyên lý #5 (bất đối xứng & quản trị vị thế) — trả lời câu
+#6 của bộ lọc 7 câu: *"vào bao nhiêu, R:R bao nhiêu?"*
+
+**Làm gì:** Nhập 7 thông số (NAV, mã, giá vào, **cắt lỗ**, mục tiêu, % rủi ro/lệnh,
+trần % vị thế) → bấm Execute → nhận thẻ trên Telegram: **mua bao nhiêu cổ phiếu**,
+giá trị vị thế (% NAV), **rủi ro thực bằng tiền** nếu chạm cắt lỗ, và **R:R**. Tự
+cảnh báo khi rủi ro/lệnh quá cao, R:R < 2, hoặc vị thế chạm trần.
+
+Công thức: Khối lượng = (NAV × %rủi-ro) ÷ (giá vào − giá cắt lỗ), làm tròn lô 100,
+giới hạn thêm bởi trần % NAV. **Bắt buộc có cắt lỗ** — không có cắt lỗ, không tính
+(kỷ luật bảo toàn vốn).
+
+**Cài đặt:** Import → node Telegram chọn credential + Chat ID. Đây là công cụ
+**bấm tay** (Manual) — chạy mỗi khi cân nhắc một lệnh, không cần Active.
+
+**Dùng:** sửa 7 dòng đầu node "Tính khối lượng & R:R" → Execute workflow.
 
 ---
 
