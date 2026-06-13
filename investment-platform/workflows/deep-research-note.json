@@ -53,7 +53,7 @@
     },
     {
       "parameters": {
-        "chatId": "PASTE_CHAT_ID_HERE",
+        "chatId": "5239928968",
         "text": "={{ $json.message }}",
         "additionalFields": { "parse_mode": "Markdown" }
       },
