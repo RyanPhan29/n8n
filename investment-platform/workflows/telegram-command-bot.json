@@ -1,5 +1,5 @@
 {
-  "name": "CK · 05 · 🤖 Bot lệnh /size /check",
+  "name": "CK · 05 · 🤖 Bot lệnh /size /check /sâu",
   "nodes": [
     {
       "parameters": {
@@ -13,8 +13,8 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.1,
       "position": [
-        240,
-        320
+        200,
+        400
       ],
       "webhookId": "cmd-bot-webhook",
       "credentials": {
@@ -26,15 +26,98 @@
     },
     {
       "parameters": {
-        "jsCode": "// ===========================================================================\n//  BỘ NÃO BOT - anh CHỈ CẦN GÕ MÃ, bot tự tính giá vào / cắt lỗ / mục tiêu\n//  từ dữ liệu giá (hỗ trợ - kháng cự). Anh vẫn có thể nhập tay để ghi đè.\n//    /size BID            -> bot tự đề xuất 3 mức + tính khối lượng & R:R\n//    /check BID           -> bot tự đề xuất 3 mức + bảng 7 câu\n//    /size BID 42 39 46    -> anh tự nhập (ghi đè) vào/cắtlỗ/mục tiêu\n// ===========================================================================\nconst OWNER = 5239928968;        // chỉ Chat ID này dùng được (chống người lạ)\nconst NAV   = 5000000;           // tài sản ròng (ĐỒNG) - sửa khi nạp thêm vốn\nconst MAX_POS_PCT = 100;         // trần % NAV / 1 vị thế\nconst RISK_PCT_DEF = 1.5;        // % NAV chấp nhận mất nếu cắt lỗ\n// ===========================================================================\n\nconst upd = $input.first().json;\nconst msg = upd.message || upd.channel_post || {};\nconst text = (msg.text || '').trim();\nconst chatId = msg.chat && msg.chat.id;\nconst out = (m) => [{ json: { chatId, message: m } }];\n\nif (String(chatId) !== String(OWNER)) return out('⛔ Bot riêng tư.');\n\nconst help = '🤖 *Bot CK — chỉ cần gõ MÃ*\\n\\n'\n  + '🧮 `/size MÃ`\\n   _vd: /size BID_ — bot tự tính vùng giá rồi ra khối lượng & R:R\\n\\n'\n  + '🧭 `/check MÃ`\\n   _vd: /check FPT_ — bot tự tính vùng giá + bảng 7 câu\\n\\n'\n  + '✍️ Muốn tự nhập: `/size MÃ vào cắtlỗ mụctiêu` _(nghìn đồng, vd /size BID 42 39 46)_\\n\\n'\n  + '_Mức bot đề xuất là GỢI Ý kỹ thuật từ hỗ trợ–kháng cự, không phải lệnh mua._';\n\nif (!text || /^\\/(start|help)\\b/i.test(text)) return out(help);\n\nconst parts = text.split(/\\s+/);\nconst cmd = parts[0].toLowerCase().replace(/@.*$/, '');\nif (cmd !== '/size' && cmd !== '/check') return out('❓ Lệnh không hiểu.\\n\\n' + help);\n\nconst TICKER = (parts[1] || '').toUpperCase().replace(/[^A-Z0-9]/g, '');\nif (!TICKER) return out('⚠️ Thiếu mã. Chỉ cần gõ: `/size BID` hoặc `/check FPT`');\n\nconst aEntry  = parts[2] != null ? parseFloat(parts[2]) : NaN;\nconst aStop   = parts[3] != null ? parseFloat(parts[3]) : NaN;\nconst aTarget = parts[4] != null ? parseFloat(parts[4]) : NaN;\nconst RISK_PCT = (parts[5] != null && parseFloat(parts[5]) > 0) ? parseFloat(parts[5]) : RISK_PCT_DEF;\n\nconst fmtM = (d) => (d / 1e6).toFixed(d < 1e7 ? 2 : 1) + ' triệu';\nconst fmtP = (k) => Math.round(k * 1000).toLocaleString('vi-VN') + 'đ';\n\n// ---- dữ liệu (3 nguồn đã chạy thật ở các workflow khác) -------------------\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst hBar = { 'User-Agent': UA, 'Accept': '*/*' };\nconst hFin = { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\nconst to = Math.floor(Date.now() / 1000), from = to - 60 * 60 * 24 * 200;\n\n// Chuẩn hoá về ĐỒNG: vài nguồn trả giá theo nghìn đồng (70.0), nguồn khác theo đồng (70000).\n// Giá CP thật ở VN luôn >= ~1000đ, còn thang nghìn thì < 1000 → quy ước: < 1000 nghĩa là nghìn → ×1000.\nconst normBars = (r) => {\n  if (!r || !Array.isArray(r.c) || !r.c.length) return r;\n  const last = r.c[r.c.length - 1];\n  if (last > 0 && last < 1000) for (const k of ['c', 'o', 'h', 'l']) if (Array.isArray(r[k])) r[k] = r[k].map(x => x * 1000);\n  return r;\n};\nconst fetchBars = async (t) => {\n  try {\n    const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://services.entrade.com.vn/chart-api/v2/ohlcs/stock', qs: { symbol: t, from, to, resolution: '1D' }, headers: hBar, json: true, timeout: 15000 });\n    if (r && Array.isArray(r.c) && r.c.length) return normBars(r);\n  } catch (e) {}\n  try {\n    const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://dchart-api.vndirect.com.vn/dchart/history', qs: { symbol: t, resolution: 'D', from, to }, headers: { ...hBar, Referer: 'https://dchart.vndirect.com.vn/' }, json: true, timeout: 15000 });\n    if (r && Array.isArray(r.c) && r.c.length) return normBars(r);\n  } catch (e) {}\n  return null;\n};\nconst fetchPE = async (t) => {\n  try {\n    const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:' + t + '~itemCode:51006,1000043&sort=reportDate:desc&size=10', headers: hFin, json: false, timeout: 12000 });\n    let p; try { p = typeof r === 'string' ? JSON.parse(r) : r; } catch (e) { p = null; }\n    const m = {}; for (const d of ((p && p.data) || [])) if (!(d.ratioCode in m)) m[d.ratioCode] = d.value;\n    return { pe: m['PRICE_TO_EARNINGS'], pe5: m['PRICE_TO_EARNINGS_AVG_CR_5Y'] };\n  } catch (e) { return {}; }\n};\nconst fetchFlow = async (t) => {\n  try {\n    const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + t + '&size=5&sort=tradingDate:desc', headers: hFin, json: true, timeout: 12000 });\n    return ((r && r.data) || []).map(x => (x.netVal || 0) / 1e9);\n  } catch (e) { return []; }\n};\n\n// ---- vùng giá: hỗ trợ / kháng cự từ swing pivots --------------------------\nconst tickOf = (p) => p < 10000 ? 10 : p < 50000 ? 50 : 100;     // bước giá HOSE\nconst roundT = (p) => { const t = tickOf(p); return Math.round(p / t) * t; };\nconst pivots = (arr, w, kind) => {\n  const r = [];\n  for (let i = w; i < arr.length - w; i++) {\n    let ok = true;\n    for (let k = i - w; k <= i + w; k++) { if (k === i) continue; if (kind === 'low' ? arr[k] < arr[i] : arr[k] > arr[i]) { ok = false; break; } }\n    if (ok) r.push({ i, v: arr[i] });\n  }\n  return r;\n};\nconst dstr = (sec) => new Date(sec * 1000).toLocaleDateString('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' });\n\nconst deriveLevels = (bars, entryOverrideK) => {\n  const n = bars.c.length, lows = bars.l, highs = bars.h, times = bars.t;\n  const closeD = bars.c[n - 1];\n  const entryD = entryOverrideK > 0 ? entryOverrideK * 1000 : closeD;\n  const lookI = Math.max(0, n - 130);                 // ~6 tháng gần nhất\n  const pl = pivots(lows, 3, 'low').filter(p => p.i >= lookI && p.v < entryD * 0.997);\n  const ph = pivots(highs, 3, 'high').filter(p => p.i >= lookI && p.v > entryD * 1.003);\n  const note = [];\n\n  // hỗ trợ: pivot đáy cao nhất còn nằm dưới giá vào; nếu không có -> đáy 20 phiên\n  let sup, supDate = null;\n  if (pl.length) { const best = pl.reduce((a, b) => b.v > a.v ? b : a); sup = best.v; supDate = dstr(times[best.i]); }\n  else { sup = Math.min(...lows.slice(Math.max(0, n - 20))); note.push('hỗ trợ tạm tính = đáy 20 phiên'); }\n\n  // kháng cự: pivot đỉnh thấp nhất nằm trên giá vào; nếu không có -> đỉnh 130 phiên; vẫn không -> +8%\n  let res, resDate = null;\n  if (ph.length) { const best = ph.reduce((a, b) => b.v < a.v ? b : a); res = best.v; resDate = dstr(times[best.i]); }\n  else { const hi = Math.max(...highs.slice(lookI)); if (hi > entryD * 1.01) { res = hi; note.push('kháng cự tạm tính = đỉnh 6 tháng'); } else { res = entryD * 1.08; note.push('⚠️ giá đang ở vùng đỉnh, không có kháng cự rõ phía trên → mục tiêu tạm +8%'); } }\n\n  let stopD = roundT(sup * 0.985);                    // cắt lỗ nhích dưới hỗ trợ ~1.5%\n  if (stopD >= entryD) stopD = roundT(entryD * 0.92);\n  let targetD = roundT(res);\n  const eD = roundT(entryD);\n  if (targetD <= eD) { targetD = roundT(eD * 1.08); note.push('mục tiêu điều chỉnh +8%'); }\n  return { eD, stopD, targetD, supD: roundT(sup), resD: roundT(res), supDate, resDate, closeD: roundT(closeD), note };\n};\n\n// ---- lấy mức giá (tự động hoặc tay) ---------------------------------------\nconst manual = aEntry > 0 && aStop > 0;\nlet ENTRY, STOP, TARGET, prov;\n\nif (manual) {\n  if (!(aStop < aEntry)) return out('⚠️ Cắt lỗ phải THẤP HƠN giá vào.');\n  ENTRY = aEntry; STOP = aStop; TARGET = aTarget > aEntry ? aTarget : 0;\n  prov = '✍️ _Mức anh tự nhập_';\n} else {\n  const bars = await fetchBars(TICKER);\n  if (!bars || !Array.isArray(bars.c) || bars.c.length < 12) {\n    return out('🔴 Không lấy được dữ liệu giá *' + TICKER + '* (API lỗi hoặc mã sai).\\nThử lại sau, hoặc nhập tay: `/' + cmd.slice(1) + ' ' + TICKER + ' vào cắtlỗ mụctiêu`');\n  }\n  const d = deriveLevels(bars, aEntry);\n  ENTRY = d.eD / 1000; STOP = d.stopD / 1000; TARGET = d.targetD / 1000;\n  prov = '📐 *Mức bot tự tính:*\\n'\n    + '· Vào ≈ giá hiện tại ' + fmtP(d.closeD / 1000) + '\\n'\n    + '· Cắt lỗ ' + fmtP(STOP) + ' _(dưới hỗ trợ ' + fmtP(d.supD / 1000) + (d.supDate ? ' lập ' + d.supDate : '') + ')_\\n'\n    + '· Mục tiêu ' + fmtP(TARGET) + ' _(kháng cự ' + fmtP(d.resD / 1000) + (d.resDate ? ' lập ' + d.resDate : '') + ')_'\n    + (d.note.length ? '\\n· ' + d.note.join('; ') : '');\n}\n\nconst entryD = ENTRY * 1000;\nconst riskPerShare = (ENTRY - STOP) * 1000;\nconst byRisk = Math.floor((NAV * RISK_PCT / 100) / riskPerShare / 100) * 100;\nconst byCap = Math.floor((NAV * MAX_POS_PCT / 100) / entryD / 100) * 100;\nconst shares = Math.max(0, Math.min(byRisk, byCap));\nconst lotCost = entryD * 100;\nconst rr = TARGET > ENTRY ? (TARGET - ENTRY) / (ENTRY - STOP) : null;\n\n// ---------------------------- /size ----------------------------------------\nif (cmd === '/size') {\n  const L = ['🧮 *SIZING — ' + TICKER + '*', prov, '_NAV ' + fmtM(NAV) + ' · rủi ro ' + RISK_PCT + '%_', ''];\n  if (shares <= 0) {\n    L.push('→ Theo quy tắc rủi ro: chưa nên mua (chưa đủ 1 lô).');\n    L.push(lotCost <= NAV ? '⚠️ Tối thiểu 1 lô = ' + fmtM(lotCost) + ' (' + (lotCost / NAV * 100).toFixed(0) + '% NAV → tập trung rất cao).' : '🔴 NAV không đủ 1 lô (' + fmtM(lotCost) + ').');\n  } else {\n    L.push('→ *MUA ' + shares.toLocaleString('vi-VN') + ' cp* (' + (shares / 100) + ' lô) = ' + fmtM(shares * entryD) + ' (' + (shares * entryD / NAV * 100).toFixed(0) + '% NAV)');\n    L.push('→ Rủi ro thực nếu cắt lỗ: *' + fmtM(shares * riskPerShare) + '* (' + (shares * riskPerShare / NAV * 100).toFixed(2) + '% NAV)');\n  }\n  if (rr != null) L.push('→ *R:R ' + rr.toFixed(2) + '*' + (rr < 2 ? ' ⚠️ mỏng (<2, lời ít hơn 2× rủi ro)' : ' ✓ ổn'));\n  L.push('');\n  L.push('_Số bot tính là điểm khởi đầu — anh xem chart xác nhận trước khi đặt lệnh._');\n  return out(L.join('\\n'));\n}\n\n// ---------------------------- /check ---------------------------------------\nconst pe = await fetchPE(TICKER);\nlet q2 = '_thiếu P/E_';\nif (pe.pe > 0 && pe.pe5 > 0) { const k = pe.pe / pe.pe5; q2 = 'P/E ' + pe.pe.toFixed(1) + ' vs TB5N ' + pe.pe5.toFixed(1) + ' → ' + (k <= 0.85 ? '🟢 RẺ so lịch sử' : k >= 1.15 ? '🔴 ĐẮT so lịch sử' : '🟡 quanh TB'); }\nelse if (pe.pe > 0) q2 = 'P/E ' + pe.pe.toFixed(1) + ' _(thiếu TB lịch sử)_';\n\nconst nets = await fetchFlow(TICKER);\nlet q4 = '_không lấy được_';\nif (nets.length) { const dir = nets[0] > 1 ? 1 : nets[0] < -1 ? -1 : 0; let st = 0; for (const v of nets) { const s = v > 1 ? 1 : v < -1 ? -1 : 0; if (s === dir && dir) st++; else break; } q4 = 'phiên gần nhất ' + nets[0].toFixed(1) + ' tỷ' + (st >= 2 ? ' · ' + (dir > 0 ? 'GOM' : 'XẢ') + ' ' + st + ' phiên' : '') + ' · tổng 5p ' + nets.reduce((a, b) => a + b, 0).toFixed(1) + ' tỷ'; }\n\nconst q6 = (shares >= 100 ? 'mua ' + shares.toLocaleString('vi-VN') + ' cp (' + (shares * entryD / NAV * 100).toFixed(0) + '% NAV)' : (lotCost <= NAV ? '⚠️ chỉ đủ ~1 lô (' + (lotCost / NAV * 100).toFixed(0) + '% NAV)' : '🔴 NAV không đủ 1 lô')) + ' · R:R ' + (rr ? rr.toFixed(2) + (rr < 2 ? ' ⚠️' : '') : 'n/a');\n\nconst L = ['🧭 *BẢNG 7 CÂU — ' + TICKER + '*', prov, ''];\nL.push('① *Hiểu DN?* → DN này kiếm tiền bằng cách nào? Nói gọn 1 câu được không?');\nL.push('   _Không nói được → chưa hiểu → bỏ qua._');\nL.push('② Rẻ/đắt? ✅ ' + q2);\nL.push('③ *Luận điểm?* → Mua vì TIN điều gì sắp xảy ra? Dấu hiệu nào cho thấy mình SAI?');\nL.push('   _Viết được câu \"nếu… thì tôi sai\" mới nên mua._');\nL.push('④ Bối cảnh? ✅ Khối ngoại: ' + q4);\nL.push('⑤ *Thời điểm?* → Có xúc tác để tăng BÂY GIỜ (KQKD, cổ tức, hợp đồng…), hay chỉ \"thấy rẻ ham\" = bắt dao rơi?');\nL.push('⑥ Kích thước & R:R? ✅ ' + q6);\nL.push('⑦ Thoát? ✅ Cắt lỗ ' + fmtP(STOP) + (TARGET ? ' · Mục tiêu ' + fmtP(TARGET) : ''));\nL.push('');\nL.push('📝 ②④⑥⑦ bot lo (định lượng). ①③⑤ là VIỆC CỦA ANH (định tính) — đây mới là phần bảo vệ tiền của anh.');\nL.push('💡 Bí ①③⑤? Chạy *\"🔬 Soi sâu 1 mã\"* (CK·04) — AI viết nháp sẵn 3 câu này, anh chỉ đọc & duyệt.');\nL.push('_Mức giá là gợi ý kỹ thuật, không phải khuyến nghị mua/bán._');\nreturn out(L.join('\\n'));\n"
+        "jsCode": "// ===========================================================================\n//  BỘ NÃO BOT - /size /check (tính nhanh) + /sâu (AI viết nháp ①③⑤).\n//  Trả về { route:'direct', chatId, message }  -> gửi thẳng Telegram\n//         { route:'ai', chatId, requestBody, prelude } -> qua node Claude\n// ===========================================================================\nconst OWNER = 5239928968;\nconst NAV   = 5000000;\nconst MAX_POS_PCT = 100;\nconst RISK_PCT_DEF = 1.5;\nconst MAX_ARTICLES = 2;   // số bài thị trường đọc full cho /sâu (mỗi bài ~10s)\n// ===========================================================================\n\nconst upd = $input.first().json;\nconst msg = upd.message || upd.channel_post || {};\nconst text = (msg.text || '').trim();\nconst chatId = msg.chat && msg.chat.id;\nconst direct = (m) => [{ json: { route: 'direct', chatId, message: m } }];\n\nif (String(chatId) !== String(OWNER)) return direct('⛔ Bot riêng tư.');\n\nconst help = '🤖 *Bot CK — chỉ cần gõ MÃ*\\n\\n'\n  + '🧮 `/size MÃ` — tự tính vùng giá + khối lượng & R:R\\n'\n  + '🧭 `/check MÃ` — vùng giá + bảng 7 câu (định lượng)\\n'\n  + '🔬 `/sâu MÃ` — AI đọc tin + dữ liệu, viết NHÁP ①③⑤ _(chậm ~30-60s)_\\n\\n'\n  + '✍️ Tự nhập: `/size MÃ vào cắtlỗ mụctiêu` _(nghìn đồng)_\\n'\n  + '_Mức & nháp đều là gợi ý để anh phản biện, không phải lệnh mua._';\nif (!text || /^\\/(start|help)\\b/i.test(text)) return direct(help);\n\nconst parts = text.split(/\\s+/);\nconst cmd = parts[0].toLowerCase().replace(/@.*$/, '');\nconst isDeep = /^\\/(s[aâ]u|research|deep)$/i.test(cmd);\nif (cmd !== '/size' && cmd !== '/check' && !isDeep) return direct('❓ Lệnh không hiểu.\\n\\n' + help);\nconst TICKER = (parts[1] || '').toUpperCase().replace(/[^A-Z0-9]/g, '');\nif (!TICKER) return direct('⚠️ Thiếu mã. Gõ: `/size BID`, `/check FPT` hoặc `/sâu FPT`');\n\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst hBar = { 'User-Agent': UA, 'Accept': '*/*' };\nconst hFin = { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\nconst hTxt = { 'User-Agent': UA, 'Accept': 'text/plain, */*' };\n\n// ====================== /sâu — gom dữ liệu + dựng prompt AI ================\nif (isDeep) {\n  // 1) định giá đầy đủ\n  let valuation = '(không lấy được)';\n  try {\n    const codes = '51006,51012,51011,51033,51007,1000041,1000043,1000050,1000068';\n    const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:' + TICKER + '~itemCode:' + codes + '&sort=reportDate:desc&size=60', headers: hFin, json: false, timeout: 15000 });\n    let p; try { p = typeof r === 'string' ? JSON.parse(r) : r; } catch (e) { p = null; }\n    const m = {}; for (const d of ((p && p.data) || [])) if (!(d.ratioCode in m)) m[d.ratioCode] = d.value;\n    const n2 = (v) => v == null ? 'n/a' : Number(v).toFixed(1);\n    const pcv = (v) => v == null ? 'n/a' : (Number(v) * 100).toFixed(1) + '%';\n    valuation = 'P/E ' + n2(m.PRICE_TO_EARNINGS) + ' (TB 1N/5N: ' + n2(m.PRICE_TO_EARNINGS_AVG_CR_1Y) + '/' + n2(m.PRICE_TO_EARNINGS_AVG_CR_5Y) + ') | P/B ' + n2(m.PRICE_TO_BOOK) + ' (TB5N ' + n2(m.PRICE_TO_BOOK_AVG_CR_5Y) + ') | Cổ tức ' + pcv(m.DIVIDEND_YIELD) + ' | Beta ' + n2(m.BETA) + ' | cách đỉnh 52T ' + pcv(m.PRICE_CHG_PCT_CR_HH52W);\n  } catch (e) {}\n  // 2) dòng tiền ngoại 10 phiên\n  let flow = '(không lấy được)';\n  try {\n    const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + TICKER + '&size=10&sort=tradingDate:desc', headers: hFin, json: true, timeout: 15000 });\n    const nets = ((r && r.data) || []).map(x => (x.netVal || 0) / 1e9);\n    if (nets.length) flow = '10 phiên (tỷ, mới→cũ): [' + nets.map(v => v.toFixed(1)).join(', ') + '] · tổng ' + nets.reduce((a, b) => a + b, 0).toFixed(1) + ' tỷ';\n  } catch (e) {}\n  // 3) tiêu đề tin về mã\n  let headlines = '(không lấy được)';\n  try {\n    const url = 'https://news.google.com/rss/search?q=' + encodeURIComponent('\"' + TICKER + '\" cổ phiếu when:7d') + '&hl=vi&gl=VN&ceid=VN:vi';\n    const body = await this.helpers.httpRequest({ method: 'GET', url, headers: { 'User-Agent': UA, 'Accept': '*/*' }, json: false, timeout: 15000 });\n    const xml = String(body);\n    const titles = (xml.match(/<item[\\s\\S]*?<\\/item>/gi) || []).slice(0, 8).map(it => { const m = it.match(/<title>([\\s\\S]*?)<\\/title>/i); return m ? m[1].replace(/<!\\[CDATA\\[/g, '').replace(/\\]\\]>/g, '').replace(/&amp;/g, '&').trim() : ''; }).filter(Boolean);\n    if (titles.length) headlines = titles.map((t, i) => (i + 1) + '. ' + t).join('\\n');\n  } catch (e) {}\n  // 4) bối cảnh thị trường full-text (Jina + Vietstock)\n  let context = '(không lấy được)';\n  try {\n    const jina = async (u) => String(await this.helpers.httpRequest({ method: 'GET', url: 'https://r.jina.ai/' + u, headers: hTxt, json: false, timeout: 40000 }));\n    const rss = await jina('https://vietstock.vn/145/chung-khoan/thi-truong.rss');\n    const urls = [...new Set((rss.match(/https?:\\/\\/(?:[a-z]+\\.)?vietstock\\.vn\\/[^\\s)\\]\"'>]+\\.htm/gi) || []))].slice(0, MAX_ARTICLES);\n    const arts = [];\n    for (const u of urls) { try { const a = await jina(u); const title = (a.match(/Title:\\s*([^\\n]+)/) || [])[1] || ''; const bd = (a.split('Markdown Content:')[1] || a).replace(/!\\[[^\\]]*\\]\\([^)]*\\)/g, '').replace(/\\[[^\\]]*\\]\\([^)]*\\)/g, '').replace(/\\s+/g, ' ').trim().slice(0, 1800); if (bd.length > 200) arts.push('• ' + title.trim() + '\\n' + bd); } catch (e) {} }\n    if (arts.length) context = arts.join('\\n\\n');\n  } catch (e) {}\n\n  const today = new Date().toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', day: 'numeric', month: 'numeric', year: 'numeric' });\n  const system = 'Bạn là chuyên viên phân tích cổ phiếu cấp cao, viết NHÁP trả lời 3 câu hỏi ĐỊNH TÍNH (①③⑤) cho nhà đầu tư cá nhân về mã ' + TICKER + ', bằng tiếng Việt. Tỉnh táo, hoài nghi, dựa bằng chứng. Đây là NHÁP để nhà đầu tư PHẢN BIỆN, KHÔNG phải khuyến nghị mua/bán.\\n\\n'\n    + 'Độ tin cậy nguồn: DỮ LIỆU CỨNG (định giá, dòng tiền khối ngoại) = đáng tin nhất. TIÊU ĐỀ tin = chưa kiểm chứng, dễ giật tít. BỐI CẢNH (toàn văn) = hiểu môi trường chung.\\n\\n'\n    + 'Trả lời ĐÚNG 3 mục + 1 mục kiểm chứng, mỗi mục 2-5 câu:\\n'\n    + '*① HIỂU DOANH NGHIỆP:* ' + TICKER + ' kiếm tiền bằng cách nào? Mô hình cốt lõi, vị thế ngành — nói dễ hiểu như giải thích cho người mới.\\n'\n    + '*③ LUẬN ĐIỂM & PHẢN BIỆN:* nêu 1 luận điểm tăng giá HỢP LÝ dựa trên dữ liệu/tin; rồi BẮT BUỘC nêu \"NẾU… THÌ luận điểm SAI\" (dấu hiệu/ngưỡng cụ thể) và rủi ro lớn nhất.\\n'\n    + '*⑤ THỜI ĐIỂM:* có xúc tác ngắn hạn (KQKD, cổ tức, sự kiện) không, hay đang \"bắt dao rơi\"? Dựa trên tin + dòng tiền ngoại + định giá.\\n'\n    + '*🔎 CẦN TỰ KIỂM CHỨNG:* nêu rõ những gì dữ liệu này CHƯA có (ROE/nợ/chất lượng tài sản/BCTC gốc) mà nhà đầu tư phải tự tra.\\n\\n'\n    + 'TUYỆT ĐỐI không bịa số. Nguồn nào trống thì nói rõ. Tối đa ~550 từ.';\n  const userContent = 'Mã ' + TICKER + ', ngày ' + today + '.\\n\\n=== ĐỊNH GIÁ (cứng) ===\\n' + valuation + '\\n\\n=== DÒNG TIỀN NGOẠI (cứng) ===\\n' + flow + '\\n\\n=== TIÊU ĐỀ TIN (chưa kiểm chứng) ===\\n' + headlines + '\\n\\n=== BỐI CẢNH TT (toàn văn) ===\\n' + context + '\\n\\nTrả lời ①③⑤ + kiểm chứng.';\n  const requestBody = { model: 'claude-opus-4-8', max_tokens: 6000, thinking: { type: 'adaptive' }, system, messages: [{ role: 'user', content: userContent }] };\n  const prelude = '🔬 *SOI SÂU — ' + TICKER + '*  _(nháp ①③⑤ để anh phản biện)_';\n  return [{ json: { route: 'ai', chatId, requestBody, prelude } }];\n}\n\n// ====================== /size /check (tính nhanh) =========================\nconst aEntry = parts[2] != null ? parseFloat(parts[2]) : NaN;\nconst aStop = parts[3] != null ? parseFloat(parts[3]) : NaN;\nconst aTarget = parts[4] != null ? parseFloat(parts[4]) : NaN;\nconst RISK_PCT = (parts[5] != null && parseFloat(parts[5]) > 0) ? parseFloat(parts[5]) : RISK_PCT_DEF;\n\nconst fmtM = (d) => (d / 1e6).toFixed(d < 1e7 ? 2 : 1) + ' triệu';\nconst fmtP = (k) => Math.round(k * 1000).toLocaleString('vi-VN') + 'đ';\nconst to = Math.floor(Date.now() / 1000), from = to - 60 * 60 * 24 * 200;\nconst normBars = (r) => { if (!r || !Array.isArray(r.c) || !r.c.length) return r; const last = r.c[r.c.length - 1]; if (last > 0 && last < 1000) for (const k of ['c', 'o', 'h', 'l']) if (Array.isArray(r[k])) r[k] = r[k].map(x => x * 1000); return r; };\nconst fetchBars = async (t) => {\n  try { const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://services.entrade.com.vn/chart-api/v2/ohlcs/stock', qs: { symbol: t, from, to, resolution: '1D' }, headers: hBar, json: true, timeout: 15000 }); if (r && Array.isArray(r.c) && r.c.length) return normBars(r); } catch (e) {}\n  try { const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://dchart-api.vndirect.com.vn/dchart/history', qs: { symbol: t, resolution: 'D', from, to }, headers: { ...hBar, Referer: 'https://dchart.vndirect.com.vn/' }, json: true, timeout: 15000 }); if (r && Array.isArray(r.c) && r.c.length) return normBars(r); } catch (e) {}\n  return null;\n};\nconst fetchPE = async (t) => { try { const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:' + t + '~itemCode:51006,1000043&sort=reportDate:desc&size=10', headers: hFin, json: false, timeout: 12000 }); let p; try { p = typeof r === 'string' ? JSON.parse(r) : r; } catch (e) { p = null; } const m = {}; for (const d of ((p && p.data) || [])) if (!(d.ratioCode in m)) m[d.ratioCode] = d.value; return { pe: m['PRICE_TO_EARNINGS'], pe5: m['PRICE_TO_EARNINGS_AVG_CR_5Y'] }; } catch (e) { return {}; } };\nconst fetchFlow = async (t) => { try { const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + t + '&size=5&sort=tradingDate:desc', headers: hFin, json: true, timeout: 12000 }); return ((r && r.data) || []).map(x => (x.netVal || 0) / 1e9); } catch (e) { return []; } };\nconst tickOf = (p) => p < 10000 ? 10 : p < 50000 ? 50 : 100;\nconst roundT = (p) => { const t = tickOf(p); return Math.round(p / t) * t; };\nconst pivots = (arr, w, kind) => { const r = []; for (let i = w; i < arr.length - w; i++) { let ok = true; for (let k = i - w; k <= i + w; k++) { if (k === i) continue; if (kind === 'low' ? arr[k] < arr[i] : arr[k] > arr[i]) { ok = false; break; } } if (ok) r.push({ i, v: arr[i] }); } return r; };\nconst dstr = (sec) => new Date(sec * 1000).toLocaleDateString('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst deriveLevels = (bars, entryOverrideK) => {\n  const n = bars.c.length, lows = bars.l, highs = bars.h, times = bars.t;\n  const closeD = bars.c[n - 1]; const entryD = entryOverrideK > 0 ? entryOverrideK * 1000 : closeD;\n  const lookI = Math.max(0, n - 130);\n  const pl = pivots(lows, 3, 'low').filter(p => p.i >= lookI && p.v < entryD * 0.997);\n  const ph = pivots(highs, 3, 'high').filter(p => p.i >= lookI && p.v > entryD * 1.003);\n  const note = [];\n  let sup, supDate = null;\n  if (pl.length) { const b = pl.reduce((a, x) => x.v > a.v ? x : a); sup = b.v; supDate = dstr(times[b.i]); } else { sup = Math.min(...lows.slice(Math.max(0, n - 20))); note.push('hỗ trợ tạm tính = đáy 20 phiên'); }\n  let res, resDate = null;\n  if (ph.length) { const b = ph.reduce((a, x) => x.v < a.v ? x : a); res = b.v; resDate = dstr(times[b.i]); } else { const hi = Math.max(...highs.slice(lookI)); if (hi > entryD * 1.01) { res = hi; note.push('kháng cự tạm tính = đỉnh 6 tháng'); } else { res = entryD * 1.08; note.push('⚠️ giá ở vùng đỉnh, mục tiêu tạm +8%'); } }\n  let stopD = roundT(sup * 0.985); if (stopD >= entryD) stopD = roundT(entryD * 0.92);\n  let targetD = roundT(res); const eD = roundT(entryD);\n  if (targetD <= eD) { targetD = roundT(eD * 1.08); note.push('mục tiêu điều chỉnh +8%'); }\n  return { eD, stopD, targetD, supD: roundT(sup), resD: roundT(res), supDate, resDate, closeD: roundT(closeD), note };\n};\n\nconst manual = aEntry > 0 && aStop > 0;\nlet ENTRY, STOP, TARGET, prov;\nif (manual) {\n  if (!(aStop < aEntry)) return direct('⚠️ Cắt lỗ phải THẤP HƠN giá vào.');\n  ENTRY = aEntry; STOP = aStop; TARGET = aTarget > aEntry ? aTarget : 0; prov = '✍️ _Mức anh tự nhập_';\n} else {\n  const bars = await fetchBars(TICKER);\n  if (!bars || !Array.isArray(bars.c) || bars.c.length < 12) return direct('🔴 Không lấy được dữ liệu giá *' + TICKER + '* (API lỗi hoặc mã sai).\\nThử lại sau, hoặc nhập tay: `/' + cmd.slice(1) + ' ' + TICKER + ' vào cắtlỗ mụctiêu`');\n  const d = deriveLevels(bars, aEntry);\n  ENTRY = d.eD / 1000; STOP = d.stopD / 1000; TARGET = d.targetD / 1000;\n  prov = '📐 *Mức bot tự tính:*\\n· Vào ≈ giá hiện tại ' + fmtP(d.closeD / 1000) + '\\n· Cắt lỗ ' + fmtP(STOP) + ' _(dưới hỗ trợ ' + fmtP(d.supD / 1000) + (d.supDate ? ' lập ' + d.supDate : '') + ')_\\n· Mục tiêu ' + fmtP(TARGET) + ' _(kháng cự ' + fmtP(d.resD / 1000) + (d.resDate ? ' lập ' + d.resDate : '') + ')_' + (d.note.length ? '\\n· ' + d.note.join('; ') : '');\n}\n\nconst entryD = ENTRY * 1000, riskPerShare = (ENTRY - STOP) * 1000;\nconst byRisk = Math.floor((NAV * RISK_PCT / 100) / riskPerShare / 100) * 100;\nconst byCap = Math.floor((NAV * MAX_POS_PCT / 100) / entryD / 100) * 100;\nconst shares = Math.max(0, Math.min(byRisk, byCap));\nconst lotCost = entryD * 100;\nconst rr = TARGET > ENTRY ? (TARGET - ENTRY) / (ENTRY - STOP) : null;\n\nif (cmd === '/size') {\n  const L = ['🧮 *SIZING — ' + TICKER + '*', prov, '_NAV ' + fmtM(NAV) + ' · rủi ro ' + RISK_PCT + '%_', ''];\n  if (shares <= 0) { L.push('→ Theo quy tắc rủi ro: chưa nên mua (chưa đủ 1 lô).'); L.push(lotCost <= NAV ? '⚠️ Tối thiểu 1 lô = ' + fmtM(lotCost) + ' (' + (lotCost / NAV * 100).toFixed(0) + '% NAV → tập trung rất cao).' : '🔴 NAV không đủ 1 lô (' + fmtM(lotCost) + ').'); }\n  else { L.push('→ *MUA ' + shares.toLocaleString('vi-VN') + ' cp* (' + (shares / 100) + ' lô) = ' + fmtM(shares * entryD) + ' (' + (shares * entryD / NAV * 100).toFixed(0) + '% NAV)'); L.push('→ Rủi ro thực nếu cắt lỗ: *' + fmtM(shares * riskPerShare) + '* (' + (shares * riskPerShare / NAV * 100).toFixed(2) + '% NAV)'); }\n  if (rr != null) L.push('→ *R:R ' + rr.toFixed(2) + '*' + (rr < 2 ? ' ⚠️ mỏng (<2)' : ' ✓ ổn'));\n  L.push(''); L.push('💡 Muốn hiểu vì sao nên/không mua → gõ `/sâu ' + TICKER + '`');\n  return direct(L.join('\\n'));\n}\n\nconst pe = await fetchPE(TICKER);\nlet q2 = '_thiếu P/E_';\nif (pe.pe > 0 && pe.pe5 > 0) { const k = pe.pe / pe.pe5; q2 = 'P/E ' + pe.pe.toFixed(1) + ' vs TB5N ' + pe.pe5.toFixed(1) + ' → ' + (k <= 0.85 ? '🟢 RẺ so lịch sử' : k >= 1.15 ? '🔴 ĐẮT so lịch sử' : '🟡 quanh TB'); }\nelse if (pe.pe > 0) q2 = 'P/E ' + pe.pe.toFixed(1) + ' _(thiếu TB lịch sử)_';\nconst nets = await fetchFlow(TICKER);\nlet q4 = '_không lấy được_';\nif (nets.length) { const dir = nets[0] > 1 ? 1 : nets[0] < -1 ? -1 : 0; let st = 0; for (const v of nets) { const s = v > 1 ? 1 : v < -1 ? -1 : 0; if (s === dir && dir) st++; else break; } q4 = 'phiên gần nhất ' + nets[0].toFixed(1) + ' tỷ' + (st >= 2 ? ' · ' + (dir > 0 ? 'GOM' : 'XẢ') + ' ' + st + ' phiên' : '') + ' · tổng 5p ' + nets.reduce((a, b) => a + b, 0).toFixed(1) + ' tỷ'; }\nconst q6 = (shares >= 100 ? 'mua ' + shares.toLocaleString('vi-VN') + ' cp (' + (shares * entryD / NAV * 100).toFixed(0) + '% NAV)' : (lotCost <= NAV ? '⚠️ chỉ đủ ~1 lô (' + (lotCost / NAV * 100).toFixed(0) + '% NAV)' : '🔴 NAV không đủ 1 lô')) + ' · R:R ' + (rr ? rr.toFixed(2) + (rr < 2 ? ' ⚠️' : '') : 'n/a');\n\nconst L = ['🧭 *BẢNG 7 CÂU — ' + TICKER + '*', prov, ''];\nL.push('① *Hiểu DN?* → DN này kiếm tiền bằng cách nào? Nói gọn 1 câu được không?');\nL.push('   _Không nói được → chưa hiểu → bỏ qua._');\nL.push('② Rẻ/đắt? ✅ ' + q2);\nL.push('③ *Luận điểm?* → Mua vì TIN điều gì sắp xảy ra? Dấu hiệu nào cho thấy mình SAI?');\nL.push('   _Viết được câu \"nếu… thì tôi sai\" mới nên mua._');\nL.push('④ Bối cảnh? ✅ Khối ngoại: ' + q4);\nL.push('⑤ *Thời điểm?* → Có xúc tác để tăng BÂY GIỜ (KQKD, cổ tức, hợp đồng…), hay chỉ \"thấy rẻ ham\" = bắt dao rơi?');\nL.push('⑥ Kích thước & R:R? ✅ ' + q6);\nL.push('⑦ Thoát? ✅ Cắt lỗ ' + fmtP(STOP) + (TARGET ? ' · Mục tiêu ' + fmtP(TARGET) : ''));\nL.push('');\nL.push('📝 ②④⑥⑦ bot lo. ①③⑤ là VIỆC CỦA ANH — gõ `/sâu ' + TICKER + '` để AI viết nháp ①③⑤ cho anh phản biện.');\nL.push('_Mức giá là gợi ý kỹ thuật, không phải khuyến nghị mua/bán._');\nreturn direct(L.join('\\n'));\n"
       },
       "id": "brain",
       "name": "Bộ não bot",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        500,
-        320
+        420,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.route }}",
+              "rightValue": "ai",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-ai",
+      "name": "Cần AI?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        640,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "id": "claude",
+      "name": "Claude viết nháp ①③⑤",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        860,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID",
+          "name": "Anthropic API (x-api-key)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const meta = $('Bộ não bot').first().json;\nconst chatId = meta.chatId;\nconst prelude = meta.prelude || '';\nconst res = $input.first().json;\nlet text = '';\nif (res && Array.isArray(res.content)) text = res.content.filter(b => b.type === 'text').map(b => b.text).join('\\n').trim();\nif (!text) { if (res && res.type === 'error' && res.error) text = '⚠️ Lỗi API: ' + (res.error.message || JSON.stringify(res.error)); else text = '⚠️ Không tạo được nháp (phản hồi rỗng).'; }\nconst full = prelude + '\\n\\n' + text + '\\n\\n_Nguồn: VNDirect + Vietstock(toàn văn) + Google News · nháp bởi Claude · KHÔNG phải khuyến nghị · ROE/BCTC tự kiểm chứng_';\nconst SIZE = 3800; const out = []; let s = full;\nwhile (s.length > SIZE) { let cut = s.lastIndexOf('\\n', SIZE); if (cut < SIZE * 0.5) cut = SIZE; out.push(s.slice(0, cut)); s = s.slice(cut); }\nif (s.trim()) out.push(s);\nreturn out.map(p => ({ json: { chatId, message: p } }));\n"
+      },
+      "id": "fmt",
+      "name": "Định dạng nháp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        300
       ]
     },
     {
@@ -45,15 +128,39 @@
           "parse_mode": "Markdown"
         }
       },
-      "id": "reply",
-      "name": "Trả lời Telegram",
+      "id": "reply-deep",
+      "name": "Trả lời sâu",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        760,
-        320
+        1300,
+        300
       ],
-      "webhookId": "cmd-bot-reply",
+      "webhookId": "cmd-bot-deep",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "reply-fast",
+      "name": "Trả lời nhanh",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        860,
+        520
+      ],
+      "webhookId": "cmd-bot-fast",
       "credentials": {
         "telegramApi": {
           "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
@@ -78,7 +185,47 @@
       "main": [
         [
           {
-            "node": "Trả lời Telegram",
+            "node": "Cần AI?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cần AI?": {
+      "main": [
+        [
+          {
+            "node": "Claude viết nháp ①③⑤",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Trả lời nhanh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude viết nháp ①③⑤": {
+      "main": [
+        [
+          {
+            "node": "Định dạng nháp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Định dạng nháp": {
+      "main": [
+        [
+          {
+            "node": "Trả lời sâu",
             "type": "main",
             "index": 0
           }
@@ -96,6 +243,9 @@
     },
     {
       "name": "stock"
+    },
+    {
+      "name": "ai"
     }
   ]
 }
