@@ -1,0 +1,52 @@
+{
+  "name": "[CK] Bot nhận lệnh Telegram (/size /check)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "id": "tg-trigger",
+      "name": "Nhận tin nhắn Telegram",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 320],
+      "webhookId": "cmd-bot-webhook",
+      "credentials": {
+        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  BỘ NÃO BOT - đọc lệnh anh nhắn, tính, trả kết quả. Sửa 2 dòng dưới nếu cần.\n// ===========================================================================\nconst OWNER = 5239928968;   // chỉ Chat ID này mới dùng được bot (chống người lạ)\nconst NAV   = 5000000;      // tài sản ròng (ĐỒNG) - sửa khi anh nạp thêm vốn\nconst MAX_POS_PCT = 100;    // trần % NAV / 1 vị thế\n// ===========================================================================\n\nconst upd = $input.first().json;\nconst msg = upd.message || upd.channel_post || {};\nconst text = (msg.text || '').trim();\nconst chatId = msg.chat && msg.chat.id;\nconst out = (m) => [{ json: { chatId, message: m } }];\n\nif (String(chatId) !== String(OWNER)) return out('⛔ Bot riêng tư.');\n\nconst help = '🤖 *Lệnh bot CK*\\n\\n'\n  + '🧮 `/size MÃ vào cắtlỗ [mụctiêu] [risk%]`\\n   _vd: /size BID 42 39 46_ — tính khối lượng & R:R\\n\\n'\n  + '🧭 `/check MÃ vào cắtlỗ [mụctiêu]`\\n   _vd: /check FPT 75 69 88_ — bảng 7 câu (định giá + dòng tiền)\\n\\n'\n  + '_Giá nhập theo NGHÌN đồng (42 = 42.000đ). /help xem lại._';\n\nif (!text || /^\\/(start|help)\\b/i.test(text)) return out(help);\n\nconst parts = text.split(/\\s+/);\nconst cmd = parts[0].toLowerCase().replace(/@.*$/, '');\nconst TICKER = (parts[1] || '').toUpperCase();\nconst ENTRY = parseFloat(parts[2]);\nconst STOP  = parseFloat(parts[3]);\nconst TARGET = parts[4] != null ? parseFloat(parts[4]) : 0;\nconst RISK_PCT = parts[5] != null ? parseFloat(parts[5]) : 1.5;\n\nconst fmtM = (d) => (d / 1e6).toFixed(d < 1e7 ? 2 : 1) + ' triệu';\nconst fmtP = (k) => Math.round(k * 1000).toLocaleString('vi-VN') + 'đ';\n\nconst sizing = () => {\n  const entryD = ENTRY * 1000, riskBudget = NAV * RISK_PCT / 100, riskPerShare = (ENTRY - STOP) * 1000, lotCost = entryD * 100;\n  const byRisk = Math.floor(riskBudget / riskPerShare / 100) * 100;\n  const byCap = Math.floor(NAV * MAX_POS_PCT / 100 / entryD / 100) * 100;\n  const shares = Math.max(0, Math.min(byRisk, byCap));\n  const rr = TARGET > ENTRY ? (TARGET - ENTRY) / (ENTRY - STOP) : null;\n  const L = ['🧮 *SIZING — ' + TICKER + '*', '_Vào ' + fmtP(ENTRY) + ' · Cắt lỗ ' + fmtP(STOP) + (TARGET > 0 ? ' · MT ' + fmtP(TARGET) : '') + ' · NAV ' + fmtM(NAV) + '_', ''];\n  if (shares <= 0) {\n    L.push('→ Quy tắc rủi ro ' + RISK_PCT + '%: chưa nên mua (< 1 lô).');\n    L.push(lotCost <= NAV ? '⚠️ Mua tối thiểu 1 lô = ' + fmtM(lotCost) + ' (' + (lotCost / NAV * 100).toFixed(0) + '% NAV → tập trung cao).' : '🔴 NAV không đủ 1 lô (' + fmtM(lotCost) + ').');\n  } else {\n    L.push('→ *MUA ' + shares.toLocaleString('vi-VN') + ' cp* (' + (shares / 100) + ' lô) = ' + fmtM(shares * entryD) + ' (' + (shares * entryD / NAV * 100).toFixed(0) + '% NAV)');\n    L.push('→ Rủi ro thực: *' + fmtM(shares * riskPerShare) + '* (' + (shares * riskPerShare / NAV * 100).toFixed(2) + '% NAV)');\n  }\n  if (rr != null) L.push('→ *R:R ' + rr.toFixed(2) + '*' + (rr < 2 ? ' ⚠️ mỏng (<2)' : ' ✓'));\n  return L.join('\\n');\n};\n\nif (cmd === '/size') {\n  if (!TICKER || !(ENTRY > 0) || !(STOP > 0)) return out('⚠️ Cú pháp: `/size MÃ vào cắtlỗ [mụctiêu] [risk%]`\\nVd: /size BID 42 39 46');\n  if (!(STOP < ENTRY)) return out('⚠️ Cắt lỗ phải THẤP HƠN giá vào.');\n  return out(sizing());\n}\n\nif (cmd === '/check') {\n  if (!TICKER || !(ENTRY > 0) || !(STOP > 0)) return out('⚠️ Cú pháp: `/check MÃ vào cắtlỗ [mụctiêu]`\\nVd: /check FPT 75 69 88');\n  const hFin = { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\n  // định giá\n  let q2 = '_thiếu P/E_';\n  try {\n    const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:' + TICKER + '~itemCode:51006,1000043&sort=reportDate:desc&size=8', headers: hFin, json: false, timeout: 12000 });\n    let p; try { p = typeof r === 'string' ? JSON.parse(r) : r; } catch (e) { p = null; }\n    const m = {}; for (const d of ((p && p.data) || [])) if (!(d.ratioCode in m)) m[d.ratioCode] = d.value;\n    const pe = m.PRICE_TO_EARNINGS, pe5 = m.PRICE_TO_EARNINGS_AVG_CR_5Y;\n    if (pe > 0 && pe5 > 0) { const k = pe / pe5; q2 = 'P/E ' + pe.toFixed(1) + ' vs TB5N ' + pe5.toFixed(1) + ' → ' + (k <= 0.85 ? '🟢 RẺ so lịch sử' : k >= 1.15 ? '🔴 ĐẮT so lịch sử' : '🟡 quanh TB'); }\n    else if (pe > 0) q2 = 'P/E ' + pe.toFixed(1);\n  } catch (e) { q2 = '_lỗi lấy P/E_'; }\n  // dòng tiền\n  let q4 = '_thiếu_';\n  try {\n    const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + TICKER + '&size=5&sort=tradingDate:desc', headers: hFin, json: true, timeout: 12000 });\n    const nets = ((r && r.data) || []).map(x => (x.netVal || 0) / 1e9);\n    if (nets.length) { const dir = nets[0] > 1 ? 1 : nets[0] < -1 ? -1 : 0; let st = 0; for (const v of nets) { const s = v > 1 ? 1 : v < -1 ? -1 : 0; if (s === dir && dir) st++; else break; } q4 = 'phiên gần nhất ' + nets[0].toFixed(1) + ' tỷ' + (st >= 2 ? ' · ' + (dir > 0 ? 'GOM' : 'XẢ') + ' ' + st + ' phiên' : '') + ' · tổng 5p ' + nets.reduce((a, b) => a + b, 0).toFixed(1) + ' tỷ'; }\n  } catch (e) { q4 = '_lỗi_'; }\n  // sizing tóm tắt cho câu 6\n  const rr = TARGET > ENTRY ? (TARGET - ENTRY) / (ENTRY - STOP) : null;\n  const entryD = ENTRY * 1000, byRisk = Math.floor(NAV * RISK_PCT / 100 / ((ENTRY - STOP) * 1000) / 100) * 100, lot = entryD * 100;\n  const q6 = (byRisk >= 100 ? 'mua ' + byRisk + ' cp theo rủi ro ' + RISK_PCT + '%' : (lot <= NAV ? '⚠️ chỉ đủ ~1 lô (' + (lot / NAV * 100).toFixed(0) + '% NAV)' : '🔴 NAV không đủ 1 lô')) + ' · R:R ' + (rr ? rr.toFixed(2) + (rr < 2 ? ' ⚠️' : '') : 'n/a');\n  const L = ['🧭 *BẢNG 7 CÂU — ' + TICKER + '*', '_Vào ' + fmtP(ENTRY) + ' · CL ' + fmtP(STOP) + (TARGET ? ' · MT ' + fmtP(TARGET) : '') + '_', ''];\n  L.push('① Hiểu DN? _(tự trả lời)_');\n  L.push('② Rẻ/đắt? ✅ ' + q2);\n  L.push('③ Luận điểm & điều gì làm sai? _(tự viết)_');\n  L.push('④ Bối cảnh? ✅ KN: ' + q4);\n  L.push('⑤ Thời điểm? _(xúc tác hay bắt dao?)_');\n  L.push('⑥ Kích thước & R:R? ✅ ' + q6);\n  L.push('⑦ Thoát? ✅ CL ' + fmtP(STOP) + (TARGET ? ' · MT ' + fmtP(TARGET) : ' · _chưa đặt MT_'));\n  L.push('');\n  L.push('📝 Phải tự trả lời ①③⑤. Không trọn 7 câu → ĐỨNG NGOÀI.');\n  return out(L.join('\\n'));\n}\n\nreturn out('❓ Lệnh không hiểu.\\n\\n' + help);"
+      },
+      "id": "brain",
+      "name": "Bộ não bot",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 320]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.message }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "reply",
+      "name": "Trả lời Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [760, 320],
+      "webhookId": "cmd-bot-reply",
+      "credentials": {
+        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+      }
+    }
+  ],
+  "connections": {
+    "Nhận tin nhắn Telegram": { "main": [[{ "node": "Bộ não bot", "type": "main", "index": 0 }]] },
+    "Bộ não bot": { "main": [[{ "node": "Trả lời Telegram", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "stock" }]
+}
