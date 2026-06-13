@@ -1,16 +1,9 @@
 {
-  "name": "[CK] Báo cáo sáng - Tin tức + Claude AI",
+  "name": "[CK] Báo cáo sáng - Tin tức (VN + Quốc tế) + Claude AI",
   "nodes": [
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 7 * * 1-5"
-            }
-          ]
-        }
+        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 7 * * 1-5" }] }
       },
       "id": "schedule-morning",
       "name": "Lịch chạy (7h sáng, T2-T6)",
@@ -20,10 +13,10 @@
     },
     {
       "parameters": {
-        "jsCode": "// ===========================================================================\n//  CẤU HÌNH\n// ===========================================================================\n// Danh mục theo dõi - để Claude ưu tiên tin liên quan các mã này\nconst WATCHLIST = ['VNM', 'FPT', 'HPG', 'MWG', 'VCB', 'SSI', 'DGC', 'VND', 'MBB', 'STB'];\n\n// Nguồn chính: Google News RSS - gom tin từ tất cả báo VN, không chặn server.\n// (Báo VN gọi trực tiếp hay bị 403/502/504 từ VPS đặt ở nước ngoài.)\nconst gn = (q) => 'https://news.google.com/rss/search?q=' + encodeURIComponent(q) + '&hl=vi&gl=VN&ceid=VN:vi';\n\nconst FEEDS = [\n  { name: 'GgNews - Thị trường CK', url: gn('chứng khoán OR \"VN-Index\" when:1d') },\n  { name: 'GgNews - Doanh nghiệp',  url: gn('cổ phiếu doanh nghiệp khi niêm yết when:1d') },\n  { name: 'GgNews - Watchlist',     url: gn('(' + WATCHLIST.map(t => '\"' + t + '\"').join(' OR ') + ') cổ phiếu when:2d') },\n  { name: 'GgNews - Vĩ mô',         url: gn('lãi suất OR tỷ giá OR \"Ngân hàng Nhà nước\" when:1d') },\n  // Dự phòng: CafeF trực tiếp - hay bị 502/504 từ server nước ngoài, lỗi cũng không sao\n  { name: 'CafeF - Chứng khoán',    url: 'https://cafef.vn/thi-truong-chung-khoan.rss' },\n];\n\nconst MAX_PER_FEED  = 10;   // số tin lấy mỗi nguồn\nconst MAX_AGE_HOURS = 30;   // chỉ lấy tin trong N giờ gần nhất\n// ===========================================================================\n\nconst headers = {\n  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',\n  'Accept': 'application/rss+xml, application/xml, text/xml, */*',\n};\nconst cutoff = Date.now() - MAX_AGE_HOURS * 3600 * 1000;\n\n// Lấy nội dung 1 thẻ XML đầu tiên, bỏ CDATA và tag con\nconst pick = (xml, tag) => {\n  const m = xml.match(new RegExp('<' + tag + '[^>]*>([\\\\s\\\\S]*?)<\\\\/' + tag + '>', 'i'));\n  if (!m) return '';\n  return m[1]\n    .replace(/<!\\[CDATA\\[/g, '').replace(/\\]\\]>/g, '')\n    .replace(/&lt;/g, '<').replace(/&gt;/g, '>')\n    .replace(/<[^>]+>/g, ' ')\n    .replace(/&amp;/g, '&').replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\")\n    .replace(/\\s+/g, ' ').trim();\n};\n\nconst items = [];\nconst debug = [];\nconst seen  = new Set(); // chống trùng tin giữa các nguồn\n\nfor (const f of FEEDS) {\n  try {\n    const body = await this.helpers.httpRequest({ method: 'GET', url: f.url, headers, json: false, timeout: 20000 });\n    const xml  = typeof body === 'string' ? body : String(body);\n    const blocks = xml.match(/<item[\\s\\S]*?<\\/item>/gi) || [];\n    let count = 0;\n    for (const it of blocks) {\n      if (count >= MAX_PER_FEED) break;\n      const title = pick(it, 'title');\n      const pub   = pick(it, 'pubDate');\n      const src   = pick(it, 'source');\n      const desc  = pick(it, 'description').slice(0, 200);\n      const key   = title.toLowerCase().slice(0, 80);\n      const t = pub ? new Date(pub).getTime() : Date.now();\n      if (title && !seen.has(key) && (!pub || isNaN(t) || t >= cutoff)) {\n        seen.add(key);\n        items.push({ source: src || f.name, title, desc });\n        count++;\n      }\n    }\n    debug.push(f.name + ': ' + count + ' tin');\n  } catch (e) {\n    debug.push(f.name + ': ❌ ' + (e.message || String(e)));\n  }\n}\n\nconst newsText = items.length\n  ? items.map((x, i) => (i + 1) + '. [' + x.source + '] ' + x.title + (x.desc ? '\\n   ' + x.desc : '')).join('\\n\\n')\n  : '(Không lấy được tin nào - kiểm tra mảng debug, có thể URL nguồn đã đổi)';\n\n// ---- Dòng tiền khối ngoại (VNDirect) - 5 phiên gần nhất mỗi mã watchlist ----\nconst flowLines = [];\nfor (const t of WATCHLIST) {\n  try {\n    const res = await this.helpers.httpRequest({\n      method: 'GET',\n      url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + t + '&size=5&sort=tradingDate:desc',\n      headers: { 'User-Agent': headers['User-Agent'], 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' },\n      json: true,\n      timeout: 15000,\n    });\n    const ses = (res && res.data) || [];\n    if (!ses.length) continue;\n    const nets = ses.map(s => (s.netVal || 0) / 1e9);\n    const total = nets.reduce((a, b) => a + b, 0);\n    flowLines.push(t + ': phiên gần nhất ' + nets[0].toFixed(1) + ' tỷ | 5 phiên: [' + nets.map(v => v.toFixed(1)).join(', ') + '] | tổng 5 phiên: ' + total.toFixed(1) + ' tỷ');\n  } catch (e) {\n    debug.push('KN ' + t + ': ❌ ' + (e.message || String(e)));\n  }\n}\ndebug.push('Khối ngoại: lấy được ' + flowLines.length + '/' + WATCHLIST.length + ' mã');\nconst flowText = flowLines.length ? flowLines.join('\\n') : '(không lấy được dữ liệu khối ngoại)';\n\nconst today = new Date().toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' });\n\nconst system = 'Bạn là chuyên viên phân tích chứng khoán Việt Nam, hỗ trợ một nhà đầu tư cá nhân. '\n  + 'Nhiệm vụ: đọc tin tức thị trường + dữ liệu dòng tiền khối ngoại, lọc nhiễu, viết BÁO CÁO SÁNG ngắn gọn bằng tiếng Việt.\\n\\n'\n  + 'Nguyên tắc bắt buộc:\\n'\n  + '- Ưu tiên tin tác động tới danh mục theo dõi: ' + WATCHLIST.join(', ') + '.\\n'\n  + '- Với mỗi tin quan trọng: nêu mã/ngành liên quan, tóm tắt 1 dòng, đánh giá tác động (Tích cực/Tiêu cực/Trung tính) kèm mức độ tin cậy (cao/trung bình/thấp).\\n'\n  + '- ĐỐI CHIẾU tin tức với dữ liệu dòng tiền khối ngoại được cung cấp: tin tốt nhưng khối ngoại xả mạnh nhiều phiên (hoặc ngược lại) là MÂU THUẪN cần nêu bật. Chuỗi gom/xả từ 3 phiên trở lên hoặc cú đảo chiều là tín hiệu đáng nhắc.\\n'\n  + '- Bố cục: (1) 🔥 Tin nóng + dòng tiền watchlist, (2) 🌐 Bối cảnh thị trường chung, (3) ⚠️ Cảnh báo rủi ro & mâu thuẫn tin-tiền (nếu có).\\n'\n  + '- TUYỆT ĐỐI KHÔNG khuyến nghị mua/bán cụ thể. KHÔNG bịa số liệu. Tin chưa rõ thì ghi \"cần kiểm chứng\".\\n'\n  + '- Ngắn gọn, dễ đọc trên điện thoại. Dùng Markdown đơn giản (*đậm*, gạch đầu dòng). Tối đa ~550 từ.';\n\nconst userContent = 'Hôm nay là ' + today + '. Dưới đây là dữ liệu thu thập được sáng nay.\\n\\n'\n  + '=== TIN TỨC ===\\n\\n' + newsText\n  + '\\n\\n=== DÒNG TIỀN KHỐI NGOẠI (tỷ đồng, mua ròng dương / bán ròng âm, phiên mới nhất đứng trước) ===\\n\\n' + flowText\n  + '\\n\\nHãy viết báo cáo sáng theo đúng bố cục yêu cầu. Nếu thiếu dữ liệu phần nào, nói rõ phần đó chưa có dữ liệu.';\n\nconst requestBody = {\n  model: 'claude-opus-4-8',\n  max_tokens: 4000,\n  system,\n  messages: [{ role: 'user', content: userContent }],\n};\n\nreturn [{ json: { requestBody, itemCount: items.length, debug } }];"
+        "jsCode": "// ===========================================================================\n//  CẤU HÌNH\n// ===========================================================================\nconst WATCHLIST = ['VNM', 'FPT', 'HPG', 'MWG', 'VCB', 'SSI', 'DGC', 'VND', 'MBB', 'STB'];\n\n// gn(q)=báo VN (tiếng Việt); gn(q,true)=báo QUỐC TẾ (tiếng Anh, độc lập hơn về vĩ mô)\nconst gn = (q, en) => 'https://news.google.com/rss/search?q=' + encodeURIComponent(q) + (en ? '&hl=en&gl=US&ceid=US:en' : '&hl=vi&gl=VN&ceid=VN:vi');\n\nconst FEEDS = [\n  { name: 'VN - Thị trường CK', vn: true, url: gn('chứng khoán OR \"VN-Index\" when:1d') },\n  { name: 'VN - Doanh nghiệp',  vn: true, url: gn('cổ phiếu doanh nghiệp niêm yết when:1d') },\n  { name: 'VN - Watchlist',     vn: true, url: gn('(' + WATCHLIST.map(t => '\"' + t + '\"').join(' OR ') + ') cổ phiếu when:2d') },\n  { name: 'VN - Vĩ mô',         vn: true, url: gn('lãi suất OR tỷ giá OR \"Ngân hàng Nhà nước\" when:1d') },\n  // Báo quốc tế - lớp vĩ mô độc lập (Reuters/Bloomberg/Nikkei...)\n  { name: 'QUỐC TẾ - VN macro', vn: false, url: gn('Vietnam stock market OR \"State Bank of Vietnam\" OR \"Vietnam economy\" when:3d', true) },\n  { name: 'QUỐC TẾ - dòng vốn/nâng hạng', vn: false, url: gn('Vietnam \"FTSE\" OR \"MSCI\" OR \"emerging market\" OR \"foreign investors\" OR exports when:5d', true) },\n];\nconst MAX_PER_FEED = 8;\nconst MAX_AGE_HOURS = 30;\n// ===========================================================================\n\nconst headers = {\n  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',\n  'Accept': 'application/rss+xml, application/xml, text/xml, */*',\n};\nconst cutoff = Date.now() - MAX_AGE_HOURS * 3600 * 1000;\n\nconst pick = (xml, tag) => {\n  const m = xml.match(new RegExp('<' + tag + '[^>]*>([\\\\s\\\\S]*?)<\\\\/' + tag + '>', 'i'));\n  if (!m) return '';\n  return m[1].replace(/<!\\[CDATA\\[/g, '').replace(/\\]\\]>/g, '')\n    .replace(/&lt;/g, '<').replace(/&gt;/g, '>')\n    .replace(/<[^>]+>/g, ' ')\n    .replace(/&amp;/g, '&').replace(/&#39;/g, \"'\").replace(/&quot;/g, '\"')\n    .replace(/\\s+/g, ' ').trim();\n};\n\nconst vnNews = [], intlNews = [];\nconst debug = [];\nconst seen = new Set();\nfor (const f of FEEDS) {\n  try {\n    const body = await this.helpers.httpRequest({ method: 'GET', url: f.url, headers, json: false, timeout: 20000 });\n    const xml = typeof body === 'string' ? body : String(body);\n    const blocks = (xml.match(/<item[\\s\\S]*?<\\/item>/gi) || []).slice(0, MAX_PER_FEED);\n    let count = 0;\n    for (const it of blocks) {\n      const title = pick(it, 'title');\n      const src = pick(it, 'source');\n      const key = title.toLowerCase().slice(0, 70);\n      if (title && !seen.has(key)) {\n        seen.add(key);\n        (f.vn ? vnNews : intlNews).push('[' + (src || f.name) + '] ' + title);\n        count++;\n      }\n    }\n    debug.push(f.name + ': ' + count + ' tin');\n  } catch (e) {\n    debug.push(f.name + ': ❌ ' + (e.message || String(e)));\n  }\n}\n\n// Dòng tiền khối ngoại (dữ liệu CỨNG để đối chiếu tin)\nconst flowLines = [];\nfor (const t of WATCHLIST) {\n  try {\n    const res = await this.helpers.httpRequest({\n      method: 'GET',\n      url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + t + '&size=5&sort=tradingDate:desc',\n      headers: { 'User-Agent': headers['User-Agent'], 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' },\n      json: true, timeout: 15000,\n    });\n    const ses = (res && res.data) || [];\n    if (!ses.length) continue;\n    const nets = ses.map(s => (s.netVal || 0) / 1e9);\n    flowLines.push(t + ': 5 phiên [' + nets.map(v => v.toFixed(1)).join(', ') + '] tỷ, tổng ' + nets.reduce((a, b) => a + b, 0).toFixed(1) + ' tỷ');\n  } catch (e) { /* skip */ }\n}\ndebug.push('Khối ngoại: ' + flowLines.length + '/' + WATCHLIST.length + ' mã');\n\nconst vnText   = vnNews.length ? vnNews.map((x, i) => (i + 1) + '. ' + x).join('\\n') : '(không lấy được tin VN)';\nconst intlText = intlNews.length ? intlNews.map((x, i) => (i + 1) + '. ' + x).join('\\n') : '(không lấy được tin quốc tế)';\nconst flowText = flowLines.length ? flowLines.join('\\n') : '(không lấy được dòng tiền)';\n\nconst today = new Date().toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' });\n\nconst system = 'Bạn là chuyên viên phân tích chứng khoán VN cho một nhà đầu tư cá nhân. Viết BÁO CÁO SÁNG ngắn gọn, tỉnh táo, bằng tiếng Việt.\\n\\n'\n  + 'BA NGUỒN, ĐỘ TIN CẬY KHÁC NHAU — phải ĐỐI CHIẾU CHÉO:\\n'\n  + '1) TIÊU ĐỀ BÁO VN: chỉ là TIÊU ĐỀ, dễ GIẬT TÍT/câu view → coi mỗi tiêu đề là TUYÊN BỐ CHƯA KIỂM CHỨNG, KHÔNG phải sự thật. Ưu tiên tin có SỐ LIỆU cụ thể; bỏ qua tiêu đề mơ hồ/cảm tính.\\n'\n  + '2) BÁO QUỐC TẾ: độc lập hơn với áp lực trong nước, MẠNH về VĨ MÔ (Fed, USD, dòng vốn ngoại, nâng hạng FTSE/MSCI). Dùng cho BỐI CẢNH; lưu ý báo ngoại hầu như KHÔNG đưa tin mã nhỏ cụ thể.\\n'\n  + '3) DỮ LIỆU CỨNG (dòng tiền khối ngoại): đây là HÀNH ĐỘNG bằng tiền thật → tin cậy NHẤT. Dùng nó làm QUAN TOÀ.\\n\\n'\n  + 'Nguyên tắc bắt buộc:\\n'\n  + '- Một tin chỉ đáng tin khi có ≥2 nguồn xác nhận HOẶC dữ liệu cứng ủng hộ. Tin tốt mà khối ngoại xả (hoặc ngược lại) = MÂU THUẪN, nêu bật và NGHIÊNG VỀ DỮ LIỆU.\\n'\n  + '- Nêu rõ chỗ báo VN và báo quốc tế NÓI KHÁC NHAU về cùng một vấn đề (nếu có) — đó là tín hiệu đáng chú ý.\\n'\n  + '- GẮN CỜ tin nghi giật tít: tiêu đề kêu to nhưng không có số liệu và không nguồn nào khác/dữ liệu nào xác nhận.\\n'\n  + '- Ưu tiên watchlist: ' + WATCHLIST.join(', ') + '. KHÔNG khuyến nghị mua/bán. KHÔNG bịa số.\\n'\n  + '- Bố cục: (1) 🔥 Điểm tin ĐÃ KIỂM CHỨNG tác động watchlist, (2) 🌐 Bối cảnh vĩ mô (ưu tiên góc nhìn báo quốc tế), (3) ⚠️ Mâu thuẫn / tin nghi giật tít / rủi ro.\\n'\n  + '- Ngắn gọn, dễ đọc điện thoại, Markdown đơn giản, tối đa ~600 từ.';\n\nconst userContent = 'Hôm nay ' + today + '.\\n\\n'\n  + '=== TIÊU ĐỀ BÁO VN (chưa kiểm chứng, dễ giật tít) ===\\n' + vnText\n  + '\\n\\n=== TIÊU ĐỀ BÁO QUỐC TẾ (độc lập, vĩ mô) ===\\n' + intlText\n  + '\\n\\n=== DỮ LIỆU CỨNG - DÒNG TIỀN KHỐI NGOẠI (tỷ đồng, + là mua ròng) ===\\n' + flowText\n  + '\\n\\nViết báo cáo sáng theo bố cục yêu cầu, ĐỐI CHIẾU CHÉO 3 nguồn, lấy dữ liệu cứng làm quan toà.';\n\nconst requestBody = { model: 'claude-opus-4-8', max_tokens: 4000, system, messages: [{ role: 'user', content: userContent }] };\n\nreturn [{ json: { requestBody, vn: vnNews.length, intl: intlNews.length, debug } }];"
       },
       "id": "gather-news",
-      "name": "Gom tin tức (RSS)",
+      "name": "Gom tin (VN + Quốc tế) + dòng tiền",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [480, 320]
@@ -35,20 +28,11 @@
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "anthropic-version",
-              "value": "2023-06-01"
-            }
-          ]
-        },
+        "headerParameters": { "parameters": [{ "name": "anthropic-version", "value": "2023-06-01" }] },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ $json.requestBody }}",
-        "options": {
-          "timeout": 120000
-        }
+        "options": { "timeout": 120000 }
       },
       "id": "claude-call",
       "name": "Claude viết báo cáo",
@@ -56,15 +40,12 @@
       "typeVersion": 4.2,
       "position": [720, 320],
       "credentials": {
-        "httpHeaderAuth": {
-          "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID",
-          "name": "Anthropic API (x-api-key)"
-        }
+        "httpHeaderAuth": { "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID", "name": "Anthropic API (x-api-key)" }
       }
     },
     {
       "parameters": {
-        "jsCode": "// Trích phần text từ phản hồi Claude và cắt nhỏ cho vừa giới hạn Telegram (4096 ký tự/tin)\nconst res = $input.first().json;\n\nlet text = '';\nif (res && Array.isArray(res.content)) {\n  text = res.content.filter(b => b.type === 'text').map(b => b.text).join('\\n').trim();\n}\n\n// Bắt lỗi API hoặc bị từ chối\nif (!text) {\n  if (res && res.type === 'error' && res.error) {\n    text = '⚠️ Lỗi API: ' + (res.error.message || JSON.stringify(res.error));\n  } else if (res && res.stop_reason === 'refusal') {\n    text = '⚠️ Yêu cầu bị từ chối bởi bộ lọc an toàn.';\n  } else {\n    text = '⚠️ Không tạo được báo cáo (phản hồi rỗng).';\n  }\n}\n\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst full = '☀️ *BÁO CÁO SÁNG THỊ TRƯỜNG*\\n_' + now + '_\\n\\n' + text + '\\n\\n_Nguồn: Google News/báo VN · Tổng hợp bởi Claude AI · không phải khuyến nghị đầu tư_';\n\n// Cắt thành các đoạn <= 3800 ký tự, ưu tiên cắt ở dấu xuống dòng\nconst SIZE = 3800;\nconst parts = [];\nlet s = full;\nwhile (s.length > SIZE) {\n  let cut = s.lastIndexOf('\\n', SIZE);\n  if (cut < SIZE * 0.5) cut = SIZE;\n  parts.push(s.slice(0, cut));\n  s = s.slice(cut);\n}\nif (s.trim()) parts.push(s);\n\nreturn parts.map(p => ({ json: { message: p } }));"
+        "jsCode": "const res = $input.first().json;\nlet text = '';\nif (res && Array.isArray(res.content)) text = res.content.filter(b => b.type === 'text').map(b => b.text).join('\\n').trim();\nif (!text) {\n  if (res && res.type === 'error' && res.error) text = '⚠️ Lỗi API: ' + (res.error.message || JSON.stringify(res.error));\n  else if (res && res.stop_reason === 'refusal') text = '⚠️ Bị từ chối bởi bộ lọc an toàn.';\n  else text = '⚠️ Không tạo được báo cáo (phản hồi rỗng).';\n}\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst full = '☀️ *BÁO CÁO SÁNG THỊ TRƯỜNG*\\n_' + now + '_\\n\\n' + text + '\\n\\n_Nguồn: báo VN + báo quốc tế + dòng tiền khối ngoại · đối chiếu chéo bởi Claude AI · KHÔNG phải khuyến nghị đầu tư_';\nconst SIZE = 3800;\nconst parts = [];\nlet s = full;\nwhile (s.length > SIZE) { let cut = s.lastIndexOf('\\n', SIZE); if (cut < SIZE * 0.5) cut = SIZE; parts.push(s.slice(0, cut)); s = s.slice(cut); }\nif (s.trim()) parts.push(s);\nreturn parts.map(p => ({ json: { message: p } }));"
       },
       "id": "format-report",
       "name": "Định dạng báo cáo",
@@ -76,9 +57,7 @@
       "parameters": {
         "chatId": "PASTE_CHAT_ID_HERE",
         "text": "={{ $json.message }}",
-        "additionalFields": {
-          "parse_mode": "Markdown"
-        }
+        "additionalFields": { "parse_mode": "Markdown" }
       },
       "id": "send-telegram",
       "name": "Gửi Telegram",
@@ -87,34 +66,16 @@
       "position": [1200, 320],
       "webhookId": "morning-report-telegram",
       "credentials": {
-        "telegramApi": {
-          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
-          "name": "Telegram Bot (CK)"
-        }
+        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
       }
     }
   ],
   "connections": {
-    "Lịch chạy (7h sáng, T2-T6)": {
-      "main": [[{ "node": "Gom tin tức (RSS)", "type": "main", "index": 0 }]]
-    },
-    "Gom tin tức (RSS)": {
-      "main": [[{ "node": "Claude viết báo cáo", "type": "main", "index": 0 }]]
-    },
-    "Claude viết báo cáo": {
-      "main": [[{ "node": "Định dạng báo cáo", "type": "main", "index": 0 }]]
-    },
-    "Định dạng báo cáo": {
-      "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]]
-    }
+    "Lịch chạy (7h sáng, T2-T6)": { "main": [[{ "node": "Gom tin (VN + Quốc tế) + dòng tiền", "type": "main", "index": 0 }]] },
+    "Gom tin (VN + Quốc tế) + dòng tiền": { "main": [[{ "node": "Claude viết báo cáo", "type": "main", "index": 0 }]] },
+    "Claude viết báo cáo": { "main": [[{ "node": "Định dạng báo cáo", "type": "main", "index": 0 }]] },
+    "Định dạng báo cáo": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
   },
-  "settings": {
-    "executionOrder": "v1",
-    "timezone": "Asia/Ho_Chi_Minh"
-  },
-  "tags": [
-    { "name": "investment" },
-    { "name": "stock" },
-    { "name": "ai" }
-  ]
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "stock" }, { "name": "ai" }]
 }
