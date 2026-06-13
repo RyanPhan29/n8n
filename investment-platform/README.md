@@ -309,10 +309,13 @@ chọn credential + Chat ID → Execute → Activate.
 **Tuỳ chỉnh:** `WATCHLIST` (mã + nhãn ngành), `FOCUS` (mã ⭐), `WANT` (danh sách
 chỉ số). Mảng `debug` in ra "CÁC ratioCode CÓ SẴN" — dùng để bổ sung chỉ số mới.
 
-> ⚠️ **Giới hạn (đọc kỹ — đúng tinh thần nguyên lý #9):** đây là *ảnh chụp hiện
-> tại* so với *ngưỡng ngành*, **chưa** so với *dải lịch sử của chính mã* (nâng cấp
-> sau). Định giá từ vài chỉ số là điểm khởi đầu, KHÔNG thay được việc đọc báo cáo
-> tài chính gốc. P/E thấp có thể là *bẫy giá trị*. Quyết định vẫn là của bạn.
+> ⚠️ **Giới hạn (đọc kỹ — đúng tinh thần nguyên lý #9):** workflow đã so *cả ngưỡng
+> ngành lẫn dải lịch sử của chính mã* (P/E/P/B TB 1N/3N/5N). Nhưng **vế CHẤT LƯỢNG
+> (ROE, nợ/vốn) cố ý KHÔNG tự động hoá**: VNDirect chỉ trả mã số BCTC không kèm tên,
+> và ngân hàng có cấu trúc BCTC khác hẳn → tự tính ROE dễ ra số *sai mà nghe thật*
+> (false precision), tệ hơn để trống. → ROE/nợ làm **thủ công** cho 3–5 mã thực sự
+> cân nhắc, tra ở nguồn có nhãn rõ (app môi giới, cafef.vn tab Tài chính,
+> finance.vietstock.vn). Định giá từ chỉ số là điểm khởi đầu, không thay BCTC gốc.
 
 ---
 
