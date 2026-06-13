@@ -19,7 +19,8 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 | **2b** | Dòng tiền khối ngoại: gom/xả N phiên, mua bán ròng mạnh, đảo chiều | ✅ Xong |
 | 3 | Module bất động sản (giá rao theo khu vực) | ⏳ Kế tiếp |
 | **3A** | Nhịp ngành BĐS phục vụ quyết định chứng khoán (AI) | ✅ Xong |
-| **4** | Định giá cơ bản: P/E, P/B, ROE, nợ → "rẻ hay đắt" (AI) | ✅ Xong |
+| **4** | Định giá cơ bản: P/E, P/B (+ dải lịch sử), ROE → "rẻ hay đắt" (AI) | ✅ Xong |
+| **5** | Sổ điểm sống: hệ thống tự chấm tín hiệu bằng dữ liệu thật (NL #8) | ✅ Xong |
 | **4** | Backtest tín hiệu hàng tuần + quét ngưỡng cắt lỗ | ✅ Xong |
 
 ---
@@ -312,6 +313,31 @@ chỉ số). Mảng `debug` in ra "CÁC ratioCode CÓ SẴN" — dùng để b�
 > tại* so với *ngưỡng ngành*, **chưa** so với *dải lịch sử của chính mã* (nâng cấp
 > sau). Định giá từ vài chỉ số là điểm khởi đầu, KHÔNG thay được việc đọc báo cáo
 > tài chính gốc. P/E thấp có thể là *bẫy giá trị*. Quyết định vẫn là của bạn.
+
+---
+
+## Giai đoạn 5 — Sổ điểm sống (tự chấm tín hiệu)
+
+**File workflow:** [`workflows/scorecard-live.json`](workflows/scorecard-live.json)
+**Nền tảng triết lý:** nguyên lý #8 (luận điểm bác bỏ được) — *biến niềm tin
+thành dữ liệu*.
+
+**Làm gì:** Chạy **16h mỗi ngày (T2–T6)**. Mỗi khi một tín hiệu xuất hiện (giảm
+sâu / rẻ so lịch sử / khối ngoại gom ≥3 phiên), nó **ghi lại** giá vào sổ. Sau
+**14 ngày**, nó **đo kết quả thật** của tín hiệu đó. Mỗi **thứ 6** gửi báo cáo:
+mỗi loại tín hiệu *thật sự* thắng bao nhiêu %, lãi trung bình bao nhiêu — **tiến
+về phía trước, không phải backtest quá khứ** (nên không dính thiên kiến sống sót
+/ nhìn trộm tương lai).
+
+**Khác backtest thế nào?** Backtest soi quá khứ (dễ bị méo). Sổ điểm sống chấm
+các tín hiệu *kể từ hôm nay trở đi* — trung thực hơn. Sau vài tuần–tháng, đây là
+bằng chứng khách quan để tin (hoặc loại) từng tín hiệu.
+
+**Cài đặt:** Import → node Telegram chọn credential + Chat ID → Activate. (Cần
+chạy đều vài tuần mới có đủ lệnh "đến hạn chốt" để thống kê có ý nghĩa.)
+
+> 💡 Lưu trạng thái bằng `$getWorkflowStaticData` của n8n — chỉ tích luỹ khi
+> workflow **Active** (chạy tay không lưu sổ).
 
 ---
 
