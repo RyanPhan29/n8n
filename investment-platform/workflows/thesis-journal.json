@@ -1,15 +1,25 @@
 {
-  "name": "[CK] Sổ luận điểm - review tuần",
+  "name": "CK · 06 · 📓 Sổ luận điểm (8h CN)",
   "nodes": [
     {
       "parameters": {
-        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 8 * * 0" }] }
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 0"
+            }
+          ]
+        }
       },
       "id": "schedule-weekly",
       "name": "Lịch chạy (8h Chủ nhật)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 320]
+      "position": [
+        240,
+        320
+      ]
     },
     {
       "parameters": {
@@ -19,7 +29,10 @@
       "name": "Kiểm tra luận điểm",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [500, 320]
+      "position": [
+        500,
+        320
+      ]
     },
     {
       "parameters": {
@@ -29,30 +42,81 @@
       "name": "Cắt tin",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [760, 320]
+      "position": [
+        760,
+        320
+      ]
     },
     {
       "parameters": {
         "chatId": "5239928968",
         "text": "={{ $json.message }}",
-        "additionalFields": { "parse_mode": "Markdown" }
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
       },
       "id": "send-telegram",
       "name": "Gửi Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1020, 320],
+      "position": [
+        1020,
+        320
+      ],
       "webhookId": "thesis-telegram",
       "credentials": {
-        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
       }
     }
   ],
   "connections": {
-    "Lịch chạy (8h Chủ nhật)": { "main": [[{ "node": "Kiểm tra luận điểm", "type": "main", "index": 0 }]] },
-    "Kiểm tra luận điểm": { "main": [[{ "node": "Cắt tin", "type": "main", "index": 0 }]] },
-    "Cắt tin": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+    "Lịch chạy (8h Chủ nhật)": {
+      "main": [
+        [
+          {
+            "node": "Kiểm tra luận điểm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kiểm tra luận điểm": {
+      "main": [
+        [
+          {
+            "node": "Cắt tin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cắt tin": {
+      "main": [
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
-  "tags": [{ "name": "investment" }, { "name": "stock" }]
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    }
+  ]
 }

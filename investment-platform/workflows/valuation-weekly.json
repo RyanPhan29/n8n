@@ -1,15 +1,25 @@
 {
-  "name": "[CK] Định giá cơ bản (Lớp 4) - AI",
+  "name": "CK · 08 · 💰 Định giá tuần (6h45 T4)",
   "nodes": [
     {
       "parameters": {
-        "rule": { "interval": [{ "field": "cronExpression", "expression": "45 6 * * 3" }] }
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "45 6 * * 3"
+            }
+          ]
+        }
       },
       "id": "schedule-weekly",
       "name": "Lịch chạy (6h45 sáng thứ 4)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 320]
+      "position": [
+        240,
+        320
+      ]
     },
     {
       "parameters": {
@@ -19,7 +29,10 @@
       "name": "Gom dữ liệu định giá (VNDirect)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [480, 320]
+      "position": [
+        480,
+        320
+      ]
     },
     {
       "parameters": {
@@ -28,19 +41,34 @@
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendHeaders": true,
-        "headerParameters": { "parameters": [{ "name": "anthropic-version", "value": "2023-06-01" }] },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ $json.requestBody }}",
-        "options": { "timeout": 120000 }
+        "options": {
+          "timeout": 120000
+        }
       },
       "id": "claude-call",
       "name": "Claude phân tích định giá",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [720, 320],
+      "position": [
+        720,
+        320
+      ],
       "credentials": {
-        "httpHeaderAuth": { "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID", "name": "Anthropic API (x-api-key)" }
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID",
+          "name": "Anthropic API (x-api-key)"
+        }
       }
     },
     {
@@ -51,31 +79,95 @@
       "name": "Định dạng báo cáo",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [960, 320]
+      "position": [
+        960,
+        320
+      ]
     },
     {
       "parameters": {
         "chatId": "5239928968",
         "text": "={{ $json.message }}",
-        "additionalFields": { "parse_mode": "Markdown" }
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
       },
       "id": "send-telegram",
       "name": "Gửi Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1200, 320],
+      "position": [
+        1200,
+        320
+      ],
       "webhookId": "valuation-telegram",
       "credentials": {
-        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
       }
     }
   ],
   "connections": {
-    "Lịch chạy (6h45 sáng thứ 4)": { "main": [[{ "node": "Gom dữ liệu định giá (VNDirect)", "type": "main", "index": 0 }]] },
-    "Gom dữ liệu định giá (VNDirect)": { "main": [[{ "node": "Claude phân tích định giá", "type": "main", "index": 0 }]] },
-    "Claude phân tích định giá": { "main": [[{ "node": "Định dạng báo cáo", "type": "main", "index": 0 }]] },
-    "Định dạng báo cáo": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+    "Lịch chạy (6h45 sáng thứ 4)": {
+      "main": [
+        [
+          {
+            "node": "Gom dữ liệu định giá (VNDirect)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gom dữ liệu định giá (VNDirect)": {
+      "main": [
+        [
+          {
+            "node": "Claude phân tích định giá",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude phân tích định giá": {
+      "main": [
+        [
+          {
+            "node": "Định dạng báo cáo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Định dạng báo cáo": {
+      "main": [
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
-  "tags": [{ "name": "investment" }, { "name": "stock" }, { "name": "ai" }]
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    },
+    {
+      "name": "ai"
+    }
+  ]
 }

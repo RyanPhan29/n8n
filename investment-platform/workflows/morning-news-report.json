@@ -1,15 +1,25 @@
 {
-  "name": "[CK] Báo cáo sáng - Tin tức (VN + Quốc tế) + Claude AI",
+  "name": "CK · 01 · 📰 Báo cáo sáng (7h, T2–T6)",
   "nodes": [
     {
       "parameters": {
-        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 7 * * 1-5" }] }
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * 1-5"
+            }
+          ]
+        }
       },
       "id": "schedule-morning",
       "name": "Lịch chạy (7h sáng, T2-T6)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 320]
+      "position": [
+        240,
+        320
+      ]
     },
     {
       "parameters": {
@@ -19,7 +29,10 @@
       "name": "Gom tin (VN + Quốc tế) + dòng tiền",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [480, 320]
+      "position": [
+        480,
+        320
+      ]
     },
     {
       "parameters": {
@@ -28,19 +41,34 @@
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendHeaders": true,
-        "headerParameters": { "parameters": [{ "name": "anthropic-version", "value": "2023-06-01" }] },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ $json.requestBody }}",
-        "options": { "timeout": 120000 }
+        "options": {
+          "timeout": 120000
+        }
       },
       "id": "claude-call",
       "name": "Claude viết báo cáo",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [720, 320],
+      "position": [
+        720,
+        320
+      ],
       "credentials": {
-        "httpHeaderAuth": { "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID", "name": "Anthropic API (x-api-key)" }
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID",
+          "name": "Anthropic API (x-api-key)"
+        }
       }
     },
     {
@@ -51,31 +79,95 @@
       "name": "Định dạng báo cáo",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [960, 320]
+      "position": [
+        960,
+        320
+      ]
     },
     {
       "parameters": {
         "chatId": "5239928968",
         "text": "={{ $json.message }}",
-        "additionalFields": { "parse_mode": "Markdown" }
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
       },
       "id": "send-telegram",
       "name": "Gửi Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1200, 320],
+      "position": [
+        1200,
+        320
+      ],
       "webhookId": "morning-report-telegram",
       "credentials": {
-        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
       }
     }
   ],
   "connections": {
-    "Lịch chạy (7h sáng, T2-T6)": { "main": [[{ "node": "Gom tin (VN + Quốc tế) + dòng tiền", "type": "main", "index": 0 }]] },
-    "Gom tin (VN + Quốc tế) + dòng tiền": { "main": [[{ "node": "Claude viết báo cáo", "type": "main", "index": 0 }]] },
-    "Claude viết báo cáo": { "main": [[{ "node": "Định dạng báo cáo", "type": "main", "index": 0 }]] },
-    "Định dạng báo cáo": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+    "Lịch chạy (7h sáng, T2-T6)": {
+      "main": [
+        [
+          {
+            "node": "Gom tin (VN + Quốc tế) + dòng tiền",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gom tin (VN + Quốc tế) + dòng tiền": {
+      "main": [
+        [
+          {
+            "node": "Claude viết báo cáo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude viết báo cáo": {
+      "main": [
+        [
+          {
+            "node": "Định dạng báo cáo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Định dạng báo cáo": {
+      "main": [
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
-  "tags": [{ "name": "investment" }, { "name": "stock" }, { "name": "ai" }]
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    },
+    {
+      "name": "ai"
+    }
+  ]
 }

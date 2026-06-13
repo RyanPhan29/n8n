@@ -1,5 +1,5 @@
 {
-  "name": "[CK] Nhịp ngành Bất động sản - AI",
+  "name": "CK · 10 · 🏢 Nhịp ngành BĐS (6h45 T2)",
   "nodes": [
     {
       "parameters": {
@@ -16,7 +16,10 @@
       "name": "Lịch chạy (6h45 sáng thứ 2)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 320]
+      "position": [
+        240,
+        320
+      ]
     },
     {
       "parameters": {
@@ -26,7 +29,10 @@
       "name": "Gom nhịp ngành BĐS",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [480, 320]
+      "position": [
+        480,
+        320
+      ]
     },
     {
       "parameters": {
@@ -37,19 +43,27 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "anthropic-version", "value": "2023-06-01" }
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ $json.requestBody }}",
-        "options": { "timeout": 120000 }
+        "options": {
+          "timeout": 120000
+        }
       },
       "id": "claude-call",
       "name": "Claude phân tích ngành",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [720, 320],
+      "position": [
+        720,
+        320
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID",
@@ -65,31 +79,95 @@
       "name": "Định dạng báo cáo",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [960, 320]
+      "position": [
+        960,
+        320
+      ]
     },
     {
       "parameters": {
         "chatId": "5239928968",
         "text": "={{ $json.message }}",
-        "additionalFields": { "parse_mode": "Markdown" }
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
       },
       "id": "send-telegram",
       "name": "Gửi Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1200, 320],
+      "position": [
+        1200,
+        320
+      ],
       "webhookId": "sector-re-telegram",
       "credentials": {
-        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
       }
     }
   ],
   "connections": {
-    "Lịch chạy (6h45 sáng thứ 2)": { "main": [[{ "node": "Gom nhịp ngành BĐS", "type": "main", "index": 0 }]] },
-    "Gom nhịp ngành BĐS": { "main": [[{ "node": "Claude phân tích ngành", "type": "main", "index": 0 }]] },
-    "Claude phân tích ngành": { "main": [[{ "node": "Định dạng báo cáo", "type": "main", "index": 0 }]] },
-    "Định dạng báo cáo": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+    "Lịch chạy (6h45 sáng thứ 2)": {
+      "main": [
+        [
+          {
+            "node": "Gom nhịp ngành BĐS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gom nhịp ngành BĐS": {
+      "main": [
+        [
+          {
+            "node": "Claude phân tích ngành",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude phân tích ngành": {
+      "main": [
+        [
+          {
+            "node": "Định dạng báo cáo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Định dạng báo cáo": {
+      "main": [
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
-  "tags": [{ "name": "investment" }, { "name": "stock" }, { "name": "ai" }]
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    },
+    {
+      "name": "ai"
+    }
+  ]
 }

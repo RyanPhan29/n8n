@@ -1,5 +1,5 @@
 {
-  "name": "[CK] Bot nhận lệnh Telegram (gõ mã: /size /check)",
+  "name": "CK · 05 · 🤖 Bot lệnh /size /check",
   "nodes": [
     {
       "parameters": {

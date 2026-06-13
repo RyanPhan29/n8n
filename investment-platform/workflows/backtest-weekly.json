@@ -1,5 +1,5 @@
 {
-  "name": "[CK] Backtest tín hiệu - hàng tuần",
+  "name": "CK · 09 · 🔁 Backtest tuần (9h T7)",
   "nodes": [
     {
       "parameters": {
@@ -16,7 +16,10 @@
       "name": "Lịch chạy (9h sáng thứ 7)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 300]
+      "position": [
+        240,
+        300
+      ]
     },
     {
       "parameters": {
@@ -26,7 +29,10 @@
       "name": "Chạy backtest (DNSE/VNDirect)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [500, 300]
+      "position": [
+        500,
+        300
+      ]
     },
     {
       "parameters": {
@@ -36,7 +42,10 @@
       "name": "Cắt tin cho Telegram",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [760, 300]
+      "position": [
+        760,
+        300
+      ]
     },
     {
       "parameters": {
@@ -50,7 +59,10 @@
       "name": "Gửi Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1020, 300],
+      "position": [
+        1020,
+        300
+      ],
       "webhookId": "backtest-telegram",
       "credentials": {
         "telegramApi": {
@@ -62,18 +74,52 @@
   ],
   "connections": {
     "Lịch chạy (9h sáng thứ 7)": {
-      "main": [[{ "node": "Chạy backtest (DNSE/VNDirect)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Chạy backtest (DNSE/VNDirect)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Chạy backtest (DNSE/VNDirect)": {
-      "main": [[{ "node": "Cắt tin cho Telegram", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Cắt tin cho Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Cắt tin cho Telegram": {
-      "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
     "executionOrder": "v1",
     "timezone": "Asia/Ho_Chi_Minh"
   },
-  "tags": [{ "name": "investment" }, { "name": "stock" }, { "name": "backtest" }]
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    },
+    {
+      "name": "backtest"
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "[CK] Cảnh báo cổ phiếu bất thường - Telegram",
+  "name": "CK · 02 · 🚨 Cảnh báo cổ phiếu (mỗi 15p, giờ GD)",
   "nodes": [
     {
       "parameters": {
@@ -16,7 +16,10 @@
       "name": "Lịch chạy (15 phút/lần, giờ giao dịch)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [260, 300]
+      "position": [
+        260,
+        300
+      ]
     },
     {
       "parameters": {
@@ -26,7 +29,10 @@
       "name": "Lấy dữ liệu & Phân tích (DNSE/VNDirect)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [520, 300]
+      "position": [
+        520,
+        300
+      ]
     },
     {
       "parameters": {
@@ -56,7 +62,10 @@
       "name": "Có cảnh báo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [780, 300]
+      "position": [
+        780,
+        300
+      ]
     },
     {
       "parameters": {
@@ -70,7 +79,10 @@
       "name": "Gửi Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1040, 220],
+      "position": [
+        1040,
+        220
+      ],
       "webhookId": "stock-alert-telegram",
       "credentials": {
         "telegramApi": {
@@ -121,7 +133,11 @@
     "timezone": "Asia/Ho_Chi_Minh"
   },
   "tags": [
-    { "name": "investment" },
-    { "name": "stock" }
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    }
   ]
 }

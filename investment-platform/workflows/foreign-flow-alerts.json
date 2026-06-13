@@ -1,5 +1,5 @@
 {
-  "name": "[CK] Dòng tiền khối ngoại - Telegram",
+  "name": "CK · 03 · 🌍 Cảnh báo khối ngoại (15h45)",
   "nodes": [
     {
       "parameters": {
@@ -16,7 +16,10 @@
       "name": "Lịch chạy (15h45 sau phiên, T2-T6)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 300]
+      "position": [
+        240,
+        300
+      ]
     },
     {
       "parameters": {
@@ -26,7 +29,10 @@
       "name": "Lấy & Phân tích khối ngoại (VNDirect)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [500, 300]
+      "position": [
+        500,
+        300
+      ]
     },
     {
       "parameters": {
@@ -56,7 +62,10 @@
       "name": "Có báo cáo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [760, 300]
+      "position": [
+        760,
+        300
+      ]
     },
     {
       "parameters": {
@@ -70,7 +79,10 @@
       "name": "Gửi Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1020, 220],
+      "position": [
+        1020,
+        220
+      ],
       "webhookId": "foreign-flow-telegram",
       "credentials": {
         "telegramApi": {
@@ -82,14 +94,36 @@
   ],
   "connections": {
     "Lịch chạy (15h45 sau phiên, T2-T6)": {
-      "main": [[{ "node": "Lấy & Phân tích khối ngoại (VNDirect)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Lấy & Phân tích khối ngoại (VNDirect)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Lấy & Phân tích khối ngoại (VNDirect)": {
-      "main": [[{ "node": "Có báo cáo?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Có báo cáo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Có báo cáo?": {
       "main": [
-        [{ "node": "Gửi Telegram", "type": "main", "index": 0 }],
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
         []
       ]
     }
@@ -98,5 +132,12 @@
     "executionOrder": "v1",
     "timezone": "Asia/Ho_Chi_Minh"
   },
-  "tags": [{ "name": "investment" }, { "name": "stock" }]
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    }
+  ]
 }
