@@ -1,0 +1,58 @@
+{
+  "name": "[CK] Sổ luận điểm - review tuần",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 8 * * 0" }] }
+      },
+      "id": "schedule-weekly",
+      "name": "Lịch chạy (8h Chủ nhật)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  SỔ LUẬN ĐIỂM - khai mỗi mã đang giữ/cân nhắc: VÌ SAO mua + ĐIỀU GÌ làm mình SAI.\n//  Hệ thống canh các điều kiện SAI và nhắc xem lại định kỳ.\n//  ⚠️ Sửa khối THESES dưới đây theo danh mục THẬT của anh.\n// ===========================================================================\nconst THESES = {\n  'BID': {\n    thesis: 'NH quốc doanh, định giá rẻ so lịch sử (P/E ~9 vs TB5N ~13), kỳ vọng khối ngoại quay lại.',\n    invalidate: 'Nợ xấu (NPL) tăng mạnh / NIM co lại / khối ngoại xả kéo dài.',\n    entryDate: '2026-06-13', reviewDate: '2026-09-13',\n    priceFloor: 39,      // rớt dưới mức này = luận điểm sai (cắt lỗ)\n    peCeiling: 14,       // P/E vượt mức này = hết rẻ, luận điểm \"rẻ\" không còn\n    foreignSellAlert: true,\n  },\n  'FPT': {\n    thesis: 'Công nghệ tăng trưởng, P/E ~13 thấp bất thường so lịch sử (TB5N ~20).',\n    invalidate: 'Tăng trưởng doanh thu/LN chậm lại rõ rệt / P/E hết chiết khấu.',\n    entryDate: '2026-06-13', reviewDate: '2026-09-13',\n    priceFloor: 0, peCeiling: 20, foreignSellAlert: true,\n  },\n  // Thêm mã của anh theo mẫu trên. priceFloor/peCeiling = 0 để bỏ qua kiểm tra đó.\n};\n// ===========================================================================\n\nconst tickers = Object.keys(THESES);\nif (!tickers.length) {\n  return [{ json: { hasReport: true, message: '📓 *SỔ LUẬN ĐIỂM*\\n\\nChưa khai luận điểm nào. Mở node này, thêm mỗi mã anh đang giữ kèm: *vì sao mua* + *điều gì làm mình sai* + giá sàn/trần P/E. Hệ thống sẽ canh giúp.' } }];\n}\n\nconst to = Math.floor(Date.now() / 1000);\nconst from = to - 60 * 60 * 24 * 60;\nconst todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst hBar = { 'User-Agent': UA, 'Accept': '*/*' };\nconst hFin = { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\n\nconst fetchPrice = async (t) => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://services.entrade.com.vn/chart-api/v2/ohlcs/stock', qs: { symbol: t, from, to, resolution: '1D' }, headers: hBar, json: true, timeout: 15000 });\n    if (res && Array.isArray(res.c) && res.c.length) return res.c[res.c.length - 1];\n  } catch (e) { /* */ }\n  return null;\n};\nconst fetchPE = async (t) => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:' + t + '~itemCode:51006&sort=reportDate:desc&size=3', headers: hFin, json: false, timeout: 15000 });\n    let p; try { p = typeof res === 'string' ? JSON.parse(res) : res; } catch (e) { p = null; }\n    const d = (p && p.data) || [];\n    return d.length ? d[0].value : null;\n  } catch (e) { return null; }\n};\nconst fetchForeignStreak = async (t) => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + t + '&size=5&sort=tradingDate:desc', headers: hFin, json: true, timeout: 15000 });\n    const nets = ((res && res.data) || []).map(x => (x.netVal || 0) / 1e9);\n    if (!nets.length) return { streak: 0, dir: 0 };\n    const dir = nets[0] > 1 ? 1 : nets[0] < -1 ? -1 : 0;\n    let streak = 0; for (const v of nets) { const s = v > 1 ? 1 : v < -1 ? -1 : 0; if (s === dir && dir !== 0) streak++; else break; }\n    return { streak, dir };\n  } catch (e) { return { streak: 0, dir: 0 }; }\n};\nconst daysBetween = (a, b) => Math.round((new Date(b) - new Date(a)) / 86400000);\nconst fmtD = (k) => Math.round(k * 1000).toLocaleString('vi-VN') + 'đ';\n\nconst blocks = [];\nlet redCount = 0;\nfor (const t of tickers) {\n  const th = THESES[t];\n  const price = await fetchPrice(t);\n  const pe = await fetchPE(t);\n  const fg = await fetchForeignStreak(t);\n\n  const flags = [];\n  const health = [];\n  if (price != null) {\n    if (th.priceFloor > 0 && price <= th.priceFloor) { flags.push('🔴 GIÁ thủng sàn luận điểm ' + fmtD(th.priceFloor) + ' → đây là tín hiệu CẮT LỖ / luận điểm sai'); }\n    else if (th.priceFloor > 0) { health.push('giá ' + fmtD(price) + ' (sàn ' + fmtD(th.priceFloor) + ', còn cách ' + ((price / th.priceFloor - 1) * 100).toFixed(1) + '%)'); }\n    else { health.push('giá ' + fmtD(price)); }\n  }\n  if (pe != null && th.peCeiling > 0) {\n    if (pe >= th.peCeiling) flags.push('🟠 P/E ' + pe.toFixed(1) + ' vượt trần ' + th.peCeiling + ' → luận điểm \"rẻ\" KHÔNG còn');\n    else health.push('P/E ' + pe.toFixed(1) + ' (trần ' + th.peCeiling + ' ✓)');\n  }\n  if (th.foreignSellAlert && fg.dir === -1 && fg.streak >= 3) flags.push('🟠 Khối ngoại XẢ ' + fg.streak + ' phiên liên tiếp');\n  else if (fg.streak >= 3) health.push('KN ' + (fg.dir > 0 ? 'gom' : 'xả') + ' ' + fg.streak + ' phiên');\n\n  const dRev = th.reviewDate ? daysBetween(todayStr, th.reviewDate) : null;\n  if (dRev != null && dRev <= 0) flags.push('🟠 ĐÃ ĐẾN HẠN xem lại luận điểm (' + th.reviewDate + ')');\n\n  if (flags.length) redCount++;\n  let b = '📌 *' + t + '*' + (th.entryDate ? ' _(vào ' + th.entryDate.split('-').reverse().slice(0,2).join('/') + (dRev != null ? ', xem lại sau ' + Math.max(0, dRev) + ' ngày' : '') + ')_' : '');\n  b += '\\n   *Vì sao:* ' + th.thesis;\n  b += '\\n   *Sẽ SAI nếu:* ' + th.invalidate;\n  if (health.length) b += '\\n   Sức khoẻ: ' + health.join(' · ');\n  b += flags.length ? '\\n   ' + flags.join('\\n   ') + '\\n   → ⚠️ *XEM LẠI LUẬN ĐIỂM*' : '\\n   → ✅ Luận điểm còn nguyên vẹn';\n  blocks.push(b);\n}\n\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst head = '📓 *SỔ LUẬN ĐIỂM — review tuần*\\n_' + now + '_\\n'\n  + (redCount ? '⚠️ *' + redCount + ' mã có cờ cần xem lại*\\n\\n' : '_Tất cả luận điểm còn nguyên vẹn._\\n\\n');\nconst foot = '\\n\\n_Đọc lại luận điểm mỗi tuần là kỷ luật chống \"yêu một mã\". Cờ ⚠️ = điều kiện SAI anh tự đặt đã chạm — hãy bán hoặc viết lại luận điểm, đừng lờ đi._';\n\nreturn [{ json: { hasReport: true, message: head + blocks.join('\\n\\n') + foot } }];"
+      },
+      "id": "journal",
+      "name": "Kiểm tra luận điểm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "const full = $input.first().json.message || '';\nconst SIZE = 3800;\nconst parts = [];\nlet s = full;\nwhile (s.length > SIZE) { let cut = s.lastIndexOf('\\n', SIZE); if (cut < SIZE * 0.5) cut = SIZE; parts.push(s.slice(0, cut)); s = s.slice(cut); }\nif (s.trim()) parts.push(s);\nreturn parts.map(p => ({ json: { message: p } }));"
+      },
+      "id": "split",
+      "name": "Cắt tin",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [760, 320]
+    },
+    {
+      "parameters": {
+        "chatId": "PASTE_CHAT_ID_HERE",
+        "text": "={{ $json.message }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1020, 320],
+      "webhookId": "thesis-telegram",
+      "credentials": {
+        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+      }
+    }
+  ],
+  "connections": {
+    "Lịch chạy (8h Chủ nhật)": { "main": [[{ "node": "Kiểm tra luận điểm", "type": "main", "index": 0 }]] },
+    "Kiểm tra luận điểm": { "main": [[{ "node": "Cắt tin", "type": "main", "index": 0 }]] },
+    "Cắt tin": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "stock" }]
+}
