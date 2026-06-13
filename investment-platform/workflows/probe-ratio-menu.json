@@ -1,0 +1,30 @@
+{
+  "name": "[CK] Liệt kê thực đơn chỉ số VNDirect (chạy 1 lần)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Bấm Execute để liệt kê",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// LIỆT KÊ TOÀN BỘ \"THỰC ĐƠN\" CHỈ SỐ của endpoint ratios (mã VNM)\n// -> tìm itemCode/ratioCode của ROE, ROA, Nợ/Vốn, Biên LN.\n// ============================================================\nconst headers = {\n  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',\n  'Accept': 'application/json, text/plain, */*',\n  'Referer': 'https://dstock.vndirect.com.vn/',\n};\n\nconst tryFetch = async (url) => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url, headers, json: false, timeout: 20000 });\n    let p; try { p = typeof res === 'string' ? JSON.parse(res) : res; } catch (e) { return { err: 'parse' }; }\n    return { data: (p && p.data) || [] };\n  } catch (e) {\n    return { err: (e.message || String(e)) };\n  }\n};\n\n// Thử nhiều biến thể để lấy được càng nhiều itemCode càng tốt\nconst variants = [\n  'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:VNM&sort=reportDate:desc&size=500',\n  'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:VNM~reportType:QUARTER&sort=reportDate:desc&size=300',\n  'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:VNM~reportType:ANNUAL&sort=reportDate:desc&size=300',\n];\n\nconst seen = new Map();\nconst log = [];\nfor (const url of variants) {\n  const r = await tryFetch(url);\n  if (r.err) { log.push('❌ ' + url.split('?')[1] + ' -> ' + r.err); continue; }\n  log.push('✅ ' + url.split('?')[1] + ' -> ' + r.data.length + ' dòng');\n  for (const d of r.data) {\n    const key = d.itemCode + '|' + d.ratioCode;\n    if (!seen.has(key)) seen.set(key, {\n      itemCode: d.itemCode,\n      ratioCode: d.ratioCode,\n      itemName: (d.itemName || '').trim(),\n      reportDate: d.reportDate,\n      value: d.value,\n    });\n  }\n}\n\nconst list = [...seen.values()].sort((a, b) => String(a.itemCode).localeCompare(String(b.itemCode)));\nreturn [\n  { json: { TONG_KET: 'Tìm thấy ' + list.length + ' chỉ số khác nhau', log } },\n  ...list.map(x => ({ json: x })),\n];"
+      },
+      "id": "list-menu",
+      "name": "Liệt kê chỉ số",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 300]
+    }
+  ],
+  "connections": {
+    "Bấm Execute để liệt kê": {
+      "main": [[{ "node": "Liệt kê chỉ số", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "probe" }]
+}
