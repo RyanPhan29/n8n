@@ -19,6 +19,7 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 | **2b** | Dòng tiền khối ngoại: gom/xả N phiên, mua bán ròng mạnh, đảo chiều | ✅ Xong |
 | 3 | Module bất động sản (giá rao theo khu vực) | ⏳ Kế tiếp |
 | **3A** | Nhịp ngành BĐS phục vụ quyết định chứng khoán (AI) | ✅ Xong |
+| **4** | Định giá cơ bản: P/E, P/B, ROE, nợ → "rẻ hay đắt" (AI) | ✅ Xong |
 | **4** | Backtest tín hiệu hàng tuần + quét ngưỡng cắt lỗ | ✅ Xong |
 
 ---
@@ -285,6 +286,32 @@ phiếu, lãi suất), rồi để **`claude-opus-4-8`** viết báo cáo: sức
 Execute để test → Activate.
 
 **Tuỳ chỉnh:** sửa `BASKET` (rổ ngành) và `FOCUS` (mã đánh dấu ⭐) ở đầu node gom.
+
+---
+
+## Giai đoạn 4 — Định giá cơ bản (Lớp 4)
+
+**File workflow:** [`workflows/valuation-weekly.json`](workflows/valuation-weekly.json)
+**Nền tảng triết lý:** nguyên lý #2 (Biên an toàn) trong
+[`BO-TU-DUY-DAU-TU.md`](BO-TU-DUY-DAU-TU.md) — trả lời câu #2 của bộ lọc 7 câu:
+*"mã này RẺ hay ĐẮT?"*
+
+**Làm gì:** Chạy **6h45 sáng thứ 4 hàng tuần**, kéo chỉ số cơ bản mới nhất
+(P/E, P/B, ROE, ROA, nợ/VCSH, biên LN, cổ tức) cho từng mã watchlist từ VNDirect
+finfo, gắn nhãn ngành, rồi để **`claude-opus-4-8`** đánh giá RẺ / HỢP LÝ / ĐẮT
+theo **ngưỡng của từng ngành** (ngân hàng P/E thấp, công nghệ cao hơn, thép có
+tính chu kỳ...), đọc kỹ BID/BCM/FPT, kèm **cảnh báo bẫy giá trị**.
+
+**Cài đặt:** Import → node Claude chọn credential `Anthropic API`, node Telegram
+chọn credential + Chat ID → Execute → Activate.
+
+**Tuỳ chỉnh:** `WATCHLIST` (mã + nhãn ngành), `FOCUS` (mã ⭐), `WANT` (danh sách
+chỉ số). Mảng `debug` in ra "CÁC ratioCode CÓ SẴN" — dùng để bổ sung chỉ số mới.
+
+> ⚠️ **Giới hạn (đọc kỹ — đúng tinh thần nguyên lý #9):** đây là *ảnh chụp hiện
+> tại* so với *ngưỡng ngành*, **chưa** so với *dải lịch sử của chính mã* (nâng cấp
+> sau). Định giá từ vài chỉ số là điểm khởi đầu, KHÔNG thay được việc đọc báo cáo
+> tài chính gốc. P/E thấp có thể là *bẫy giá trị*. Quyết định vẫn là của bạn.
 
 ---
 

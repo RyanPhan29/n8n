@@ -1,0 +1,81 @@
+{
+  "name": "[CK] Định giá cơ bản (Lớp 4) - AI",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [{ "field": "cronExpression", "expression": "45 6 * * 3" }] }
+      },
+      "id": "schedule-weekly",
+      "name": "Lịch chạy (6h45 sáng thứ 4)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  CẤU HÌNH - watchlist kèm NGÀNH (để Claude áp ngưỡng định giá đúng ngành)\n// ===========================================================================\nconst WATCHLIST = [\n  { t: 'BID', s: 'Ngân hàng' }, { t: 'VCB', s: 'Ngân hàng' }, { t: 'MBB', s: 'Ngân hàng' }, { t: 'STB', s: 'Ngân hàng' },\n  { t: 'BCM', s: 'BĐS Khu công nghiệp' },\n  { t: 'FPT', s: 'Công nghệ' },\n  { t: 'VNM', s: 'Hàng tiêu dùng' }, { t: 'MWG', s: 'Bán lẻ' },\n  { t: 'HPG', s: 'Thép (chu kỳ)' }, { t: 'DGC', s: 'Hoá chất' },\n  { t: 'SSI', s: 'Chứng khoán' }, { t: 'VND', s: 'Chứng khoán' },\n];\nconst FOCUS = ['BID', 'BCM', 'FPT']; // mã anh đang cân nhắc - Claude đọc kỹ\n// ===========================================================================\n\n// Các chỉ số muốn lấy - thử nhiều tên mã (code) khả dĩ cho mỗi chỉ số.\n// pct:true = nếu giá trị < 1 thì coi là tỷ lệ, nhân 100 thành %.\nconst WANT = [\n  { label: 'P/E',          codes: ['PRICE_TO_EARNINGS'], pct: false },\n  { label: 'P/B',          codes: ['PRICE_TO_BOOK'], pct: false },\n  { label: 'ROE',          codes: ['ROE', 'RETURN_ON_EQUITY'], pct: true },\n  { label: 'ROA',          codes: ['ROA', 'RETURN_ON_ASSET', 'RETURN_ON_ASSETS'], pct: true },\n  { label: 'Nợ/VCSH',      codes: ['DEBT_EQUITY', 'DEBT_TO_EQUITY', 'LIABILITIES_TO_EQUITY', 'DEBT_ON_EQUITY'], pct: false },\n  { label: 'Biên LN ròng', codes: ['NET_PROFIT_MARGIN', 'NET_MARGIN', 'PROFIT_MARGIN'], pct: true },\n  { label: 'Cổ tức/giá',   codes: ['DIVIDEND_YIELD'], pct: true },\n  { label: 'EPS',          codes: ['EPS', 'BASIC_EPS'], pct: false },\n  { label: 'Vốn hoá',      codes: ['MARKET_CAP'], pct: false },\n];\n\nconst headers = {\n  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',\n  'Accept': 'application/json',\n  'Referer': 'https://dstock.vndirect.com.vn/',\n};\n\nconst allCodes = new Set();\nconst rows = [];\nconst debug = [];\n\nfor (const { t, s } of WATCHLIST) {\n  try {\n    // KHÔNG lọc ratioCode -> lấy TẤT CẢ chỉ số mới nhất, rồi tự chọn\n    const res = await this.helpers.httpRequest({\n      method: 'GET',\n      url: 'https://api-finfo.vndirect.com.vn/v4/ratios/latest?order=reportDate&where=code:' + t + '&fields=ratioCode,value,reportDate&size=300',\n      headers, json: true, timeout: 15000,\n    });\n    const data = (res && res.data) || [];\n    if (!data.length) { debug.push(t + ': không có chỉ số'); continue; }\n\n    const map = {};\n    for (const d of data) {\n      allCodes.add(d.ratioCode);\n      const prev = map[d.ratioCode];\n      if (!prev || (d.reportDate || '') > (prev.date || '')) map[d.ratioCode] = { value: d.value, date: d.reportDate };\n    }\n\n    const metrics = {};\n    for (const w of WANT) {\n      let v = null;\n      for (const code of w.codes) { if (map[code] && map[code].value != null) { v = map[code].value; break; } }\n      if (v != null && w.pct && Math.abs(v) < 1) v = v * 100;\n      metrics[w.label] = v;\n    }\n    rows.push({ t, s, metrics });\n    const pe = metrics['P/E'];\n    debug.push(t + ': OK (' + data.length + ' chỉ số, P/E ' + (pe != null ? Number(pe).toFixed(1) : 'n/a') + ')');\n  } catch (e) {\n    debug.push(t + ': ❌ ' + (e.message || String(e)));\n  }\n}\n\n// In toàn bộ ratioCode lấy được -> dùng để tinh chỉnh tên chỉ số lần sau\ndebug.push('CÁC ratioCode CÓ SẴN: ' + [...allCodes].sort().join(', '));\n\nconst fmt = (v) => (v == null ? 'n/a' : (Math.abs(v) >= 1000 ? Math.round(v).toLocaleString('vi-VN') : Number(v).toFixed(2)));\nlet table = '';\nfor (const r of rows) {\n  const m = r.metrics;\n  table += (FOCUS.includes(r.t) ? '⭐ ' : '') + r.t + ' (' + r.s + '): '\n    + 'P/E ' + fmt(m['P/E']) + ' | P/B ' + fmt(m['P/B'])\n    + ' | ROE ' + fmt(m['ROE']) + '% | ROA ' + fmt(m['ROA']) + '%'\n    + ' | Nợ/VCSH ' + fmt(m['Nợ/VCSH'])\n    + ' | Biên LN ' + fmt(m['Biên LN ròng']) + '%'\n    + ' | Cổ tức ' + fmt(m['Cổ tức/giá']) + '%\\n';\n}\n\nconst today = new Date().toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', day: 'numeric', month: 'numeric', year: 'numeric' });\n\nconst system = 'Bạn là chuyên viên phân tích ĐỊNH GIÁ cổ phiếu Việt Nam, theo trường phái biên an toàn (Graham/Buffett). '\n  + 'Dựa vào chỉ số cơ bản mới nhất của từng mã + KIẾN THỨC của bạn về ngưỡng hợp lý THEO NGÀNH, đánh giá mỗi mã RẺ / HỢP LÝ / ĐẮT.\\n\\n'\n  + 'Bối cảnh ngưỡng tham khảo theo ngành VN: Ngân hàng P/E thường thấp (~6-12), P/B 1-2; Công nghệ/Bán lẻ P/E cao hơn (15-25) nếu tăng trưởng tốt; Thép & Hoá chất có tính CHU KỲ (P/E thấp lúc đỉnh lợi nhuận có thể là bẫy); Chứng khoán biến động theo thị trường.\\n\\n'\n  + 'Nguyên tắc bắt buộc:\\n'\n  + '- Mỗi mã: nêu P/E, P/B; so với ngưỡng hợp lý của CHÍNH NGÀNH đó; đánh giá CHẤT LƯỢNG qua ROE (cao = tốt) và nợ; kết luận RẺ / HỢP LÝ / ĐẮT + 1 câu lý do.\\n'\n  + '- Đọc kỹ 3 mã ⭐ (BID, BCM, FPT) - người dùng đang cân nhắc mua.\\n'\n  + '- CẢNH BÁO BẪY: P/E thấp có thể là \"bẫy giá trị\" (doanh nghiệp đang xấu đi hoặc đỉnh chu kỳ); ROE cao kèm nợ lớn là rủi ro. ĐỪNG kết luận chỉ từ 1 chỉ số.\\n'\n  + '- Thiếu dữ liệu chỉ số nào thì ghi rõ \"thiếu dữ liệu\", TUYỆT ĐỐI KHÔNG bịa số.\\n'\n  + '- ĐÂY LÀ ĐÁNH GIÁ ĐỊNH GIÁ THAM KHẢO, KHÔNG phải khuyến nghị mua/bán. Nhắc người dùng kiểm chứng thêm bằng báo cáo tài chính gốc.\\n'\n  + '- Bố cục: (1) 💎 Xếp hạng RẺ → ĐẮT, (2) 🔎 Phân tích sâu BID/BCM/FPT, (3) ⚠️ Bẫy định giá cần lưu ý.\\n'\n  + '- Markdown đơn giản, dễ đọc điện thoại, tối đa ~550 từ.';\n\nconst userContent = 'Ngày ' + today + '. Chỉ số cơ bản mới nhất (nguồn VNDirect; ROE/ROA/Biên LN/Cổ tức đơn vị %; \"n/a\" = chưa lấy được):\\n\\n'\n  + (table || '(không lấy được dữ liệu)')\n  + '\\n\\nHãy viết báo cáo định giá theo đúng bố cục. Mã nào thiếu chỉ số quan trọng (P/E hoặc P/B) thì nói rõ chưa đủ cơ sở định giá.';\n\nconst requestBody = { model: 'claude-opus-4-8', max_tokens: 4000, system, messages: [{ role: 'user', content: userContent }] };\n\nreturn [{ json: { requestBody, debug } }];"
+      },
+      "id": "gather-valuation",
+      "name": "Gom dữ liệu định giá (VNDirect)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 320]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [{ "name": "anthropic-version", "value": "2023-06-01" }] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": { "timeout": 120000 }
+      },
+      "id": "claude-call",
+      "name": "Claude phân tích định giá",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 320],
+      "credentials": {
+        "httpHeaderAuth": { "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID", "name": "Anthropic API (x-api-key)" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $input.first().json;\nlet text = '';\nif (res && Array.isArray(res.content)) text = res.content.filter(b => b.type === 'text').map(b => b.text).join('\\n').trim();\nif (!text) {\n  if (res && res.type === 'error' && res.error) text = '⚠️ Lỗi API: ' + (res.error.message || JSON.stringify(res.error));\n  else if (res && res.stop_reason === 'refusal') text = '⚠️ Bị từ chối bởi bộ lọc an toàn.';\n  else text = '⚠️ Không tạo được báo cáo (phản hồi rỗng).';\n}\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst full = '💎 *ĐỊNH GIÁ CƠ BẢN (Lớp 4)*\\n_' + now + '_\\n\\n' + text + '\\n\\n_Chỉ số: VNDirect · Phân tích: Claude AI · ảnh chụp hiện tại so ngưỡng ngành, chưa so dải lịch sử · KHÔNG phải khuyến nghị đầu tư_';\nconst SIZE = 3800;\nconst parts = [];\nlet s = full;\nwhile (s.length > SIZE) { let cut = s.lastIndexOf('\\n', SIZE); if (cut < SIZE * 0.5) cut = SIZE; parts.push(s.slice(0, cut)); s = s.slice(cut); }\nif (s.trim()) parts.push(s);\nreturn parts.map(p => ({ json: { message: p } }));"
+      },
+      "id": "format-report",
+      "name": "Định dạng báo cáo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 320]
+    },
+    {
+      "parameters": {
+        "chatId": "PASTE_CHAT_ID_HERE",
+        "text": "={{ $json.message }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1200, 320],
+      "webhookId": "valuation-telegram",
+      "credentials": {
+        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+      }
+    }
+  ],
+  "connections": {
+    "Lịch chạy (6h45 sáng thứ 4)": { "main": [[{ "node": "Gom dữ liệu định giá (VNDirect)", "type": "main", "index": 0 }]] },
+    "Gom dữ liệu định giá (VNDirect)": { "main": [[{ "node": "Claude phân tích định giá", "type": "main", "index": 0 }]] },
+    "Claude phân tích định giá": { "main": [[{ "node": "Định dạng báo cáo", "type": "main", "index": 0 }]] },
+    "Định dạng báo cáo": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "stock" }, { "name": "ai" }]
+}
