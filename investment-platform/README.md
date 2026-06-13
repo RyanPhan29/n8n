@@ -22,6 +22,8 @@ Hệ thống tự động thu thập – phân tích – cảnh báo thông tin 
 | **4** | Định giá cơ bản: P/E, P/B (+ dải lịch sử), ROE → "rẻ hay đắt" (AI) | ✅ Xong |
 | **5** | Sổ điểm sống: hệ thống tự chấm tín hiệu bằng dữ liệu thật (NL #8) | ✅ Xong |
 | **6** | Máy tính khối lượng & R:R — "vào bao nhiêu" (NL #5) | ✅ Xong |
+| **7** | Sổ luận điểm: vì sao mua + điều gì làm sai (NL #3, #8) | ✅ Xong |
+| **8** | Bảng quyết định 7 câu trước khi mua (gom toàn hệ thống) | ✅ Xong |
 | **4** | Backtest tín hiệu hàng tuần + quét ngưỡng cắt lỗ | ✅ Xong |
 
 ---
