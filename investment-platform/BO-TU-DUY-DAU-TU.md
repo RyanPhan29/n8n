@@ -245,5 +245,41 @@ Chắt lọc tất cả thành một checklist trước khi vào lệnh — tr�
 > nối dài của bộ nguyên lý ấy — không bao giờ thay thế nó.
 
 ---
+
+## PHỤ LỤC A — PHÂN BỔ VỐN: QUY TẮC "8:2" (Core–Satellite)
+
+"8:2" được định nghĩa đàng hoàng bằng **lý thuyết danh mục Core–Satellite**:
+
+- **80% CỐT LÕI (Core):** mã hiểu rõ, chất lượng, biến động vừa — nhóm **🟢A** và
+  **🟡B**. Phần giữ tài sản, đi cùng thị trường, ít gây mất ngủ.
+- **≤20% VỆ TINH (Satellite):** mã đầu cơ/biến động cao — nhóm **🔴C**. Để "đánh
+  cơ hội", chấp nhận thua, **không bao giờ để nó kéo sập cả danh mục**.
+- **Tiền mặt luôn là MỘT vị thế.** Không có kèo đủ 7 câu → giữ tiền, không ép mua.
+
+Ba lớp khoá rủi ro (rộng → hẹp), hệ thống tự áp:
+1. **Phân bổ danh mục:** 80% Core / ≤20% Satellite.
+2. **Trần 1 vị thế theo bậc:** 🟢A ≤40% · 🟡B ≤25% · 🔴C ≤10% NAV — đã mã hoá trong `/size`.
+3. **Rủi ro mỗi lệnh:** chỉ mất ~1.5% NAV nếu chạm cắt lỗ.
+
+> Vì sao C bị siết chặt nhất: đòn bẩy/đầu cơ là nơi cháy tài khoản. Buffett:
+> *"Người thông minh phá sản vì đòn bẩy."* Giữ phần liều **nhỏ và cô lập**.
+
+## PHỤ LỤC B — LĂNG KÍNH CHẤT LƯỢNG (Phân tích BCTC / FSA)
+
+Thay vì NÉ phần cơ bản vì "thiếu dữ liệu", hệ thống nay **hỏi đúng câu**:
+
+- **ROE ước tính = P/B ÷ P/E** (đẳng thức trượt 12T, có thật, không bịa). So với
+  **chi phí vốn ~12–15%/năm**: ROE thấp hơn → tạo giá trị kém. Ghi rõ là **ước tính**,
+  méo nếu vốn chủ sở hữu biến động mạnh.
+- **Chất lượng lợi nhuận:** cổ tức tiền mặt có khớp lợi nhuận sổ sách? (cổ tức 0% +
+  P/E cao = cảnh giác dòng tiền/chất lượng).
+- **Đòn bẩy:** D/E và Dòng tiền HĐKD so lợi nhuận — dữ liệu miễn phí **CHƯA có →
+  phải tự tra BCTC**. Hệ thống nói rõ "cần kiểm chứng", không giả vờ biết.
+- **Ngân hàng dùng lăng kính khác:** NIM, CASA, nợ xấu (NPL).
+
+→ Đã nhúng vào `/sâu` (bot) và CK·04: mỗi nháp có mục **🧾 Chất lượng & đòn bẩy** +
+ROE ước tính, kèm danh sách "cần tự kiểm chứng".
+
+---
 *Tài liệu nền móng — cập nhật khi bộ tư duy được mở rộng. Nội dung mang tính tư
 duy & giáo dục, KHÔNG phải khuyến nghị đầu tư.*
