@@ -1,0 +1,164 @@
+{
+  "name": "CK · 04 · 🔬 Soi sâu 1 mã (bấm tay)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Bấm Execute (sửa mã ở node sau)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  RESEARCH NOTE SÂU 1 MÃ - gom định giá + dòng tiền + tin + bối cảnh (full-text)\n//  -> Claude (tư duy sâu) viết phân tích sâu. Dành cho 3-5 mã anh nghiêm túc.\n// ===========================================================================\nconst TICKER = 'BID';        // <-- sửa mã muốn phân tích\nconst SECTOR = 'Ngân hàng';  // ngành (để Claude áp ngưỡng đúng)\nconst MAX_ARTICLES = 3;      // số bài thị trường đọc full (mỗi bài tốn ~10s)\n// ===========================================================================\n\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst hFin = { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\nconst hTxt = { 'User-Agent': UA, 'Accept': 'text/plain, */*' };\nconst debug = [];\n\n// 1) ĐỊNH GIÁ (finfo ratios)\nlet valuation = '(không lấy được)';\nlet roeStr = 'ROE ước tính: thiếu P/E hoặc P/B';\ntry {\n  const codes = '51006,51012,51011,51033,51007,1000041,1000043,1000050,1000068';\n  const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:' + TICKER + '~itemCode:' + codes + '&sort=reportDate:desc&size=60', headers: hFin, json: false, timeout: 15000 });\n  let p; try { p = typeof res === 'string' ? JSON.parse(res) : res; } catch (e) { p = null; }\n  const m = {}; for (const d of ((p && p.data) || [])) { if (!(d.ratioCode in m)) m[d.ratioCode] = d.value; }\n  const n2 = (v) => v == null ? 'n/a' : Number(v).toFixed(1);\n  const pcv = (v) => v == null ? 'n/a' : (Number(v) * 100).toFixed(1) + '%';\n  valuation = 'P/E ' + n2(m.PRICE_TO_EARNINGS) + ' (TB 1N/5N: ' + n2(m.PRICE_TO_EARNINGS_AVG_CR_1Y) + '/' + n2(m.PRICE_TO_EARNINGS_AVG_CR_5Y) + ')'\n    + ' | P/B ' + n2(m.PRICE_TO_BOOK) + ' (TB5N ' + n2(m.PRICE_TO_BOOK_AVG_CR_5Y) + ')'\n    + ' | P/S ' + n2(m.PRICE_TO_SALES) + ' | Cổ tức ' + pcv(m.DIVIDEND_YIELD) + ' | Beta ' + n2(m.BETA)\n    + ' | cách đỉnh 52T ' + pcv(m.PRICE_CHG_PCT_CR_HH52W);\n  const _pe = m.PRICE_TO_EARNINGS, _pb = m.PRICE_TO_BOOK;\n  if (_pe > 0 && _pb > 0) roeStr = 'ROE ước tính (P/B ÷ P/E, trượt 12T) ≈ ' + (_pb / _pe * 100).toFixed(1) + '% — so chi phí vốn ~12-15%/năm';\n  debug.push('Định giá: OK');\n} catch (e) { debug.push('Định giá: ❌ ' + (e.message || e)); }\n\n// 2) DÒNG TIỀN KHỐI NGOẠI (finfo foreigns, 10 phiên)\nlet flow = '(không lấy được)';\ntry {\n  const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + TICKER + '&size=10&sort=tradingDate:desc', headers: hFin, json: true, timeout: 15000 });\n  const nets = ((res && res.data) || []).map(x => (x.netVal || 0) / 1e9);\n  if (nets.length) flow = '10 phiên (tỷ, mới->cũ): [' + nets.map(v => v.toFixed(1)).join(', ') + '] · tổng ' + nets.reduce((a, b) => a + b, 0).toFixed(1) + ' tỷ';\n  debug.push('Dòng tiền: OK');\n} catch (e) { debug.push('Dòng tiền: ❌ ' + (e.message || e)); }\n\n// 3) TIN VỀ MÃ (Google News - tiêu đề, đặc thù mã)\nlet headlines = '(không lấy được)';\ntry {\n  const url = 'https://news.google.com/rss/search?q=' + encodeURIComponent('\"' + TICKER + '\" cổ phiếu when:7d') + '&hl=vi&gl=VN&ceid=VN:vi';\n  const body = await this.helpers.httpRequest({ method: 'GET', url, headers: { 'User-Agent': UA, 'Accept': '*/*' }, json: false, timeout: 15000 });\n  const xml = typeof body === 'string' ? body : String(body);\n  const titles = (xml.match(/<item[\\s\\S]*?<\\/item>/gi) || []).slice(0, 8).map(it => {\n    const m = it.match(/<title>([\\s\\S]*?)<\\/title>/i);\n    return m ? m[1].replace(/<!\\[CDATA\\[/g, '').replace(/\\]\\]>/g, '').replace(/&amp;/g, '&').trim() : '';\n  }).filter(Boolean);\n  if (titles.length) headlines = titles.map((t, i) => (i + 1) + '. ' + t).join('\\n');\n  debug.push('Tin mã: ' + titles.length + ' tiêu đề');\n} catch (e) { debug.push('Tin mã: ❌ ' + (e.message || e)); }\n\n// 4) BỐI CẢNH THỊ TRƯỜNG - FULL TEXT (Jina + Vietstock RSS)\nlet context = '(không lấy được)';\ntry {\n  const jina = async (u) => { const r = await this.helpers.httpRequest({ method: 'GET', url: 'https://r.jina.ai/' + u, headers: hTxt, json: false, timeout: 40000 }); return String(r); };\n  const rss = await jina('https://vietstock.vn/145/chung-khoan/thi-truong.rss');\n  const urls = [...new Set((rss.match(/https?:\\/\\/(?:[a-z]+\\.)?vietstock\\.vn\\/[^\\s)\\]\"'>]+\\.htm/gi) || []))].slice(0, MAX_ARTICLES);\n  const arts = [];\n  for (const u of urls) {\n    try {\n      const a = await jina(u);\n      const title = (a.match(/Title:\\s*([^\\n]+)/) || [])[1] || '';\n      let bd = (a.split('Markdown Content:')[1] || a).replace(/!\\[[^\\]]*\\]\\([^)]*\\)/g, '').replace(/\\[[^\\]]*\\]\\([^)]*\\)/g, '').replace(/\\s+/g, ' ').trim().slice(0, 1800);\n      if (bd.length > 200) arts.push('• ' + title.trim() + '\\n' + bd);\n    } catch (e) { /* skip bài lỗi */ }\n  }\n  if (arts.length) context = arts.join('\\n\\n');\n  debug.push('Bối cảnh full-text: ' + arts.length + ' bài');\n} catch (e) { debug.push('Bối cảnh: ❌ ' + (e.message || e)); }\n\nconst today = new Date().toLocaleDateString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', day: 'numeric', month: 'numeric', year: 'numeric' });\n\nconst system = 'Bạn là chuyên viên phân tích cổ phiếu cấp cao, viết RESEARCH NOTE SÂU về MỘT mã cho nhà đầu tư cá nhân, bằng tiếng Việt. Tỉnh táo, hoài nghi, dựa bằng chứng.\\n\\n'\n  + 'Độ tin cậy nguồn: DỮ LIỆU CỨNG (định giá, dòng tiền khối ngoại) = đáng tin nhất, làm xương sống. TIÊU ĐỀ tin = tuyên bố CHƯA kiểm chứng, dễ giật tít. BỐI CẢNH (toàn văn bài thị trường) = để hiểu môi trường chung.\\n\\n'\n  + 'Cấu trúc bắt buộc:\\n'\n  + '1) 💎 ĐỊNH GIÁ: rẻ/hợp lý/đắt — so NGÀNH (' + SECTOR + ') VÀ so lịch sử của chính mã (TB 1N/5N). Nêu rõ căn cứ.\\n'\n  + '1b) 🧾 CHẤT LƯỢNG LỢI NHUẬN & ĐÒN BẨY: dùng ROE ước tính (P/B÷P/E, trượt 12T) so chi phí vốn ~12-15%/năm (thấp hơn = tạo giá trị kém; cảnh báo ROE est méo nếu vốn CSH biến động). Đối chiếu cổ tức tiền mặt với lợi nhuận sổ sách (cổ tức 0% + P/E cao = cảnh giác). Nếu KHÔNG phải ngân hàng: nêu rõ phải tự tra Nợ vay/Vốn CSH (D/E) và Dòng tiền HĐKD so lợi nhuận (chưa có). Ngân hàng: lăng kính NIM/CASA/nợ xấu.\\n'\n  + '2) 💰 DÒNG TIỀN: khối ngoại đang gom hay xả, có chuỗi/đảo chiều không, khớp hay ngược với câu chuyện.\\n'\n  + '3) 📰 TIN & BỐI CẢNH: lọc tiêu đề (gắn cờ giật tít), rút điều thực chất từ bài thị trường toàn văn, nối với mã.\\n'\n  + '4) ⚖️ TỔNG HỢP qua bộ lọc 7 câu: rẻ/đắt? bối cảnh thuận/nghịch? thời điểm? — chỉ ra mặt được & mặt rủi ro CÂN BẰNG.\\n'\n  + '5) 🔎 CẦN KIỂM CHỨNG THÊM: nêu rõ những gì DỮ LIỆU NÀY CHƯA CÓ (vd ROE/nợ/chất lượng tài sản, BCTC gốc) mà nhà đầu tư phải tự tra trước khi quyết.\\n\\n'\n  + 'TUYỆT ĐỐI: không bịa số, không khuyến nghị mua/bán. Nếu nguồn nào trống thì nói rõ. Tối đa ~700 từ.';\n\nconst userContent = 'Phân tích sâu mã *' + TICKER + '* (' + SECTOR + '), ngày ' + today + '.\\n\\n'\n  + '=== ĐỊNH GIÁ (dữ liệu cứng, VNDirect) ===\\n' + valuation + '\\n' + roeStr\n  + '\\n\\n=== DÒNG TIỀN KHỐI NGOẠI (dữ liệu cứng) ===\\n' + flow\n  + '\\n\\n=== TIÊU ĐỀ TIN VỀ ' + TICKER + ' (chưa kiểm chứng) ===\\n' + headlines\n  + '\\n\\n=== BỐI CẢNH THỊ TRƯỜNG (toàn văn bài Vietstock) ===\\n' + context\n  + '\\n\\nViết research note theo đúng 5 phần. Lấy dữ liệu cứng làm xương sống.';\n\nconst requestBody = {\n  model: 'claude-opus-4-8',\n  max_tokens: 8000,\n  thinking: { type: 'adaptive' },\n  system,\n  messages: [{ role: 'user', content: userContent }],\n};\n\nreturn [{ json: { requestBody, ticker: TICKER, debug } }];"
+      },
+      "id": "gather",
+      "name": "Gom dữ liệu mã (full-text)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "id": "claude-call",
+      "name": "Claude phân tích sâu",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        320
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_ANTHROPIC_CREDENTIAL_ID",
+          "name": "Anthropic API (x-api-key)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const res = $input.first().json;\nlet text = '';\nif (res && Array.isArray(res.content)) text = res.content.filter(b => b.type === 'text').map(b => b.text).join('\\n').trim();\nif (!text) {\n  if (res && res.type === 'error' && res.error) text = '⚠️ Lỗi API: ' + (res.error.message || JSON.stringify(res.error));\n  else if (res && res.stop_reason === 'refusal') text = '⚠️ Bị từ chối bởi bộ lọc an toàn.';\n  else text = '⚠️ Không tạo được báo cáo (phản hồi rỗng).';\n}\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst full = '📑 *RESEARCH NOTE*\\n_' + now + '_\\n\\n' + text + '\\n\\n_Dữ liệu: VNDirect + Vietstock(toàn văn) + Google News · phân tích sâu (tư duy) bởi Claude · KHÔNG phải khuyến nghị đầu tư · ROE/BCTC cần tự kiểm chứng_';\nconst SIZE = 3800;\nconst parts = [];\nlet s = full;\nwhile (s.length > SIZE) { let cut = s.lastIndexOf('\\n', SIZE); if (cut < SIZE * 0.5) cut = SIZE; parts.push(s.slice(0, cut)); s = s.slice(cut); }\nif (s.trim()) parts.push(s);\nreturn parts.map(p => ({ json: { message: p } }));"
+      },
+      "id": "format",
+      "name": "Định dạng",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "5239928968",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        320
+      ],
+      "webhookId": "research-telegram",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Bấm Execute (sửa mã ở node sau)": {
+      "main": [
+        [
+          {
+            "node": "Gom dữ liệu mã (full-text)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gom dữ liệu mã (full-text)": {
+      "main": [
+        [
+          {
+            "node": "Claude phân tích sâu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude phân tích sâu": {
+      "main": [
+        [
+          {
+            "node": "Định dạng",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Định dạng": {
+      "main": [
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    },
+    {
+      "name": "ai"
+    }
+  ]
+}

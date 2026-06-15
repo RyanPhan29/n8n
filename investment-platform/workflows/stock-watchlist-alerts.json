@@ -1,0 +1,143 @@
+{
+  "name": "CK · 02 · 🚨 Cảnh báo cổ phiếu (mỗi 15p, giờ GD)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "*/15 9-15 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Lịch chạy (15 phút/lần, giờ giao dịch)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        260,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  CẤU HÌNH - chỉnh các khối dưới đây\n// ===========================================================================\n// Chế độ test: true = hạ ngưỡng + bỏ chống lặp, ép ra tin nhắn thử.\n// ⚠️ Test xong nhớ trả về false!\nconst TEST_MODE = false;\n\n// NHÓM 1 - mã nền tảng / đang giữ (ngưỡng nhạy: giá ±3%, KL x2)\nconst WATCHLIST_CORE = ['VNM', 'FPT', 'HPG', 'MWG', 'VCB', 'MBB'];\n\n// NHÓM 2 - mã sóng mạnh / đầu cơ (ngưỡng cao: giá ±5%, KL x2.5 - đỡ nhiễu)\nconst WATCHLIST_HOT = ['SSI', 'VND', 'DGC', 'STB'];\n\n// DANH MỤC ĐANG GIỮ - khai giá vốn để nhận cảnh báo cắt lỗ / chốt lời.\n// Đơn vị giá vốn là NGHÌN ĐỒNG: 25.5 nghĩa là 25.500đ.\n// stopLossPct gợi ý 8-9% (backtest: cắt 5% bị rũ oan tới 57% số lần). takeProfitPct = 0 để tắt.\nconst PORTFOLIO = {\n  // 'HPG': { costBasis: 25.5,  stopLossPct: 9, takeProfitPct: 15 },\n  // 'FPT': { costBasis: 118.0, stopLossPct: 9, takeProfitPct: 0  },\n};\n\n// CẢNH BÁO \"GIẢM SÂU - THEO DÕI HỒI PHỤC\" (mean-reversion).\n// Đây là tín hiệu DUY NHẤT thắng nền khi backtest (giữ 10 phiên: thắng 55%, TB +1.5%).\n// ⚠️ KHÔNG phải lệnh mua: bắt dao rơi rủi ro cao (đuôi -35% trong backtest). false = tắt.\nconst DIP_ALERT = true;\nconst DIP_PCT   = 4;   // giảm >= % này trong phiên -> tag theo dõi (backtest kiểm chứng từ 3%)\n// ===========================================================================\n\nconst THRESHOLDS = {\n  core: { vol: 2.0, price: 3.0 },\n  hot:  { vol: 2.5, price: 5.0 },\n};\nconst LOOKBACK = 20;        // số phiên tính trung bình khối lượng\nconst SUPPRESS_HOURS = 3;   // không lặp lại cùng một cảnh báo trong N giờ\n\nconst to   = Math.floor(Date.now() / 1000);\nconst from = to - 60 * 60 * 24 * 90;\n\nconst headers = {\n  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36',\n  'Accept': '*/*',\n};\n\n// Nguồn chính: DNSE. Dự phòng: VNDirect (tự chuyển khi DNSE lỗi).\nconst fetchBars = async (ticker) => {\n  try {\n    const res = await this.helpers.httpRequest({\n      method: 'GET',\n      url: 'https://services.entrade.com.vn/chart-api/v2/ohlcs/stock',\n      qs: { symbol: ticker, from, to, resolution: '1D' },\n      headers,\n      json: true,\n    });\n    if (res && Array.isArray(res.t) && res.t.length) return { src: 'DNSE', d: res };\n  } catch (e) { /* rơi xuống nguồn dự phòng */ }\n\n  const res = await this.helpers.httpRequest({\n    method: 'GET',\n    url: 'https://dchart-api.vndirect.com.vn/dchart/history',\n    qs: { symbol: ticker, resolution: 'D', from, to },\n    headers: { ...headers, Referer: 'https://dchart.vndirect.com.vn/' },\n    json: true,\n  });\n  if (res && Array.isArray(res.t) && res.t.length) return { src: 'VNDirect', d: res };\n  throw new Error('cả 2 nguồn đều không có dữ liệu');\n};\n\n// Quét: 2 watchlist + mọi mã có trong danh mục\nconst tickers = [...new Set([...WATCHLIST_CORE, ...WATCHLIST_HOT, ...Object.keys(PORTFOLIO)])];\nconst groupOf = (t) => (WATCHLIST_HOT.includes(t) ? 'hot' : 'core');\n\n// Chống lặp cảnh báo (chỉ có tác dụng khi workflow đang Active; chạy test tay không lưu trạng thái)\nconst sd = $getWorkflowStaticData('global');\nsd.lastAlerts = sd.lastAlerts || {};\nconst nowMs = Date.now();\nconst shouldSend = (key) => {\n  if (TEST_MODE) return true;\n  const last = sd.lastAlerts[key] || 0;\n  if (nowMs - last < SUPPRESS_HOURS * 3600 * 1000) return false;\n  sd.lastAlerts[key] = nowMs;\n  return true;\n};\n\nconst fmtPrice = (c) => {\n  const dong = c < 500 ? c * 1000 : c;\n  return Math.round(dong).toLocaleString('vi-VN') + 'đ';\n};\n\nconst moveAlerts = [];\nconst pnlAlerts  = [];\nconst dipAlerts  = [];\nconst debug = [];\n\nfor (const ticker of tickers) {\n  try {\n    const { src, d } = await fetchBars(ticker);\n    const n = d.t.length;\n    debug.push(ticker + ': OK (' + src + ', ' + n + ' phiên)');\n    if (n < 5) continue;\n\n    const close = d.c[n - 1];\n    const prevClose = d.c[n - 2];\n    const vol = d.v[n - 1];\n    const start = Math.max(0, n - 1 - LOOKBACK);\n    const hist = d.v.slice(start, n - 1);\n    const avgVol = hist.reduce((s, v) => s + (v || 0), 0) / (hist.length || 1);\n    const volRatio = avgVol ? vol / avgVol : 0;\n    const pct = prevClose ? ((close - prevClose) / prevClose) * 100 : 0;\n    const dipTh = TEST_MODE ? 0.1 : DIP_PCT;\n\n    // 1) Cảnh báo cắt lỗ / chốt lời theo giá vốn\n    const pos = PORTFOLIO[ticker];\n    if (pos && pos.costBasis) {\n      const pnl = ((close - pos.costBasis) / pos.costBasis) * 100;\n      if (pos.stopLossPct > 0 && pnl <= -pos.stopLossPct && shouldSend(ticker + ':stop')) {\n        pnlAlerts.push('🛑 *' + ticker + '* — ' + fmtPrice(close) + ' | *lỗ ' + pnl.toFixed(1) + '%* so giá vốn ' + fmtPrice(pos.costBasis) + '\\n   → Chạm ngưỡng cắt lỗ ' + pos.stopLossPct + '%. Giữ kỷ luật!');\n      } else if (pos.takeProfitPct > 0 && pnl >= pos.takeProfitPct && shouldSend(ticker + ':profit')) {\n        pnlAlerts.push('💰 *' + ticker + '* — ' + fmtPrice(close) + ' | *lãi +' + pnl.toFixed(1) + '%* so giá vốn ' + fmtPrice(pos.costBasis) + '\\n   → Vượt mục tiêu chốt lời ' + pos.takeProfitPct + '%.');\n      }\n    }\n\n    // 2) Cảnh báo GIẢM SÂU - theo dõi hồi phục (mean-reversion)\n    const isDip = DIP_ALERT && pct <= -dipTh;\n    if (isDip && shouldSend(ticker + ':dip')) {\n      dipAlerts.push('🎯 *' + ticker + '*' + (groupOf(ticker) === 'hot' ? ' 🌊' : '') + ' — ' + fmtPrice(close) + ' | giảm *' + pct.toFixed(2) + '%* phiên này\\n   → Theo dõi khả năng hồi phục. KHÔNG phải lệnh mua — nếu vào phải đặt cắt lỗ chặt.');\n    }\n\n    // 3) Cảnh báo biến động giá / khối lượng theo nhóm\n    const th = TEST_MODE ? { vol: 0.1, price: 0.1 } : THRESHOLDS[groupOf(ticker)];\n    const reasons = [];\n    if (volRatio >= th.vol)                 reasons.push('📈 KL đột biến x' + volRatio.toFixed(1));\n    if (pct >= th.price)                    reasons.push('🟢 Giá +' + pct.toFixed(2) + '%');\n    else if (pct <= -th.price && !isDip)    reasons.push('🔴 Giá ' + pct.toFixed(2) + '%');\n    if (reasons.length && shouldSend(ticker + ':move:' + (pct >= 0 ? 'up' : 'down'))) {\n      moveAlerts.push({\n        ticker, pct,\n        line: '*' + ticker + '*' + (groupOf(ticker) === 'hot' ? ' 🌊' : '') + ' — ' + fmtPrice(close) + '\\n   ' + reasons.join('  |  '),\n      });\n    }\n  } catch (e) {\n    debug.push(ticker + ': ❌ ' + (e.message || String(e)));\n  }\n}\n\nconst sections = [];\nif (pnlAlerts.length) sections.push('🚨 *DANH MỤC - CẮT LỖ / CHỐT LỜI*\\n\\n' + pnlAlerts.join('\\n\\n'));\nif (moveAlerts.length) {\n  const lines = moveAlerts.sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct)).map(a => a.line);\n  sections.push('🔔 *BIẾN ĐỘNG BẤT THƯỜNG* (🌊 = nhóm sóng)\\n\\n' + lines.join('\\n\\n'));\n}\nif (dipAlerts.length) sections.push('🎯 *GIẢM SÂU - THEO DÕI HỒI PHỤC*\\n_(tín hiệu mean-reversion, KHÔNG phải lệnh mua)_\\n\\n' + dipAlerts.join('\\n\\n'));\n\nlet message = '';\nif (sections.length) {\n  const now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\n  message = (TEST_MODE ? '🧪 *TEST* — ' : '') + '_' + now + '_\\n\\n'\n          + sections.join('\\n\\n———\\n\\n')\n          + '\\n\\n_Nguồn: DNSE/VNDirect_';\n}\n\nreturn [{ json: { hasAlerts: sections.length > 0, count: pnlAlerts.length + moveAlerts.length + dipAlerts.length, message, debug } }];"
+      },
+      "id": "fetch-analyze",
+      "name": "Lấy dữ liệu & Phân tích (DNSE/VNDirect)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "has-alerts",
+              "leftValue": "={{ $json.hasAlerts }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-has-alerts",
+      "name": "Có cảnh báo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        780,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "5239928968",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        220
+      ],
+      "webhookId": "stock-alert-telegram",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Lịch chạy (15 phút/lần, giờ giao dịch)": {
+      "main": [
+        [
+          {
+            "node": "Lấy dữ liệu & Phân tích (DNSE/VNDirect)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lấy dữ liệu & Phân tích (DNSE/VNDirect)": {
+      "main": [
+        [
+          {
+            "node": "Có cảnh báo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Có cảnh báo?": {
+      "main": [
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "name": "CK · 07 · 🎯 Scorecard tín hiệu (16h)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 16 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "schedule-daily",
+      "name": "Lịch chạy (16h mỗi ngày T2-T6)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  SỔ ĐIỂM SỐNG - ghi lại mọi tín hiệu rồi đo kết quả THẬT sau N ngày.\n//  Chạy mỗi ngày: ghi tín hiệu mới + chốt tín hiệu đã đến hạn. Gửi báo cáo thứ 6.\n// ===========================================================================\nconst WATCHLIST = ['BID', 'VCB', 'MBB', 'STB', 'BCM', 'FPT', 'VNM', 'MWG', 'HPG', 'DGC', 'SSI', 'VND'];\nconst TEST_MODE = false;   // true = gửi báo cáo ngay (kể cả không phải thứ 6)\nconst HOLD_DAYS = 14;      // số NGÀY LỊCH giữ trước khi chốt đo kết quả\nconst DIP_PCT = 4;         // giảm >= % này 1 phiên -> tín hiệu DIP\nconst STREAK_MIN = 3;      // khối ngoại gom >= N phiên\nconst CHEAP_RATIO = 0.8;   // P/E <= 0.8 * P/E TB 5 năm -> rẻ so lịch sử\n// ===========================================================================\n\nconst to = Math.floor(Date.now() / 1000);\nconst from = to - 60 * 60 * 24 * 120;\nconst todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst hBar = { 'User-Agent': UA, 'Accept': '*/*' };\nconst hFin = { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\n\nconst fetchBars = async (t) => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://services.entrade.com.vn/chart-api/v2/ohlcs/stock', qs: { symbol: t, from, to, resolution: '1D' }, headers: hBar, json: true, timeout: 15000 });\n    if (res && Array.isArray(res.c) && res.c.length) return res;\n  } catch (e) { /* fallback */ }\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://dchart-api.vndirect.com.vn/dchart/history', qs: { symbol: t, resolution: 'D', from, to }, headers: { ...hBar, Referer: 'https://dchart.vndirect.com.vn/' }, json: true, timeout: 15000 });\n    if (res && Array.isArray(res.c) && res.c.length) return res;\n  } catch (e) { /* none */ }\n  return null;\n};\n\nconst fetchPE = async (t) => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:' + t + '~itemCode:51006,1000043&sort=reportDate:desc&size=10', headers: hFin, json: false, timeout: 15000 });\n    let p; try { p = typeof res === 'string' ? JSON.parse(res) : res; } catch (e) { p = null; }\n    const m = {}; for (const d of ((p && p.data) || [])) { if (!(d.ratioCode in m)) m[d.ratioCode] = d.value; }\n    return { pe: m['PRICE_TO_EARNINGS'], pe5: m['PRICE_TO_EARNINGS_AVG_CR_5Y'] };\n  } catch (e) { return {}; }\n};\n\nconst fetchFlow = async (t) => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + t + '&size=5&sort=tradingDate:desc', headers: hFin, json: true, timeout: 15000 });\n    return ((res && res.data) || []).map(x => (x.netVal || 0) / 1e9);\n  } catch (e) { return []; }\n};\n\nconst sd = $getWorkflowStaticData('global');\nsd.log = sd.log || [];\nconst log = sd.log;\nconst hasOpen = (t, setup) => log.some(r => r.ticker === t && r.setup === setup && !r.resolved);\nconst daysBetween = (a, b) => Math.round((new Date(b) - new Date(a)) / 86400000);\n\nconst debug = [];\nfor (const t of WATCHLIST) {\n  try {\n    const bars = await fetchBars(t);\n    if (!bars || bars.c.length < 3) { debug.push(t + ': thiếu giá'); continue; }\n    const n = bars.c.length;\n    const close = bars.c[n - 1], prev = bars.c[n - 2];\n    const pct = prev ? ((close - prev) / prev * 100) : 0;\n    const dataDate = new Date(bars.t[n - 1] * 1000).toLocaleDateString('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' });\n\n    // CHỐT các tín hiệu đã đến hạn (>= HOLD_DAYS) bằng giá hiện tại\n    for (const r of log) {\n      if (r.ticker === t && !r.resolved && daysBetween(r.date, todayStr) >= HOLD_DAYS) {\n        r.ret = +(((close / r.entry) - 1) * 100).toFixed(2);\n        r.resolved = true; r.exitDate = todayStr;\n      }\n    }\n\n    // PHÁT HIỆN tín hiệu hôm nay\n    const active = [];\n    if (pct <= -DIP_PCT) active.push('DIP');\n    const pe = await fetchPE(t);\n    if (pe.pe > 0 && pe.pe5 > 0 && pe.pe <= CHEAP_RATIO * pe.pe5) active.push('CHEAP_HIST');\n    const nets = await fetchFlow(t);\n    if (nets.length >= STREAK_MIN && nets.slice(0, STREAK_MIN).every(x => x > 0)) active.push('KN_GOM');\n\n    for (const setup of active) {\n      if (!hasOpen(t, setup)) log.push({ date: dataDate, ticker: t, setup, entry: close, resolved: false });\n    }\n    debug.push(t + ': OK (pct ' + pct.toFixed(1) + '%, tín hiệu: ' + (active.join(',') || '-') + ')');\n  } catch (e) {\n    debug.push(t + ': ❌ ' + (e.message || String(e)));\n  }\n}\n\nif (log.length > 1500) sd.log = log.slice(-1500);\n\n// THỐNG KÊ các lệnh đã chốt\nconst SETUPS = [['DIP', '🎯 Giảm sâu (mean-reversion)'], ['CHEAP_HIST', '💎 Rẻ so lịch sử (P/E < 0.8× TB5N)'], ['KN_GOM', '📈 Khối ngoại gom ≥3 phiên']];\nconst stat = (setup) => {\n  const rs = log.filter(r => r.setup === setup && r.resolved);\n  if (!rs.length) return null;\n  const win = rs.filter(r => r.ret > 0).length;\n  const avg = rs.reduce((a, r) => a + r.ret, 0) / rs.length;\n  let worst = rs[0].ret; for (const r of rs) if (r.ret < worst) worst = r.ret;\n  return { n: rs.length, win: 100 * win / rs.length, avg, worst };\n};\nconst openCount = log.filter(r => !r.resolved).length;\nconst resolvedCount = log.filter(r => r.resolved).length;\n\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nlet body = '📒 *SỔ ĐIỂM SỐNG* — hệ thống tự chấm\\n_' + now + '_\\n\\n'\n  + '_Tín hiệu THẬT đã phát ra, đo kết quả sau ' + HOLD_DAYS + ' ngày (không phải backtest):_\\n\\n';\nfor (const [code, label] of SETUPS) {\n  const s = stat(code);\n  body += '*' + label + '*\\n' + (s\n    ? '   ' + s.n + ' lệnh đã chốt · thắng ' + s.win.toFixed(0) + '% · TB ' + (s.avg >= 0 ? '+' : '') + s.avg.toFixed(1) + '% · tệ nhất ' + s.worst.toFixed(1) + '%'\n    : '   _chưa có lệnh nào đến hạn chốt_') + '\\n\\n';\n}\nbody += '⏳ Đang theo dõi (chưa đến hạn): *' + openCount + '* tín hiệu · đã chốt: ' + resolvedCount + '\\n'\n  + '\\n_Vào lệnh giá đóng cửa khi tín hiệu xuất hiện · giữ ' + HOLD_DAYS + ' ngày · KHÔNG phải khuyến nghị_';\n\n// Chỉ gửi báo cáo vào thứ 6 (hoặc TEST_MODE) - các ngày khác vẫn ghi/chốt thầm lặng\nconst weekday = new Date().toLocaleDateString('en-US', { timeZone: 'Asia/Ho_Chi_Minh', weekday: 'short' });\nconst send = TEST_MODE || weekday === 'Fri';\n\nreturn [{ json: { hasReport: send, message: body, debug, openCount, resolvedCount } }];"
+      },
+      "id": "scorecard",
+      "name": "Ghi & chấm tín hiệu",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "send",
+              "leftValue": "={{ $json.hasReport }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-send",
+      "name": "Gửi báo cáo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        760,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "5239928968",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1020,
+        240
+      ],
+      "webhookId": "scorecard-telegram",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot (CK)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Lịch chạy (16h mỗi ngày T2-T6)": {
+      "main": [
+        [
+          {
+            "node": "Ghi & chấm tín hiệu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ghi & chấm tín hiệu": {
+      "main": [
+        [
+          {
+            "node": "Gửi báo cáo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gửi báo cáo?": {
+      "main": [
+        [
+          {
+            "node": "Gửi Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "tags": [
+    {
+      "name": "investment"
+    },
+    {
+      "name": "stock"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "[CK] Máy tính khối lượng & R:R (Position Sizing)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Bấm Execute để tính",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  NHẬP 7 THÔNG SỐ (sửa rồi bấm Execute workflow)\n// ===========================================================================\nconst NAV       = 5000000; // Tài sản ròng - ĐỒNG (copy ĐÚNG số NAV từ app; 5 triệu = 5000000)\nconst TICKER    = 'BID';   // Mã\nconst ENTRY     = 42.0;    // Giá dự định VÀO - NGHÌN đồng (42 = 42.000đ)\nconst STOP      = 39.0;    // Giá CẮT LỖ - nghìn đồng (BẮT BUỘC, < giá vào)\nconst TARGET    = 46.0;    // Giá MỤC TIÊU - nghìn đồng (0 = bỏ qua R:R)\nconst RISK_PCT  = 1.5;     // % tài khoản chấp nhận MẤT mỗi lệnh (khuyên 1-2%)\nconst MAX_POS_PCT = 100;   // Trần % NAV cho 1 vị thế (tài khoản nhỏ tạm để 100)\n// ===========================================================================\n\nconst fmtM = (d) => (d / 1e6).toFixed(d < 1e7 ? 2 : 1) + ' triệu';\nconst fmtP = (k) => Math.round(k * 1000).toLocaleString('vi-VN') + 'đ';\n\nlet msg;\nif (!(STOP < ENTRY)) {\n  msg = '🧮 *POSITION SIZING — ' + TICKER + '*\\n\\n⚠️ *Lỗi nhập liệu*: Giá cắt lỗ (' + STOP + ') phải THẤP HƠN giá vào (' + ENTRY + '). Kỷ luật #1: không có cắt lỗ thì không tính khối lượng.';\n} else {\n  const entryD        = ENTRY * 1000;\n  const riskBudget    = NAV * RISK_PCT / 100;\n  const riskPerShare  = (ENTRY - STOP) * 1000;\n  const lotCost       = entryD * 100;\n  const sharesByRisk  = Math.floor(riskBudget / riskPerShare / 100) * 100;\n  const sharesByCap   = Math.floor(NAV * MAX_POS_PCT / 100 / entryD / 100) * 100;\n  const shares        = Math.max(0, Math.min(sharesByRisk, sharesByCap));\n  const cappedByPos   = sharesByCap < sharesByRisk;\n\n  const posVal      = shares * entryD;\n  const posPct      = NAV > 0 ? posVal / NAV * 100 : 0;\n  const realRisk    = shares * riskPerShare;\n  const realRiskPct = NAV > 0 ? realRisk / NAV * 100 : 0;\n  const rr          = TARGET > ENTRY ? (TARGET - ENTRY) / (ENTRY - STOP) : null;\n\n  const L = [];\n  L.push('🧮 *POSITION SIZING — ' + TICKER + '*');\n  L.push('_Vào ' + fmtP(ENTRY) + ' · Cắt lỗ ' + fmtP(STOP) + (TARGET > 0 ? ' · Mục tiêu ' + fmtP(TARGET) : '') + '_');\n  L.push('_NAV ' + fmtM(NAV) + ' · rủi ro cho phép ' + RISK_PCT + '%/lệnh_');\n  L.push('');\n  if (shares <= 0) {\n    L.push('→ *Theo quy tắc rủi ro ' + RISK_PCT + '%: chưa nên mua (tính ra < 1 lô).*');\n    L.push('   1 lô (100 cp) ' + TICKER + ' ở ' + fmtP(ENTRY) + ' ≈ *' + fmtM(lotCost) + '* (' + (lotCost / NAV * 100).toFixed(0) + '% NAV).');\n    if (lotCost <= NAV) {\n      L.push('   ⚠️ Mua tối thiểu *1 lô* = ' + (lotCost / NAV * 100).toFixed(0) + '% tài khoản dồn vào 1 mã → TẬP TRUNG CAO, rủi ro/lệnh vượt xa ' + RISK_PCT + '%. Chỉ làm nếu coi đây là tiền học phí.');\n    } else {\n      L.push('   → NAV không đủ mua 1 lô. Cần nạp thêm hoặc chọn mã giá thấp hơn.');\n    }\n  } else {\n    L.push('→ *MUA: ' + shares.toLocaleString('vi-VN') + ' cổ phiếu* (' + (shares / 100) + ' lô)');\n    L.push('→ Giá trị vị thế: *' + fmtM(posVal) + '* (' + posPct.toFixed(1) + '% NAV)' + (cappedByPos ? ' _(chạm trần ' + MAX_POS_PCT + '%)_' : ''));\n    L.push('→ Rủi ro thực nếu chạm cắt lỗ: *' + fmtM(realRisk) + '* (' + realRiskPct.toFixed(2) + '% NAV)');\n    if (rr !== null) L.push('→ *R:R = ' + rr.toFixed(2) + '* — lãi kỳ vọng ' + rr.toFixed(2) + 'đ cho mỗi 1đ rủi ro');\n  }\n  L.push('');\n  const W = [];\n  if (RISK_PCT > 3) W.push('Rủi ro/lệnh ' + RISK_PCT + '% là CAO — khuyên 1-2%.');\n  if (rr !== null && rr < 2 && shares > 0) W.push('R:R < 2 — lãi/rủi ro hơi mỏng. PTJ khuyên ≥2-3:1.');\n  if (cappedByPos && shares > 0) W.push('Vị thế chạm trần ' + MAX_POS_PCT + '% NAV.');\n  if (W.length) L.push('⚠️ ' + W.join('\\n⚠️ '));\n  L.push('');\n  L.push('_Kỷ luật: định cắt lỗ TRƯỚC khi tính khối lượng · không trung bình giá xuống · KHÔNG phải khuyến nghị_');\n  msg = L.join('\\n');\n}\n\nreturn [{ json: { message: msg } }];"
+      },
+      "id": "calc",
+      "name": "Tính khối lượng & R:R",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "5239928968",
+        "text": "={{ $json.message }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [780, 300],
+      "webhookId": "sizing-telegram",
+      "credentials": {
+        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+      }
+    }
+  ],
+  "connections": {
+    "Bấm Execute để tính": { "main": [[{ "node": "Tính khối lượng & R:R", "type": "main", "index": 0 }]] },
+    "Tính khối lượng & R:R": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "stock" }]
+}

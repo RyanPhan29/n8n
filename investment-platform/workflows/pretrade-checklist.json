@@ -1,0 +1,45 @@
+{
+  "name": "[CK] Bảng quyết định 7 câu trước khi mua",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Bấm Execute để chấm",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===========================================================================\n//  BẢNG QUYẾT ĐỊNH 7 CÂU - nhập mã định mua, hệ thống tự chấm 4 câu định lượng,\n//  nhắc anh tự trả lời 3 câu định tính. Trả lời được TRỌN 7 -> mới cân nhắc vào.\n// ===========================================================================\nconst NAV     = 5000000;  // ĐỒNG\nconst TICKER  = 'BID';\nconst ENTRY   = 42.0;     // nghìn đồng\nconst STOP    = 39.0;\nconst TARGET  = 46.0;\nconst RISK_PCT = 1.5;\n// ===========================================================================\n\nconst to = Math.floor(Date.now() / 1000), from = to - 60 * 60 * 24 * 60;\nconst UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';\nconst hBar = { 'User-Agent': UA, 'Accept': '*/*' };\nconst hFin = { 'User-Agent': UA, 'Accept': 'application/json', 'Referer': 'https://dstock.vndirect.com.vn/' };\n\nconst getPE = async () => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/ratios?q=code:' + TICKER + '~itemCode:51006,1000043&sort=reportDate:desc&size=10', headers: hFin, json: false, timeout: 15000 });\n    let p; try { p = typeof res === 'string' ? JSON.parse(res) : res; } catch (e) { p = null; }\n    const m = {}; for (const d of ((p && p.data) || [])) { if (!(d.ratioCode in m)) m[d.ratioCode] = d.value; }\n    return { pe: m['PRICE_TO_EARNINGS'], pe5: m['PRICE_TO_EARNINGS_AVG_CR_5Y'] };\n  } catch (e) { return {}; }\n};\nconst getFlow = async () => {\n  try {\n    const res = await this.helpers.httpRequest({ method: 'GET', url: 'https://api-finfo.vndirect.com.vn/v4/foreigns?q=code:' + TICKER + '&size=5&sort=tradingDate:desc', headers: hFin, json: true, timeout: 15000 });\n    const nets = ((res && res.data) || []).map(x => (x.netVal || 0) / 1e9);\n    if (!nets.length) return { txt: 'không lấy được' };\n    const dir = nets[0] > 1 ? 1 : nets[0] < -1 ? -1 : 0;\n    let streak = 0; for (const v of nets) { const s = v > 1 ? 1 : v < -1 ? -1 : 0; if (s === dir && dir !== 0) streak++; else break; }\n    const tot5 = nets.reduce((a, b) => a + b, 0);\n    return { txt: 'phiên gần nhất ' + nets[0].toFixed(1) + ' tỷ' + (streak >= 2 ? ' · ' + (dir > 0 ? 'GOM' : 'XẢ') + ' ' + streak + ' phiên' : '') + ' · tổng 5 phiên ' + tot5.toFixed(1) + ' tỷ', dir, streak };\n  } catch (e) { return { txt: 'lỗi' }; }\n};\n\nconst pe = await getPE();\nconst fl = await getFlow();\n\n// Câu 2: định giá\nlet q2 = '_thiếu dữ liệu P/E_';\nif (pe.pe > 0 && pe.pe5 > 0) {\n  const r = pe.pe / pe.pe5;\n  const tag = r <= 0.85 ? '🟢 RẺ so lịch sử' : r >= 1.15 ? '🔴 ĐẮT so lịch sử' : '🟡 quanh trung bình';\n  q2 = 'P/E ' + pe.pe.toFixed(1) + ' vs TB5N ' + pe.pe5.toFixed(1) + ' → ' + tag;\n} else if (pe.pe > 0) q2 = 'P/E ' + pe.pe.toFixed(1) + ' _(thiếu TB lịch sử)_';\n\n// Câu 6: sizing & R:R\nconst entryD = ENTRY * 1000, riskBudget = NAV * RISK_PCT / 100, riskPerShare = (ENTRY - STOP) * 1000, lotCost = entryD * 100;\nconst sharesByRisk = STOP < ENTRY ? Math.floor(riskBudget / riskPerShare / 100) * 100 : 0;\nconst rr = TARGET > ENTRY && STOP < ENTRY ? (TARGET - ENTRY) / (ENTRY - STOP) : null;\nlet q6;\nif (!(STOP < ENTRY)) q6 = '🔴 cắt lỗ phải < giá vào';\nelse if (sharesByRisk >= 100) q6 = 'mua ' + sharesByRisk + ' cp theo quy tắc ' + RISK_PCT + '% · R:R ' + (rr ? rr.toFixed(2) : 'n/a') + (rr && rr < 2 ? ' ⚠️mỏng' : '');\nelse q6 = (lotCost <= NAV ? '⚠️ chỉ đủ ~1 lô (' + (lotCost / NAV * 100).toFixed(0) + '% NAV → tập trung cao)' : '🔴 NAV không đủ 1 lô') + ' · R:R ' + (rr ? rr.toFixed(2) : 'n/a') + (rr && rr < 2 ? ' ⚠️mỏng' : '');\n\nconst flags = [];\nif (/🔴/.test(q2)) flags.push('định giá đắt so lịch sử');\nif (fl.dir === -1 && fl.streak >= 3) flags.push('khối ngoại đang xả');\nif (rr && rr < 2) flags.push('R:R < 2 (mỏng)');\nif (sharesByRisk < 100 && lotCost <= NAV) flags.push('vị thế tập trung quá cao');\n\nconst now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });\nconst L = [];\nL.push('🧭 *BẢNG QUYẾT ĐỊNH — ' + TICKER + '*');\nL.push('_Vào ' + Math.round(ENTRY * 1000).toLocaleString('vi-VN') + 'đ · Cắt lỗ ' + Math.round(STOP * 1000).toLocaleString('vi-VN') + 'đ · Mục tiêu ' + Math.round(TARGET * 1000).toLocaleString('vi-VN') + 'đ · NAV ' + (NAV / 1e6).toFixed(1) + ' triệu_');\nL.push('_' + now + '_');\nL.push('');\nL.push('*① HIỂU DN?* _(anh tự trả lời)_ — Có hiểu ' + TICKER + ' kiếm tiền thế nào, vì sao tồn tại?');\nL.push('*② RẺ/ĐẮT?* ✅tự động — ' + q2);\nL.push('*③ LUẬN ĐIỂM & ĐIỀU GÌ LÀM SAI?* _(anh tự viết — dùng Sổ luận điểm)_');\nL.push('*④ BỐI CẢNH?* ✅tự động — Khối ngoại: ' + fl.txt);\nL.push('   _(+ anh tự đánh giá: ngành thuận/nghịch? đám đông đã pricing gì?)_');\nL.push('*⑤ THỜI ĐIỂM?* _(anh tự trả lời)_ — Có chất xúc tác, hay đang bắt dao rơi?');\nL.push('*⑥ KÍCH THƯỚC & R:R?* ✅tự động — ' + q6);\nL.push('*⑦ THOÁT?* ✅tự động — Cắt lỗ ' + Math.round(STOP * 1000).toLocaleString('vi-VN') + 'đ ✓ · Mục tiêu ' + Math.round(TARGET * 1000).toLocaleString('vi-VN') + 'đ ✓');\nL.push('');\nif (flags.length) L.push('⚠️ *Cờ định lượng:* ' + flags.join(' · '));\nL.push('📝 *Anh PHẢI tự trả lời câu ①③⑤* trước khi quyết định.');\nL.push('');\nL.push('> *Quy tắc thép:* không trả lời được TRỌN 7 câu → ĐỨNG NGOÀI. Tiền mặt là một vị thế.');\nL.push('_Không phải khuyến nghị mua/bán._');\n\nreturn [{ json: { message: L.join('\\n') } }];"
+      },
+      "id": "checklist",
+      "name": "Chấm 7 câu",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "5239928968",
+        "text": "={{ $json.message }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "id": "send-telegram",
+      "name": "Gửi Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [760, 300],
+      "webhookId": "pretrade-telegram",
+      "credentials": {
+        "telegramApi": { "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID", "name": "Telegram Bot (CK)" }
+      }
+    }
+  ],
+  "connections": {
+    "Bấm Execute để chấm": { "main": [[{ "node": "Chấm 7 câu", "type": "main", "index": 0 }]] },
+    "Chấm 7 câu": { "main": [[{ "node": "Gửi Telegram", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1", "timezone": "Asia/Ho_Chi_Minh" },
+  "tags": [{ "name": "investment" }, { "name": "stock" }]
+}
