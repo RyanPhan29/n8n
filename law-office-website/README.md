@@ -43,11 +43,11 @@ Mở `index.html` (và các file trong `bai-viet/`), tìm và thay:
 
 | Chỗ cần thay | Ví dụ |
 |---|---|
-| `[TÊN VĂN PHÒNG]` | Văn phòng Luật sư **Minh Anh** |
+| `Triều Nguyên và Cộng sự` | Văn phòng Luật sư **Minh Anh** |
 | `[Số nhà, tên đường], Tây Sơn, Bình Định` | 123 Quang Trung, TT Phú Phong, Tây Sơn, Bình Định |
 
 > 💡 Mẹo: Trong hầu hết trình soạn thảo, nhấn **Ctrl + H** để "Tìm và thay thế"
-> tất cả `[TÊN VĂN PHÒNG]` một lần.
+> tất cả `Triều Nguyên và Cộng sự` một lần.
 
 ### 3. (Nên làm) Nhận thông tin khách điền từ form
 Mặc định, khi khách bấm gửi form, trang sẽ **mở Zalo** kèm nội dung khách đã điền.
