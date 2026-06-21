@@ -552,6 +552,23 @@ def build():
     with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
         f.write("User-agent: *\nAllow: /\nSitemap: sitemap.xml\n")
 
+    # ---- Bản dành cho htmlpreview (để share xem ngay, link nội bộ "sống") ----
+    import re
+    raw_base = ("https://raw.githubusercontent.com/RyanPhan29/n8n/"
+                "claude/law-office-website-nt6lmq/preview")
+    hp = "https://htmlpreview.github.io/?"
+    PREVIEW = os.path.join(os.path.dirname(__file__), "preview")
+    if os.path.isdir(PREVIEW):
+        shutil.rmtree(PREVIEW)
+    os.makedirs(PREVIEW)
+    link_pat = re.compile(r'href="(?!https?:|tel:|mailto:|#)([A-Za-z0-9_\-]+\.html)(#[^"]*)?"')
+    def _wrap(m):
+        frag = m.group(2) or ""
+        return f'href="{hp}{raw_base}/{m.group(1)}{frag}"'
+    for fn, content in pages.items():
+        with open(os.path.join(PREVIEW, fn), "w", encoding="utf-8") as f:
+            f.write(link_pat.sub(_wrap, content))
+
     print(f"Đã tạo {len(pages)} trang vào {OUT}")
     for fn in pages:
         print("  -", fn)
