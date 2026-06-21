@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Văn phòng Luật sư Triều Nguyên và Cộng sự – Tư vấn pháp luật tại Tây Sơn, Bình Định</title>
-  <meta name="description" content="Văn phòng Luật sư Triều Nguyên và Cộng sự tại Tây Sơn, Bình Định. Tư vấn đất đai, thừa kế, ly hôn, hình sự, dân sự, doanh nghiệp, lao động. Gọi ngay để được luật sư tư vấn tận tình." />
+  <meta name="description" content="Văn phòng Luật sư Triều Nguyên và Cộng sự tại Tây Sơn, Bình Định. Tư vấn đất đai, thừa kế, ly hôn, hình sự, dân sự, doanh nghiệp, lao động." />
   <meta property="og:title" content="Văn phòng Luật sư Triều Nguyên và Cộng sự" />
-  <meta property="og:description" content="Tư vấn pháp luật tận tình, gần gũi cho bà con tại Tây Sơn, Bình Định." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="vi_VN" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,7 +53,12 @@ body {
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
-h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.25; color: var(--maroon-dark); }
+h1, h2, h3, h4 {
+  font-family: var(--font-head); line-height: 1.25; color: var(--maroon-dark);
+  text-wrap: balance;            /* cân dòng tiêu đề, tránh chữ mồ côi */
+  overflow-wrap: break-word;
+}
+p { text-wrap: pretty; }         /* tránh 1 từ trơ trọi ở dòng cuối đoạn */
 
 .container {
   width: 100%;
@@ -161,8 +165,8 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.25; color: var(--
   align-items: center; padding: 64px 20px 72px;
 }
 .hero__eyebrow { color: var(--gold-light); font-weight: 600; margin-bottom: 14px; letter-spacing: .3px; }
-.hero__title { font-size: 44px; color: var(--white); margin-bottom: 18px; }
-.hero__sub { font-size: 18.5px; color: rgba(255,255,255,.92); max-width: 620px; margin-bottom: 26px; }
+.hero__title { font-size: clamp(1.95rem, 3.2vw + 1rem, 2.75rem); color: var(--white); margin-bottom: 18px; }
+.hero__sub { font-size: clamp(1rem, 0.6vw + 0.9rem, 1.16rem); color: rgba(255,255,255,.92); max-width: 60ch; margin-bottom: 26px; }
 .hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 26px; }
 .hero__trust { list-style: none; display: flex; gap: 22px; flex-wrap: wrap; font-size: 15.5px; color: rgba(255,255,255,.9); }
 .hero__trust strong { color: var(--gold-light); }
@@ -196,7 +200,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.25; color: var(--
 .section__head { text-align: center; max-width: 720px; margin: 0 auto 44px; }
 .section__eyebrow { color: var(--gold-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 14px; margin-bottom: 10px; }
 .section__eyebrow--light { color: var(--gold-light); }
-.section__title { font-size: 34px; margin-bottom: 12px; }
+.section__title { font-size: clamp(1.55rem, 1.8vw + 1rem, 2.1rem); margin-bottom: 12px; }
 .section__title--light { color: var(--white); }
 .section__lead { color: var(--ink-soft); font-size: 17.5px; }
 .section__lead--light { color: rgba(255,255,255,.9); }
@@ -331,23 +335,21 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.25; color: var(--
 /* =====================================================================
    RESPONSIVE — Máy tính bảng & Điện thoại
    ===================================================================== */
+/* Máy tính bảng trở xuống: thu gọn menu thành nút ☰ để tránh chen chúc */
 @media (max-width: 980px) {
   .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
   .hero__inner { grid-template-columns: 1fr; gap: 36px; }
-  .hero__title { font-size: 36px; }
   .steps { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
   .step:not(:last-child)::after { display: none; }
   .contact { grid-template-columns: 1fr; }
   .footer__inner { grid-template-columns: 1fr 1fr; }
-}
 
-@media (max-width: 720px) {
-  body { font-size: 16.5px; }
-  .topbar { display: none; }
-  .header__call-text { display: none; }     /* chỉ còn icon điện thoại cho gọn */
-  .header__call { padding: 9px 13px; font-size: 18px; }
+  .header__inner { gap: 12px; }
+  .brand__text em { white-space: nowrap; }
+  .header__call { margin-left: auto; }
   .nav {
-    position: fixed; top: 0; right: -100%; width: 78%; max-width: 320px; height: 100vh;
+    position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh;
     flex-direction: column; gap: 0; background: var(--maroon-dark); padding: 80px 22px 22px;
     margin: 0; transition: right .3s ease; box-shadow: -10px 0 40px rgba(0,0,0,.4); z-index: 90;
   }
@@ -357,11 +359,15 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.25; color: var(--
   .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}
 
+@media (max-width: 720px) {
+  body { font-size: 16.5px; }
+  .topbar { display: none; }
+  .header__call-text { display: none; }     /* chỉ còn icon điện thoại cho gọn */
+  .header__call { padding: 9px 13px; font-size: 18px; }
+  .nav-toggle { margin-left: 6px; }
   .section { padding: 52px 0; }
-  .section__title { font-size: 27px; }
-  .hero__title { font-size: 30px; }
-  .hero__sub { font-size: 17px; }
   .hero__actions .btn { width: 100%; }
   .hero__trust { flex-direction: column; gap: 8px; }
   .grid--4, .grid--3, .steps { grid-template-columns: 1fr; }
@@ -555,7 +561,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.25; color: var(--
     <div class="container hero__inner">
       <div class="hero__content">
         <p class="hero__eyebrow">⚖ Đồng hành pháp lý cùng bà con quê mình</p>
-        <h1 class="hero__title">Bảo vệ quyền lợi của bạn<br />bằng sự tận tâm &amp; uy tín</h1>
+        <h1 class="hero__title">Bảo vệ quyền lợi của bạn bằng sự tận tâm &amp; uy tín</h1>
         <p class="hero__sub">
           Văn phòng Luật sư <strong>Triều Nguyên và Cộng sự</strong> tại Tây Sơn, Bình Định —
           tư vấn rõ ràng, dễ hiểu về <strong>đất đai, thừa kế, ly hôn, hình sự, dân sự</strong> và
