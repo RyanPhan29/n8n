@@ -121,7 +121,19 @@ def nav_html(active):
     out = []
     for href, label in NAV:
         cur = ' aria-current="page"' if href == active else ''
-        out.append(f'        <a href="{href}"{cur}>{label}</a>')
+        if href == "dich-vu.html":
+            sub = "".join(
+                f'<a href="{s["slug"]}.html"><span class="dropdown__ic">{s["icon"]}</span>{s["name"]}</a>'
+                for s in SERVICES
+            )
+            out.append(
+                '        <div class="nav__item has-dropdown">\n'
+                f'          <a href="{href}"{cur}>{label} <span class="caret">▾</span></a>\n'
+                f'          <div class="dropdown">{sub}</div>\n'
+                '        </div>'
+            )
+        else:
+            out.append(f'        <a href="{href}"{cur}>{label}</a>')
     return "\n".join(out)
 
 def breadcrumb_html(trail):
@@ -532,12 +544,45 @@ def build():
 
 PAGE_CSS = """
 /* ===== Tiêu đề trang con (đa trang) ===== */
-.page-head { background: linear-gradient(135deg, var(--maroon-dark), var(--maroon)); color:#fff; padding: 38px 0 34px; }
+.page-head { background: linear-gradient(135deg, var(--maroon-dark), var(--maroon)); color:#fff; padding: 40px 0 36px; border-bottom: 3px solid var(--gold); }
 .page-head .breadcrumb { color: var(--gold-light); font-size: 14.5px; margin-bottom: 12px; }
 .page-head .breadcrumb a { color: var(--gold-light); }
 .page-head__eyebrow { color: var(--gold-light); font-weight:600; text-transform:uppercase; letter-spacing:1.2px; font-size:13px; margin-bottom:6px; }
 .page-head h1 { color:#fff; font-size: clamp(1.7rem, 2.4vw + 1rem, 2.4rem); }
-.nav a[aria-current="page"] { color: var(--gold-light); background: rgba(255,255,255,.12); }
+.nav > a[aria-current="page"], .has-dropdown > a[aria-current="page"] { color: var(--gold-light); }
+
+/* ===== Chi tiết "sịn": viền vàng mảnh trên cùng header ===== */
+.header { border-top: 3px solid var(--gold); }
+
+/* ===== Menu DỊCH VỤ thả xuống (danh mục rõ ràng) ===== */
+.nav__item { position: relative; display: flex; align-items: center; }
+.nav .caret { font-size: 10px; margin-left: 3px; transition: transform .2s; }
+.has-dropdown:hover .caret { transform: rotate(180deg); }
+.dropdown {
+  position: absolute; top: 100%; left: 0; min-width: 264px;
+  background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-lg);
+  border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 2px;
+  opacity: 0; visibility: hidden; transform: translateY(12px); transition: .2s ease; z-index: 130;
+  border-top: 3px solid var(--gold);
+}
+.has-dropdown:hover .dropdown, .has-dropdown:focus-within .dropdown { opacity: 1; visibility: visible; transform: translateY(6px); }
+.dropdown a { display: flex; align-items: center; gap: 10px; color: var(--ink); padding: 11px 14px; border-radius: 9px; font-size: 15px; font-weight: 500; white-space: nowrap; }
+.dropdown a:hover { background: var(--ivory-2); color: var(--maroon); transform: none; }
+.dropdown__ic { width: 24px; text-align: center; }
+
+@media (max-width: 980px) {
+  .nav { overflow-y: auto; }
+  .nav__item { display: block; width: 100%; }
+  .nav .caret { display: none; }
+  .nav__item.has-dropdown > a { border-bottom: 1px solid rgba(255,255,255,.1); }
+  .dropdown {
+    position: static; opacity: 1; visibility: visible; transform: none;
+    box-shadow: none; border: none; border-top: none; background: rgba(0,0,0,.18);
+    padding: 4px 0 4px 10px; min-width: 0; border-radius: 0; margin: 0 -22px;
+  }
+  .dropdown a { color: rgba(255,255,255,.82) !important; font-size: 16px; padding: 13px 22px; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .dropdown a:hover { background: transparent; color: var(--gold-light) !important; }
+}
 """
 
 if __name__ == "__main__":
