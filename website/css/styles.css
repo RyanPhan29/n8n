@@ -542,3 +542,18 @@ p { text-wrap: pretty; }         /* tránh 1 từ trơ trọi ở dòng cuối �
   .dropdown a { color: rgba(255,255,255,.82) !important; font-size: 16px; padding: 13px 22px; border-bottom: 1px solid rgba(255,255,255,.06); }
   .dropdown a:hover { background: transparent; color: var(--gold-light) !important; }
 }
+
+/* ===== Menu ☰ chạy bằng CSS thuần (không cần JavaScript) ===== */
+.nav-cb { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+.nav-overlay { display: none; }
+@media (max-width: 980px) {
+  /* nút ☰ rõ ràng, dễ thấy */
+  .nav-toggle { display: flex; border: 1.5px solid rgba(255,255,255,.55); border-radius: 9px; padding: 9px 8px; }
+  /* mở menu khi tích checkbox */
+  .nav-cb:checked ~ .nav { transform: translateX(0); }
+  .nav-cb:checked ~ .nav-overlay { display: block; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 85; }
+  /* ☰ biến thành ✕ khi mở */
+  .nav-cb:checked ~ .nav-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .nav-cb:checked ~ .nav-toggle span:nth-child(2) { opacity: 0; }
+  .nav-cb:checked ~ .nav-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}

@@ -28,6 +28,7 @@
   </div>
   <header class="header" id="top">
     <div class="container header__inner">
+      <input type="checkbox" id="nav-toggle-cb" class="nav-cb" hidden />
       <a href="index.html" class="brand">
         <span class="brand__mark">⚖</span>
         <span class="brand__text"><strong>VĂN PHÒNG LUẬT SƯ</strong><em>Triều Nguyên và Cộng sự</em></span>
@@ -47,7 +48,8 @@
         <span class="header__call-icon">📞</span>
         <span class="header__call-text"><small>Gọi tư vấn miễn phí</small><strong data-phone-text>0123 456 789</strong></span>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <label class="nav-toggle" for="nav-toggle-cb" aria-label="Mở menu" role="button" tabindex="0"><span></span><span></span><span></span></label>
+      <label class="nav-overlay" for="nav-toggle-cb" aria-hidden="true"></label>
     </div>
   </header>
 
