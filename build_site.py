@@ -11,6 +11,9 @@ SRC = os.path.join(os.path.dirname(__file__), "law-office-website")
 
 NAME = "Triều Nguyên và Cộng sự"
 FULL = "Văn phòng Luật sư " + NAME
+
+INLINE_CSS = ""   # nạp trong build() để nhúng thẳng vào mỗi trang
+INLINE_JS = ""
 PHONE = "0123456789"
 PHONE_D = "0123 456 789"
 EMAIL = "email@vanphongluat.vn"
@@ -174,7 +177,7 @@ def page(filename, active, title, meta, h1content_after_header, extra_ld=""):
     """Khung HTML chung cho mọi trang."""
     ld_tag = '<script type="application/ld+json">' + ld_localbusiness() + '</script>'
     extra_tag = ('<script type="application/ld+json">' + extra_ld + '</script>') if extra_ld else ''
-    return f"""<!DOCTYPE html>
+    out = f"""<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -190,7 +193,7 @@ def page(filename, active, title, meta, h1content_after_header, extra_ld=""):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap&subset=vietnamese" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <style>__INLINE_CSS__</style>
   {ld_tag}
   {extra_tag}
 </head>
@@ -222,10 +225,11 @@ def page(filename, active, title, meta, h1content_after_header, extra_ld=""):
   </header>
 {h1content_after_header}
 {footer_html()}
-  <script src="js/main.js"></script>
+  <script>__INLINE_JS__</script>
 </body>
 </html>
 """
+    return out.replace("__INLINE_CSS__", INLINE_CSS).replace("__INLINE_JS__", INLINE_JS)
 
 def footer_html():
     svc_links = "".join(f'<a href="{s["slug"]}.html">{s["name"]}</a>' for s in SERVICES[:4])
@@ -334,14 +338,23 @@ def build():
     # CSS = styles.css + phần bổ sung (stats/team/pricing/testimonials) + style trang con
     with open(os.path.join(SRC, "css", "styles.css"), encoding="utf-8") as f:
         css = f.read()
-    extra_path = "/tmp/extra.css"
-    if os.path.exists(extra_path):
-        with open(extra_path, encoding="utf-8") as f:
-            css += "\n" + f.read()
+    for extra_path in (os.path.join(SRC, "css", "extra-sections.css"), "/tmp/extra.css"):
+        if os.path.exists(extra_path):
+            with open(extra_path, encoding="utf-8") as f:
+                css += "\n" + f.read()
+            break
     css += PAGE_CSS
     with open(os.path.join(OUT, "css", "styles.css"), "w", encoding="utf-8") as f:
         f.write(css)
-    shutil.copy(os.path.join(SRC, "js", "main.js"), os.path.join(OUT, "js", "main.js"))
+    with open(os.path.join(SRC, "js", "main.js"), encoding="utf-8") as f:
+        js = f.read()
+    with open(os.path.join(OUT, "js", "main.js"), "w", encoding="utf-8") as f:
+        f.write(js)
+
+    # Nạp biến để nhúng thẳng vào từng trang (giúp xem được trên htmlpreview)
+    global INLINE_CSS, INLINE_JS
+    INLINE_CSS = css
+    INLINE_JS = js
 
     pages = {}
 
