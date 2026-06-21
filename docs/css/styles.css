@@ -352,9 +352,8 @@ p { text-wrap: pretty; }         /* tránh 1 từ trơ trọi ở dòng cuối �
 @media (max-width: 720px) {
   body { font-size: 16.5px; }
   .topbar { display: none; }
-  .header__call-text { display: none; }     /* chỉ còn icon điện thoại cho gọn */
-  .header__call { padding: 9px 13px; font-size: 18px; }
-  .nav-toggle { margin-left: 6px; }
+  .header__call { display: none; }      /* đã có nút gọi nổi ở góc, nhường chỗ cho ☰ */
+  .nav-toggle { margin-left: auto; }    /* đẩy nút ☰ về sát mép phải, luôn hiện rõ */
   .section { padding: 52px 0; }
   .hero__actions .btn { width: 100%; }
   .hero__trust { flex-direction: column; gap: 8px; }
