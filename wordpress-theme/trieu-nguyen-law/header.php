@@ -40,6 +40,7 @@ $tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyên và Cộng sự' );
 			</a>
 
 			<nav class="nav" id="nav">
+				<a href="<?php echo esc_url( home_url( '/#gioi-thieu' ) ); ?>">Giới thiệu</a>
 				<a href="<?php echo esc_url( home_url( '/#linh-vuc' ) ); ?>">Lĩnh vực</a>
 				<a href="<?php echo esc_url( home_url( '/#vi-sao' ) ); ?>">Vì sao chọn chúng tôi</a>
 				<a href="<?php echo esc_url( home_url( '/#quy-trinh' ) ); ?>">Quy trình</a>

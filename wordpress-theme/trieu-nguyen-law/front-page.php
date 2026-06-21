@@ -52,6 +52,40 @@ get_header();
 		</div>
 	</section>
 
+	<!-- GIỚI THIỆU LUẬT SƯ -->
+	<section class="section section--about" id="gioi-thieu">
+		<div class="container about">
+			<div class="about__media">
+				<?php $tnl_photo = tnl_opt( 'tnl_lawyer_photo', '' ); ?>
+				<?php if ( $tnl_photo ) : ?>
+					<img src="<?php echo esc_url( $tnl_photo ); ?>" alt="<?php echo esc_attr( tnl_opt( 'tnl_lawyer_name', 'Luật sư' ) ); ?>" />
+				<?php else : ?>
+					<div class="about__placeholder">
+						<span class="about__placeholder-ic">👨‍⚖️</span>
+						<span>Thêm ảnh trong: Tùy biến → Giới thiệu luật sư</span>
+					</div>
+				<?php endif; ?>
+				<div class="about__badge"><strong><?php echo esc_html( tnl_opt( 'tnl_lawyer_years', '15' ) ); ?>+</strong><span>năm kinh nghiệm</span></div>
+			</div>
+			<div class="about__content">
+				<p class="section__eyebrow">Về chúng tôi</p>
+				<h2 class="section__title"><?php echo esc_html( tnl_opt( 'tnl_lawyer_name', 'Luật sư [Họ và tên]' ) ); ?></h2>
+				<p class="about__role"><?php echo esc_html( tnl_opt( 'tnl_lawyer_role', 'Trưởng Văn phòng Luật sư Triều Nguyên và Cộng sự' ) ); ?></p>
+				<p><?php echo esc_html( tnl_opt( 'tnl_lawyer_bio', 'Với nhiều năm kinh nghiệm tư vấn và tranh tụng, chúng tôi thấu hiểu những vướng mắc pháp lý thường gặp của bà con.' ) ); ?></p>
+				<ul class="about__list">
+					<li>Hơn <strong><?php echo esc_html( tnl_opt( 'tnl_lawyer_years', '15' ) ); ?></strong> năm kinh nghiệm tư vấn &amp; tranh tụng tại tòa</li>
+					<li>Thành viên <strong>Đoàn Luật sư địa phương</strong></li>
+					<li>Đã đồng hành cùng <strong>hàng trăm</strong> vụ việc của bà con</li>
+					<li>Tận tâm với từng hồ sơ, giữ <strong>bí mật</strong> thông tin tuyệt đối</li>
+				</ul>
+				<div class="about__actions">
+					<a href="#dat-lich" class="btn btn--gold">📝 Đặt lịch gặp luật sư</a>
+					<a href="<?php echo esc_attr( tnl_tel_link() ); ?>" class="btn btn--ghost-maroon" data-phone-link>📞 Gọi tư vấn ngay</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- LĨNH VỰC -->
 	<section class="section" id="linh-vuc">
 		<div class="container">

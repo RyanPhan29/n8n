@@ -104,6 +104,33 @@ function tnl_customize_register( $wp_customize ) {
 		'section'     => 'tnl_office',
 		'type'        => 'url',
 	) );
+
+	// ----- Phần "Giới thiệu luật sư" -----
+	$wp_customize->add_section( 'tnl_about', array(
+		'title'    => __( 'Giới thiệu luật sư', 'trieu-nguyen-law' ),
+		'priority' => 31,
+	) );
+
+	$wp_customize->add_setting( 'tnl_lawyer_name', array( 'default' => 'Luật sư [Họ và tên]', 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control( 'tnl_lawyer_name', array( 'label' => 'Tên luật sư', 'section' => 'tnl_about', 'type' => 'text' ) );
+
+	$wp_customize->add_setting( 'tnl_lawyer_role', array( 'default' => 'Trưởng Văn phòng Luật sư Triều Nguyên và Cộng sự', 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control( 'tnl_lawyer_role', array( 'label' => 'Chức danh', 'section' => 'tnl_about', 'type' => 'text' ) );
+
+	$wp_customize->add_setting( 'tnl_lawyer_years', array( 'default' => '15', 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_control( 'tnl_lawyer_years', array( 'label' => 'Số năm kinh nghiệm (hiện trên huy hiệu)', 'section' => 'tnl_about', 'type' => 'text' ) );
+
+	$wp_customize->add_setting( 'tnl_lawyer_bio', array(
+		'default'           => 'Với nhiều năm kinh nghiệm tư vấn và tranh tụng, chúng tôi thấu hiểu những vướng mắc pháp lý thường gặp của bà con — từ đất đai, thừa kế đến hôn nhân, dân sự. Phương châm của văn phòng là lắng nghe tận tâm, tư vấn dễ hiểu và bảo vệ quyền lợi của khách hàng đến cùng.',
+		'sanitize_callback' => 'sanitize_textarea_field',
+	) );
+	$wp_customize->add_control( 'tnl_lawyer_bio', array( 'label' => 'Đoạn giới thiệu', 'section' => 'tnl_about', 'type' => 'textarea' ) );
+
+	$wp_customize->add_setting( 'tnl_lawyer_photo', array( 'default' => '', 'sanitize_callback' => 'esc_url_raw' ) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'tnl_lawyer_photo', array(
+		'label'   => __( 'Ảnh luật sư / văn phòng', 'trieu-nguyen-law' ),
+		'section' => 'tnl_about',
+	) ) );
 }
 add_action( 'customize_register', 'tnl_customize_register' );
 
