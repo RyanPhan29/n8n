@@ -17,7 +17,9 @@ INLINE_JS = ""
 PHONE = "0123456789"
 PHONE_D = "0123 456 789"
 EMAIL = "email@vanphongluat.vn"
-ADDR = "[Số nhà, tên đường], Tây Sơn, Bình Định"
+ADDR = "69 Phan Huy Ích, xã Tây Sơn, tỉnh Gia Lai"
+ADDR_OLD = "(TT. Phú Phong, huyện Tây Sơn, Bình Định cũ)"
+REGION = "Gia Lai (Bình Định cũ)"
 
 NAV = [
     ("index.html", "Trang chủ"),
@@ -33,39 +35,39 @@ NAV = [
 # --------------------------------------------------------------------------
 SERVICES = [
     dict(slug="dv-dat-dai", icon="🏡", name="Đất đai – Nhà ở",
-         h1="Luật sư tư vấn Đất đai – Nhà ở tại Tây Sơn, Bình Định",
-         meta="Luật sư tư vấn đất đai, nhà ở tại Tây Sơn, Bình Định: tranh chấp ranh đất, sang tên sổ đỏ, tách thửa, đền bù giải phóng mặt bằng.",
-         intro="Tranh chấp đất đai, nhà ở là vấn đề phổ biến và phức tạp nhất ở quê. Chúng tôi hỗ trợ bà con từ bước hòa giải ở xã đến khởi kiện tại tòa, bảo vệ quyền lợi hợp pháp về đất đai.",
+         h1="Luật sư tư vấn &amp; giải quyết tranh chấp Đất đai – Nhà ở",
+         meta="Luật sư đất đai, nhà ở trên toàn quốc: tranh chấp ranh đất, sang tên sổ đỏ, tách thửa, đền bù giải phóng mặt bằng. Trụ sở Gia Lai (Bình Định cũ), nhận việc liên tỉnh.",
+         intro="Đất đai thường là tài sản lớn nhất của một gia đình, nên chỉ một sai sót nhỏ về giấy tờ hay mốc giới cũng có thể thành tranh chấp dai dẳng nhiều năm. Chúng tôi đi cùng bạn từ bước hòa giải ở cơ sở đến khi ra tòa, và làm việc được ở nhiều tỉnh thành chứ không bó hẹp một địa phương.",
          items=["Tranh chấp ranh đất, lối đi chung","Sang tên, tách thửa, cấp đổi sổ đỏ","Đòi lại đất cho mượn, cho ở nhờ","Đền bù, giải phóng mặt bằng","Chuyển mục đích sử dụng đất"],
          related=["bai-tranh-chap-dat-dai"]),
     dict(slug="dv-thua-ke", icon="📜", name="Thừa kế – Di chúc",
          h1="Tư vấn Thừa kế – Lập di chúc hợp pháp",
-         meta="Tư vấn thừa kế, lập di chúc hợp pháp, chia di sản, khai nhận thừa kế tại Tây Sơn, Bình Định. Tránh tranh chấp tài sản trong gia đình.",
-         intro="Lập di chúc rõ ràng và chia thừa kế đúng luật giúp con cháu thuận hòa, tránh tranh chấp về sau. Chúng tôi soạn thảo di chúc, hướng dẫn khai nhận và phân chia di sản đúng quy định.",
+         meta="Tư vấn thừa kế, lập di chúc hợp pháp, chia di sản, khai nhận thừa kế trên toàn quốc. Giúp gia đình tránh tranh chấp tài sản, giữ trọn hòa khí.",
+         intro="Chuyện thừa kế dễ làm sứt mẻ tình thân nếu không rõ ràng ngay từ đầu. Một bản di chúc đúng luật, hoặc một phương án phân chia di sản công bằng, sẽ giúp con cháu thuận hòa và tránh kiện tụng về sau — chúng tôi soạn thảo, hướng dẫn và đại diện cho khách hàng ở khắp các tỉnh.",
          items=["Lập di chúc hợp pháp, có công chứng","Khai nhận, từ chối di sản thừa kế","Phân chia di sản theo pháp luật","Giải quyết tranh chấp thừa kế","Xác định hàng thừa kế, kỷ phần"],
          related=["bai-lam-di-chuc"]),
     dict(slug="dv-hon-nhan", icon="👨‍👩‍👧", name="Hôn nhân – Gia đình",
          h1="Luật sư Hôn nhân – Gia đình: ly hôn, nuôi con, chia tài sản",
-         meta="Luật sư hôn nhân gia đình tại Tây Sơn, Bình Định: thủ tục ly hôn thuận tình, đơn phương, giành quyền nuôi con, chia tài sản vợ chồng.",
-         intro="Khi hôn nhân không thể tiếp tục, một luật sư đồng hành sẽ giúp bạn giải quyết nhanh gọn, bảo vệ quyền nuôi con và phần tài sản chính đáng của mình.",
+         meta="Luật sư hôn nhân gia đình: ly hôn thuận tình/đơn phương, giành quyền nuôi con, chia tài sản vợ chồng. Tư vấn kín đáo, hỗ trợ khách hàng trên toàn quốc.",
+         intro="Khi hôn nhân khép lại, điều quan trọng là khép lại văn minh và bảo vệ được con cái cùng phần tài sản chính đáng của mình. Chúng tôi tư vấn kín đáo, xử lý nhanh gọn — kể cả khi hai vợ chồng đang sống ở hai tỉnh khác nhau.",
          items=["Ly hôn thuận tình / đơn phương","Giành quyền nuôi con, mức cấp dưỡng","Chia tài sản chung vợ chồng","Xác định cha, mẹ, con","Tư vấn tài sản trước hôn nhân"],
          related=["bai-thu-tuc-ly-hon"]),
     dict(slug="dv-hinh-su", icon="⚖️", name="Hình sự",
-         h1="Luật sư bào chữa Hình sự",
-         meta="Luật sư bào chữa hình sự tại Tây Sơn, Bình Định: bảo vệ bị can, bị cáo, người bị hại từ giai đoạn điều tra đến xét xử, kháng cáo.",
-         intro="Trong vụ án hình sự, có luật sư tham gia sớm giúp bảo vệ quyền lợi tốt nhất cho thân chủ. Chúng tôi đồng hành từ giai đoạn điều tra đến khi xét xử.",
+         h1="Luật sư bào chữa &amp; bảo vệ trong vụ án Hình sự",
+         meta="Luật sư bào chữa hình sự, bảo vệ bị can, bị cáo, người bị hại từ giai đoạn điều tra đến xét xử, kháng cáo. Tham gia tố tụng tại nhiều tỉnh thành.",
+         intro="Trong một vụ án hình sự, những ngày đầu tiên là quý giá nhất. Có luật sư tham gia sớm giúp bảo vệ quyền của bạn, tránh khai báo bất lợi và định hướng đúng ngay từ giai đoạn điều tra. Chúng tôi nhận bào chữa, bảo vệ tại tòa án nhiều tỉnh thành trên cả nước.",
          items=["Bào chữa cho bị can, bị cáo","Bảo vệ quyền lợi người bị hại","Tham gia từ giai đoạn điều tra","Xin giảm nhẹ hình phạt, hưởng án treo","Kháng cáo, kháng nghị bản án"],
          related=[]),
     dict(slug="dv-dan-su", icon="🤝", name="Dân sự – Hợp đồng",
          h1="Tư vấn Dân sự – Hợp đồng, đòi nợ, bồi thường",
-         meta="Tư vấn dân sự, hợp đồng tại Tây Sơn, Bình Định: đòi nợ, tranh chấp vay mượn, bồi thường thiệt hại, soạn thảo và rà soát hợp đồng.",
-         intro="Vay mượn, đặt cọc, bồi thường thiệt hại… là những tranh chấp dân sự hay gặp. Chúng tôi tư vấn, soạn hồ sơ và đại diện đòi lại quyền lợi cho bạn.",
+         meta="Tư vấn dân sự, hợp đồng: đòi nợ, tranh chấp vay mượn, bồi thường thiệt hại, soạn thảo và rà soát hợp đồng. Hỗ trợ cá nhân và doanh nghiệp toàn quốc.",
+         intro="Vay mượn, đặt cọc, bồi thường… nghe đơn giản nhưng khi xảy ra tranh chấp lại rất rối về chứng cứ. Chúng tôi giúp bạn thu thập chứng cứ đúng cách, soạn hồ sơ chặt chẽ và đại diện đòi lại quyền lợi — làm việc trực tiếp hoặc trực tuyến với khách ở mọi tỉnh thành.",
          items=["Đòi nợ, tranh chấp vay mượn","Bồi thường thiệt hại, tai nạn","Soạn thảo, rà soát hợp đồng","Tranh chấp mua bán, đặt cọc","Khiếu nại, tố cáo đúng pháp luật"],
          related=[]),
     dict(slug="dv-doanh-nghiep", icon="🏢", name="Doanh nghiệp – Lao động",
          h1="Tư vấn Doanh nghiệp – Lao động",
-         meta="Tư vấn doanh nghiệp, lao động tại Tây Sơn, Bình Định: thành lập công ty, hộ kinh doanh, đăng ký kinh doanh, tranh chấp lao động, BHXH.",
-         intro="Từ thành lập công ty, hộ kinh doanh đến tư vấn pháp lý thường xuyên, chúng tôi giúp doanh nghiệp địa phương hoạt động đúng luật và an toàn.",
+         meta="Tư vấn doanh nghiệp, lao động: thành lập công ty, đăng ký kinh doanh, hợp đồng thương mại, tranh chấp lao động, BHXH. Đồng hành pháp lý thường xuyên cho doanh nghiệp cả nước.",
+         intro="Doanh nghiệp vững là doanh nghiệp làm đúng luật ngay từ đầu. Từ khâu thành lập, soạn hợp đồng đến xử lý tranh chấp lao động, chúng tôi làm cố vấn pháp lý thường xuyên cho hộ kinh doanh và công ty ở nhiều địa phương, hỗ trợ cả qua hồ sơ trực tuyến.",
          items=["Thành lập công ty, hộ kinh doanh","Đăng ký, thay đổi giấy phép kinh doanh","Soạn thảo hợp đồng thương mại","Tranh chấp lao động, bảo hiểm xã hội","Tư vấn pháp lý thường xuyên"],
          related=[]),
 ]
@@ -77,7 +79,7 @@ SVC_BY_SLUG = {s["slug"]: s for s in SERVICES}
 ARTICLES = [
     dict(slug="bai-thu-tuc-ly-hon", tag="Hôn nhân – Gia đình",
          title="Thủ tục ly hôn cần giấy tờ gì? Mất bao lâu?",
-         meta="Hướng dẫn thủ tục ly hôn thuận tình và đơn phương: hồ sơ cần chuẩn bị, nộp ở đâu, mất bao lâu. Tư vấn tại Tây Sơn, Bình Định.",
+         meta="Hướng dẫn thủ tục ly hôn thuận tình và đơn phương: hồ sơ cần chuẩn bị, nộp ở đâu, mất bao lâu. Luật sư tư vấn, hỗ trợ trên toàn quốc.",
          body="""
 <p>Ly hôn là điều không ai mong muốn, nhưng khi đã quyết định, việc nắm rõ thủ tục sẽ giúp bạn đỡ vất vả và nhanh chóng hơn.</p>
 <h2>1. Có mấy loại ly hôn?</h2>
@@ -92,7 +94,7 @@ ARTICLES = [
 <p>Nộp tại <strong>Tòa án nhân dân cấp huyện</strong> nơi vợ/chồng cư trú. Thuận tình thường 1–2 tháng; đơn phương thường 4–6 tháng.</p>"""),
     dict(slug="bai-tranh-chap-dat-dai", tag="Đất đai",
          title="Tranh chấp ranh đất với hàng xóm phải làm sao?",
-         meta="Các bước xử lý tranh chấp ranh đất, lối đi: hòa giải tại xã, khi nào khởi kiện ra tòa và giấy tờ cần chuẩn bị. Tư vấn tại Tây Sơn, Bình Định.",
+         meta="Các bước xử lý tranh chấp ranh đất, lối đi: hòa giải tại xã, khi nào khởi kiện ra tòa và giấy tờ cần chuẩn bị. Luật sư tư vấn, hỗ trợ trên toàn quốc.",
          body="""
 <p>Tranh chấp ranh đất, lối đi chung rất hay gặp ở quê. Xử lý đúng cách giúp bạn giữ quyền lợi mà vẫn giữ tình làng nghĩa xóm.</p>
 <h2>Bước 1: Thương lượng trực tiếp</h2>
@@ -104,7 +106,7 @@ ARTICLES = [
 <p>Nếu hòa giải không thành, khởi kiện ra <strong>Tòa án nhân dân cấp huyện</strong> nơi có đất.</p>"""),
     dict(slug="bai-lam-di-chuc", tag="Thừa kế",
          title="Làm di chúc thế nào cho hợp pháp?",
-         meta="Cách lập di chúc hợp pháp để con cháu không tranh chấp: nội dung cần có, có bắt buộc công chứng không. Tư vấn tại Tây Sơn, Bình Định.",
+         meta="Cách lập di chúc hợp pháp để con cháu không tranh chấp: nội dung cần có, có bắt buộc công chứng không. Luật sư tư vấn, hỗ trợ trên toàn quốc.",
          body="""
 <p>Lập di chúc rõ ràng từ sớm giúp con cháu thuận hòa, tránh tranh chấp tài sản về sau.</p>
 <h2>1. Di chúc cần có nội dung gì?</h2>
@@ -153,9 +155,9 @@ def ld_localbusiness():
     return (
         '{"@context":"https://schema.org","@type":"LegalService",'
         f'"name":"{FULL}",'
-        '"areaServed":"Tây Sơn, Bình Định",'
+        '"areaServed":{"@type":"Country","name":"Việt Nam"},'
         f'"telephone":"{PHONE}",'
-        '"address":{"@type":"PostalAddress","addressLocality":"Tây Sơn","addressRegion":"Bình Định","addressCountry":"VN"},'
+        '"address":{"@type":"PostalAddress","streetAddress":"69 Phan Huy Ích","addressLocality":"Xã Tây Sơn","addressRegion":"Gia Lai","addressCountry":"VN"},'
         '"openingHours":"Mo-Sa 07:30-18:00"}'
     )
 
@@ -201,7 +203,7 @@ def page(filename, active, title, meta, h1content_after_header, extra_ld=""):
   <div class="topbar">
     <div class="container topbar__inner">
       <span class="topbar__item">🕑 Làm việc: 7h30 – 18h00 (Thứ 2 – Thứ 7)</span>
-      <span class="topbar__item">📍 Tây Sơn, Bình Định</span>
+      <span class="topbar__item">📍 Trụ sở: {REGION} · Hỗ trợ toàn quốc</span>
       <span class="topbar__item">📞 <span data-phone-text>{PHONE_D}</span></span>
     </div>
   </div>
@@ -238,7 +240,7 @@ def footer_html():
     <div class="container footer__inner">
       <div class="footer__col">
         <div class="brand brand--footer"><span class="brand__mark">⚖</span><span class="brand__text"><strong>VĂN PHÒNG LUẬT SƯ</strong><em>{NAME}</em></span></div>
-        <p class="footer__desc">Đồng hành pháp lý tận tâm cùng bà con tại Tây Sơn, Bình Định và các vùng lân cận.</p>
+        <p class="footer__desc">Tư vấn &amp; tranh tụng tận tâm — trụ sở tại {REGION}, nhận việc liên tỉnh và hỗ trợ khách hàng trên toàn quốc qua tư vấn trực tuyến.</p>
       </div>
       <div class="footer__col"><h4>Dịch vụ</h4>{svc_links}</div>
       <div class="footer__col"><h4>Liên kết</h4><a href="gioi-thieu.html">Giới thiệu</a><a href="bang-phi.html">Bảng phí</a><a href="cam-nang.html">Cẩm nang</a><a href="lien-he.html">Liên hệ</a></div>
@@ -276,12 +278,12 @@ def services_grid():
     return '<div class="grid grid--3">\n' + "\n".join(cards) + '\n      </div>'
 
 def whyus():
-    feats = [("🤝","Nói chuyện dễ hiểu","Giải thích gần gũi, không dùng từ ngữ khó hiểu."),
-             ("💰","Chi phí rõ ràng","Báo trước chi phí, tư vấn lần đầu miễn phí."),
-             ("🔒","Giữ kín thông tin","Bảo mật tuyệt đối theo quy định nghề luật."),
-             ("📍","Ngay tại địa phương","Văn phòng tại Tây Sơn, gặp trực tiếp dễ dàng."),
-             ("⏱️","Phản hồi nhanh","Gọi điện hoặc Zalo là được hỗ trợ ngay."),
-             ("📚","Kinh nghiệm thực tế","Hiểu rõ thủ tục và vụ việc tại địa phương.")]
+    feats = [("🤝","Nói chuyện dễ hiểu","Giải thích cặn kẽ, đời thường — ai cũng nắm được quyền lợi của mình."),
+             ("💰","Chi phí minh bạch","Báo phí rõ ràng trước khi làm; tư vấn lần đầu miễn phí."),
+             ("🔒","Bảo mật tuyệt đối","Mọi thông tin được giữ kín theo quy tắc đạo đức nghề luật sư."),
+             ("🌐","Phạm vi toàn quốc","Tư vấn trực tuyến và đại diện tại tòa án nhiều tỉnh thành — không giới hạn địa giới."),
+             ("⏱️","Phản hồi nhanh","Gọi điện hoặc nhắn Zalo là được hỗ trợ ngay, kể cả ngoài giờ."),
+             ("📚","Kinh nghiệm thực chiến","Đã xử lý nhiều vụ việc phức tạp, am hiểu cả thủ tục địa phương lẫn liên tỉnh.")]
     cards = "".join(f'<div class="feature"><div class="feature__icon">{i}</div><h3>{t}</h3><p>{d}</p></div>' for i,t,d in feats)
     return f'<div class="grid grid--3">{cards}</div>'
 
@@ -294,14 +296,14 @@ def process():
     return f'<div class="steps">{s}</div>'
 
 def stats_band():
-    items = [("15+","Năm kinh nghiệm"),("500+","Vụ việc đã hỗ trợ"),("98%","Khách hàng hài lòng"),("24/7","Sẵn sàng lắng nghe")]
+    items = [("15+","Năm kinh nghiệm"),("500+","Vụ việc đã hỗ trợ"),("Toàn quốc","Phạm vi hỗ trợ"),("24/7","Tư vấn trực tuyến")]
     s = "".join(f'<div class="stat"><div class="stat__num">{n}</div><div class="stat__label">{l}</div></div>' for n,l in items)
     return f'<section class="section--stats"><div class="container stats">{s}</div></section>'
 
 def testimonials():
-    t = [("★★★★★","Vụ tranh chấp đất nhà tôi kéo dài mấy năm, nhờ văn phòng hướng dẫn tận tình mà giải quyết xong.","H","Cô Hoa","Tây Sơn"),
-         ("★★★★★","Luật sư nói chuyện dễ hiểu, thủ tục ly hôn làm nhanh gọn, chi phí rõ ràng từ đầu.","T","Anh Tuấn","Phú Phong"),
-         ("★★★★★","Tôi ở xa, chỉ gọi điện mà được tư vấn rất kỹ về thừa kế. Rất đáng tin cậy.","L","Bác Lâm","Bình Định")]
+    t = [("★★★★★","Vụ tranh chấp đất nhà tôi kéo dài mấy năm, nhờ văn phòng hướng dẫn tận tình mà giải quyết xong.","H","Chị Hoa","Gia Lai"),
+         ("★★★★★","Luật sư nói chuyện dễ hiểu, thủ tục ly hôn làm nhanh gọn, chi phí rõ ràng từ đầu.","T","Anh Tuấn","TP. Quy Nhơn"),
+         ("★★★★★","Tôi ở tỉnh khác, chỉ tư vấn qua điện thoại và Zalo mà vụ thừa kế được lo trọn gói, khỏi phải đi lại.","L","Anh Lâm","TP. Hồ Chí Minh")]
     cards = "".join(f'<div class="testi"><div class="testi__stars">{st}</div><p class="testi__quote">{q}</p><div class="testi__author"><div class="testi__avatar">{av}</div><div><div class="testi__name">{nm}</div><div class="testi__loc">{lo}</div></div></div></div>' for st,q,av,nm,lo in t)
     return f'<div class="grid grid--3">{cards}</div>'
 
@@ -363,9 +365,9 @@ def build():
   <section class="hero">
     <div class="container hero__inner">
       <div class="hero__content">
-        <p class="hero__eyebrow">⚖ Đồng hành pháp lý cùng bà con quê mình</p>
+        <p class="hero__eyebrow">⚖ Tư vấn &amp; tranh tụng — Liên tỉnh · Toàn quốc</p>
         <h1 class="hero__title">Bảo vệ quyền lợi của bạn bằng sự tận tâm &amp; uy tín</h1>
-        <p class="hero__sub">{FULL} tại <strong>Tây Sơn, Bình Định</strong> — tư vấn rõ ràng, dễ hiểu về đất đai, thừa kế, ly hôn, hình sự, dân sự và doanh nghiệp.</p>
+        <p class="hero__sub">{FULL} — trụ sở tại <strong>{REGION}</strong>, đồng hành cùng khách hàng <strong>trên khắp cả nước</strong>: đất đai, thừa kế, hôn nhân – gia đình, hình sự, dân sự, doanh nghiệp. Tư vấn trực tuyến nhanh chóng; luật sư trực tiếp tham gia hòa giải, tranh tụng tại tòa án nhiều tỉnh thành.</p>
         <div class="hero__actions">
           <a href="{tellink()}" class="btn btn--gold btn--lg" data-phone-link>📞 Gọi ngay: <span data-phone-text>{PHONE_D}</span></a>
           <a href="lien-he.html" class="btn btn--outline btn--lg">📝 Đặt lịch tư vấn</a>
@@ -413,8 +415,8 @@ def build():
   {CTA}
 """
     pages["index.html"] = page("index.html", "index.html",
-        f"{FULL} – Tư vấn pháp luật tại Tây Sơn, Bình Định",
-        f"{FULL} tại Tây Sơn, Bình Định. Tư vấn đất đai, thừa kế, ly hôn, hình sự, dân sự, doanh nghiệp. Gọi ngay để được luật sư tư vấn tận tình.",
+        f"{FULL} – Tư vấn và tranh tụng toàn quốc | Trụ sở Gia Lai (Bình Định cũ)",
+        f"{FULL} — trụ sở tại Gia Lai (Bình Định cũ), nhận tư vấn và đại diện pháp lý trên toàn quốc: đất đai, thừa kế, hôn nhân, hình sự, dân sự, doanh nghiệp. Gọi ngay để được luật sư tư vấn tận tình.",
         home)
 
     # ---- GIỚI THIỆU ----
@@ -423,9 +425,10 @@ def build():
     <div class="container about">
       <div class="about__media"><div class="about__placeholder"><span class="about__placeholder-ic">👨‍⚖️</span><span>Ảnh luật sư / văn phòng</span></div><div class="about__badge"><strong>15+</strong><span>năm kinh nghiệm</span></div></div>
       <div class="about__content">
-        <h2 class="section__title">Tận tâm – Uy tín – Gần gũi với bà con</h2>
-        <p>Với nhiều năm kinh nghiệm tư vấn và tranh tụng, chúng tôi thấu hiểu những vướng mắc pháp lý thường gặp của bà con — từ đất đai, thừa kế đến hôn nhân, dân sự. Phương châm của văn phòng là <strong>lắng nghe tận tâm, tư vấn dễ hiểu và bảo vệ quyền lợi của khách hàng đến cùng</strong>.</p>
-        <ul class="about__list"><li>Hơn <strong>15</strong> năm kinh nghiệm tư vấn &amp; tranh tụng</li><li>Thành viên <strong>Đoàn Luật sư địa phương</strong></li><li>Đã đồng hành cùng <strong>hàng trăm</strong> vụ việc</li><li>Giữ <strong>bí mật</strong> thông tin tuyệt đối</li></ul>
+        <h2 class="section__title">Tận tâm – Uy tín – Phục vụ trên toàn quốc</h2>
+        <p>{FULL} có trụ sở tại <strong>{REGION}</strong>, nhưng phạm vi đồng hành của chúng tôi không dừng lại ở một địa phương. Nhờ kết hợp <strong>tư vấn trực tuyến</strong> và trực tiếp <strong>tham gia tố tụng tại tòa án nhiều tỉnh thành</strong>, chúng tôi hỗ trợ được khách hàng dù bạn đang ở đâu trên đất nước.</p>
+        <p>Qua nhiều năm tư vấn và tranh tụng, chúng tôi hiểu người dân cần một luật sư <strong>nói thật, giải thích dễ hiểu và theo việc đến cùng</strong> — chứ không phải những lời hứa mơ hồ. Đó là cách chúng tôi giữ được niềm tin của khách hàng suốt thời gian qua.</p>
+        <ul class="about__list"><li>Hơn <strong>15</strong> năm kinh nghiệm tư vấn &amp; tranh tụng</li><li>Nhận việc <strong>liên huyện, liên tỉnh, toàn quốc</strong></li><li>Đã đồng hành cùng <strong>hàng trăm</strong> vụ việc ở nhiều tỉnh thành</li><li>Giữ <strong>bí mật</strong> thông tin khách hàng tuyệt đối</li></ul>
         <div class="about__actions"><a href="lien-he.html" class="btn btn--gold">📝 Đặt lịch gặp luật sư</a><a href="{tellink()}" class="btn btn--ghost-maroon" data-phone-link>📞 Gọi tư vấn</a></div>
       </div>
     </div>
@@ -446,7 +449,7 @@ def build():
     # ---- DỊCH VỤ (tổng) ----
     dv = page_header("Dịch vụ pháp lý", "Lĩnh vực tư vấn &amp; dịch vụ", [("index.html","Trang chủ"),(None,"Dịch vụ")]) + f"""
   <section class="section"><div class="container">
-    <div class="section__head"><p class="section__lead">Đầy đủ các lĩnh vực pháp lý thường gặp của bà con và doanh nghiệp. Bấm vào từng mục để xem chi tiết.</p></div>
+    <div class="section__head"><p class="section__lead">Đầy đủ các lĩnh vực pháp lý thường gặp của cá nhân và doanh nghiệp — hỗ trợ khách hàng trên toàn quốc. Bấm vào từng mục để xem chi tiết.</p></div>
     {services_grid()}
   </div></section>
   <section class="section section--alt"><div class="container"><div class="section__head"><p class="section__eyebrow">Quy trình</p><h2 class="section__title">4 bước đơn giản</h2></div>{process()}</div></section>
@@ -526,7 +529,8 @@ def build():
       <div class="contact__info">
         <a class="contact__item" href="{tellink()}" data-phone-link><span class="contact__ic">📞</span><span><small>Điện thoại / Zalo</small><strong data-phone-text>{PHONE_D}</strong></span></a>
         <a class="contact__item" href="mailto:{EMAIL}" data-email-link><span class="contact__ic">✉️</span><span><small>Email</small><strong data-email-text>{EMAIL}</strong></span></a>
-        <div class="contact__item"><span class="contact__ic">📍</span><span><small>Địa chỉ</small><strong>{ADDR}</strong></span></div>
+        <div class="contact__item"><span class="contact__ic">📍</span><span><small>Trụ sở</small><strong>{ADDR}</strong><small style="display:block;color:var(--ink-soft);font-weight:500;margin-top:2px">{ADDR_OLD}</small></span></div>
+        <div class="contact__item"><span class="contact__ic">🌐</span><span><small>Phạm vi phục vụ</small><strong>Liên huyện · Liên tỉnh · Toàn quốc (tư vấn trực tuyến)</strong></span></div>
         <div class="contact__item"><span class="contact__ic">🕑</span><span><small>Giờ làm việc</small><strong>Thứ 2 – Thứ 7: 7h30 – 18h00</strong></span></div>
         <div class="contact__socials"><a href="#" class="btn btn--ghost-maroon" data-fanpage-link>📘 Facebook</a><a href="#" class="btn btn--gold" data-zalo-link>💬 Nhắn Zalo</a></div>
       </div>
