@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Sinh website tĩnh ĐA TRANG cho Văn phòng Luật sư Triều Nguyên và Cộng sự.
+"""Sinh website tĩnh ĐA TRANG cho Văn phòng Luật sư Triều Nguyễn và Cộng sự.
 Chạy: python3 build_site.py  -> xuất ra thư mục ./website/
 Mỗi mục là 1 trang/URL riêng (chuẩn SEO), dùng chung header/footer.
 """
@@ -9,7 +9,7 @@ import os, shutil, html
 OUT = os.path.join(os.path.dirname(__file__), "website")
 SRC = os.path.join(os.path.dirname(__file__), "law-office-website")
 
-NAME = "Triều Nguyên và Cộng sự"
+NAME = "Triều Nguyễn và Cộng sự"
 FULL = "Văn phòng Luật sư " + NAME
 
 INLINE_CSS = ""   # nạp trong build() để nhúng thẳng vào mỗi trang

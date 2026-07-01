@@ -12,7 +12,7 @@ get_header();
 				<p class="hero__eyebrow">⚖ Tư vấn và tranh tụng — Liên tỉnh · Toàn quốc</p>
 				<h1 class="hero__title">Bảo vệ quyền lợi của bạn bằng sự tận tâm &amp; uy tín</h1>
 				<p class="hero__sub">
-					Văn phòng Luật sư Triều Nguyên và Cộng sự — trụ sở tại <strong>Gia Lai (Bình Định cũ)</strong>, phục vụ khách hàng trên toàn quốc; tư vấn rõ ràng,
+					Văn phòng Luật sư Triều Nguyễn và Cộng sự — trụ sở tại <strong>Gia Lai (Bình Định cũ)</strong>, phục vụ khách hàng trên toàn quốc; tư vấn rõ ràng,
 					dễ hiểu về <strong>đất đai, thừa kế, ly hôn, hình sự, dân sự</strong> và
 					<strong>doanh nghiệp</strong>. Bạn cứ gọi, chúng tôi lắng nghe và hướng dẫn từng bước.
 				</p>
@@ -70,7 +70,7 @@ get_header();
 			<div class="about__content">
 				<p class="section__eyebrow">Về chúng tôi</p>
 				<h2 class="section__title"><?php echo esc_html( tnl_opt( 'tnl_lawyer_name', 'Luật sư Nguyễn Thị Triều' ) ); ?></h2>
-				<p class="about__role"><?php echo esc_html( tnl_opt( 'tnl_lawyer_role', 'Trưởng Văn phòng Luật sư Triều Nguyên và Cộng sự' ) ); ?></p>
+				<p class="about__role"><?php echo esc_html( tnl_opt( 'tnl_lawyer_role', 'Trưởng Văn phòng Luật sư Triều Nguyễn và Cộng sự' ) ); ?></p>
 				<p><?php echo esc_html( tnl_opt( 'tnl_lawyer_bio', 'Văn phòng có trụ sở tại Gia Lai (Bình Định cũ) nhưng nhận việc liên huyện, liên tỉnh, toàn quốc — kết hợp tư vấn trực tuyến và trực tiếp tham gia tố tụng tại tòa án nhiều tỉnh thành. Phương châm: nói thật, giải thích dễ hiểu và theo việc đến cùng.' ) ); ?></p>
 				<ul class="about__list">
 					<li>Hơn <strong><?php echo esc_html( tnl_opt( 'tnl_lawyer_years', '15' ) ); ?></strong> năm kinh nghiệm tư vấn &amp; tranh tụng tại tòa</li>

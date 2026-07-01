@@ -2,7 +2,7 @@
 /**
  * Chân trang + nút Gọi/Zalo nổi.
  */
-$tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyên và Cộng sự' );
+$tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyễn và Cộng sự' );
 ?>
 	<footer class="footer">
 		<div class="container footer__inner">

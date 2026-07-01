@@ -70,7 +70,7 @@ function tnl_customize_register( $wp_customize ) {
 	) );
 
 	$fields = array(
-		'tnl_office_name'  => array( 'Tên văn phòng', 'Triều Nguyên và Cộng sự', 'text' ),
+		'tnl_office_name'  => array( 'Tên văn phòng', 'Triều Nguyễn và Cộng sự', 'text' ),
 		'tnl_phone'        => array( 'Số điện thoại (để bấm gọi, viết liền)', '0984243629', 'text' ),
 		'tnl_phone_display'=> array( 'Số điện thoại (hiển thị cho đẹp)', '0984 243 629', 'text' ),
 		'tnl_zalo'         => array( 'Số Zalo', '0984243629', 'text' ),

@@ -2,7 +2,7 @@
 /**
  * Đầu trang: thẻ <head>, thanh liên hệ, menu.
  */
-$tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyên và Cộng sự' );
+$tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyễn và Cộng sự' );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

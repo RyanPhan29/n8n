@@ -1,6 +1,6 @@
 # Hướng dẫn cài đặt Website WordPress trên VPS Hostinger
 
-Giao diện **Triều Nguyên Law** dành cho Văn phòng Luật sư Triều Nguyên và Cộng sự.
+Giao diện **Triều Nguyên Law** dành cho Văn phòng Luật sư Triều Nguyễn và Cộng sự.
 Tài liệu này hướng dẫn từ A–Z: cài WordPress trên VPS Hostinger, tải giao diện lên,
 và để mẹ/bác **tự đăng bài** dễ dàng.
 
@@ -89,7 +89,7 @@ Vào **wp-admin → Giao diện → Tùy biến → "Thông tin văn phòng"**, 
 
 | Mục | Ví dụ |
 |---|---|
-| Tên văn phòng | Triều Nguyên và Cộng sự |
+| Tên văn phòng | Triều Nguyễn và Cộng sự |
 | Số điện thoại (bấm gọi) | 0905123456 |
 | Số điện thoại (hiển thị) | 0905 123 456 |
 | Số Zalo | 0905123456 |
