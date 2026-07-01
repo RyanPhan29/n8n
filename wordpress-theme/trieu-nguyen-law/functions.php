@@ -47,9 +47,9 @@ function tnl_assets() {
 
 	// Truyền thông tin liên hệ sang JavaScript (cho nút gọi, Zalo, form)
 	wp_localize_script( 'tnl-main', 'VP_CONFIG', array(
-		'soDienThoai'  => preg_replace( '/\s+/', '', tnl_opt( 'tnl_phone', '0123456789' ) ),
-		'soHienThi'    => tnl_opt( 'tnl_phone_display', '0123 456 789' ),
-		'zalo'         => preg_replace( '/\D+/', '', tnl_opt( 'tnl_zalo', '0123456789' ) ),
+		'soDienThoai'  => preg_replace( '/\s+/', '', tnl_opt( 'tnl_phone', '0984243629' ) ),
+		'soHienThi'    => tnl_opt( 'tnl_phone_display', '0984 243 629' ),
+		'zalo'         => preg_replace( '/\D+/', '', tnl_opt( 'tnl_zalo', '0984243629' ) ),
 		'email'        => tnl_opt( 'tnl_email', 'email@vanphongluat.vn' ),
 		'facebook'     => tnl_opt( 'tnl_facebook', '#' ),
 		'formEndpoint' => tnl_opt( 'tnl_formspree', '' ),
@@ -71,12 +71,12 @@ function tnl_customize_register( $wp_customize ) {
 
 	$fields = array(
 		'tnl_office_name'  => array( 'Tên văn phòng', 'Triều Nguyên và Cộng sự', 'text' ),
-		'tnl_phone'        => array( 'Số điện thoại (để bấm gọi, viết liền)', '0123456789', 'text' ),
-		'tnl_phone_display'=> array( 'Số điện thoại (hiển thị cho đẹp)', '0123 456 789', 'text' ),
-		'tnl_zalo'         => array( 'Số Zalo', '0123456789', 'text' ),
+		'tnl_phone'        => array( 'Số điện thoại (để bấm gọi, viết liền)', '0984243629', 'text' ),
+		'tnl_phone_display'=> array( 'Số điện thoại (hiển thị cho đẹp)', '0984 243 629', 'text' ),
+		'tnl_zalo'         => array( 'Số Zalo', '0984243629', 'text' ),
 		'tnl_email'        => array( 'Email', 'email@vanphongluat.vn', 'text' ),
 		'tnl_facebook'     => array( 'Link Facebook (chưa có để dấu #)', '#', 'url' ),
-		'tnl_address'      => array( 'Địa chỉ', '[Số nhà, tên đường], Tây Sơn, Bình Định', 'text' ),
+		'tnl_address'      => array( 'Địa chỉ', '69 Phan Huy Ích, xã Tây Sơn, tỉnh Gia Lai', 'text' ),
 		'tnl_hours'        => array( 'Giờ làm việc', 'Thứ 2 – Thứ 7: 7h30 – 18h00', 'text' ),
 		'tnl_formspree'    => array( 'Link Formspree nhận form (tùy chọn)', '', 'url' ),
 	);
@@ -111,17 +111,17 @@ function tnl_customize_register( $wp_customize ) {
 		'priority' => 31,
 	) );
 
-	$wp_customize->add_setting( 'tnl_lawyer_name', array( 'default' => 'Luật sư [Họ và tên]', 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_setting( 'tnl_lawyer_name', array( 'default' => 'Luật sư Nguyễn Thị Triều', 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control( 'tnl_lawyer_name', array( 'label' => 'Tên luật sư', 'section' => 'tnl_about', 'type' => 'text' ) );
 
-	$wp_customize->add_setting( 'tnl_lawyer_role', array( 'default' => 'Trưởng Văn phòng Luật sư Triều Nguyên và Cộng sự', 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_setting( 'tnl_lawyer_role', array( 'default' => 'Trưởng Văn phòng · Luật sư Nguyễn Thị Triều', 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control( 'tnl_lawyer_role', array( 'label' => 'Chức danh', 'section' => 'tnl_about', 'type' => 'text' ) );
 
 	$wp_customize->add_setting( 'tnl_lawyer_years', array( 'default' => '15', 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control( 'tnl_lawyer_years', array( 'label' => 'Số năm kinh nghiệm (hiện trên huy hiệu)', 'section' => 'tnl_about', 'type' => 'text' ) );
 
 	$wp_customize->add_setting( 'tnl_lawyer_bio', array(
-		'default'           => 'Với nhiều năm kinh nghiệm tư vấn và tranh tụng, chúng tôi thấu hiểu những vướng mắc pháp lý thường gặp của bà con — từ đất đai, thừa kế đến hôn nhân, dân sự. Phương châm của văn phòng là lắng nghe tận tâm, tư vấn dễ hiểu và bảo vệ quyền lợi của khách hàng đến cùng.',
+		'default'           => 'Với nhiều năm kinh nghiệm tư vấn và tranh tụng, chúng tôi thấu hiểu những vướng mắc pháp lý thường gặp — từ đất đai, thừa kế đến hôn nhân, dân sự. Phương châm của văn phòng là lắng nghe tận tâm, tư vấn dễ hiểu và bảo vệ quyền lợi của khách hàng đến cùng.',
 		'sanitize_callback' => 'sanitize_textarea_field',
 	) );
 	$wp_customize->add_control( 'tnl_lawyer_bio', array( 'label' => 'Đoạn giới thiệu', 'section' => 'tnl_about', 'type' => 'textarea' ) );
@@ -144,5 +144,5 @@ function tnl_excerpt( $len = 22 ) {
 /**
  * Link gọi điện / Zalo dùng trong PHP.
  */
-function tnl_tel_link() { return 'tel:' . preg_replace( '/\s+/', '', tnl_opt( 'tnl_phone', '0123456789' ) ); }
-function tnl_zalo_link() { return 'https://zalo.me/' . preg_replace( '/\D+/', '', tnl_opt( 'tnl_zalo', '0123456789' ) ); }
+function tnl_tel_link() { return 'tel:' . preg_replace( '/\s+/', '', tnl_opt( 'tnl_phone', '0984243629' ) ); }
+function tnl_zalo_link() { return 'https://zalo.me/' . preg_replace( '/\D+/', '', tnl_opt( 'tnl_zalo', '0984243629' ) ); }

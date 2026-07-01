@@ -7,11 +7,11 @@
 
 const CAU_HINH = {
   // Số điện thoại (dùng để bấm gọi). Viết liền, không khoảng trắng:
-  soDienThoai: "0123456789",
+  soDienThoai: "0984243629",
   // Cách hiển thị số cho đẹp (có khoảng trắng):
-  soHienThi: "0123 456 789",
+  soHienThi: "0984 243 629",
   // Số Zalo (thường trùng số điện thoại):
-  zalo: "0123456789",
+  zalo: "0984243629",
   // Email nhận liên hệ:
   email: "email@vanphongluat.vn",
   // Link trang Facebook (fanpage). Nếu chưa có thì để "#":

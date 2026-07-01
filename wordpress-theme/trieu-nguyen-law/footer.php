@@ -14,7 +14,7 @@ $tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyên và Cộng sự' );
 						<em><?php echo esc_html( $tnl_name ); ?></em>
 					</span>
 				</div>
-				<p class="footer__desc">Đồng hành pháp lý tận tâm cùng bà con tại Tây Sơn, Bình Định và các vùng lân cận.</p>
+				<p class="footer__desc">Tư vấn và tranh tụng tận tâm — trụ sở tại Gia Lai (Bình Định cũ), nhận việc liên tỉnh, hỗ trợ khách hàng trên toàn quốc.</p>
 			</div>
 			<div class="footer__col">
 				<h4>Lĩnh vực</h4>
@@ -32,8 +32,8 @@ $tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyên và Cộng sự' );
 			</div>
 			<div class="footer__col">
 				<h4>Liên hệ</h4>
-				<p>📞 <a href="<?php echo esc_attr( tnl_tel_link() ); ?>" data-phone-link><span data-phone-text><?php echo esc_html( tnl_opt( 'tnl_phone_display', '0123 456 789' ) ); ?></span></a></p>
-				<p>📍 <?php echo esc_html( tnl_opt( 'tnl_address', '[Số nhà, tên đường], Tây Sơn, Bình Định' ) ); ?></p>
+				<p>📞 <a href="<?php echo esc_attr( tnl_tel_link() ); ?>" data-phone-link><span data-phone-text><?php echo esc_html( tnl_opt( 'tnl_phone_display', '0984 243 629' ) ); ?></span></a></p>
+				<p>📍 <?php echo esc_html( tnl_opt( 'tnl_address', '69 Phan Huy Ích, xã Tây Sơn, tỉnh Gia Lai' ) ); ?></p>
 				<p>🕑 <?php echo esc_html( tnl_opt( 'tnl_hours', 'Thứ 2 – Thứ 7: 7h30 – 18h00' ) ); ?></p>
 			</div>
 		</div>

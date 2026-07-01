@@ -8,9 +8,9 @@
   "use strict";
 
   var CFG = window.VP_CONFIG || {
-    soDienThoai: "0123456789",
-    soHienThi: "0123 456 789",
-    zalo: "0123456789",
+    soDienThoai: "0984243629",
+    soHienThi: "0984 243 629",
+    zalo: "0984243629",
     email: "email@vanphongluat.vn",
     facebook: "#",
     formEndpoint: ""

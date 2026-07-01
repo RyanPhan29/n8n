@@ -14,8 +14,8 @@ FULL = "Văn phòng Luật sư " + NAME
 
 INLINE_CSS = ""   # nạp trong build() để nhúng thẳng vào mỗi trang
 INLINE_JS = ""
-PHONE = "0123456789"
-PHONE_D = "0123 456 789"
+PHONE = "0984243629"
+PHONE_D = "0984 243 629"
 EMAIL = "email@vanphongluat.vn"
 ADDR = "69 Phan Huy Ích, xã Tây Sơn, tỉnh Gia Lai"
 ADDR_OLD = "(TT. Phú Phong, huyện Tây Sơn, Bình Định cũ)"
@@ -435,9 +435,9 @@ def build():
   </section>
   <section class="section section--alt"><div class="container"><div class="section__head"><p class="section__eyebrow">Đội ngũ</p><h2 class="section__title">Luật sư &amp; cộng sự</h2></div>
     <div class="grid grid--3">
-      <div class="member"><div class="member__photo">👨‍⚖️</div><div class="member__body"><h3>Luật sư [Họ và tên]</h3><p class="member__role">Trưởng Văn phòng</p><p class="member__desc">Hơn 15 năm kinh nghiệm đất đai, dân sự, hình sự.</p></div></div>
-      <div class="member"><div class="member__photo">👩‍⚖️</div><div class="member__body"><h3>Luật sư [Họ và tên]</h3><p class="member__role">Luật sư cộng sự</p><p class="member__desc">Chuyên hôn nhân – gia đình và thừa kế.</p></div></div>
-      <div class="member"><div class="member__photo">🧑‍💼</div><div class="member__body"><h3>Chuyên viên [Họ và tên]</h3><p class="member__role">Chuyên viên pháp lý</p><p class="member__desc">Hỗ trợ soạn thảo hồ sơ, thủ tục hành chính.</p></div></div>
+      <div class="member"><div class="member__photo">👩‍⚖️</div><div class="member__body"><h3>Luật sư Nguyễn Thị Triều</h3><p class="member__role">Trưởng Văn phòng</p><p class="member__desc">Hơn 15 năm kinh nghiệm về đất đai, dân sự và hình sự; tận tâm theo từng vụ việc đến cùng.</p></div></div>
+      <div class="member"><div class="member__photo">⚖️</div><div class="member__body"><h3>Luật sư cộng sự</h3><p class="member__role">Hôn nhân – Gia đình &amp; Thừa kế</p><p class="member__desc">Đồng hành xử lý các vụ việc ly hôn, nuôi con, phân chia di sản.</p></div></div>
+      <div class="member"><div class="member__photo">🧑‍💼</div><div class="member__body"><h3>Chuyên viên pháp lý</h3><p class="member__role">Hồ sơ &amp; Thủ tục hành chính</p><p class="member__desc">Hỗ trợ soạn thảo hồ sơ, giấy tờ và thủ tục nhanh gọn cho khách hàng.</p></div></div>
     </div></div></section>
   <section class="section"><div class="container"><div class="section__head"><p class="section__eyebrow">Vì sao chọn chúng tôi</p><h2 class="section__title">Giá trị chúng tôi mang lại</h2></div>{whyus()}</div></section>
   {CTA}

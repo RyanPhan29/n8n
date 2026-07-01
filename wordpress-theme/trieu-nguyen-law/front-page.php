@@ -9,15 +9,15 @@ get_header();
 	<section class="hero">
 		<div class="container hero__inner">
 			<div class="hero__content">
-				<p class="hero__eyebrow">⚖ Đồng hành pháp lý cùng bà con quê mình</p>
-				<h1 class="hero__title">Bảo vệ quyền lợi của bạn<br />bằng sự tận tâm &amp; uy tín</h1>
+				<p class="hero__eyebrow">⚖ Tư vấn và tranh tụng — Liên tỉnh · Toàn quốc</p>
+				<h1 class="hero__title">Bảo vệ quyền lợi của bạn bằng sự tận tâm &amp; uy tín</h1>
 				<p class="hero__sub">
-					Văn phòng Luật sư tại <strong>Tây Sơn, Bình Định</strong> — tư vấn rõ ràng,
+					Văn phòng Luật sư Triều Nguyên và Cộng sự — trụ sở tại <strong>Gia Lai (Bình Định cũ)</strong>, phục vụ khách hàng trên toàn quốc; tư vấn rõ ràng,
 					dễ hiểu về <strong>đất đai, thừa kế, ly hôn, hình sự, dân sự</strong> và
 					<strong>doanh nghiệp</strong>. Bạn cứ gọi, chúng tôi lắng nghe và hướng dẫn từng bước.
 				</p>
 				<div class="hero__actions">
-					<a href="<?php echo esc_attr( tnl_tel_link() ); ?>" class="btn btn--gold btn--lg" data-phone-link>📞 Gọi ngay: <span data-phone-text><?php echo esc_html( tnl_opt( 'tnl_phone_display', '0123 456 789' ) ); ?></span></a>
+					<a href="<?php echo esc_attr( tnl_tel_link() ); ?>" class="btn btn--gold btn--lg" data-phone-link>📞 Gọi ngay: <span data-phone-text><?php echo esc_html( tnl_opt( 'tnl_phone_display', '0984 243 629' ) ); ?></span></a>
 					<a href="#dat-lich" class="btn btn--outline btn--lg">📝 Đặt lịch tư vấn</a>
 				</div>
 				<ul class="hero__trust">
@@ -69,13 +69,13 @@ get_header();
 			</div>
 			<div class="about__content">
 				<p class="section__eyebrow">Về chúng tôi</p>
-				<h2 class="section__title"><?php echo esc_html( tnl_opt( 'tnl_lawyer_name', 'Luật sư [Họ và tên]' ) ); ?></h2>
+				<h2 class="section__title"><?php echo esc_html( tnl_opt( 'tnl_lawyer_name', 'Luật sư Nguyễn Thị Triều' ) ); ?></h2>
 				<p class="about__role"><?php echo esc_html( tnl_opt( 'tnl_lawyer_role', 'Trưởng Văn phòng Luật sư Triều Nguyên và Cộng sự' ) ); ?></p>
-				<p><?php echo esc_html( tnl_opt( 'tnl_lawyer_bio', 'Với nhiều năm kinh nghiệm tư vấn và tranh tụng, chúng tôi thấu hiểu những vướng mắc pháp lý thường gặp của bà con.' ) ); ?></p>
+				<p><?php echo esc_html( tnl_opt( 'tnl_lawyer_bio', 'Văn phòng có trụ sở tại Gia Lai (Bình Định cũ) nhưng nhận việc liên huyện, liên tỉnh, toàn quốc — kết hợp tư vấn trực tuyến và trực tiếp tham gia tố tụng tại tòa án nhiều tỉnh thành. Phương châm: nói thật, giải thích dễ hiểu và theo việc đến cùng.' ) ); ?></p>
 				<ul class="about__list">
 					<li>Hơn <strong><?php echo esc_html( tnl_opt( 'tnl_lawyer_years', '15' ) ); ?></strong> năm kinh nghiệm tư vấn &amp; tranh tụng tại tòa</li>
-					<li>Thành viên <strong>Đoàn Luật sư địa phương</strong></li>
-					<li>Đã đồng hành cùng <strong>hàng trăm</strong> vụ việc của bà con</li>
+					<li>Nhận việc <strong>liên huyện, liên tỉnh, toàn quốc</strong></li>
+					<li>Đã đồng hành cùng <strong>hàng trăm</strong> vụ việc ở nhiều tỉnh thành</li>
 					<li>Tận tâm với từng hồ sơ, giữ <strong>bí mật</strong> thông tin tuyệt đối</li>
 				</ul>
 				<div class="about__actions">
@@ -154,9 +154,9 @@ get_header();
 				<div class="feature"><div class="feature__icon">🤝</div><h3>Nói chuyện dễ hiểu</h3><p>Giải thích bằng lời lẽ gần gũi, không dùng từ ngữ khó hiểu, để ai cũng nắm được quyền lợi của mình.</p></div>
 				<div class="feature"><div class="feature__icon">💰</div><h3>Chi phí rõ ràng</h3><p>Báo trước chi phí, không phát sinh bất ngờ. Tư vấn lần đầu hoàn toàn miễn phí.</p></div>
 				<div class="feature"><div class="feature__icon">🔒</div><h3>Giữ kín thông tin</h3><p>Mọi câu chuyện của bạn được giữ bí mật tuyệt đối theo quy định nghề luật.</p></div>
-				<div class="feature"><div class="feature__icon">📍</div><h3>Ngay tại địa phương</h3><p>Văn phòng đặt tại Tây Sơn, Bình Định — đi lại gần, gặp trực tiếp dễ dàng.</p></div>
+				<div class="feature"><div class="feature__icon">🌐</div><h3>Phạm vi toàn quốc</h3><p>Tư vấn trực tuyến và đại diện tại tòa án nhiều tỉnh thành — không giới hạn địa giới.</p></div>
 				<div class="feature"><div class="feature__icon">⏱️</div><h3>Phản hồi nhanh</h3><p>Gọi điện hoặc nhắn Zalo là được hỗ trợ ngay, không phải chờ đợi lâu.</p></div>
-				<div class="feature"><div class="feature__icon">📚</div><h3>Kinh nghiệm thực tế</h3><p>Đồng hành cùng nhiều vụ việc của bà con, hiểu rõ thủ tục tại địa phương.</p></div>
+				<div class="feature"><div class="feature__icon">📚</div><h3>Kinh nghiệm thực tế</h3><p>Đã xử lý nhiều vụ việc phức tạp, am hiểu cả thủ tục địa phương lẫn liên tỉnh.</p></div>
 			</div>
 		</div>
 	</section>
@@ -282,7 +282,7 @@ get_header();
 				<div class="contact__info">
 					<a class="contact__item" href="<?php echo esc_attr( tnl_tel_link() ); ?>" data-phone-link>
 						<span class="contact__ic">📞</span>
-						<span><small>Điện thoại / Zalo</small><strong data-phone-text><?php echo esc_html( tnl_opt( 'tnl_phone_display', '0123 456 789' ) ); ?></strong></span>
+						<span><small>Điện thoại / Zalo</small><strong data-phone-text><?php echo esc_html( tnl_opt( 'tnl_phone_display', '0984 243 629' ) ); ?></strong></span>
 					</a>
 					<a class="contact__item" href="mailto:<?php echo esc_attr( tnl_opt( 'tnl_email', 'email@vanphongluat.vn' ) ); ?>" data-email-link>
 						<span class="contact__ic">✉️</span>
@@ -290,7 +290,7 @@ get_header();
 					</a>
 					<div class="contact__item">
 						<span class="contact__ic">📍</span>
-						<span><small>Địa chỉ</small><strong><?php echo esc_html( tnl_opt( 'tnl_address', '[Số nhà, tên đường], Tây Sơn, Bình Định' ) ); ?></strong></span>
+						<span><small>Địa chỉ</small><strong><?php echo esc_html( tnl_opt( 'tnl_address', '69 Phan Huy Ích, xã Tây Sơn, tỉnh Gia Lai' ) ); ?></strong></span>
 					</div>
 					<div class="contact__item">
 						<span class="contact__ic">🕑</span>

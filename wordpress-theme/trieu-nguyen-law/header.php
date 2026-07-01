@@ -20,7 +20,7 @@ $tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyên và Cộng sự' );
 	<div class="topbar">
 		<div class="container topbar__inner">
 			<span class="topbar__item">🕑 <?php echo esc_html( tnl_opt( 'tnl_hours', 'Thứ 2 – Thứ 7: 7h30 – 18h00' ) ); ?></span>
-			<span class="topbar__item">📍 <?php echo esc_html( tnl_opt( 'tnl_address', 'Tây Sơn, Bình Định' ) ); ?></span>
+			<span class="topbar__item">📍 <?php echo esc_html( "Trụ sở: Gia Lai (Bình Định cũ) · Hỗ trợ toàn quốc" ); ?></span>
 		</div>
 	</div>
 
@@ -53,7 +53,7 @@ $tnl_name = tnl_opt( 'tnl_office_name', 'Triều Nguyên và Cộng sự' );
 				<span class="header__call-icon">📞</span>
 				<span class="header__call-text">
 					<small>Gọi tư vấn miễn phí</small>
-					<strong data-phone-text><?php echo esc_html( tnl_opt( 'tnl_phone_display', '0123 456 789' ) ); ?></strong>
+					<strong data-phone-text><?php echo esc_html( tnl_opt( 'tnl_phone_display', '0984 243 629' ) ); ?></strong>
 				</span>
 			</a>
 
