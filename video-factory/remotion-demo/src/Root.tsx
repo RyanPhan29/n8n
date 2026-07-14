@@ -1,0 +1,100 @@
+import React from 'react';
+import {Composition} from 'remotion';
+import {Scene} from './Scene';
+import {RigDemo, RIG_DURATION} from './RigDemo';
+import {GiaiTri, GIAITRI_DURATION} from './GiaiTri';
+import {LaiKep, LAIKEP_DURATION} from './LaiKep';
+import {LaiKepMG, LAIKEPMG_DURATION} from './LaiKepMG';
+import {VayNhaMG, VAYNHA_DURATION} from './VayNhaMG';
+import {VayNhaLong, VAYNHALONG_DURATION} from './VayNhaLong';
+import {LongForm, specDuration} from './Blocks';
+import {ALL_SPECS} from './Specs';
+import {Short, shortDuration} from './Short';
+import {ALL_SHORTS} from './ShortSpecs';
+
+export const RemotionRoot: React.FC = () => {
+  return (
+    <>
+      <Composition
+        id="DemoScene"
+        component={Scene}
+        durationInFrames={285}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="RigDemo"
+        component={RigDemo}
+        durationInFrames={RIG_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="GiaiTri"
+        component={GiaiTri}
+        durationInFrames={GIAITRI_DURATION}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="LaiKep"
+        component={LaiKep}
+        durationInFrames={LAIKEP_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="LaiKepMG"
+        component={LaiKepMG}
+        durationInFrames={LAIKEPMG_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="VayNhaMG"
+        component={VayNhaMG}
+        durationInFrames={VAYNHA_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="VayNhaLong"
+        component={VayNhaLong}
+        durationInFrames={VAYNHALONG_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      {ALL_SPECS.map((spec) => (
+        <Composition
+          key={spec.slug}
+          id={spec.slug}
+          component={LongForm}
+          defaultProps={{spec}}
+          durationInFrames={specDuration(spec)}
+          fps={30}
+          width={1920}
+          height={1080}
+        />
+      ))}
+      {ALL_SHORTS.map((spec) => (
+        <Composition
+          key={spec.slug}
+          id={spec.slug}
+          component={Short}
+          defaultProps={{spec}}
+          durationInFrames={shortDuration(spec)}
+          fps={30}
+          width={1080}
+          height={1920}
+        />
+      ))}
+    </>
+  );
+};
