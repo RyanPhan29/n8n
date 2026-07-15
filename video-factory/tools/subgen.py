@@ -39,22 +39,23 @@ def to_units(sent):
 
 # ----- gom unit thành CHUNK (ưu tiên ngắt ở dấu phẩy; số & cụm không bị tách) -----
 # mỗi chunk giữ danh sách unit -> để wrap ngắt ĐÚNG ranh khối
-chunks=[]  # (units:[(txt,wc)], weight)
+chunks=[]  # (units:[(txt,wc)], weight, sent_start) — sent_start=True nếu là chunk ĐẦU của 1 câu
 for s in sents:
-    cur=[]; wc=0
+    cur=[]; wc=0; first=True
     for (txt,n,soft) in to_units(s):
         cur.append((txt,n)); wc+=n
         if (wc>=4 and soft) or wc>=12:
-            chunks.append((cur,wc)); cur=[]; wc=0
-    if cur: chunks.append((cur,wc))
+            chunks.append((cur,wc,first)); cur=[]; wc=0; first=False
+    if cur: chunks.append((cur,wc,first))
 
 clauses=[]  # (units, weight)
-for units,wc in chunks:
+for units,wc,sent_start in chunks:
     # bỏ dấu , ; : cuối unit cuối (giữ ? !)
     if units:
         t=units[-1][0].rstrip(' ,;:.'); units=units[:-1]+[(t,units[-1][1])] if t else units[:-1]
     if not units: continue
-    if clauses and wc<3:
+    # gộp cụm ngắn vào dòng trước — NHƯNG không gộp lùi qua ranh CÂU (tránh "…rưỡi Chưa hết")
+    if clauses and wc<3 and not sent_start:
         clauses[-1]=(clauses[-1][0]+units, clauses[-1][1]+wc)
     else:
         clauses.append((units,wc))
