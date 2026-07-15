@@ -61,12 +61,19 @@ cd video-factory/remotion-demo
 node_modules/.bin/remotion render <slug> out/<slug>_raw.mp4 --browser-executable="$HS" --concurrency=4 --log=error
 # tạo phụ đề:
 python3 ../tools/subgen.py ../../<script.txt> <giong.mp3> ../<slug>.ass
-# BURN phụ đề + ghép giọng (1.15) lên nền SFX -> MASTER (chú ý -c:v libx264 vì phải vẽ lại phụ đề):
-$FF -y -i out/<slug>_raw.mp4 -i <giong.mp3> -filter_complex "[0:v]subtitles=../<slug>.ass[v];[1:a]volume=1.15[vo];[0:a][vo]amix=inputs=2:duration=first:normalize=0[a]" -map "[v]" -map "[a]" -c:v libx264 -crf 20 -preset medium -pix_fmt yuv420p -c:a aac -b:a 192k -shortest out/<slug>_MASTER.mp4
-# bản preview nhẹ (nếu >30MB):
-$FF -y -i out/<slug>_MASTER.mp4 -c:v libx264 -crf 26 -preset medium -pix_fmt yuv420p -c:a aac -b:a 128k out/<slug>_web.mp4
+# XUẤT BẢN = 1 LỆNH DUY NHẤT (preset khóa: burn phụ đề + mix giọng+SFX + LOUDNORM -14 LUFS + CRF18 + 48k stereo):
+bash ../tools/export_master.sh out/<slug>_raw.mp4 <giong.mp3> ../<slug>.ass <slug>
+#   -> out/<slug>_YT_MASTER.mp4  (UP YOUTUBE — đừng nén thêm)
+#   -> out/<slug>_SUB30.mp4      (gửi nhanh/mobile, cùng loudness)
 ```
-> Nếu KHÔNG cần phụ đề: bỏ `[0:v]subtitles=...[v]`, dùng `-map 0:v -c:v copy` như cũ.
+
+## XUẤT BẢN — CHUẨN KHÓA (đừng chế lại preset)
+- **Luôn dùng `tools/export_master.sh`** — 1 công thức duy nhất, hết cảnh mỗi video 1 preset khác nhau.
+- **Loudness = -14 LUFS** (TP -1.5, loudnorm 2-pass linear). Nền tảng chuẩn hóa quanh -14 và CHỈ hạ, không nâng → xuất nhỏ hơn là mất retention giây đầu. Đây là fix ROI cao nhất.
+- **File UP YOUTUBE = `_YT_MASTER.mp4`** (1080p CRF18, ~4–6 Mbps, 48kHz stereo). KHÔNG đưa YouTube bản `_web`/`_SUB30` nén nát (đường mảnh/chữ nhỏ vỡ, rồi YouTube nén lần 2 = rác chồng rác).
+- `_SUB30.mp4` CHỈ để gửi qua chat/mobile xem nhanh — không phải bản đăng chính.
+- Kiểm nhanh trước khi đăng: `ffmpeg -i <file> -af loudnorm=print_format=summary -f null -` → Input Integrated phải ≈ -14.
+- (Ghi chú AdSense: video < 8 phút KHÔNG có mid-roll → chỉ pre/post-roll, RPM thực ~$0.5–0.8. Muốn mở mid-roll: dựng video ≥ 8 phút.)
 
 ## AN TOÀN BỐ CỤC (engine tự lo — KHÓA)
 - **Title (Heading)**: tự `text-wrap: balance` (không mồ côi chữ) + **auto-shrink** khi title dài + **thu mép phải né Anh Hai** ở cảnh `center`. Vẫn nên viết title ngắn gọn, phần diễn giải đưa xuống `caption`.
