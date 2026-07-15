@@ -311,4 +311,147 @@ export const GIAVANG: VideoSpec = {
   ],
 };
 
-export const ALL_SPECS: VideoSpec[] = [NOTHE, BDS, GIAVANG];
+// ===== THETD: Thẻ tín dụng vs Thẻ ghi nợ (5-nhịp, ~5 phút, khớp audio THETD.mp3) =====
+// d = frame@30, neo vào khoảng lặng thật (10 beat lớn: 27.4/53.9/70.9/104.7/130.2/179.7/208.8/223.5/266.2s). 32 cảnh, tổng 9122.
+export const THETD: VideoSpec = {
+  slug: 'THETD',
+  scenes: [
+    // — NHỊP 1: BỐI CẢNH (0 → 27.4s) —
+    {t: 'split', d: 264, bar: 'navy', size: 52,
+      heading: ['Hai tấm thẻ nhìn ', {t: 'GIỐNG HỆT', c: 'navy'}],
+      colL: {title: '💳 THẺ GHI NỢ', big: 'TIỀN CỦA BẠN', sub: 'có bao nhiêu tiêu bấy nhiêu', c: 'blue'},
+      colR: {title: '💳 THẺ TÍN DỤNG', big: 'TIỀN NGÂN HÀNG', sub: 'ngân hàng cho mượn trước', c: 'red'}, midVS: true,
+      caption: ['Chung một cái ví, mà số phận ', {t: 'khác nhau một trời một vực', c: 'red'}]},
+    {t: 'comments', d: 219, bar: 'navy', size: 56,
+      heading: ['Một tấm thẻ — ', {t: 'chia làm hai phe', c: 'red'}],
+      comments: [
+        {name: 'Miu', text: 'Dùng 3 năm, hạn mức 1 tỷ, tiện thật sự!', c: 'teal', side: 'l'},
+        {name: 'Vinh Lâm', text: 'Vướng nợ là nửa đêm ngủ không yên 😥', c: 'red', side: 'r'},
+      ]},
+    {t: 'char', d: 339, bar: 'red', size: 60, center: true,
+      heading: ['Đòn bẩy của người giàu — hay ', {t: 'bẫy nợ người nghèo?', c: 'red'}],
+      ah: {pose: 'think'}, bubble: {text: 'Để tui bóc!'},
+      caption: ['Hôm nay Anh Hai bóc cho bạn nghe, bằng ', {t: 'CON SỐ THẬT', c: 'teal'}]},
+
+    // — NHỊP 2: KỲ VỌNG — MIỄN LÃI (27.4 → 53.9s) —
+    {t: 'char', d: 312, bar: 'teal', size: 58,
+      heading: ['Vì sao dân sành tiền lại ', {t: 'MÊ?', c: 'teal'}],
+      ah: {pose: 'aha'}, caption: ['Bí mật nằm ở ba chữ: ', {t: 'MIỄN LÃI', c: 'teal'}, ' — tiêu trước, trả sau']},
+    {t: 'number', d: 195, bar: 'teal', htop: 130, size: 54, deco: '🗓️', decoSide: 'l',
+      heading: ['Được miễn lãi tới'],
+      value: 45, suffix: ' ngày', numColor: 'teal', dur: 35,
+      sub: '30 ngày sao kê + 15 ngày ân hạn', ah: {pose: 'cool'}},
+    {t: 'char', d: 288, bar: 'teal', size: 56,
+      heading: ['Tiêu tiền ngân hàng — ', {t: 'tiền mình để yên', c: 'teal'}],
+      ah: {pose: 'smug'}, caption: ['Tiền của bạn nằm trong sổ tiết kiệm sinh lãi thêm ~1,5 tháng — ', {t: 'dùng tiền người khác làm việc cho mình', c: 'teal'}]},
+
+    // — NHỊP 2b: VÍ DỤ 20 TRIỆU (53.9 → 70.9s) —
+    {t: 'number', d: 330, bar: 'teal', htop: 130, size: 54, deco: '🛍️', decoSide: 'l',
+      heading: ['Ví dụ: đầu kỳ bạn quẹt'],
+      value: 20, suffix: ' triệu', numColor: 'teal', dur: 40,
+      sub: 'gần 1,5 tháng chưa mất một đồng lãi', ah: {pose: 'point'},
+      caption: ['20 triệu tiền mặt của bạn vẫn nằm sổ tiết kiệm, ', {t: 'đều đặn sinh lời', c: 'teal'}]},
+    {t: 'char', d: 180, bar: 'teal', size: 58,
+      heading: ['Đến hạn trả đủ — ', {t: 'coi như xong', c: 'teal'}],
+      ah: {pose: 'greedy'}, caption: ['Bạn vừa xài chùa dòng vốn ngân hàng gần ', {t: 'một tháng rưỡi', c: 'teal'}]},
+
+    // — NHỊP 2c: HOÀN TIỀN + CIC TỐT (70.9 → 104.7s) —
+    {t: 'list', d: 180, bar: 'teal', size: 56,
+      heading: ['Chưa hết — mỗi lần quẹt'],
+      items: [{text: '💵 Hoàn lại một phần tiền', c: 'teal'}, {text: '🎁 Tích điểm đổi ưu đãi', c: 'teal'}],
+      ah: {pose: 'excited'}},
+    {t: 'char', d: 291, bar: 'blue', size: 52,
+      heading: ['Trả đúng hạn = xây ', {t: 'hồ sơ CIC đẹp', c: 'blue'}],
+      ah: {pose: 'aha'}, caption: ['C.I.C — trung tâm thông tin tín dụng quốc gia, ', {t: 'nơi mọi ngân hàng tra trước khi cho vay', c: 'blue'}]},
+    {t: 'list', d: 423, bar: 'blue', size: 54,
+      heading: ['Lịch sử đẹp = ', {t: 'giấy thông hành', c: 'blue'}],
+      items: [{text: '🏠 Sau này vay mua nhà, mua xe', c: 'gray'}, {text: '✅ Ngân hàng duyệt nhanh hơn', c: 'teal'}, {text: '✅ Khoản vay lớn hơn · lãi tốt hơn', c: 'teal'}],
+      ah: {pose: 'present'}, caption: ['Hơn hẳn một người ', {t: 'chưa từng có lịch sử tín dụng', c: 'gray'}]},
+    {t: 'char', d: 120, bar: 'teal', size: 60, center: true,
+      heading: ['Một đòn bẩy ', {t: 'gần như MIỄN PHÍ', c: 'teal'}],
+      ah: {pose: 'cool'}},
+
+    // — NHỊP 3: XUNG ĐỘT — MẶT TỐI (104.7 → 130.2s) —
+    {t: 'char', d: 342, bar: 'red', size: 56,
+      heading: ['Nhưng ', {t: 'mặt bên kia đồng xu…', c: 'red'}],
+      ah: {pose: 'warning'}, caption: ['Mọi ưu đãi ngọt ngào kia chỉ đúng khi bạn ', {t: 'trả TOÀN BỘ, ĐÚNG HẠN, không thiếu một đồng', c: 'red'}]},
+    {t: 'number', d: 423, bar: 'red', htop: 130, size: 52, deco: '🔥', decoSide: 'l',
+      heading: ['Trả thiếu / trễ 1 ngày → lãi'],
+      value: 40, suffix: '%/năm', numColor: 'red', dur: 45,
+      sub: 'từ 20% tới 40% — tính ngược từ ngày bạn quẹt', ah: {pose: 'shock'},
+      caption: ['Miễn lãi biến mất ngay lập tức, mức lãi này ', {t: 'còn cao hơn cả vay tiêu dùng', c: 'red'}]},
+
+    // — NHỊP 3b: BẪY PHÍ (130.2 → 179.7s) —
+    {t: 'char', d: 393, bar: 'red', size: 56,
+      heading: ['Cái bẫy tinh vi nhất: ', {t: '“TRẢ TỐI THIỂU”', c: 'red'}],
+      ah: {pose: 'sly'}, caption: ['Cuối kỳ chỉ bắt trả ~5% dư nợ. Nghe rất tử tế — nhưng đó chính là ', {t: 'cái thòng lọng', c: 'red'}]},
+    {t: 'split', d: 342, bar: 'red', size: 50,
+      heading: ['Nợ 20 triệu — bạn chỉ trả tối thiểu'],
+      colL: {title: 'BẠN TRẢ', big: '1 triệu', sub: 'cho nhẹ túi', c: 'blue'},
+      colR: {title: 'CÒN LẠI BỊ LÃI', big: '~500k/tháng', sub: '19tr × 30%/năm', c: 'red'}, midVS: true,
+      caption: ['Riêng tiền lãi đã ~500k/tháng, mà ', {t: 'nợ gốc gần như còn nguyên', c: 'red'}]},
+    {t: 'number', d: 438, bar: 'red', htop: 130, size: 52, deco: '💸', decoSide: 'l',
+      heading: ['Rút tiền mặt 10 triệu → mất ngay'],
+      value: 400, suffix: 'k phí', numColor: 'red', dur: 40,
+      sub: 'cộng lãi cao tính liền — 0 ngày miễn lãi', ah: {pose: 'broke'},
+      caption: ['Cứ trả tối thiểu là ', {t: 'nuôi cục nợ không bao giờ dứt', c: 'red'}]},
+    {t: 'list', d: 312, bar: 'red', size: 54,
+      heading: ['Chưa kể ', {t: 'phí thường niên', c: 'red'}],
+      items: [{text: '🆓 Quảng cáo “miễn phí mở thẻ”', c: 'gray'}, {text: '➖ Không xài đủ chỉ tiêu → cuối năm vẫn trừ vài trăm k–1 triệu', c: 'red'}],
+      ah: {pose: 'facepalm'}, caption: [{t: '“Đéo ai cho không ai cái gì”', c: 'red'}, ' — một bình luận rất thật']},
+
+    // — NHỊP 3c: NỢ XẤU CIC (179.7 → 208.8s) —
+    {t: 'char', d: 402, bar: 'red', size: 66, center: true,
+      heading: ['Giá đắt nhất không phải lãi — mà là ', {t: 'NỢ XẤU', c: 'red'}],
+      ah: {pose: 'warning'}, caption: ['Trễ hạn đủ lâu → tên bạn bị đánh dấu trên C.I.C, ', {t: 'nhảy vào nhóm nợ xấu', c: 'red'}]},
+    {t: 'char', d: 225, bar: 'red', size: 54,
+      heading: ['Vết đen ', {t: 'bám hồ sơ nhiều năm', c: 'red'}],
+      ah: {pose: 'worried'}, caption: ['Đến lúc cần vay mua ', {t: 'căn nhà đầu tiên', c: 'red'}, ', mua xe chạy dịch vụ — ngân hàng tra một cái là lắc đầu']},
+    {t: 'char', d: 246, bar: 'red', size: 56,
+      heading: ['Giấc mơ an cư ', {t: 'dời lại 3–4 năm', c: 'red'}],
+      ah: {pose: 'cry'}, caption: ['Chỉ vì vài lần quẹt cho vui rồi quên trả — ', {t: 'cái tiện nhất thời, đổi cái mất rất dài', c: 'red'}]},
+
+    // — NHỊP 3d: TÂM LÝ TIỀN CHÙA (208.8 → 223.5s) —
+    {t: 'char', d: 258, bar: 'amber', size: 56,
+      heading: ['Nguy hiểm hơn con số: ', {t: 'cái bẫy trong đầu', c: 'red'}],
+      ah: {pose: 'greedy'}, caption: ['Quẹt thẻ không thấy tiền rời ví, cảm giác như ', {t: 'tiền chùa', c: 'red'}, ' → tiêu vung tay quá trán']},
+    {t: 'char', d: 183, bar: 'amber', size: 56,
+      heading: ['Cuối kỳ nhận sao kê mới ', {t: 'giật mình', c: 'red'}],
+      ah: {pose: 'worried'}, caption: ['Nhiều người sống nơm nớp, cả tháng chỉ lo ', {t: 'canh đúng ngày trả nợ', c: 'red'}]},
+
+    // — NHỊP 4: GIẢI QUYẾT — 5 NGUYÊN TẮC (223.5 → 266.2s) —
+    {t: 'char', d: 162, bar: 'teal', size: 60, center: true,
+      heading: ['Để là đòn bẩy, không phải bẫy — ', {t: '5 nguyên tắc vàng', c: 'teal'}],
+      ah: {pose: 'point'}},
+    {t: 'rule', d: 297, bar: 'teal', n: 1, color: 'teal',
+      heading: ['Nguyên tắc vàng'], title: 'Chỉ quẹt đúng số tiền BẠN ĐANG CÓ',
+      caption: ['Coi thẻ tín dụng như một thẻ ghi nợ trả sau — ', {t: 'đừng tiêu vào tiền chưa kiếm được', c: 'red'}]},
+    {t: 'rule', d: 273, bar: 'teal', n: 2, color: 'blue',
+      heading: ['Nguyên tắc vàng'], title: 'Luôn trả FULL, đúng hạn · bật auto-debit',
+      caption: ['Đừng bao giờ — nhắc lại — ', {t: 'đừng bao giờ dừng ở mức trả tối thiểu', c: 'red'}]},
+    {t: 'list', d: 351, bar: 'teal', size: 54,
+      heading: ['Và nhớ thêm'],
+      items: [{text: '③ TUYỆT ĐỐI không rút tiền mặt', c: 'red'}, {text: '④ Canh phí thường niên · quẹt < ½ hạn mức', c: 'blue'}],
+      ah: {pose: 'pointup'}, caption: ['Giữ tỷ lệ dùng thấp để ', {t: 'điểm tín dụng luôn đẹp', c: 'teal'}]},
+    {t: 'char', d: 198, bar: 'teal', size: 54,
+      heading: ['Hay quên, hay bốc đồng?'],
+      ah: {pose: 'shrug'}, caption: ['Thành thật với chính mình → cứ dùng ', {t: 'thẻ ghi nợ cho lành', c: 'blue'}, ', tiêu bằng tiền thật cho chắc']},
+
+    // — NHỊP 5: BỐI CẢNH LỚN (266.2 → 304s) —
+    {t: 'split', d: 336, bar: 'navy', size: 50,
+      heading: ['Tấm thẻ chỉ là ', {t: 'con dao trung tính', c: 'navy'}],
+      colL: {title: '🍳 NGƯỜI KỶ LUẬT', big: 'ĐÒN BẨY', sub: 'làm ra món ngon', c: 'teal'},
+      colR: {title: '⚡ NGƯỜI HẤP TẤP', big: 'CÁI BẪY', sub: 'cứa đứt tay', c: 'red'}, midVS: true},
+    {t: 'char', d: 387, bar: 'navy', size: 54, center: true,
+      heading: ['Người giàu không mắc nợ — không vì giàu, mà vì ', {t: 'KỶ LUẬT', c: 'teal'}],
+      ah: {pose: 'cool'}, caption: ['Chỉ tiêu trong khả năng, và ', {t: 'luôn trả đúng hạn', c: 'teal'}]},
+    {t: 'question', d: 189, bar: 'navy', size: 56,
+      heading: ['Câu hỏi thật sự:'],
+      lines: [['Không phải thẻ nào tốt hơn,'], [{t: 'mà BẠN là kiểu người nào?', c: 'amber'}]],
+      caption: ['Trả lời được câu đó, bạn sẽ ', {t: 'tự biết mình nên cầm tấm thẻ nào', c: 'teal'}]},
+    {t: 'cta', d: 224, bar: 'navy', size: 50,
+      heading: ['Giữ vững tinh thần — ', {t: 'giữ ví cho chặt', c: 'teal'}, ' 👊'], button: 'THEO DÕI ANH HAI'},
+  ],
+};
+
+export const ALL_SPECS: VideoSpec[] = [NOTHE, BDS, GIAVANG, THETD];
