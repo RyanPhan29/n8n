@@ -137,11 +137,18 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
   const f = useCurrentFrame();
   const hasAH = !!b.ah;
   const bar = col(b.bar || 'navy');
+  // auto-shrink title dài để KHÔNG tràn viền / đụng Anh Hai (room = số ký tự "an toàn")
+  const htext = (b.heading || []).map((s) => (typeof s === 'string' ? s : (s.t ?? ''))).join('');
+  const hAH = hasAH && !!b.center; // chỉ thu mép phải title ở cảnh center (nơi title xuống thấp, dễ đụng nhân vật)
+  const shrink = (base: number) => {
+    const room = hAH ? 34 : hasAH ? 40 : 48;
+    return htext.length > room ? Math.max(Math.round((base * room) / htext.length), Math.round(base * 0.7)) : base;
+  };
   // Chú thích = "phụ đề nhỏ" nằm NGAY DƯỚI title (đáy để trống cho phụ đề lời đọc)
   const capTop = b.capTop ?? (b.center ? 588 : 250);
   const capO = interpolate(f, [5, 13], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const cap = b.caption ? (
-    <div style={{position: 'absolute', top: capTop, left: 130, right: 130, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 42, lineHeight: 1.3, color: '#2b2f36', opacity: capO}}>
+    <div style={{position: 'absolute', top: capTop, left: 130, right: hasAH ? 560 : 130, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 42, lineHeight: 1.3, color: '#2b2f36', textWrap: 'balance', opacity: capO}}>
       <Segs segs={b.caption} />
     </div>
   ) : null;
@@ -155,7 +162,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
           {b.deco && <Deco icon={b.deco} side={b.decoSide} />}
-          {b.heading && <Heading top={b.center ? 430 : b.htop} size={b.size ?? (b.center ? 76 : 76)}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading top={b.center ? 430 : b.htop} size={shrink(b.size ?? 76)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           {b.items && <Stack top={b.stackTop ?? 390} right={hasAH ? 600 : 0} gap={b.gap ?? 26}><StackItems items={b.items} /></Stack>}
           {ah}{bub}{cap}
         </AbsoluteFill>
@@ -164,7 +171,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
           {b.deco && <Deco icon={b.deco} side={b.decoSide} />}
-          {b.heading && <Heading top={b.htop ?? 130} size={b.size ?? 60}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading top={b.htop ?? 130} size={shrink(b.size ?? 60)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           <div style={{position: 'absolute', top: b.numTop ?? (b.caption ? 388 : 300), left: 0, right: hasAH ? 600 : 0, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: b.numSize ?? 118, color: col(b.numColor || 'navy'), lineHeight: 1}}>
             <Counter to={b.value ?? 0} suffix={b.suffix ?? ''} delay={3} dur={b.dur ?? 44} decimals={b.decimals ?? 0} />
           </div>
@@ -177,7 +184,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
       const max = b.max ?? Math.max(...(b.bars ?? []).map(x => x.v));
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
-          {b.heading && <Heading top={b.htop ?? 130} size={b.size ?? 66}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading top={b.htop ?? 130} size={shrink(b.size ?? 66)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           <div style={{position: 'absolute', top: 460, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end', gap: 90, height: 300}}>
             {(b.bars ?? []).map((bb, i) => {
               const d = 18 + i * 12;
@@ -199,7 +206,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
     case 'versus':
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
-          {b.heading && <Heading size={b.size ?? 60}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading size={shrink(b.size ?? 60)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           <div style={{position: 'absolute', top: 400, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 56}}>
             <div style={{textAlign: 'center'}}><Pill delay={3} color={col(b.left?.c || 'teal')}>{b.left?.pill}</Pill>{b.left?.sub && <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 32, color: col(b.left?.c || 'teal'), marginTop: 18}}>{b.left.sub}</div>}</div>
             <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 44, color: INK}}>VS</div>
@@ -214,7 +221,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
       const c = col(b.color || 'teal');
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
-          {b.heading && <Heading size={b.size ?? 56}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading size={shrink(b.size ?? 56)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           <div style={{position: 'absolute', top: 400, left: 200, right: 200, display: 'flex', alignItems: 'center', gap: 40, opacity: o, transform: `translateX(${x}px)`}}>
             <div style={{flex: '0 0 auto', width: 150, height: 150, borderRadius: '50%', background: c, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 90, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{b.n}</div>
             <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 60, color: INK, lineHeight: 1.2}}>{b.title}</div>
@@ -226,7 +233,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
     case 'question':
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
-          {b.heading && <Heading size={b.size ?? 54}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading size={shrink(b.size ?? 54)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           <div style={{position: 'absolute', top: 380, left: 200, right: 200, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: INK, lineHeight: 1.3}}>
             {(b.lines ?? []).map((ln, i) => <div key={i}><Segs segs={ln} /></div>)}
           </div>
@@ -237,7 +244,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
       const bs = interpolate(f, [12, 26], [0.6, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
       return (
         <AbsoluteFill><TopBar color={col(b.bar || 'navy')} /><Logo />
-          {b.heading && <Heading top={b.htop ?? 150} size={b.size ?? 54}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading top={b.htop ?? 150} size={shrink(b.size ?? 54)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           <div style={{position: 'absolute', top: 300, left: 0, right: 0, textAlign: 'center', transform: `scale(${bs})`}}>
             <div style={{display: 'inline-block', background: RED, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, padding: '24px 60px', borderRadius: 999, boxShadow: '0 12px 0 rgba(0,0,0,.15)'}}>🔔 {b.button ?? 'ĐĂNG KÝ KÊNH'}</div>
           </div>
@@ -249,7 +256,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
           {b.deco && <Deco icon={b.deco} side={b.decoSide} />}
-          {b.heading && <Heading top={b.htop ?? 140} size={b.size ?? 60}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading top={b.htop ?? 140} size={shrink(b.size ?? 60)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           <LineChart points={b.points ?? []} color={col(b.lineColor || 'amber')} unit={b.unit} />
           {ah}{cap}
         </AbsoluteFill>
@@ -257,7 +264,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
     case 'split':
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
-          {b.heading && <Heading top={b.htop ?? 130} size={b.size ?? 58}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading top={b.htop ?? 130} size={shrink(b.size ?? 58)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           <div style={{position: 'absolute', top: 340, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: b.midVS ? 0 : 46}}>
             {b.colL && <SplitCard col={b.colL} delay={2} />}
             {b.midVS && <div style={{alignSelf: 'center', width: 92, height: 92, borderRadius: '50%', background: RED, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 -22px', zIndex: 5, boxShadow: '0 6px 0 rgba(0,0,0,.18)'}}>VS</div>}
@@ -269,7 +276,7 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
     case 'comments':
       return (
         <AbsoluteFill><TopBar color={bar} /><Logo />
-          {b.heading && <Heading top={b.htop ?? 140} size={b.size ?? 58}><Segs segs={b.heading} /></Heading>}
+          {b.heading && <Heading top={b.htop ?? 140} size={shrink(b.size ?? 58)} ah={hAH}><Segs segs={b.heading} /></Heading>}
           {b.comments && <CommentBubbles comments={b.comments} />}
           {ah}{cap}
         </AbsoluteFill>

@@ -68,9 +68,14 @@ $FF -y -i out/<slug>_MASTER.mp4 -c:v libx264 -crf 26 -preset medium -pix_fmt yuv
 ```
 > Nếu KHÔNG cần phụ đề: bỏ `[0:v]subtitles=...[v]`, dùng `-map 0:v -c:v copy` như cũ.
 
+## AN TOÀN BỐ CỤC (engine tự lo — KHÓA)
+- **Title (Heading)**: tự `text-wrap: balance` (không mồ côi chữ) + **auto-shrink** khi title dài + **thu mép phải né Anh Hai** ở cảnh `center`. Vẫn nên viết title ngắn gọn, phần diễn giải đưa xuống `caption`.
+- **Chú thích (caption)**: khi có Anh Hai tự thu mép phải (right 560) + balance → không lẹm nhân vật, không mồ côi.
+- **List/pill**: bo góc 40, `maxWidth 1140`, tự xuống dòng gọn trong viền → item dài không tràn. Dù vậy giữ item NGẮN (1 dòng) cho đẹp.
+
 ## PHỤ ĐỀ (KHÓA quy trình)
 - `subgen.py` chia câu theo **dấu câu**, gộp cụm SỐ thành khối không tách, wrap 2 dòng đúng ranh khối → luôn TRỌN NGHĨA, không mồ côi chữ.
-- Timing: **tái định mốc tại mỗi khoảng lặng thật** (silencedetect) → không trôi. Tối thiểu 0.85s/dòng.
+- Timing: **tái định mốc tại mỗi khoảng lặng thật** (silencedetect, neo DÀY d=0.14) + **lệch sớm nhẹ (LEAD 0.12s)** → chữ hiện kịp/trước lời, không "chậm hơn giọng". Tối thiểu 0.78s/dòng.
 - Style: DejaVu Sans đậm, trắng viền đậm, đáy giữa (Alignment 2, MarginV 60). Muốn đổi → sửa khối `[V4+ Styles]` trong subgen.py.
 - Chú thích nhỏ đã dời LÊN dưới title để nhường đáy cho phụ đề (không đè nhau).
 

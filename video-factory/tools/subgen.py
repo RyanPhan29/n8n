@@ -17,7 +17,9 @@ def pauses(mp3,d=0.26,noise=-34):
     st=[float(x) for x in re.findall(r'silence_start: ([\d.]+)',out)]; en=[float(x) for x in re.findall(r'silence_end: ([\d.]+)',out)]
     return [ (st[i]+en[i])/2 for i in range(min(len(st),len(en))) ]
 
-total=duration(audio); cand=sorted(pauses(audio,d=0.20))  # nhiều mốc lặng để neo
+total=duration(audio); cand=sorted(pauses(audio,d=0.14))  # neo DÀY (micro-pause) để chống trôi giữa đoạn dài
+LEAD=0.12   # lệch sớm nhẹ: phụ đề hiện ngay/trước khi đọc, không bị "chậm hơn giọng"
+MINLINE=0.78
 text=' '.join(l.strip() for l in open(script,encoding='utf-8') if l.strip())
 sents=re.split(r'(?<=[\.\?!…])\s+', text)
 
@@ -62,15 +64,16 @@ bounds=[0.0]; prev=0.0
 for i in range(len(clauses)-1):
     remw=sum(weights[i:])                       # trọng số còn lại (dòng i trở đi)
     est=prev+(total-prev)*(weights[i]/remw)     # ước lượng dựa trên phần CÒN LẠI -> không dồn sai số
-    cs=[p for p in cand if p>prev+0.55]
+    est=est-LEAD                                # lệch sớm nhẹ (đọc tới đâu chữ đã hiện tới đó)
+    cs=[p for p in cand if p>prev+0.45]
     if cs:
         b=min(cs,key=lambda x:abs(x-est))
-        if abs(b-est)>1.1: b=max(prev+0.85,est) # lặng gần nhất quá xa -> dùng ước lượng
+        if abs(b-est)>0.9: b=max(prev+MINLINE,est)  # lặng gần nhất quá xa -> dùng ước lượng
     else:
-        b=max(prev+0.85,est)
-    b=max(b,prev+0.85)
+        b=max(prev+MINLINE,est)
+    b=max(b,prev+MINLINE)
     bounds.append(b); prev=b
-bounds.append(max(prev+0.85,total))
+bounds.append(max(prev+MINLINE,total))
 
 def ts(t):
     h=int(t//3600); m=int((t%3600)//60); s=t%60; cs=int(round((s-int(s))*100)); return f'{h}:{m:02d}:{int(s):02d}.{cs:02d}'

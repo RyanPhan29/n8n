@@ -36,16 +36,17 @@ export const Logo: React.FC = () => (
 
 export const pop = (f: number, fps: number, delay = 0) => spring({frame: f - delay, fps, config: {damping: 14, mass: 0.7}});
 
-export const Heading: React.FC<{children: React.ReactNode; top?: number; size?: number}> = ({children, top = 150, size = 76}) => {
+export const Heading: React.FC<{children: React.ReactNode; top?: number; size?: number; ah?: boolean}> = ({children, top = 150, size = 76, ah = false}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 2);
-  return <div style={{position: 'absolute', top, left: 60, right: 60, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: size, lineHeight: 1.12, color: INK, transform: `scale(${0.9 + s * 0.1})`, opacity: interpolate(f, [0, 8], [0, 1], {extrapolateRight: 'clamp'})}}>{children}</div>;
+  // khi có Anh Hai: thu mép phải để title KHÔNG tràn vào nhân vật; balance = không mồ côi chữ
+  return <div style={{position: 'absolute', top, left: 60, right: ah ? 500 : 60, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: size, lineHeight: 1.12, color: INK, textWrap: 'balance', transform: `scale(${0.9 + s * 0.1})`, opacity: interpolate(f, [0, 8], [0, 1], {extrapolateRight: 'clamp'})}}>{children}</div>;
 };
 
 export const Pill: React.FC<{children: React.ReactNode; color?: string; delay?: number; size?: number}> = ({children, color = NAVY, delay = 0, size = 42}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, delay);
   return (<>
     <Sfx name="pop" at={delay} vol={0.22} len={10} />
-    <div style={{display: 'inline-flex', alignItems: 'center', gap: 12, border: `5px solid ${color}`, color, borderRadius: 999, padding: '18px 38px', fontFamily: 'BVP', fontWeight: 800, fontSize: size, background: 'rgba(255,255,255,0.9)', transform: `scale(${s})`, opacity: interpolate(f, [delay, delay + 6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>{children}</div>
+    <div style={{display: 'inline-flex', alignItems: 'center', gap: 12, border: `5px solid ${color}`, color, borderRadius: 40, padding: '18px 38px', maxWidth: 1140, textAlign: 'center', whiteSpace: 'normal', lineHeight: 1.18, fontFamily: 'BVP', fontWeight: 800, fontSize: size, background: 'rgba(255,255,255,0.9)', transform: `scale(${s})`, opacity: interpolate(f, [delay, delay + 6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>{children}</div>
   </>);
 };
 
