@@ -82,7 +82,7 @@ bash ../tools/export_master.sh out/<slug>_raw.mp4 <giong.mp3> ../<slug>.ass <slu
 
 ## PHỤ ĐỀ (KHÓA quy trình)
 - `subgen.py` chia câu theo **dấu câu**, gộp cụm SỐ thành khối không tách, wrap 2 dòng đúng ranh khối → luôn TRỌN NGHĨA, không mồ côi chữ.
-- Timing: **tái định mốc tại mỗi khoảng lặng thật** (silencedetect, neo DÀY d=0.14) + **lệch sớm nhẹ (LEAD 0.12s)** → chữ hiện kịp/trước lời, không "chậm hơn giọng". Tối thiểu 0.78s/dòng.
+- Timing: neo mỗi dòng vào **điểm giọng bắt đầu lại (silence_end)**, neo DÀY (d=0.14) để chống trôi giữa đoạn dài. KHÔNG lệch sớm (chữ hiện đúng lúc đọc, không "nhanh/chậm hơn giọng"). Tối thiểu 0.78s/dòng.
 - Style: DejaVu Sans đậm, trắng viền đậm, đáy giữa (Alignment 2, MarginV 60). Muốn đổi → sửa khối `[V4+ Styles]` trong subgen.py.
 - Chú thích nhỏ đã dời LÊN dưới title để nhường đáy cho phụ đề (không đè nhau).
 

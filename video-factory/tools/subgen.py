@@ -15,10 +15,11 @@ def duration(mp3):
 def pauses(mp3,d=0.26,noise=-34):
     out=subprocess.run([FF,'-i',mp3,'-af',f'silencedetect=noise={noise}dB:d={d}','-f','null','-'],capture_output=True,text=True).stderr
     st=[float(x) for x in re.findall(r'silence_start: ([\d.]+)',out)]; en=[float(x) for x in re.findall(r'silence_end: ([\d.]+)',out)]
-    return [ (st[i]+en[i])/2 for i in range(min(len(st),len(en))) ]
+    # NEO vào ĐIỂM GIỌNG BẮT ĐẦU LẠI (silence_end) -> dòng mới hiện ĐÚNG lúc đọc, không sớm
+    return [ en[i] for i in range(min(len(st),len(en))) ]
 
 total=duration(audio); cand=sorted(pauses(audio,d=0.14))  # neo DÀY (micro-pause) để chống trôi giữa đoạn dài
-LEAD=0.12   # lệch sớm nhẹ: phụ đề hiện ngay/trước khi đọc, không bị "chậm hơn giọng"
+LEAD=0.0    # KHÔNG lệch sớm: neo silence_end đã đúng nhịp giọng (bỏ lead để không "nhanh hơn giọng")
 MINLINE=0.78
 text=' '.join(l.strip() for l in open(script,encoding='utf-8') if l.strip())
 sents=re.split(r'(?<=[\.\?!…])\s+', text)
