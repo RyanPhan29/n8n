@@ -8,8 +8,9 @@ description: TEM KHÓA — Dựng video DÀI 5-nhịp (Motion-Graphics Explainer
 > Đây là TEM ĐÃ KHÓA. Sản xuất = điền nội dung vào spec, KHÔNG sửa code engine.
 
 ## Thành phẩm
-- 1920×1080, 30fps. Motion-Graphics Explainer: nền giấy động + chữ code (không bao giờ để AI render chữ Việt) + pill + số nhảy + biểu đồ + checklist + Anh Hai hoạt hình góc phải + SFX.
+- 1920×1080, 30fps. Motion-Graphics Explainer: nền giấy động + chữ code (không bao giờ để AI render chữ Việt) + pill + số nhảy + biểu đồ (cột & đường) + bảng 2 cột + bong bóng comment + checklist + Anh Hai hoạt hình góc phải + SFX + **PHỤ ĐỀ** dưới đáy.
 - Cấu trúc **5 nhịp**: Bối cảnh → Kỳ vọng → Xung đột → Giải quyết → Bối cảnh lớn.
+- **Bố cục chuẩn (KHÓA)**: tiêu đề trên cùng → **chú thích nhỏ NGAY DƯỚI tiêu đề** → nội dung chính (số/biểu đồ/bảng) ở giữa → Anh Hai góc phải → **đáy để trống cho PHỤ ĐỀ lời đọc**.
 
 ## File
 - Engine (KHÓA, không sửa): `video-factory/remotion-demo/src/Kit.tsx`, `Blocks.tsx`, `Root.tsx`, `fonts.css`, `public/ah/*`, `public/sfx/*`, `public/paper_bg.mp4`.
@@ -21,23 +22,25 @@ description: TEM KHÓA — Dựng video DÀI 5-nhịp (Motion-Graphics Explainer
 3. **Auto-time**: `python3 video-factory/tools/autotime.py <file.mp3> <N>` (N = số cảnh trong spec). In ra mảng `d:[...]` (frame@30).
    - Đoạn nào > ~600 frame (20s) → tự tách thành 2-3 cảnh con (cộng dồn = đúng số gốc) để không "chết khung hình".
 4. **Viết VideoSpec** trong `Specs.tsx`: mảng block, mỗi block 1 cảnh, gán `d` = frame từ auto-time. Thêm spec vào `ALL_SPECS`. `slug` = id composition.
-5. **Render**: xem lệnh bên dưới (browser = headless_shell).
-6. **Ghép giọng + SFX**: ffmpeg amix (SFX đã nằm sẵn trong video render, chỉ chồng giọng lên).
-7. **Kiểm khung tĩnh trước** (remotion still vài frame) rồi mới render full.
+5. **Render**: xem lệnh bên dưới (browser = headless_shell). **Kiểm khung tĩnh trước** (remotion still vài frame) rồi mới render full.
+6. **Tạo PHỤ ĐỀ**: `python3 video-factory/tools/subgen.py <script.txt> <giong.mp3> <out.ass>` — tự chia câu TRỌN NGHĨA (không tách cụm/số), neo timing vào khoảng lặng thật (không trôi).
+7. **Burn phụ đề + ghép giọng + SFX**: 1 lệnh ffmpeg (bên dưới).
+8. Nén bản web nếu >30MB.
 
 ## Block types (KHÓA) — `t: '...'`
-- `hook` / `char` / `list`: heading + items(pill/arrow) + ah + bubble + caption.
-- `number`: heading + value(số nhảy) + sub + pills + ah + caption. Có `decimals` cho số thập phân.
+- `hook` / `char` / `list`: heading + items(pill/arrow) + ah + bubble + caption. `center:true` → tiêu đề canh giữa khung (cảnh thưa chữ).
+- `number`: heading + value(số nhảy) + sub + pills + ah + caption. `decimals` cho số thập phân.
 - `bars`: heading + bars[{label,v}] (đơn vị "tr") + caption.
+- `line`: **biểu đồ ĐƯỜNG** (vẽ dần) — `points:[{label,v}]` + `lineColor` + `unit` + caption. Cho xu hướng tăng/giảm.
+- `split`: **bảng 2 CỘT** — `colL`/`colR` = `{title, big?, sub?, items?[], c, dim?}`, `midVS:true` để chèn badge VS. Cho quá khứ↔hiện tại, được↔mất.
+- `comments`: **bong bóng chat** — `comments:[{name, text, c, side:'l'|'r'}]`. Mở bài bằng comment thật (ẩn danh, chữ do code).
 - `versus`: heading + left/right {pill,sub,c} + caption.
-- `rule`: n(số tròn) + title + caption.
-- `question`: heading + lines[][] + caption.
-- `cta`: heading + button (tự có Anh Hai celebrate).
+- `rule`: n(số tròn) + title + caption. `question`: heading + lines[][] + caption. `cta`: heading + button (tự có Anh Hai celebrate).
 
 ## Trường block hay dùng
-`bar`(màu thanh trên), `d`(frame), `heading:Seg[]`, `size`, `htop`, `items:Item[]`, `caption:Seg[]`, `ah:{pose,shirt,female,scale}`, `bubble:{text,x,y}`, `value/suffix/decimals/numColor/numTop/numSize/sub`, `bars/max/barColor`, `left/right`, `n/title/color`, `lines`, `button`.
-- `Seg` = `'chữ'` | `{t:'chữ', c:'red'}` (tô màu).
-- `Item` = `{text, c, size}` | `{arrow:'↓ ...'}`.
+`bar`, `d`(frame), `heading:Seg[]`, `size`, `htop`, `items:Item[]`, `caption:Seg[]` (nay hiện DƯỚI title; `capTop` để dời), `center`, `deco`(emoji lớn lấp khung trống, `decoSide:'l'|'r'`), `ah:{pose,shirt,female,scale}`, `bubble`, `value/suffix/decimals/numColor/numTop/numSize/sub`, `points/lineColor/unit`, `colL/colR/midVS`, `comments`, `bars/max/barColor`, `left/right`, `n/title/color`, `lines`, `button`.
+- `Seg` = `'chữ'` | `{t:'chữ', c:'red'}` (tô màu). `Item` = `{text, c, size}` | `{arrow:'↓ ...'}`.
+- Nội dung hiện **gần tức thì** đầu cảnh (delay nhỏ) để bám nhịp giọng.
 
 ## Anh Hai (KHÓA) — góc phải x1380, cartoon
 - `ah:{pose:'...'}`. Anh Hai chính = áo GOLD (mặc định). Nhân vật phụ: đặt `shirt:'red'`(...) → thành người-que; nữ thêm `female:true`.
@@ -55,12 +58,21 @@ HS="/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell"
 FF="/usr/local/lib/python3.11/dist-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2"
 cd video-factory/remotion-demo
 # (khung tĩnh kiểm trước) node_modules/.bin/remotion still <slug> out/chk.png --frame=1200 --browser-executable="$HS"
-node_modules/.bin/remotion render <slug> out/<slug>_raw.mp4 --browser-executable="$HS" --concurrency=3 --log=error
-# ghép giọng (giọng nhỉnh 1.15) lên nền SFX:
-$FF -y -i out/<slug>_raw.mp4 -i <giong.mp3> -filter_complex "[1:a]volume=1.15[vo];[0:a][vo]amix=inputs=2:duration=first:normalize=0[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest out/<slug>_MASTER.mp4
+node_modules/.bin/remotion render <slug> out/<slug>_raw.mp4 --browser-executable="$HS" --concurrency=4 --log=error
+# tạo phụ đề:
+python3 ../tools/subgen.py ../../<script.txt> <giong.mp3> ../<slug>.ass
+# BURN phụ đề + ghép giọng (1.15) lên nền SFX -> MASTER (chú ý -c:v libx264 vì phải vẽ lại phụ đề):
+$FF -y -i out/<slug>_raw.mp4 -i <giong.mp3> -filter_complex "[0:v]subtitles=../<slug>.ass[v];[1:a]volume=1.15[vo];[0:a][vo]amix=inputs=2:duration=first:normalize=0[a]" -map "[v]" -map "[a]" -c:v libx264 -crf 20 -preset medium -pix_fmt yuv420p -c:a aac -b:a 192k -shortest out/<slug>_MASTER.mp4
 # bản preview nhẹ (nếu >30MB):
 $FF -y -i out/<slug>_MASTER.mp4 -c:v libx264 -crf 26 -preset medium -pix_fmt yuv420p -c:a aac -b:a 128k out/<slug>_web.mp4
 ```
+> Nếu KHÔNG cần phụ đề: bỏ `[0:v]subtitles=...[v]`, dùng `-map 0:v -c:v copy` như cũ.
+
+## PHỤ ĐỀ (KHÓA quy trình)
+- `subgen.py` chia câu theo **dấu câu**, gộp cụm SỐ thành khối không tách, wrap 2 dòng đúng ranh khối → luôn TRỌN NGHĨA, không mồ côi chữ.
+- Timing: **tái định mốc tại mỗi khoảng lặng thật** (silencedetect) → không trôi. Tối thiểu 0.85s/dòng.
+- Style: DejaVu Sans đậm, trắng viền đậm, đáy giữa (Alignment 2, MarginV 60). Muốn đổi → sửa khối `[V4+ Styles]` trong subgen.py.
+- Chú thích nhỏ đã dời LÊN dưới title để nhường đáy cho phụ đề (không đè nhau).
 
 ## BẤT BIẾN (không bao giờ đổi)
 - Chữ Việt CHỈ do code render (AI làm hỏng dấu). Vbee = prose sạch, không nhãn Đoạn.
