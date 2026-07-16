@@ -1,6 +1,8 @@
 ---
 name: chuyen-tien-short-sosanh
 description: TEM KHÓA — Dựng SHORT SO SÁNH dọc 9:16 (X vs Y) cho kênh "Chuyện Tiền · Anh Hai Kể", dùng card 2D + badge VS animate. Dùng khi muốn 1 short đối chiếu 2 lựa chọn/khái niệm. Chỉ VIẾT SPEC, KHÔNG sửa engine.
+when_to_use: Kích hoạt khi user muốn "short SO SÁNH / X vs Y / đối chiếu 2 lựa chọn" (vàng vs bank, thuê vs mua…). Nếu chỉ bóc 1 vấn đề đơn → dùng chuyen-tien-short-tu-videodai.
+resources: "examples/ShortSpec-example.tsx (spec so sánh mẫu) · scripts dùng chung tại video-factory/tools/ (autotime.py, batch_render.sh, export_master.sh)"
 ---
 
 # TEM 2 — SHORT SO SÁNH (9:16)

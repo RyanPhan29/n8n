@@ -1,6 +1,8 @@
 ---
 name: chuyen-tien-longform
 description: TEM KHÓA — Dựng video DÀI 5-nhịp (Motion-Graphics Explainer 16:9) cho kênh "Chuyện Tiền · Anh Hai Kể". Dùng khi cần sản xuất 1 video dài 3-10 phút phân tích chuyên sâu về tiền bạc/tài chính. Chỉ VIẾT SPEC + auto-time + render, KHÔNG sửa engine.
+when_to_use: Kích hoạt khi user muốn "video dài / phân tích sâu / bóc chủ đề tài chính", đã có (hoặc sắp thu) Vbee cho 1 kịch bản 5 nhịp 16:9. KHÔNG dùng cho short 9:16 (xem chuyen-tien-short-*).
+resources: "examples/VideoSpec-example.tsx (spec mẫu copy-paste) · scripts dùng chung tại video-factory/tools/ (subgen.py, autotime.py, export_master.sh)"
 ---
 
 # TEM 1 — VIDEO DÀI 5-NHỊP (16:9)

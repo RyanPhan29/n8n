@@ -1,6 +1,8 @@
 ---
 name: chuyen-tien-short-tu-videodai
 description: TEM KHÓA — Bóc 1 vấn đề từ VIDEO DÀI thành SHORT dọc 9:16 cho kênh "Chuyện Tiền · Anh Hai Kể". Mỗi short = 1 vấn đề → 1 điểm → (1 giải pháp) → 1 câu hỏi. Chỉ VIẾT SPEC, KHÔNG sửa engine.
+when_to_use: Kích hoạt khi user muốn "short bóc 1 ý / bắt sóng thời sự / cắt từ video dài", nội dung là 1 vấn đề duy nhất (không phải so sánh X vs Y — cái đó dùng chuyen-tien-short-sosanh).
+resources: "examples/ShortSpec-example.tsx (spec 4 cảnh mẫu) · scripts dùng chung tại video-factory/tools/ (autotime.py, batch_render.sh, export_master.sh)"
 ---
 
 # TEM 3 — SHORT TỪ VIDEO DÀI (9:16)

@@ -66,6 +66,12 @@ navy `#16305c` · red `#e11d2a` · teal `#159a86` · blue `#1657d6` · ink `#162
 5. **Review** — kiểm khung lỗi (tràn viền/đè nhân vật/mồ côi chữ) + spot-check sync phụ đề.
 6. **Ship** — gửi user (720p/preview + master GitHub nếu >30MB) + bộ SEO. Commit + push.
 
+## Sản xuất SONG SONG (scale nhiều video)
+Có nhiều item độc lập (chùm short, batch SEO) → làm song song 2 tầng:
+- **Tầng viết spec (fan-out sub-agent):** mỗi topic 1 sub-agent (Agent tool) viết script+spec đồng thời → gộp vào ALL_SHORTS/ALL_SPECS. Giữ context chính sạch.
+- **Tầng render (shell):** `bash ../tools/batch_render.sh <slug1>:<audio1.mp3> <slug2>:<audio2.mp3> …` — render + mux + loudnorm nhiều item cùng lúc (mặc định 2 job, đổi bằng `MAXJOBS=3`). Log riêng `out/<slug>.buildlog`.
+- Nặng CPU → chạy `run_in_background`; đừng để timeout 2 phút cắt.
+
 ## Kho nội dung
 `video-factory/content/` — script (`*_thu.txt`), số liệu (`*_SOLIEU.md`), SEO (`*_SEO.md`), phụ đề (`*.ass`).
 `video-factory/delivery/` — master lớn để user tải từ GitHub.
