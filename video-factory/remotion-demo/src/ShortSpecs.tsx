@@ -57,4 +57,56 @@ export const SHORT_KIMCUONG: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG];
+// VÀNG "Vàng có sao không?" — trấn an người giữ vàng (chùm kim cương). d tạm, re-time khi có Vbee.
+export const SHORT_VANG: ShortSpec = {
+  slug: 'ShortVang',
+  scenes: [
+    // 1) HOOK
+    {d: 270, bar: 'red', pose: 'worried', ahCorner: 'right',
+      head: ['Chủ tiệm vàng bị bắt — ', {t: 'vàng của bạn có sao?', c: 'red'}],
+      icon: '🥇  😨  ❓', iconTop: 560, iconSize: 150},
+    // 2) ĐIỂM — làm rõ: đây là vụ kim cương
+    {d: 240, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 640,
+      head: ['Đây là vụ ', {t: 'KIM CƯƠNG', c: 'red'}], size: 84,
+      icon: '💎  ≠  🥇', iconTop: 540, iconSize: 170,
+      label: ['Không phải vàng có vấn đề'], labelTop: 820, labelC: 'gray'},
+    // 3) GIẢI PHÁP — vàng minh bạch
+    {d: 360, bar: 'teal', pose: 'cool', ahCorner: 'left', ahH: 620,
+      head: ['Vàng miếng ', {t: 'MINH BẠCH', c: 'teal'}], size: 82,
+      icon: '🥇  🌍  ✅', iconTop: 500, iconSize: 140,
+      label: ['Giá công khai mỗi ngày · nơi cấp phép · giữ hóa đơn'], labelTop: 790, labelC: 'teal'},
+    // 4) CÂU HỎI
+    {d: 180, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Còn bạn?'], size: 90,
+      icon: '🤔💭', iconTop: 520, iconSize: 150,
+      q: ['Bán tháo lúc hoảng — hay ', {t: 'giữ bình tĩnh?', c: 'gold'}]},
+  ],
+};
+
+// RE13 "Rẻ hơn 1/3 = cờ đỏ" — nguyên tắc chống bẫy (chùm kim cương). d tạm, re-time khi có Vbee.
+export const SHORT_RE13: ShortSpec = {
+  slug: 'ShortRe13',
+  scenes: [
+    // 1) HOOK
+    {d: 240, bar: 'amber', pose: 'sly', ahCorner: 'right',
+      head: ['Rẻ hơn thị trường ', {t: '1/3', c: 'red'}, ' = hời?'],
+      icon: '💎  🏷️  ❓', iconTop: 560, iconSize: 150},
+    // 2) SỐ — rẻ bất thường
+    {d: 270, bar: 'red', pose: 'warning', ahCorner: 'right', ahH: 600,
+      head: ['Rẻ bất thường tới'], size: 76,
+      value: 33, suffix: '%', numColor: 'red', numTop: 560, numSize: 170,
+      label: ['= ', {t: 'CỜ ĐỎ 🚩', c: 'red'}, ', không phải hời'], labelTop: 820, labelC: 'red'},
+    // 3) GIẢI PHÁP — vì sao rẻ
+    {d: 390, bar: 'navy', pose: 'think', ahCorner: 'left', ahH: 620,
+      head: ['Không ai bán ', {t: 'LỖ', c: 'red'}, ' cho bạn'], size: 80,
+      icon: '💰  ❓', iconTop: 500, iconSize: 160,
+      label: ['Món càng đắt, càng phải hỏi: “vì sao rẻ?”'], labelTop: 800, labelC: 'navy'},
+    // 4) CÂU HỎI
+    {d: 210, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Lần tới gặp deal rẻ khó tin…'], size: 74,
+      icon: '🤔💭', iconTop: 540, iconSize: 150,
+      q: ['Bạn vội mua hay ', {t: 'hỏi vì sao?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13];
