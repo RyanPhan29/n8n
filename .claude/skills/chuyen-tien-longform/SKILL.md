@@ -38,6 +38,7 @@ resources: "examples/VideoSpec-example.tsx (spec mẫu copy-paste) · scripts d�
 - `comments`: **bong bóng chat** — `comments:[{name, text, c, side:'l'|'r'}]`. Mở bài bằng comment thật (ẩn danh, chữ do code).
 - `versus`: heading + left/right {pill,sub,c} + caption.
 - `rule`: n(số tròn) + title + caption. `question`: heading + lines[][] + caption. `cta`: heading + button (tự có Anh Hai celebrate).
+- `draw`: **CẢNH VẼ TẢ THỰC** (biến thể "câu chuyện thật") — `scene:'street'|'loupe'|'redflag'|'cert'|'goldvs'` render component trong `Scenes.tsx` (nền giấy, tông brand, chữ Việt do code, đáy chừa phụ đề). Xen với block số + Anh Hai để dẫn dắt lời sống động. Thêm cảnh mới = thêm component vào `Scenes.tsx` + key vào `SCENE_MAP`.
 
 ## Trường block hay dùng
 `bar`, `d`(frame), `heading:Seg[]`, `size`, `htop`, `items:Item[]`, `caption:Seg[]` (nay hiện DƯỚI title; `capTop` để dời), `center`, `deco`(emoji lớn lấp khung trống, `decoSide:'l'|'r'`), `ah:{pose,shirt,female,scale}`, `bubble`, `value/suffix/decimals/numColor/numTop/numSize/sub`, `points/lineColor/unit`, `colL/colR/midVS`, `comments`, `bars/max/barColor`, `left/right`, `n/title/color`, `lines`, `button`.

@@ -454,4 +454,78 @@ export const THETD: VideoSpec = {
   ],
 };
 
-export const ALL_SPECS: VideoSpec[] = [NOTHE, BDS, GIAVANG, THETD];
+// ===== KIMCUONG: vụ buôn lậu kim cương (5-nhịp, ~4:35, khớp KIMCUONG.mp3) =====
+// PHONG CÁCH MỚI: xen 5 cảnh VẼ tả thực (t:'draw') + số nhảy + Anh Hai ở nhịp giải pháp. Neo beat thật.
+export const KIMCUONG: VideoSpec = {
+  slug: 'KimCuong',
+  scenes: [
+    // — NHỊP 1: BỐI CẢNH —
+    {t: 'draw', d: 390, scene: 'street'},
+    {t: 'number', d: 465, bar: 'red', htop: 130, size: 52, deco: '💎', decoSide: 'l',
+      heading: ['Đường dây buôn lậu kim cương'],
+      value: 30000, suffix: ' viên', numColor: 'red', dur: 50,
+      sub: '~1.500 tỷ đồng · ~31 người bị khởi tố', ah: {pose: 'shock'}},
+    {t: 'comments', d: 318, bar: 'navy', size: 56,
+      heading: ['Cả mạng nổ ra ', {t: 'hai câu hỏi', c: 'red'}],
+      comments: [
+        {name: 'Người mua', text: 'Đá tôi mua giờ bán lại cho ai? 😰', c: 'red', side: 'l'},
+        {name: 'Người giữ vàng', text: 'Vàng để dành có sao không? 🥇', c: 'amber', side: 'r'},
+      ]},
+    // — NHỊP 2: KỲ VỌNG —
+    {t: 'char', d: 393, bar: 'teal', size: 56,
+      heading: ['Vì sao bỏ ', {t: 'trăm triệu', c: 'teal'}, ' cho một viên đá nhỏ?'],
+      ah: {pose: 'think'}, caption: ['Hôm nay Anh Hai bóc vụ này, không phải để kể chuyện án, mà để rút ', {t: 'bài học tiền bạc', c: 'teal'}]},
+    {t: 'char', d: 453, bar: 'teal', size: 58, center: true,
+      heading: ['Kim cương là ', {t: '“VĨNH CỬU”', c: 'amber'}],
+      ah: {pose: 'present'}, caption: ['Biểu tượng tình yêu, giàu sang, đẳng cấp — quảng cáo dạy ta rằng nó là mãi mãi']},
+    {t: 'char', d: 362, bar: 'teal', size: 56,
+      heading: ['Ai cũng tưởng nó ', {t: 'giữ giá như vàng', c: 'amber'}],
+      ah: {pose: 'cool'}, caption: ['Thậm chí nghĩ càng để lâu càng lên giá']},
+    {t: 'char', d: 441, bar: 'teal', size: 56,
+      heading: ['Mua như một ', {t: 'khoản để dành', c: 'teal'}],
+      ah: {pose: 'greedy'}, caption: ['Cứ tưởng cất đó, cần là bán ra thu về bằng hoặc hơn. Nhưng đời không đơn giản vậy']},
+    // — NHỊP 3: XUNG ĐỘT —
+    {t: 'char', d: 267, bar: 'red', size: 74, center: true,
+      heading: ['Sự thật: kim cương ', {t: 'RẤT KHÓ BÁN LẠI', c: 'red'}],
+      ah: {pose: 'warning'}},
+    {t: 'draw', d: 477, scene: 'loupe'},
+    {t: 'number', d: 369, bar: 'red', htop: 130, size: 54, deco: '📉', decoSide: 'l',
+      heading: ['Bán lại thường lỗ tới'],
+      value: 70, suffix: '%', numColor: 'red', dur: 45,
+      sub: 'cửa tiệm thu lại chỉ ~60–70% giá bạn mua', ah: {pose: 'broke'}},
+    {t: 'draw', d: 384, scene: 'redflag'},
+    {t: 'char', d: 252, bar: 'red', size: 54,
+      heading: ['Rẻ vậy vì đâu?'],
+      ah: {pose: 'sly'}, caption: ['Hàng lậu, trốn thuế, phía sau ', {t: 'có gì đó không minh bạch', c: 'red'}]},
+    {t: 'draw', d: 498, scene: 'cert'},
+    {t: 'char', d: 252, bar: 'red', size: 60, center: true,
+      heading: ['Tài sản khó bán — ', {t: 'giấy tờ khó tin', c: 'red'}],
+      ah: {pose: 'facepalm'}, caption: ['Đó là lúc giấc mộng kim cương vỡ ra']},
+    // — NHỊP 4: GIẢI QUYẾT (Anh Hai xuất hiện dẫn dắt) —
+    {t: 'char', d: 318, bar: 'teal', size: 58,
+      heading: ['Lỡ mua rồi thì sao? ', {t: 'Bình tĩnh', c: 'teal'}],
+      ah: {pose: 'point'}, caption: ['Đừng hoảng, đừng bán tháo. Làm đúng 3 việc sau']},
+    {t: 'list', d: 291, bar: 'teal', size: 52,
+      heading: ['3 việc nên làm ngay'],
+      items: [{text: '🧾 Giữ kỹ hoá đơn + giấy tờ', c: 'teal'}, {text: '🔬 Kiểm định lại · viên lớn → GIA quốc tế', c: 'blue'}, {text: '✋ Tuyệt đối đừng bán tháo lúc hoảng', c: 'red'}],
+      ah: {pose: 'pointup'}},
+    {t: 'char', d: 456, bar: 'navy', size: 56, center: true,
+      heading: ['Kim cương là ', {t: 'ĐỒ TIÊU DÙNG', c: 'navy'}, ', không phải đầu tư'],
+      ah: {pose: 'aha'}, caption: ['Thích thì mua để đeo cho đẹp — nhưng đừng coi là của để dành sinh lời']},
+    {t: 'rule', d: 312, bar: 'teal', n: 1, color: 'red',
+      heading: ['Nguyên tắc chống bẫy'], title: 'Rẻ bất thường → dừng lại hỏi “vì sao?”',
+      caption: ['Không ai tự nhiên bán lỗ cho bạn']},
+    {t: 'rule', d: 372, bar: 'teal', n: 2, color: 'blue',
+      heading: ['Nguyên tắc chống bẫy'], title: 'Tài sản lớn → đòi giấy tờ độc lập',
+      caption: ['Và hiểu khoảng chênh giá mua – giá bán TRƯỚC khi xuống tiền']},
+    // — NHỊP 5: BỐI CẢNH LỚN —
+    {t: 'draw', d: 549, scene: 'goldvs'},
+    {t: 'char', d: 354, bar: 'navy', size: 54, center: true,
+      heading: ['Lấp lánh ', {t: '≠', c: 'red'}, ' giữ được tiền'],
+      ah: {pose: 'cool'}, caption: ['Giá trị thật = bán lại được + minh bạch, chứ không phải vẻ hào nhoáng']},
+    {t: 'cta', d: 279, bar: 'navy', size: 48,
+      heading: ['Cần tiền, bạn bán lại được cho ai? ', {t: 'Giữ ví cho chặt', c: 'teal'}], button: 'THEO DÕI ANH HAI'},
+  ],
+};
+
+export const ALL_SPECS: VideoSpec[] = [NOTHE, BDS, GIAVANG, THETD, KIMCUONG];

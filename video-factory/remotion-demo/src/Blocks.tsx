@@ -1,4 +1,5 @@
 import React from 'react';
+import {SCENE_MAP} from './Scenes';
 import {
   AbsoluteFill, TopBar, Logo, Heading, Pill, Caption, AnhHai, Bubble, Arrow, Stack, Counter,
   Timeline, totalFrames, useCurrentFrame, interpolate, Easing,
@@ -43,6 +44,8 @@ export type Block = {
   lines?: Seg[][];
   // cta
   button?: string;
+  // draw — cảnh vẽ tả thực (Scenes.tsx): street/loupe/redflag/cert/goldvs
+  scene?: string;
   // MỞ RỘNG:
   capTop?: number;                  // vị trí chú thích (mặc định ngay dưới title)
   center?: boolean;                 // title canh giữa khung (khi cảnh thưa chữ)
@@ -281,6 +284,10 @@ const BlockView: React.FC<{b: Block}> = ({b}) => {
           {ah}{cap}
         </AbsoluteFill>
       );
+    case 'draw': {
+      const S = SCENE_MAP[b.scene || 'street'] || SCENE_MAP.street;
+      return <AbsoluteFill><S />{ah}{bub}</AbsoluteFill>;
+    }
     default:
       return <AbsoluteFill><TopBar color={bar} /><Logo /></AbsoluteFill>;
   }
