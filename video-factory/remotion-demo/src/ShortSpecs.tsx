@@ -34,16 +34,16 @@ export const SHORT_KIMCUONG: ShortSpec = {
   slug: 'ShortKimCuong',
   scenes: [
     // 1) HOOK — thời sự
-    {d: 250, bar: 'red', pose: 'shock', ahCorner: 'right',
+    {d: 285, bar: 'red', pose: 'shock', ahCorner: 'right',
       head: ['Tiệm kim cương bị bắt — ', {t: 'đá của bạn bán ở đâu?', c: 'red'}],
       icon: '💎  ➡️  ❓', iconTop: 560, iconSize: 150},
     // 2) SỐ — mức lỗ khi bán lại
-    {d: 260, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+    {d: 399, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
       head: ['Bán lại thường ', {t: 'LỖ tới', c: 'red'}], size: 74,
       value: 70, suffix: '%', numColor: 'red', numTop: 560, numSize: 170,
       label: ['Vì kim cương ', {t: 'KHÔNG có giá chung', c: 'red'}, ' 💔'], labelTop: 820, labelC: 'red'},
     // 3) ĐIỂM — vàng vs kim cương (thanh khoản)
-    {d: 260, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+    {d: 330, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
       head: ['Vàng thì ', {t: 'KHÁC HẲN', c: 'teal'}], size: 80,
       cards: [
         {header: 'VÀNG', icon: '🥇', label: 'Giá chung · bán ngay', c: 'teal'},
