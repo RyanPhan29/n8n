@@ -5,7 +5,7 @@ import {
 } from 'remotion';
 
 // SFX helper — phát 1 tiếng tại frame `at` (layout none: không chèn DOM, chỉ âm thanh)
-const Sfx: React.FC<{name: string; at: number; vol?: number; len?: number}> = ({name, at, vol = 0.25, len = 24}) => (
+export const Sfx: React.FC<{name: string; at: number; vol?: number; len?: number}> = ({name, at, vol = 0.25, len = 24}) => (
   <Sequence from={Math.max(0, Math.round(at))} durationInFrames={len} layout="none">
     <Audio src={staticFile('sfx/' + name + '.wav')} volume={vol} />
   </Sequence>

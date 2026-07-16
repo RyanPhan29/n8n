@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  AbsoluteFill, Pill, AnhHai, Counter,
+  AbsoluteFill, Pill, AnhHai, Counter, Sfx,
   totalFrames, Sc, useCurrentFrame, interpolate, Easing, pop,
   NAVY, RED, TEAL, BLUE, INK, GRAY, AMBER, GOLD,
 } from './Kit';
@@ -121,6 +121,11 @@ const VView: React.FC<{b: VBlock}> = ({b}) => {
   const showAH = b.ah ?? true;
   return (
     <AbsoluteFill>
+      {/* SFX: whoosh mỗi cảnh + pop tiêu đề/icon/card (số có ticker/ding từ Counter) */}
+      <Sfx name="whoosh" at={0} vol={0.16} len={14} />
+      {b.head && <Sfx name="pop" at={2} vol={0.2} len={10} />}
+      {b.icon && <Sfx name="pop" at={6} vol={0.22} len={10} />}
+      {b.cards && <Sfx name="pop" at={8} vol={0.22} len={10} />}
       <VTopBar color={bar} /><VLogo />
       {b.head && <VHead segs={b.head} top={b.htop ?? SZ.top} size={b.size ?? 92} />}
       {b.icon && <VIcon icon={b.icon} top={b.iconTop ?? 470} size={b.iconSize ?? 200} />}
