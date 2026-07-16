@@ -28,4 +28,33 @@ export const SHORT_LK1: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1];
+// KIMCUONG "Vì sao kim cương khó bán lại" — bắt sóng vụ buôn lậu kim cương 2026 (4 cảnh, ~32s)
+// d tạm (ước lượng) — auto-time lại khi có Vbee.
+export const SHORT_KIMCUONG: ShortSpec = {
+  slug: 'ShortKimCuong',
+  scenes: [
+    // 1) HOOK — thời sự
+    {d: 250, bar: 'red', pose: 'shock', ahCorner: 'right',
+      head: ['Tiệm kim cương bị bắt — ', {t: 'đá của bạn bán ở đâu?', c: 'red'}],
+      icon: '💎  ➡️  ❓', iconTop: 560, iconSize: 150},
+    // 2) SỐ — mức lỗ khi bán lại
+    {d: 260, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Bán lại thường ', {t: 'LỖ tới', c: 'red'}], size: 74,
+      value: 70, suffix: '%', numColor: 'red', numTop: 560, numSize: 170,
+      label: ['Vì kim cương ', {t: 'KHÔNG có giá chung', c: 'red'}, ' 💔'], labelTop: 820, labelC: 'red'},
+    // 3) ĐIỂM — vàng vs kim cương (thanh khoản)
+    {d: 260, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+      head: ['Vàng thì ', {t: 'KHÁC HẲN', c: 'teal'}], size: 80,
+      cards: [
+        {header: 'VÀNG', icon: '🥇', label: 'Giá chung · bán ngay', c: 'teal'},
+        {header: 'KIM CƯƠNG', icon: '💎', label: 'Mỗi viên 1 giá · kẹt', c: 'gray', dim: true},
+      ], cardsTop: 440},
+    // 4) CÂU HỎI
+    {d: 130, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Còn bạn?'], size: 90,
+      icon: '🤔💭', iconTop: 520, iconSize: 150,
+      q: ['Từng mua kim cương để ', {t: 'đầu tư chưa?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG];
