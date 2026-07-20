@@ -39,7 +39,8 @@ const VTopBar: React.FC<{color: string}> = ({color}) => {
 
 const VHead: React.FC<{segs: Seg[]; top?: number; size?: number}> = ({segs, top = SZ.top, size = 92}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 2);
-  return <div style={{position: 'absolute', top, left: SZ.sideL, right: SZ.sideR, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: size, lineHeight: 1.08, color: INK, transform: `scale(${0.92 + s * 0.08})`, opacity: interpolate(f, [0, 8], [0, 1], {extrapolateRight: 'clamp'})}}><Segs segs={segs} /></div>;
+  // whiteSpace pre-line: cho phép ngắt dòng theo ý bằng '\n' · textWrap balance: tự cân dòng, chống mồ côi chữ
+  return <div style={{position: 'absolute', top, left: SZ.sideL, right: SZ.sideR, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: size, lineHeight: 1.12, color: INK, whiteSpace: 'pre-line', textWrap: 'balance', transform: `scale(${0.92 + s * 0.08})`, opacity: interpolate(f, [0, 8], [0, 1], {extrapolateRight: 'clamp'})}}><Segs segs={segs} /></div>;
 };
 
 // Anh Hai căn GIỮA đáy, full người (không gọt) — tạo cảm xúc, đứng dưới nội dung chính.
