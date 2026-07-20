@@ -28,6 +28,15 @@
 - Mô hình rủi ro: huy động vốn kiểu **cam kết lợi nhuận cao** (vd 18%/năm) → lấy tiền người sau trả người trước → khi dòng người mới dừng → dự án đắp chiếu, nhà đầu tư kẹt tiền.
 - Neo vào bối cảnh thật: chủ đầu tư ôm nhiều dự án, vay chồng chất, không bán được hàng → chậm/không bàn giao.
 
+## 4b) NGƯỜI TRẺ BẤT LỰC MUA NHÀ (số thời sự — mở video)
+- **Giá nhà / thu nhập (P/I) ≈ 30 lần** đầu 2026 (26 năm 2025 → ~30 năm 2026) — gấp ~2 lần bình quân thế giới. VN **top 10 thế giới** về mức chênh giá nhà–thu nhập.
+- Dồn TOÀN BỘ thu nhập: **~30 năm** mới mua nổi 1 căn TB.
+- **Trả góp 1/3 thu nhập → tới ~80 năm** mới sở hữu (con số sốc, dùng làm hook).
+- Giá căn hộ TB (2026): **Hà Nội ~85–95 triệu/m²** (trung tâm sơ cấp 121–128), **TP.HCM ~69–112 triệu/m²** → căn nhỏ cũng 4–6 tỷ.
+- **Lương TB cả nước ~8,8 triệu/tháng**; gia đình 4 người ở HN chi ~34 triệu/tháng.
+- **Nguồn cung bình dân/vừa túi tiền gần như biến mất** → người mua lần đầu bị đẩy khỏi thị trường.
+- Nguồn: CafeF ("2025 cần 26 năm, 2026 cần 30 năm"), VietnamNet ("giá nhà gấp 30 lần thu nhập, làm 30 năm chưa chắc mua nổi"), Báo Đầu Tư (VN top 10 chênh lệch), Thời báo Tài chính (P/I 27,3 giữa 2025), MarketTimes/VietnamFinance (giá căn hộ HN/HCM 2026).
+
 ## 5) Cặp số CHỐT để nhắc trong video (an toàn)
 | Ý | Nói trên hình |
 |---|---|
