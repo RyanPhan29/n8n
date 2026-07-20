@@ -192,6 +192,13 @@ nhân vật, ví dụ, ví von, minh hoạ. Người xem ở lại vì thấy CH
 nợ thẻ, giá vàng, mua xe trả góp, bảo hiểm...) — không làm chủ đề chỉ vì mình thích.
 **Test giữ chân:** mỗi 30–45s phải có 1 "móc" (câu hỏi, con số sốc, twist, ví von) để giữ người xem.
 
+**⚠️ 5 NHỊP = VIÊN GẠCH, KHÔNG PHẢI ĐƯỜNG RAY (chốt — chống máy móc):**
+- ĐỪNG bám tuyến tính BỐI CẢNH→KỲ VỌNG→XUNG ĐỘT→GIẢI QUYẾT→BỐI CẢNH LỚN cho mọi bài. Đó là bộ khối để **xếp lại sáng tạo**.
+- Cách mạnh hơn cho video **8–15 phút**: **nhiều VÒNG nhỏ "kỳ vọng → vỡ mộng → bài học" nối tiếp, leo thang** (mỗi vòng ~2 phút, 1 con số/insight riêng). Xen twist, cám dỗ, câu hỏi tu từ.
+- Thủ pháp được khuyến khích: **mở lạnh (cold open)** bằng cảnh cao trào/bí ẩn rồi tua ngược · **twist** giữa bài · nhân vật **vấp nhiều lần** chứ không 1 lần · đối xứng vòng nhưng **nội dung phải leo thang** để không nhàm.
+- Mục tiêu độ dài: **hướng tới 8–15 phút trở lên** (watch time + CPM). Nhịp cắt vẫn 3–6s, mỗi 30–45s 1 móc.
+- Tinh thần: khung để **phục vụ câu chuyện**, không phải bắt câu chuyện chạy theo khung. Càng ngày càng sáng tạo, đừng lặp công thức cũ.
+
 ════════════════════════════════════════════
 ## PHẦN 9 — CÔNG THỨC THUMBNAIL (concept sạch, đồng bộ brand — dựng bằng code)
 ════════════════════════════════════════════
