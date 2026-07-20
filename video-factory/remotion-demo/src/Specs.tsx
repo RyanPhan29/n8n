@@ -534,4 +534,84 @@ export const KIMCUONG: VideoSpec = {
   ],
 };
 
-export const ALL_SPECS: VideoSpec[] = [NOTHE, BDS, GIAVANG, THETD, KIMCUONG];
+// ================= TIỀN KẸT TRONG BÊ TÔNG (BĐS 2026, cho người trẻ) =================
+// 18 cảnh khớp bds_long.mp3 (380s) — d map theo tỉ lệ chữ snap vào khoảng lặng.
+export const TIENKET: VideoSpec = {
+  slug: 'TienKet',
+  scenes: [
+    // 1) MỞ — nỗi bất lực người trẻ
+    {t: 'hook', d: 557, bar: 'navy', center: true, deco: '🏠', decoSide: 'l',
+      heading: [{t: 'Muốn mua nhà', c: 'navy'}, ' mà thấy ', {t: 'BẤT LỰC?', c: 'red'}],
+      caption: ['Vài con số để bạn biết: bạn ', {t: 'không hề đơn độc', c: 'teal'}, '.'],
+      ah: {pose: 'worried'}},
+    // 2) SỐ — gấp 30 lần
+    {t: 'number', d: 560, bar: 'red', heading: ['Giá nhà đang cao gấp'],
+      value: 30, suffix: ' lần', numColor: 'red', sub: 'thu nhập một năm của cả gia đình',
+      caption: ['Top 10 thế giới về mức ', {t: 'khó mua nhà nhất', c: 'red'}]},
+    // 3) SỐ — 80 năm
+    {t: 'number', d: 535, bar: 'red', heading: ['Trả góp 1/3 lương, mua nhà mất tới'],
+      value: 80, suffix: ' năm', numColor: 'red', sub: 'Dồn TOÀN BỘ thu nhập cũng ~30 năm',
+      caption: ['Bạn nghe không nhầm đâu — ', {t: 'tám mươi năm', c: 'red'}]},
+    // 4) KHOẢNG CÁCH
+    {t: 'list', d: 560, bar: 'amber', heading: ['Khoảng cách ', {t: 'quá lớn', c: 'red'}],
+      items: [{text: 'Lương TB ~8–9 triệu / tháng', c: 'navy'}, {text: 'Căn hộ nhỏ ~4–5 tỷ', c: 'red'}, {text: 'Căn bình dân: gần như biến mất', c: 'gray'}],
+      stackTop: 420, caption: ['Người mua lần đầu bị đẩy khỏi thị trường.']},
+    // 5) REFRAME — không phải bạn lười
+    {t: 'hook', d: 740, bar: 'navy', center: true,
+      heading: ['Không phải bạn lười — ', {t: 'thị trường đang khắc nghiệt', c: 'red'}],
+      caption: ['Nhưng có một cái bẫy còn nguy hơn: ', {t: 'cố mua bằng mọi giá rồi mắc kẹt', c: 'red'}, '.'],
+      ah: {pose: 'point'}, bubble: {text: 'Nghe chuyện anh Tuấn nhé!'}},
+    // 6) BỐI CẢNH anh Tuấn
+    {t: 'char', d: 880, bar: 'blue', heading: ['Anh Tuấn, ', {t: '35 tuổi', c: 'tuan'}],
+      items: [{text: 'Mua căn hộ dự án ~2 tỷ', c: 'navy'}, {text: '3 phần tiền túi · 7 phần tiền vay', c: 'red'}],
+      stackTop: 400, caption: ['Ai cũng mừng. Anh tin mình vừa thắng lớn — nhưng anh sắp vỡ mộng ', {t: '4 lần', c: 'red'}, '.'],
+      ah: {pose: 'present', shirt: 'tuan'}},
+    // 7) VÒNG 1 — kỳ vọng
+    {t: 'hook', d: 341, bar: 'teal', center: true, deco: '📈', decoSide: 'r',
+      heading: ['Niềm tin #1: ', {t: '“Nhà chỉ có lên”', c: 'teal'}],
+      caption: ['Ôm vài năm rồi bán là lời — nghe rất hợp lý.'], ah: {pose: 'cool'}},
+    // 8) VÒNG 1 — xung đột lãi suất
+    {t: 'versus', d: 802, bar: 'red', heading: ['Nhưng lãi suất ', {t: 'đảo chiều', c: 'red'}],
+      left: {pill: 'Gửi 6–7%', sub: 'tiền để dành', c: 'teal'}, right: {pill: 'Vay 12–15%', sub: 'tiền ôm nhà', c: 'red'},
+      caption: ['Đồng bạn VAY đắt gần GẤP ĐÔI đồng bạn GỬI — mỗi tháng ăn vào thu nhập.']},
+    // 9) BÀI HỌC 1
+    {t: 'rule', d: 433, bar: 'teal', n: 1, title: 'Dòng tiền > giá trên giấy', color: 'teal',
+      heading: ['Bài học thứ nhất'], caption: ['Nhà bắt bạn nuôi mỗi tháng = nó giữ bạn, không phải bạn giữ nó.']},
+    // 10) VÒNG 2 — không bán được, tồn kho
+    {t: 'number', d: 853, bar: 'red', heading: ['Rao bán cả năm — không ai mua'],
+      value: 500, suffix: ' nghìn tỷ', numColor: 'red', numSize: 96, sub: 'Tồn kho bất động sản cả nước',
+      caption: ['“Trả góp như tiền thuê” — nhưng khi cần bán lại thì… kẹt.']},
+    // 11) BÀI HỌC 2
+    {t: 'rule', d: 450, bar: 'amber', n: 2, title: 'Đòn bẩy = con dao 2 lưỡi', color: 'amber',
+      heading: ['Bài học thứ hai'], caption: ['Tính kịch bản xấu nhất: lãi 15%, cả năm không bán được — còn gồng nổi?']},
+    // 12) VÒNG 3 — dự án đứng bánh
+    {t: 'list', d: 783, bar: 'red', heading: ['Niềm tin #3 lung lay: ', {t: '“Dự án lớn thì yên tâm”', c: 'gray'}],
+      items: [{text: 'Ngày bàn giao cứ lùi', c: 'red'}, {text: 'Công trường thi công cầm chừng', c: 'red'}, {text: 'Chủ đầu tư cũng đang kẹt vốn', c: 'red'}],
+      stackTop: 420, caption: ['Hoá ra người bán nhà cho anh cũng đang khát tiền.'], ah: {pose: 'worried'}},
+    // 13) 3 DẤU HIỆU
+    {t: 'list', d: 613, bar: 'red', heading: ['3 dấu hiệu dự án ', {t: 'sắp “đắp chiếu”', c: 'red'}],
+      items: [{text: '① Tiến độ chậm dần', c: 'red'}, {text: '② Bán tháo gom tiền mặt', c: 'red'}, {text: '③ Ôm quá nhiều dự án', c: 'red'}],
+      stackTop: 400, caption: ['Ba dấu hiệu cùng bật lên = hết sức thận trọng.']},
+    // 14) BÀI HỌC 3
+    {t: 'rule', d: 351, bar: 'navy', n: 3, title: 'Bạn mua một LỜI HỨA bàn giao', color: 'navy',
+      heading: ['Bài học thứ ba'], caption: ['Lời hứa chỉ vững khi chủ đầu tư còn dòng tiền.']},
+    // 15) VÒNG 4 — cám dỗ 18% (twist)
+    {t: 'number', d: 866, bar: 'amber', deco: '🚩', decoSide: 'r', heading: ['Có người mời góp vốn, cam kết lời'],
+      value: 18, suffix: '%/năm', numColor: 'gold', sub: 'Đang bí, mắt anh sáng lên…',
+      caption: ['NH vay 12–15%, gửi 6–7% — lấy ĐÂU ra 18% để chia? Thường là lấy người sau trả người trước.']},
+    // 16) BÀI HỌC 4
+    {t: 'rule', d: 361, bar: 'red', n: 4, title: 'Lợi nhuận cao = rủi ro cao', color: 'red',
+      heading: ['Bài học thứ tư'], caption: ['Lời hứa lời cao bất thường thường là bẫy. Không có bữa trưa miễn phí.']},
+    // 17) CHỐT 1 — 4 điều
+    {t: 'list', d: 723, bar: 'teal', heading: ['4 điều để xuống tiền cho ', {t: 'TỈNH TÁO', c: 'teal'}],
+      items: [{text: '① Dòng tiền > giá trên giấy', c: 'teal'}, {text: '② Đòn bẩy = dao 2 lưỡi', c: 'amber'}, {text: '③ Đọc dấu hiệu dự án rủi ro', c: 'navy'}, {text: '④ Lời cao = rủi ro cao', c: 'red'}],
+      stackTop: 360, gap: 20, caption: ['Và: chưa mua được nhà lúc này KHÔNG phải là thất bại.']},
+    // 18) CHỐT 2 + CTA
+    {t: 'hook', d: 993, bar: 'navy', center: true,
+      heading: ['Căn nhà đẹp nhất là căn bạn mua mà vẫn ', {t: 'NGỦ NGON', c: 'teal'}],
+      caption: ['Tiền để bê tông thì đẹp — nhưng lúc ngặt không mua nổi tô phở. Thứ cho bạn tự do là ', {t: 'dòng tiền trong tay', c: 'gold'}, '.'],
+      ah: {pose: 'point'}, bubble: {text: 'Giữ ví cho chặt!', x: 1120, y: 300}},
+  ],
+};
+
+export const ALL_SPECS: VideoSpec[] = [NOTHE, BDS, GIAVANG, THETD, KIMCUONG, TIENKET];
