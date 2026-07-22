@@ -184,30 +184,33 @@ export const SHORT_BDS_S4: ShortSpec = {
   ],
 };
 
-// BÓC TỪ VIDEO DÀI TIENKET — "80 năm mới mua nổi nhà" — tksh1.mp3 (35.8s) d=[177,264,264,226,142]
+// SHORT "80 NĂM MUA NHÀ" — thu riêng short80.mp3 (27.5s) d=[151,149,166,156,89,115] · neo khoảng lặng thật
 export const SHORT_TK80: ShortSpec = {
   slug: 'ShortTK80',
   scenes: [
-    {d: 219, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
+    {d: 151, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
       head: ['Giá nhà gấp'], size: 84,
       value: 30, suffix: ' LẦN', numColor: 'red', numTop: 540, numSize: 200,
       label: ['thu nhập 1 năm của gia đình'], labelTop: 820, labelC: 'red'},
-    {d: 208, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 600,
-      head: ['Top 10 thế giới ❗'], size: 82,
-      icon: '🌏', iconTop: 520, iconSize: 200,
-      label: ['về mức KHÓ mua nhà nhất'], labelTop: 840, labelC: 'red'},
-    {d: 277, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+    {d: 149, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
       head: ['Nhịn ăn, dồn CẢ thu nhập'], size: 74,
       value: 30, suffix: ' năm', numColor: 'red', numTop: 540, numSize: 190,
       label: ['mới mua nổi 1 căn'], labelTop: 820, labelC: 'red'},
-    {d: 227, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
-      head: ['Trả góp 1/3 lương thì mất'], size: 72,
+    {d: 166, bar: 'amber', pose: 'think', ahCorner: 'left', ahH: 600,
+      head: ['Trả góp 1/3 lương mỗi tháng…'], size: 70,
+      icon: '💸  🏦', iconTop: 520, iconSize: 170,
+      label: ['thực tế hơn — nhưng con số thì…'], labelTop: 820, labelC: 'amber'},
+    {d: 156, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
+      head: ['Con số đội lên tới'], size: 78,
       value: 80, suffix: ' NĂM', numColor: 'red', numTop: 540, numSize: 200,
-      label: ['Tám mươi năm 😱'], labelTop: 820, labelC: 'red'},
-    {d: 142, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
-      head: ['80 năm để có 1 căn nhà…'], size: 70,
+      label: ['Tám mươi năm cho 1 căn nhà 😱'], labelTop: 820, labelC: 'red'},
+    {d: 89, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 620,
+      head: ['Khó mua nhà ', {t: 'nhất thế giới', c: 'red'}], size: 76,
+      icon: '🌏', iconTop: 540, iconSize: 220},
+    {d: 115, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Không phải do bạn kém đâu'], size: 66,
       icon: '🤔💭', iconTop: 520, iconSize: 150,
-      q: ['Bạn nghĩ bao lâu mới ', {t: 'mua nổi?', c: 'gold'}]},
+      q: ['Bạn nghĩ bao lâu mới ', {t: 'mua nổi nhà?', c: 'gold'}]},
   ],
 };
 
