@@ -184,4 +184,31 @@ export const SHORT_BDS_S4: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4];
+// BÓC TỪ VIDEO DÀI TIENKET — "80 năm mới mua nổi nhà" — tksh1.mp3 (35.8s) d=[177,264,264,226,142]
+export const SHORT_TK80: ShortSpec = {
+  slug: 'ShortTK80',
+  scenes: [
+    {d: 177, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
+      head: ['Giá nhà gấp'], size: 84,
+      value: 30, suffix: ' LẦN', numColor: 'red', numTop: 540, numSize: 200,
+      label: ['thu nhập 1 năm của gia đình'], labelTop: 820, labelC: 'red'},
+    {d: 264, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 600,
+      head: ['Top 10 thế giới ❗'], size: 82,
+      icon: '🌏', iconTop: 520, iconSize: 200,
+      label: ['về mức KHÓ mua nhà nhất'], labelTop: 840, labelC: 'red'},
+    {d: 264, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Nhịn ăn, dồn CẢ thu nhập'], size: 74,
+      value: 30, suffix: ' năm', numColor: 'red', numTop: 540, numSize: 190,
+      label: ['mới mua nổi 1 căn'], labelTop: 820, labelC: 'red'},
+    {d: 226, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
+      head: ['Trả góp 1/3 lương thì mất'], size: 72,
+      value: 80, suffix: ' NĂM', numColor: 'red', numTop: 540, numSize: 200,
+      label: ['Tám mươi năm 😱'], labelTop: 820, labelC: 'red'},
+    {d: 142, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['80 năm để có 1 căn nhà…'], size: 70,
+      icon: '🤔💭', iconTop: 520, iconSize: 150,
+      q: ['Bạn nghĩ bao lâu mới ', {t: 'mua nổi?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80];
