@@ -1,16 +1,22 @@
-ĐIỂM TIN TIỀN BẠC — 22/7/2026 — kịch bản thu Vbee (giọng nam Bắc 1.0–1.1, đọc như đọc bản tin: rõ, gọn, có nhịp nghỉ giữa các tin)
+ĐIỂM TIN TIỀN BẠC — 22/7/2026 — kịch bản thu Vbee (bản CHỐT của anh Hai, đọc như bản tin ~1 phút, nghỉ nhịp giữa mỗi tin)
 
-Chào cả nhà, Anh Hai điểm nhanh mấy tin tiền bạc đáng chú ý hôm nay.
+Điểm tin tiền bạc hôm nay cùng Anh Hai — một phút nắm hết chuyện tiền.
 
-Đầu tiên là vàng. Sau chuỗi ngày leo thang, vàng miếng trong nước bất ngờ đảo chiều, có lúc rơi tới khoảng hai triệu đồng một lượng, kéo giá bán ra về quanh một trăm bốn mươi bảy triệu. Vàng thế giới cũng chao đảo quanh mốc bốn nghìn đô một ounce. Ai đang ôm vàng lướt sóng thì nhớ, lên nhanh cũng có thể xuống nhanh.
+Thứ nhất, vàng. Vàng miếng SJC vừa hạ về khoảng một trăm bốn mươi sáu triệu một lượng, sau mấy phiên tăng nóng, còn vàng thế giới thì đang chững lại. Ai đang ôm vàng thì để ý: giá đang giằng co, đừng mua đuổi theo cơn sốt.
 
-Tin thứ hai, lãi suất tiết kiệm. Một vài ngân hàng tiếp tục nhích lãi ở kỳ hạn dài, kỳ hạn mười hai tháng có nơi đã chạm khoảng mười phần trăm một năm. Tiền gửi đang được trả giá cao hơn, nhưng nhớ đọc kỹ điều kiện, vì mức cao nhất thường đi kèm số tiền lớn hoặc kỳ hạn dài.
+Thứ hai, lãi suất gửi tiết kiệm đang nhích lên. Một vài ngân hàng đã đẩy lãi kỳ hạn sáu tháng lên gần tám phần trăm một năm. Tin vui cho người gửi tiền — và nhớ, gửi online thường được lãi cao hơn gửi tại quầy.
 
-Tiếp theo là tỷ giá. Đồng đô la trong ngân hàng vẫn neo ở vùng cao, khiến giá vàng quy đổi và hàng nhập khẩu chịu thêm sức ép. Đây là thứ âm thầm ăn vào túi tiền của mình, dù mình không trực tiếp mua đô.
+Thứ ba, Ngân hàng Nhà nước giảm nhẹ tỷ giá trung tâm, đồng đô la hạ nhiệt một chút. Ai cần mua ngoại tệ thì canh thời điểm.
 
-Và cuối cùng là nhà đất. Giá căn hộ ở các thành phố lớn vẫn cao, nhưng người mua thì ngày càng thận trọng, thanh khoản chững lại. Bên bán kỳ vọng một đằng, bên mua chờ đợi một nẻo.
+Thứ tư, căn hộ ở Hà Nội và thành phố Hồ Chí Minh quý này người mua chững lại, vì giá cao và lãi vay tăng. Nói cách khác, bên bán đang khó — còn người mua thì có thêm thời gian để cân nhắc và mặc cả.
 
-Đó là bốn tin tiền bạc hôm nay. Cả nhà quan tâm tin nào nhất, để lại bình luận cho Anh Hai biết, mai mình điểm tin tiếp nhé.
+Tóm lại: gửi tiết kiệm đang lợi hơn, còn vàng với nhà thì nên bình tĩnh. Giữ ví cho chặt, mai Anh Hai điểm tin tiếp nhé.
 
 ---
-NGUỒN (không đọc): Vàng SJC 22/7/2026 đảo chiều giảm tới 2tr/lượng, bán ra ~147tr — VietnamNet. Vàng thế giới ~4.052 USD/oz — Vietstock/Investing. Lãi tiết kiệm 12 tháng có nơi ~10%/năm. Tỷ giá USD ngân hàng vùng cao. Căn hộ HN/HCM giá cao, thanh khoản chững.
+SHOTLIST DỰ KIẾN (template "Điểm tin" dọc 9:16) — 6 nhịp:
+0. INTRO  — khung "ĐIỂM TIN TIỀN BẠC" + ngày 22/7 + Anh Hai vẫy tay ("một phút nắm hết chuyện tiền")
+1. VÀNG   🥇 — value 146 " triệu/lượng", label "SJC hạ nhiệt sau tăng nóng", bar gold, pose think
+2. LÃI SUẤT 🏦 — value ~8 "%/năm (6 tháng)", label "gửi tiết kiệm nhích lên · online > quầy", bar teal, pose cool → TIN VUI
+3. TỶ GIÁ  💵 — icon USD, label "NHNN giảm nhẹ tỷ giá trung tâm · đô hạ nhiệt", bar blue, pose present
+4. NHÀ ĐẤT 🏠 — label "Căn hộ HN/HCM: người mua chững lại · bên bán khó · dễ mặc cả hơn", bar red→navy, pose point
+5. CHỐT   ✅ — "Gửi tiết kiệm đang lợi · Vàng & nhà: bình tĩnh" + q "Giữ ví cho chặt — mai điểm tin tiếp!"
