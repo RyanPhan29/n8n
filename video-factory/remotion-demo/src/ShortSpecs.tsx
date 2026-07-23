@@ -273,4 +273,71 @@ export const SHORT_DIEMTIN: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN];
+// ĐIỂM TIN TIỀN BẠC 23/7 — thu diemtin23.mp3 (49.56s) · 12 nhịp neo khoảng lặng thật
+// cut(s): 3.77 |9.30 |12.85 |15.10 |20.70 |27.60 |31.50 |34.50 |38.80 |41.70 |46.90 |49.56
+export const SHORT_DIEMTIN23: ShortSpec = {
+  slug: 'ShortDiemTin23',
+  scenes: [
+    // 0) INTRO 0→3.77
+    {d: 113, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 620,
+      head: ['ĐIỂM TIN ', {t: 'TIỀN BẠC', c: 'gold'}], size: 82,
+      icon: '📊  🗞️', iconTop: 540, iconSize: 170,
+      label: ['23 · 7 · 2026'], labelTop: 840, labelC: 'gray'},
+    // 1a) VÀNG lao dốc 3.77→9.30
+    {d: 166, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
+      head: ['Vàng SJC ', {t: 'lao dốc kỷ lục', c: 'red'}], size: 74,
+      icon: '📉', iconTop: 520, iconSize: 240,
+      label: ['Mất 6–7 triệu/lượng chỉ 1 buổi sáng'], labelTop: 860, labelC: 'red'},
+    // 1b) VÀNG về 140 — số bung 9.30→12.85
+    {d: 106, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Rơi về'], size: 76,
+      value: 140, suffix: ' triệu', numColor: 'red', numTop: 540, numSize: 200,
+      label: ['Thấp nhất kể từ đầu năm'], labelTop: 830, labelC: 'red'},
+    // 1c) NGHỊCH LÝ thế giới tăng 12.85→15.10
+    {d: 68, bar: 'amber', pose: 'think', ahCorner: 'left', ahH: 600,
+      head: ['Lạ đời: thế giới lại ', {t: 'TĂNG', c: 'teal'}], size: 66,
+      icon: '🌍📈   ⇄   🇻🇳📉', iconTop: 560, iconSize: 110},
+    // 1d) CHÊNH mua-bán 6tr 15.10→20.70
+    {d: 168, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 600,
+      head: ['Chênh mua–bán giãn tới'], size: 68,
+      value: 6, suffix: ' triệu', numColor: 'red', numTop: 540, numSize: 190,
+      label: ['Mua xong là lỗ ngay ⚠️'], labelTop: 830, labelC: 'red'},
+    // 2) TỶ GIÁ 20.70→27.60
+    {d: 207, bar: 'blue', pose: 'present', ahCorner: 'right', ahH: 600,
+      head: ['Đô la ngân hàng vẫn ', {t: 'neo cao', c: 'blue'}], size: 66,
+      value: 26300, suffix: ' đ/USD', numColor: 'blue', numTop: 540, numSize: 128,
+      label: ['Hàng nhập đắt hơn — âm thầm ăn túi tiền'], labelTop: 830, labelC: 'blue'},
+    // 3a) TRÚ ẨN 27.60→31.50
+    {d: 117, bar: 'teal', pose: 'cool', ahCorner: 'left', ahH: 600,
+      head: ['Vàng chao đảo → tiết kiệm ', {t: 'trú ẩn', c: 'teal'}], size: 60,
+      icon: '🏦  🛡️', iconTop: 540, iconSize: 180},
+    // 3b) LÃI 8-10% — số bung 31.50→34.50
+    {d: 90, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+      head: ['Lãi kỳ hạn dài'], size: 74,
+      value: 10, suffix: '%/năm', numColor: 'teal', numTop: 540, numSize: 190,
+      label: ['Quanh 8–10% · tiền để yên vẫn sinh lời'], labelTop: 830, labelC: 'teal'},
+    // 4a) NHÀ ĐẤT 34.50→38.80
+    {d: 129, bar: 'red', pose: 'think', ahCorner: 'right', ahH: 600,
+      head: ['Căn hộ HN & TP.HCM'], size: 76,
+      icon: '🏢  📉', iconTop: 540, iconSize: 170,
+      label: ['Giá cao · người mua thận trọng'], labelTop: 840, labelC: 'red'},
+    // 4b) MẶC CẢ 38.80→41.70
+    {d: 87, bar: 'navy', pose: 'sly', ahCorner: 'left', ahH: 600,
+      head: ['Bên bán sốt ruột'], size: 78,
+      icon: '🤝', iconTop: 540, iconSize: 200,
+      label: ['Người mua cứ bình tĩnh mà chọn'], labelTop: 840, labelC: 'navy'},
+    // 5a) TÓM LẠI 41.70→46.90
+    {d: 156, bar: 'teal', pose: 'point', ahCorner: 'right', ahH: 640,
+      head: ['Tóm lại'], size: 88,
+      cards: [
+        {header: 'VÀNG', icon: '🎢', label: 'Đừng bắt dao rơi', c: 'red', dim: true},
+        {header: 'TIẾT KIỆM', icon: '🛡️', label: 'Chỗ dựa an toàn', c: 'teal'},
+      ], cardsTop: 440},
+    // 5b) CTA 46.90→49.56
+    {d: 80, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Giữ ví cho chặt 👛'], size: 78,
+      q: ['Mai Anh Hai ', {t: 'điểm tin tiếp nhé!', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23];
