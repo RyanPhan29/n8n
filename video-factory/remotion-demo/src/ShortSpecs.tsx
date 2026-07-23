@@ -340,4 +340,41 @@ export const SHORT_DIEMTIN23: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23];
+// SS01 — SJC vs Nhẫn 9999 — thu ss01.mp3 (30.7s) · neo khoảng lặng: 5.2|10.5|17.0|24.2|27.1
+export const SHORT_SS01: ShortSpec = {
+  slug: 'ShortSS01',
+  scenes: [
+    // 0) HOOK câu hỏi 0→5.2
+    {d: 156, bar: 'gold', pose: 'think', ahCorner: 'right', ahH: 600,
+      head: ['Mua vàng để dành:', {t: '\nSJC hay Nhẫn 9999?', c: 'red'}], size: 66,
+      icon: '🥇  ⚖️  💍', iconTop: 560, iconSize: 130},
+    // 1a) SJC nhảy 5.2→10.5
+    {d: 159, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
+      head: ['Vàng miếng SJC'], size: 78,
+      icon: '🥇', iconTop: 520, iconSize: 200,
+      label: ['Tháng 7 nhảy dữ · có lúc ~140 triệu'], labelTop: 850, labelC: 'red'},
+    // 1b) SJC chênh 6tr — số bung 10.5→17.0
+    {d: 195, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Cái đau: chênh mua–bán tới'], size: 64,
+      value: 6, suffix: ' triệu', numColor: 'red', numTop: 540, numSize: 190,
+      label: ['Mua xong bán lại là mất luôn'], labelTop: 830, labelC: 'red'},
+    // 2) NHẪN 9999 17.0→24.2
+    {d: 216, bar: 'teal', pose: 'cool', ahCorner: 'left', ahH: 600,
+      head: ['Vàng nhẫn 9999'], size: 78,
+      icon: '💍', iconTop: 520, iconSize: 200,
+      label: ['Chênh hẹp · bán lại dễ · thanh khoản mượt'], labelTop: 850, labelC: 'teal'},
+    // 3) CHỐT 2 thẻ + VS 24.2→27.1
+    {d: 87, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 640,
+      head: ['Chốt'], size: 84,
+      cards: [
+        {header: 'SJC', icon: '🥇', label: 'Chênh rộng', c: 'red', dim: true},
+        {header: 'NHẪN', icon: '💍', label: 'Gọn, dễ bán', c: 'teal'},
+      ], cardsTop: 470},
+    // 4) CTA 27.1→30.7
+    {d: 108, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Bạn giữ loại nào?'], size: 80,
+      q: ['Vàng miếng hay ', {t: 'vàng nhẫn?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01];
