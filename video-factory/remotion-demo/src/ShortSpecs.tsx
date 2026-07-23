@@ -214,4 +214,63 @@ export const SHORT_TK80: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80];
+// ĐIỂM TIN TIỀN BẠC 22/7 — thu diemtin.mp3 (48.48s) · 10 nhịp neo khoảng lặng thật
+// cut(s): 3.5 |10.3 |14.2 |20.4 |25.0 |31.6 |37.0 |41.6 |45.5 |48.48
+export const SHORT_DIEMTIN: ShortSpec = {
+  slug: 'ShortDiemTin',
+  scenes: [
+    // 0) INTRO 0→3.5
+    {d: 105, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 620,
+      head: ['ĐIỂM TIN ', {t: 'TIỀN BẠC', c: 'gold'}], size: 82,
+      icon: '📊  🗞️', iconTop: 540, iconSize: 170,
+      label: ['Thứ Tư · 22 · 7 · 2026'], labelTop: 840, labelC: 'gray'},
+    // 1a) VÀNG — số 146 bung 3.5→10.3
+    {d: 204, bar: 'amber', pose: 'think', ahCorner: 'right', ahH: 600,
+      head: ['Vàng SJC vừa hạ về'], size: 74,
+      value: 146, suffix: ' tr/lượng', numColor: 'amber', numTop: 540, numSize: 158,
+      label: ['sau mấy phiên tăng nóng — thế giới chững lại'], labelTop: 820, labelC: 'amber'},
+    // 1b) VÀNG khuyên 10.3→14.2
+    {d: 117, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 620,
+      head: ['Giá đang ', {t: 'giằng co', c: 'red'}], size: 82,
+      icon: '⚖️', iconTop: 540, iconSize: 200,
+      label: ['Đừng mua đuổi theo cơn sốt'], labelTop: 840, labelC: 'red'},
+    // 2a) LÃI SUẤT — số 8% bung 14.2→20.4
+    {d: 186, bar: 'teal', pose: 'cool', ahCorner: 'left', ahH: 600,
+      head: ['Lãi gửi tiết kiệm nhích lên'], size: 70,
+      value: 8, suffix: '%/năm', numColor: 'teal', numTop: 540, numSize: 200,
+      label: ['Kỳ hạn 6 tháng — có nơi gần 8%'], labelTop: 820, labelC: 'teal'},
+    // 2b) LÃI SUẤT online 20.4→25.0
+    {d: 138, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+      head: ['Tin vui cho ', {t: 'người gửi tiền', c: 'teal'}], size: 74,
+      icon: '💰  📈', iconTop: 540, iconSize: 160,
+      label: ['Gửi online thường lãi cao hơn tại quầy'], labelTop: 840, labelC: 'teal'},
+    // 3) TỶ GIÁ 25.0→31.6
+    {d: 198, bar: 'blue', pose: 'present', ahCorner: 'right', ahH: 600,
+      head: ['NHNN ', {t: 'giảm nhẹ tỷ giá', c: 'blue'}], size: 74,
+      icon: '💵  🔻', iconTop: 540, iconSize: 170,
+      label: ['Đô la hạ nhiệt — cần mua thì canh thời điểm'], labelTop: 840, labelC: 'blue'},
+    // 4a) NHÀ ĐẤT chững 31.6→37.0
+    {d: 162, bar: 'red', pose: 'think', ahCorner: 'right', ahH: 600,
+      head: ['Căn hộ HN & TP.HCM'], size: 76,
+      icon: '🏢  📉', iconTop: 540, iconSize: 170,
+      label: ['Người mua chững lại — giá cao, lãi vay tăng'], labelTop: 840, labelC: 'red'},
+    // 4b) NHÀ ĐẤT mặc cả 37.0→41.6
+    {d: 138, bar: 'navy', pose: 'sly', ahCorner: 'left', ahH: 600,
+      head: ['Bên bán đang khó'], size: 80,
+      icon: '🤝', iconTop: 540, iconSize: 200,
+      label: ['Người mua có thời gian cân nhắc & mặc cả'], labelTop: 840, labelC: 'navy'},
+    // 5a) TÓM LẠI 41.6→45.5
+    {d: 117, bar: 'teal', pose: 'point', ahCorner: 'right', ahH: 640,
+      head: ['Tóm lại'], size: 88,
+      cards: [
+        {header: 'GỬI TIẾT KIỆM', icon: '🏦', label: 'Đang lợi hơn', c: 'teal'},
+        {header: 'VÀNG & NHÀ', icon: '🥇', label: 'Nên bình tĩnh', c: 'gray', dim: true},
+      ], cardsTop: 440},
+    // 5b) CTA 45.5→48.48
+    {d: 89, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Giữ ví cho chặt 👛'], size: 78,
+      q: ['Ngày mai ', {t: 'điểm tin tiếp nhé!', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN];
