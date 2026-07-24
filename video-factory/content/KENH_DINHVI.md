@@ -65,7 +65,36 @@ Giải thích & bóc tách chuyện tiền cho người Việt trẻ mới đi l
 - Không lời khuyên đầu tư; chủ đề nhạy cảm/chính trị chỉ đưa tin trung lập + disclaimer.
 - Số liệu nói dạng KHOẢNG, không bịa.
 
-## 8) CÂU HỎI CẦN ANH CHỐT (để khóa hướng)
-1. **Mục tiêu tiền chính:** YouTube Ads (cần long-form + giờ xem) / Affiliate (cần Facebook + review) / Bán khóa-dịch vụ (cần uy tín + email)?
-2. **Nền tảng ưu tiên số 1** trong 3 tháng tới: YouTube hay TikTok?
-3. **Độ rộng ngách:** giữ rộng "tiền bạc đời sống" (5 trụ) hay siết hẹp về 1 mảng mạnh nhất (vd BĐS/nhà cho người trẻ) để lên nhanh hơn?
+## 8) HƯỚNG ĐÃ KHÓA (anh Hai chốt 25/7)
+- **Kiếm tiền:** KẾT HỢP Ads + Affiliate.
+- **Nền tảng:** YouTube + TikTok SONG SONG.
+- **Độ rộng:** SPINE + VỆ TINH.
+
+### 8.1 SPINE (xương sống — làm nên nhận diện + ra tiền)
+- 🏠 **BĐS & nhà cho người trẻ** → long-form 8–15p trên YouTube (bật **Ads** + giờ xem).
+- 📰 **Điểm tin tiền bạc** (báo chính thống, template PRO) → short hằng ngày, đẩy TikTok (reach + thói quen theo dõi).
+
+### 8.2 VỆ TINH (cày view + gài Affiliate)
+- 🆚 **So sánh (X vs Y)** → short TikTok/Shorts, gài affiliate (app ngân hàng số, sách quản lý tiền).
+- ⚠️ **Bóc bẫy tài chính** → viral + affiliate sản phẩm an toàn (app vay uy tín, khóa học chống lừa).
+- 💡 **Kiến thức nền** → long-form/short explainer trên YouTube (search bền + uy tín để sau bán khóa).
+
+### 8.3 BẢN ĐỒ KIẾM TIỀN
+| Nguồn | Trụ khai thác | Nền tảng |
+|-------|---------------|----------|
+| **YouTube Ads** | BĐS long-form + Kiến thức nền | YouTube |
+| **Affiliate** | So sánh + Bóc bẫy (link app tài chính/sách/khóa) | Facebook + mô tả YT/TikTok |
+
+### 8.4 NHỊP SẢN XUẤT TUẦN (đề xuất, faceless factory)
+- **Hằng ngày:** 1 **Điểm tin** short → TikTok + Reels + YT Shorts (sáng 7h).
+- **3–4/tuần:** **So sánh** short → TikTok (tối 19–21h) + gài affiliate.
+- **1/tuần:** **BĐS long-form** flagship → YouTube (Thứ 6 18:30 / CN 08:00) — bật ads.
+- **1–2/tuần:** **Bóc bẫy** (short hoặc long).
+- **1/tuần:** **Kiến thức nền** explainer.
+
+### 8.5 VIỆC CẦN LÀM NGAY (2 tuần đầu)
+1. Đăng ký **chương trình affiliate** VN (app ngân hàng số Cake/Timo, TCBS/quỹ, sách tài chính Tiki/Shopee, khóa học). → cần anh làm (tài khoản).
+2. Dựng **kho 30 short So sánh** đã có → rải lịch + gắn link affiliate ở mô tả.
+3. Duy trì **Điểm tin hằng ngày** (template PRO).
+4. Lên **1 BĐS long-form/tuần** làm flagship YouTube.
+5. Chuẩn hóa **playlist + mô tả + keyword** theo mục 6.
