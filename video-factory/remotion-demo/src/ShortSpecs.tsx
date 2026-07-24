@@ -1122,4 +1122,74 @@ export const SHORT_DATDAI: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// DEMO "ĐIỂM TIN PRO" — ribbon nguồn + thẻ bằng chứng (nửa trên) + Anh Hai vị trí GỐC (giữa-dưới, to) + nhịp phân tích
+export const SHORT_PRODEMO: ShortSpec = {
+  slug: 'ShortProDemo',
+  scenes: [
+    // 1) THẺ BẰNG CHỨNG (nguồn thật) — card ở nửa trên, Anh Hai giữa-dưới như cũ
+    {d: 150, bar: 'navy', pose: 'present', ahH: 620,
+      source: {name: 'VnExpress', date: '24/7/2026'},
+      evidence: {
+        headline: ['Nhà nước điều tiết, kiểm soát\nvà quyết định giá đất'],
+        quote: ['“Bảo đảm sinh kế của người có đất thu hồi”'],
+        src: 'VnExpress · Chính trị'},
+      evidenceTop: 300},
+    // 2) NHỊP PHÂN TÍCH "Anh Hai đọc vị"
+    {d: 130, bar: 'blue', pose: 'think', ahH: 600,
+      head: ['👁 Anh Hai đọc vị:', {t: '\nnghĩa là gì với túi tiền?', c: 'blue'}], size: 62, htop: 250,
+      icon: '🏠  🔍', iconTop: 500, iconSize: 150,
+      label: ['Hướng tới minh bạch giá · siết đầu cơ'], labelTop: 780, labelC: 'blue'},
+    // 3) CTA
+    {d: 120, bar: 'navy', pose: 'point', ahH: 640,
+      head: ['Giá nhà sẽ dễ thở hơn?'], size: 74, htop: 250,
+      icon: '🤔💭', iconTop: 500, iconSize: 150,
+      q: ['Nhà nước quyết định giá đất — ', {t: 'bạn nghĩ sao?', c: 'gold'}]},
+  ],
+};
+
+// ĐẤT ĐAI PRO — bản nâng cấp: ribbon nguồn + thẻ bằng chứng · dùng lại thu datdai.mp3 (51.36s) · d giữ nguyên
+export const SHORT_DATDAI_PRO: ShortSpec = {
+  slug: 'ShortDatDaiPro',
+  scenes: [
+    {d: 152, bar: 'red', pose: 'shock', ahH: 600,
+      source: {name: 'VnExpress', date: '24/7/2026'},
+      head: ['TIN NÓNG ', {t: '24/7', c: 'red'}], size: 82,
+      icon: '🔴  🏠', iconTop: 560, iconSize: 170,
+      label: ['Ảnh hưởng túi tiền & giấc mơ mua nhà'], labelTop: 830, labelC: 'red'},
+    {d: 244, bar: 'navy', pose: 'present', ahH: 600,
+      source: {name: 'VnExpress', date: '24/7/2026'},
+      evidence: {
+        headline: ['Nhà nước điều tiết, kiểm soát\nvà quyết định giá đất'],
+        quote: ['“Bảo đảm sinh kế của người có đất thu hồi”'],
+        src: 'VnExpress · Chính trị'},
+      evidenceTop: 300},
+    {d: 122, bar: 'teal', pose: 'think', ahCorner: 'left', ahH: 600,
+      head: ['① Đất ', {t: 'sở hữu toàn dân', c: 'navy'}], size: 66,
+      icon: '🇻🇳  🏞️', iconTop: 540, iconSize: 160,
+      label: ['Không tư nhân hóa đất đai'], labelTop: 850, labelC: 'navy'},
+    {d: 194, bar: 'teal', pose: 'cool', ahCorner: 'left', ahH: 600,
+      head: ['Sổ đỏ hợp pháp ', {t: 'GIỮ NGUYÊN', c: 'teal'}], size: 60,
+      icon: '📗  ✅', iconTop: 540, iconSize: 180,
+      label: ['Không xem xét lại quyền dùng đất hợp pháp'], labelTop: 850, labelC: 'teal'},
+    {d: 178, bar: 'blue', pose: 'present', ahH: 600,
+      head: ['② Nhà nước ', {t: 'QUYẾT ĐỊNH giá đất', c: 'blue'}], size: 56,
+      icon: '🏛️  💰', iconTop: 540, iconSize: 170,
+      label: ['Điều tiết · kiểm soát · quyết định'], labelTop: 850, labelC: 'blue'},
+    {d: 110, bar: 'blue', pose: 'aha', ahH: 600,
+      head: ['→ Thị trường ', {t: 'MINH BẠCH giá', c: 'blue'}], size: 64,
+      icon: '🔍  🏠', iconTop: 540, iconSize: 180},
+    {d: 190, bar: 'teal', pose: 'point', ahCorner: 'left', ahH: 600,
+      head: ['③ Thu hồi đất'], size: 74,
+      icon: '🏘️  🤝', iconTop: 540, iconSize: 170,
+      label: ['Bảo đảm chỗ ở · điều kiện sống · sinh kế'], labelTop: 850, labelC: 'teal'},
+    {d: 190, bar: 'amber', pose: 'think', ahH: 620,
+      head: ['Mới là ', {t: 'định hướng', c: 'amber'}, ' — luật chờ Quốc hội'], size: 54,
+      icon: '⏳  📊', iconTop: 540, iconSize: 150,
+      label: ['Hướng đi: siết đầu cơ · minh bạch giá đất'], labelTop: 850, labelC: 'amber'},
+    {d: 161, bar: 'navy', pose: 'point', ahH: 640,
+      head: ['Giá nhà sẽ dễ thở hơn?'], size: 70,
+      q: ['Nhà nước quyết định giá đất — ', {t: 'bạn nghĩ sao?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];

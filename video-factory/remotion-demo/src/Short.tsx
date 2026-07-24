@@ -105,6 +105,40 @@ const VQuestion: React.FC<{segs: Seg[]; delay?: number}> = ({segs, delay = 8}) =
   );
 };
 
+// ===== PRO (Điểm tin): ribbon nguồn + thẻ bằng chứng + Anh Hai nép góc nhỏ =====
+// Ribbon nguồn trên đầu — tăng độ tin, ghi rõ báo + ngày
+const VSource: React.FC<{name: string; date: string}> = ({name, date}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 2);
+  return (
+    <div style={{position: 'absolute', top: 186, left: 0, right: 0, textAlign: 'center', transform: `scale(${s})`}}>
+      <span style={{display: 'inline-block', background: RED, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 34, borderRadius: 999, padding: '10px 30px', boxShadow: '0 5px 0 rgba(0,0,0,.12)'}}>🗞️ {name} · {date}</span>
+    </div>
+  );
+};
+
+// Thẻ bằng chứng kiểu "mẩu báo" — tiêu đề gốc + trích dẫn + nguồn (chữ Việt do code render, không dính bản quyền ảnh)
+const VEvidence: React.FC<{headline: Seg[]; quote?: Seg[]; src: string; top?: number; delay?: number}> = ({headline, quote, src, top = 430, delay = 8}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig();
+  const sp = spring({frame: f - delay, fps, config: {damping: 12, mass: 0.8}});
+  const rise = interpolate(f - delay, [0, 14], [50, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  return (
+    <div style={{position: 'absolute', top, left: 64, right: 64, transform: `translateY(${rise}px) scale(${sp})`}}>
+      <div style={{background: '#fbfaf7', borderRadius: 26, borderLeft: `14px solid ${RED}`, boxShadow: '0 12px 0 rgba(0,0,0,.10)', padding: '34px 40px'}}>
+        <div style={{display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18}}>
+          <span style={{background: RED, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 26, borderRadius: 8, padding: '6px 16px'}}>BÁO CHÍ</span>
+          <span style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 30, color: GRAY}}>{src}</span>
+        </div>
+        <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 54, lineHeight: 1.16, color: INK, textWrap: 'balance', whiteSpace: 'pre-line'}}><Segs segs={headline} /></div>
+        {quote && <div style={{marginTop: 22, paddingLeft: 22, borderLeft: `5px solid ${GRAY}`, fontFamily: 'BVP', fontStyle: 'italic', fontSize: 40, lineHeight: 1.32, color: '#3a3f47', textWrap: 'balance'}}><Segs segs={quote} /></div>}
+      </div>
+    </div>
+  );
+};
+
+// Anh Hai nhỏ, nép GÓC PHẢI DƯỚI — không đè nội dung (dùng cho layout tin/thẻ bằng chứng)
+const VAnhHaiCorner: React.FC<{pose: string; h?: number; side?: 'left' | 'right'}> = ({pose, h = 430, side = 'right'}) =>
+  <AnhHai pose={pose} x={side === 'right' ? 720 : 40} y={0} delay={8} h={h} bottom={30} />;
+
 // ===================== KHỐI SHORT =====================
 export type VBlock = {
   t?: string; d: number; bar?: string;
@@ -114,6 +148,9 @@ export type VBlock = {
   label?: Seg[]; labelTop?: number; labelC?: string;
   cards?: {header: string; icon: string; label: string; c?: string; dim?: boolean}[]; cardsTop?: number;
   q?: Seg[];
+  source?: {name: string; date: string};
+  evidence?: {headline: Seg[]; quote?: Seg[]; src: string}; evidenceTop?: number;
+  ahSmall?: boolean;
   pose?: string; ahCorner?: 'left' | 'right'; ahH?: number; ah?: boolean;
 };
 
@@ -127,8 +164,11 @@ const VView: React.FC<{b: VBlock}> = ({b}) => {
       {b.head && <Sfx name="pop" at={2} vol={0.2} len={10} />}
       {b.icon && <Sfx name="pop" at={6} vol={0.22} len={10} />}
       {b.cards && <Sfx name="pop" at={8} vol={0.22} len={10} />}
+      {b.evidence && <Sfx name="pop" at={8} vol={0.22} len={10} />}
       <VTopBar color={bar} /><VLogo />
+      {b.source && <VSource name={b.source.name} date={b.source.date} />}
       {b.head && <VHead segs={b.head} top={b.htop ?? SZ.top} size={b.size ?? 92} />}
+      {b.evidence && <VEvidence headline={b.evidence.headline} quote={b.evidence.quote} src={b.evidence.src} top={b.evidenceTop ?? 430} />}
       {b.icon && <VIcon icon={b.icon} top={b.iconTop ?? 470} size={b.iconSize ?? 200} />}
       {b.value != null && (
         <div style={{position: 'absolute', top: b.numTop ?? 560, left: SZ.sideL, right: SZ.sideR, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: b.numSize ?? 210, color: col(b.numColor || 'red'), lineHeight: 1}}>
@@ -143,7 +183,9 @@ const VView: React.FC<{b: VBlock}> = ({b}) => {
         </div>
       )}
       {b.label && <VLabel segs={b.label} top={b.labelTop ?? 850} c={b.labelC} />}
-      {showAH && <VAnhHai pose={b.pose || 'point'} h={b.ahH ?? 780} />}
+      {showAH && (b.ahSmall
+        ? <VAnhHaiCorner pose={b.pose || 'point'} h={b.ahH ?? 430} side={b.ahCorner ?? 'right'} />
+        : <VAnhHai pose={b.pose || 'point'} h={b.ahH ?? 780} />)}
       {b.q && <VQuestion segs={b.q} />}
     </AbsoluteFill>
   );
