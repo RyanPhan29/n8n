@@ -1,17 +1,38 @@
-SHORT "MẤT NGỦ VÌ ÔM ĐẤT" — kịch bản thu Vbee (giọng nam Bắc, đọc như kể chuyện, nghỉ nhịp giữa mỗi ý)
+SHORT/MINI "MẤT NGỦ VÌ ÔM ĐẤT" — kịch bản thu Vbee (~90–100s) — giọng nam Bắc, kể chuyện, nhấn mạnh các CON SỐ
 
-Có người ôm mấy lô đất tiền tỷ mà đêm nào cũng mất ngủ. Anh Hai kể bạn nghe vì sao.
+Bạn có biết, ôm một lô đất bằng tiền đi vay, mỗi ngày trôi qua bạn mất bao nhiêu tiền không? Anh Hai tính thật cho bạn giật mình.
 
-Thứ nhất, đất nền phân lô khi thị trường nguội thì bán cực chậm. Rao nửa năm, cả năm chưa chắc có người hỏi. Muốn ra tiền mặt gấp là phải cắt lỗ.
+Lãi vay mua bất động sản bây giờ thả nổi, có nơi lên tới mười lăm, mười sáu phần trăm một năm. Nghĩa là nếu bạn vay một tỷ để ôm đất, mỗi năm riêng tiền lãi đã khoảng một trăm năm mươi tới một trăm sáu mươi triệu. Chia ra, mỗi tháng bạn è cổ trả hơn mười ba triệu — bằng cả tháng lương của nhiều người. Mỗi sáng mở mắt, chưa làm gì đã đốt hơn bốn trăm nghìn tiền lãi.
 
-Thứ hai, đất trống nằm im, không đẻ ra đồng nào mỗi tháng. Mà nếu vay để ôm, lãi ngân hàng vẫn đếm từng ngày, ăn dần vào túi.
+Vay hai tỷ thì con số nhân đôi: hơn ba trăm triệu một năm, gần chín trăm nghìn mỗi ngày. Số tiền đó không mua thêm được mét đất nào, nó chỉ chảy thẳng vào túi ngân hàng.
 
-Thứ ba, giá trên giấy có thể đẹp, nhưng bán được thành tiền mới là tiền thật. Nhiều người giàu trên giấy mà kẹt trong ví.
+Đau hơn, đất nền phân lô lúc thị trường nguội thì bán cực chậm. Rao nửa năm, cả năm chưa chắc có khách. Cần tiền gấp là phải cắt lỗ hai, ba chục phần trăm. Một lô hai tỷ, quay đầu bán còn một tỷ tư, mất sáu trăm triệu. Cộng thêm mấy trăm triệu tiền lãi đã trả, coi như bay gần một tỷ.
 
-Không phải cứ bất động sản là ngon như nhau đâu. Tài sản khiến bạn ngủ ngon là tài sản có thanh khoản, ra được dòng tiền, và bạn không phải gồng lãi. Còn bạn, đang ôm loại đất nào — mất ngủ hay ngủ ngon? Kể Anh Hai nghe.
+Trong khi đó, cũng một tỷ ấy mà gửi tiết kiệm tầm tám tới mười phần trăm, mỗi năm bạn ngồi không cũng có tám, chín chục triệu, ngủ ngon không lo. Chênh lệch giữa ôm đất gồng lãi và giữ tiền cho khôn, có khi lên tới vài trăm triệu một năm.
+
+Anh Hai không bảo bất động sản là xấu. Chỉ là: tài sản khiến bạn ngủ ngon phải có thanh khoản, ra được dòng tiền, và không bắt bạn gồng lãi mỗi đêm. Giàu trên giấy mà mất ngủ thì chưa chắc đã giàu. Còn bạn, đang ôm loại đất nào, mất ngủ hay ngủ ngon? Kể Anh Hai nghe.
+
+Đây là chia sẻ góc nhìn, không phải lời khuyên đầu tư nha.
 
 ---
-NGUỒN/SỐ LIỆU (không đọc): Tồn kho bất động sản cả nước hơn 500 nghìn tỷ đồng; đất nền phân lô thanh khoản thấp khi thị trường trầm lắng; lãi vay thả nổi 11–15%/năm (theo báo chí BĐS 2026). Nói dạng khoảng.
-BẤT BIẾN: không phím hàng, không nêu dự án/người cụ thể, thêm disclaimer "chia sẻ góc nhìn, không phải lời khuyên đầu tư".
-SHOTLIST (6 nhịp so-sánh/điểm tin): Hook "ÔM ĐẤT TIỀN TỶ MÀ MẤT NGỦ?" → ① Thanh khoản kém (rao cả năm, cắt lỗ) → ② Không ra dòng tiền + gồng lãi (📉💸) → ③ Giàu trên giấy, nghèo trong ví → Chốt: tài sản ngủ ngon = thanh khoản + dòng tiền + không gồng lãi → CTA "Bạn ôm loại đất nào?".
-Có thể gắn THẺ BẰNG CHỨNG (template PRO) nếu trích 1 tít báo BĐS thật về tồn kho/thanh khoản đất nền.
+KIỂM SỐ (đều nói dạng KHOẢNG, có thể phòng vệ):
+- Lãi thả nổi BĐS 2026: ~11–16%/năm (lấy 15–16% cho kịch bản xấu).
+- Vay 1 tỷ × 16% = 160tr/năm ≈ 13,3tr/tháng ≈ ~438k/ngày → "hơn 400 nghìn/ngày".
+- Vay 2 tỷ × 16% = 320tr/năm ≈ ~877k/ngày → "gần 900 nghìn/ngày".
+- Cắt lỗ 30% của 2 tỷ = mất 600tr + lãi đã trả → "bay gần 1 tỷ".
+- 1 tỷ gửi tiết kiệm 8–10% = 80–100tr/năm.
+- Tồn kho BĐS cả nước >500 nghìn tỷ; đất nền thanh khoản thấp khi trầm lắng.
+BẤT BIẾN: không phím hàng, không nêu dự án/người cụ thể, có disclaimer.
+
+SHOTLIST (10 nhịp — các SỐ phải BUNG đúng lúc đọc):
+0. HOOK: "ÔM ĐẤT BẰNG TIỀN VAY — MỖI NGÀY MẤT BAO NHIÊU?" (🏞️💸)
+1. Lãi thả nổi bung số: value 16 "%/năm" (đỏ) · label "vay mua BĐS giờ có nơi 15–16%"
+2. Vay 1 tỷ → lãi/năm: value 160 " triệu/năm" · label "riêng tiền lãi, chưa tính gốc"
+3. Quy ra ngày: value 400 " nghìn/NGÀY" · label "mở mắt chưa làm gì đã mất" (pose shock)
+4. Vay 2 tỷ: value 900 " nghìn/ngày" · label "gần 1 triệu/ngày chảy vào ngân hàng"
+5. Đất nền ế: icon 🏜️ · label "rao nửa năm–1 năm chưa có khách"
+6. Cắt lỗ: value 600 " triệu" · label "lô 2 tỷ bán còn 1,4 tỷ · +lãi = bay gần 1 tỷ" (đỏ)
+7. Đối chiếu: value 90 " triệu/năm" (teal) · label "1 tỷ gửi tiết kiệm, ngồi không vẫn có"
+8. Chốt 2 thẻ VS: [ÔM ĐẤT 😰 gồng lãi, kẹt] vs [DÒNG TIỀN 😴 thanh khoản, ngủ ngon]
+9. CTA: "Giàu trên giấy mà mất ngủ?" q "Bạn ôm loại đất nào?"
+Gợi ý: gắn THẺ BẰNG CHỨNG (template PRO) nếu trích 1 tít báo về tồn kho/đất nền ế.
