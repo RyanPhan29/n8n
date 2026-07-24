@@ -135,6 +135,12 @@ const VEvidence: React.FC<{headline: Seg[]; quote?: Seg[]; src: string; top?: nu
   );
 };
 
+// Số TĨNH — hiện bung nhẹ (pop), KHÔNG đếm chạy (đỡ nhức mắt khi nhiều cảnh có số)
+const StaticNum: React.FC<{to: number; suffix?: string; decimals?: number}> = ({to, suffix = '', decimals = 0}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 6);
+  return <span style={{display: 'inline-block', transform: `scale(${s})`}}>{to.toFixed(decimals)}{suffix}</span>;
+};
+
 // Anh Hai nhỏ, nép GÓC PHẢI DƯỚI — không đè nội dung (dùng cho layout tin/thẻ bằng chứng)
 const VAnhHaiCorner: React.FC<{pose: string; h?: number; side?: 'left' | 'right'}> = ({pose, h = 430, side = 'right'}) =>
   <AnhHai pose={pose} x={side === 'right' ? 720 : 40} y={0} delay={8} h={h} bottom={30} />;
@@ -144,7 +150,7 @@ export type VBlock = {
   t?: string; d: number; bar?: string;
   head?: Seg[]; size?: number; htop?: number;
   icon?: string; iconTop?: number; iconSize?: number;
-  value?: number; suffix?: string; decimals?: number; numColor?: string; numTop?: number; numSize?: number;
+  value?: number; suffix?: string; decimals?: number; numColor?: string; numTop?: number; numSize?: number; staticNum?: boolean;
   label?: Seg[]; labelTop?: number; labelC?: string;
   cards?: {header: string; icon: string; label: string; c?: string; dim?: boolean}[]; cardsTop?: number;
   q?: Seg[];
@@ -160,11 +166,11 @@ const VView: React.FC<{b: VBlock}> = ({b}) => {
   return (
     <AbsoluteFill>
       {/* SFX: whoosh mỗi cảnh + pop tiêu đề/icon/card (số có ticker/ding từ Counter) */}
-      <Sfx name="whoosh" at={0} vol={0.16} len={14} />
-      {b.head && <Sfx name="pop" at={2} vol={0.2} len={10} />}
-      {b.icon && <Sfx name="pop" at={6} vol={0.22} len={10} />}
-      {b.cards && <Sfx name="pop" at={8} vol={0.22} len={10} />}
-      {b.evidence && <Sfx name="pop" at={8} vol={0.22} len={10} />}
+      <Sfx name="whoosh" at={0} vol={0.09} len={14} />
+      {b.head && <Sfx name="pop" at={2} vol={0.11} len={10} />}
+      {b.icon && <Sfx name="pop" at={6} vol={0.12} len={10} />}
+      {b.cards && <Sfx name="pop" at={8} vol={0.12} len={10} />}
+      {b.evidence && <Sfx name="pop" at={8} vol={0.12} len={10} />}
       <VTopBar color={bar} /><VLogo />
       {b.source && <VSource name={b.source.name} date={b.source.date} />}
       {b.head && <VHead segs={b.head} top={b.htop ?? SZ.top} size={b.size ?? 92} />}
@@ -172,7 +178,9 @@ const VView: React.FC<{b: VBlock}> = ({b}) => {
       {b.icon && <VIcon icon={b.icon} top={b.iconTop ?? 470} size={b.iconSize ?? 200} />}
       {b.value != null && (
         <div style={{position: 'absolute', top: b.numTop ?? 560, left: SZ.sideL, right: SZ.sideR, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: b.numSize ?? 210, color: col(b.numColor || 'red'), lineHeight: 1}}>
-          <Counter to={b.value} suffix={b.suffix ?? ''} delay={8} dur={44} decimals={b.decimals ?? 0} />
+          {b.staticNum
+            ? <StaticNum to={b.value} suffix={b.suffix ?? ''} decimals={b.decimals ?? 0} />
+            : <Counter to={b.value} suffix={b.suffix ?? ''} delay={8} dur={44} decimals={b.decimals ?? 0} />}
         </div>
       )}
       {b.cards && (
