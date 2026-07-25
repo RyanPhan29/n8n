@@ -98,3 +98,21 @@ Giải thích & bóc tách chuyện tiền cho người Việt trẻ mới đi l
 3. Duy trì **Điểm tin hằng ngày** (template PRO).
 4. Lên **1 BĐS long-form/tuần** làm flagship YouTube.
 5. Chuẩn hóa **playlist + mô tả + keyword** theo mục 6.
+
+## 9) PHƯƠNG ÁN B — ĐỂ DÀNH (chưa chạy)
+
+### 9.1 B chính — AUDIT ĐỐI THỦ **ĐỊNH LƯỢNG** (YouTube Data API)
+> Bối cảnh 24/7: đã chạy **A = audit định tính** (~80% giá trị chiến lược, không cần setup — ra `DOITHU_AUDIT.md`). **B để dành** là phần định lượng còn lại, cần API key nên gác lại chờ anh ngồi máy tính.
+- **Mục tiêu:** kéo **số thật** từ kênh đối thủ → view/từng video, ngày đăng, nhịp đăng, engagement, chủ đề nào bùng → dựng **báo cáo audit + dashboard định lượng** (em tự làm phân tích + đồ họa, KHÔNG cần skill riêng).
+- **Anh cần làm (5 bước, ~5 phút TRÊN MÁY TÍNH — mobile khó):**
+  1. Vào **Google Cloud Console** → tạo project.
+  2. Bật **YouTube Data API v3**.
+  3. Tạo **API key**.
+  4. **Giới hạn key CHỈ cho YouTube Data API v3** (bảo mật — key chỉ đọc dữ liệu công khai).
+  5. Dán key cho em → em chạy bản định lượng đầy đủ → **xóa key sau khi dùng** cho an tâm.
+- **Trạng thái:** ⏸️ chờ anh ngồi máy tính. Khi có key, nhắc em "chạy B".
+
+### 9.2 B phụ — **SKIN TỐI** để dành làm **KÊNH 2**
+- Nền đen lưới + chữ vàng kinetic (style @taphoakinhte). Proto đang ở scratchpad.
+- **Không trộn vào kênh 1** (Anh Hai cartoon) — giữ làm nhận diện riêng cho **kênh thứ 2** sau này.
+- **Trạng thái:** ⏸️ để dành, chưa mở kênh 2.
