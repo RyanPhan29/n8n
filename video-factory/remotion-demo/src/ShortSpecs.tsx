@@ -30,30 +30,71 @@ export const SHORT_LK1: ShortSpec = {
 
 // KIMCUONG "Vì sao kim cương khó bán lại" — bắt sóng vụ buôn lậu kim cương 2026 (4 cảnh, ~32s)
 // d tạm (ước lượng) — auto-time lại khi có Vbee.
+// PRO Điểm tin/Bóc bẫy — "Khủng hoảng kim cương · cam kết mua lại" (nguồn Znews 24/7). Timed từ kimcuong.mp3 (69.29s / 12 nhịp).
 export const SHORT_KIMCUONG: ShortSpec = {
   slug: 'ShortKimCuong',
   scenes: [
-    // 1) HOOK — thời sự
-    {d: 285, bar: 'red', pose: 'shock', ahCorner: 'right',
-      head: ['Tiệm kim cương bị bắt — ', {t: 'đá của bạn bán ở đâu?', c: 'red'}],
-      icon: '💎  ➡️  ❓', iconTop: 560, iconSize: 150},
-    // 2) SỐ — mức lỗ khi bán lại
-    {d: 399, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
-      head: ['Bán lại thường ', {t: 'LỖ tới', c: 'red'}], size: 74,
-      value: 70, suffix: '%', numColor: 'red', numTop: 560, numSize: 170,
-      label: ['Vì kim cương ', {t: 'KHÔNG có giá chung', c: 'red'}, ' 💔'], labelTop: 820, labelC: 'red'},
-    // 3) ĐIỂM — vàng vs kim cương (thanh khoản)
-    {d: 330, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
-      head: ['Vàng thì ', {t: 'KHÁC HẲN', c: 'teal'}], size: 80,
-      cards: [
-        {header: 'VÀNG', icon: '🥇', label: 'Giá chung · bán ngay', c: 'teal'},
-        {header: 'KIM CƯƠNG', icon: '💎', label: 'Mỗi viên 1 giá · kẹt', c: 'gray', dim: true},
-      ], cardsTop: 440},
-    // 4) CÂU HỎI
-    {d: 130, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
-      head: ['Còn bạn?'], size: 90,
-      icon: '🤔💭', iconTop: 520, iconSize: 150,
-      q: ['Từng mua kim cương để ', {t: 'đầu tư chưa?', c: 'gold'}]},
+    // 0) INTRO (2.10s)
+    {d: 63, bar: 'navy', pose: 'present', ahH: 600,
+      source: {name: 'Znews', date: '24/7/2026'},
+      head: ['ĐIỂM TIN ', {t: 'TIỀN BẠC', c: 'gold'}], size: 78,
+      icon: '💎  📊', iconTop: 560, iconSize: 150},
+    // 1) HOOK (3.28s)
+    {d: 98, bar: 'red', pose: 'shock', ahH: 600,
+      source: {name: 'Znews', date: '24/7/2026'},
+      head: ['Nhiều người ôm kim cương ', {t: 'MẤT NGỦ', c: 'red'}], size: 60,
+      icon: '💎  😰', iconTop: 580, iconSize: 160},
+    // 2) THẺ BẰNG CHỨNG (7.18s)
+    {d: 215, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'Znews', date: '24/7/2026'},
+      evidence: {
+        headline: ['Cửa hàng kim cương đột ngột\nđóng cửa, khách có được khởi kiện?'],
+        quote: ['“Khủng hoảng chưa từng có”'],
+        src: 'Znews · Tạp chí Tri Thức · 24/7'},
+      evidenceTop: 300},
+    // 3) ĐÓNG CỬA · phá sản · dừng thu mua (7.37s)
+    {d: 221, bar: 'red', pose: 'worried', ahH: 600,
+      head: ['Hàng loạt tiệm đóng cửa · phá sản'], size: 58,
+      value: 25, suffix: '%', staticNum: true, numColor: 'red', numTop: 540, numSize: 170,
+      label: ['Bán lại giảm 15–25% · lan Đồng Tháp, Cần Thơ'], labelTop: 850, labelC: 'red'},
+    // 4) KHÁCH BƠ VƠ (4.34s)
+    {d: 130, bar: 'red', pose: 'broke', ahH: 600,
+      head: ['Có khách ôm hàng'], size: 62,
+      value: 1.5, suffix: ' tỷ', decimals: 1, staticNum: true, numColor: 'red', numTop: 540, numSize: 180,
+      label: ['Gọi hotline mà không ai bắt máy'], labelTop: 850, labelC: 'red'},
+    // 5) VÌ SAO — cam kết mua lại (8.04s)
+    {d: 241, bar: 'amber', pose: 'think', ahH: 600,
+      head: ['Vì sao? Cam kết ', {t: '“mua lại sau vài tháng”', c: 'amber'}], size: 56,
+      icon: '🤝  ❓', iconTop: 500, iconSize: 160,
+      label: ['…nghe như một khoản đầu tư chắc ăn'], labelTop: 790, labelC: 'amber'},
+    // 6) BẢN CHẤT — huy động vốn (7.44s)
+    {d: 223, bar: 'red', pose: 'sly', ahH: 600,
+      head: ['Luật sư: bản chất gần như ', {t: 'HUY ĐỘNG VỐN', c: 'red'}], size: 56,
+      icon: '💸', iconTop: 500, iconSize: 170,
+      label: ['Khách = chủ nợ · tin vào lời hứa thu hồi'], labelTop: 790, labelC: 'red'},
+    // 7) BANK RUN (5.98s)
+    {d: 179, bar: 'red', pose: 'shock', ahH: 600,
+      head: ['Cả loạt đòi bán lại cùng lúc'], size: 60,
+      icon: '🏦  💥', iconTop: 500, iconSize: 170,
+      label: ['= một cuộc RÚT TIỀN Ồ ẠT (bank run)'], labelTop: 790, labelC: 'red'},
+    // 8) KHÔNG bảo hiểm (5.54s)
+    {d: 166, bar: 'red', pose: 'warning', ahH: 620,
+      head: ['Chỉ khác: ', {t: 'KHÔNG có bảo hiểm', c: 'red'}], size: 60,
+      icon: '🛡️  ❌', iconTop: 500, iconSize: 170,
+      label: ['Không như tiền gửi ngân hàng'], labelTop: 790, labelC: 'red'},
+    // 9) ĐỌC VỊ (4.54s)
+    {d: 136, bar: 'blue', pose: 'point', ahH: 640,
+      head: ['👁 Anh Hai đọc vị:'], size: 62,
+      label: ['Cam kết mua lại/lợi nhuận không ai bảo chứng → ', {t: 'DÈ CHỪNG', c: 'blue'}], labelTop: 820, labelC: 'blue'},
+    // 10) KHUYÊN — lỡ đang ôm (7.5s)
+    {d: 225, bar: 'teal', pose: 'cool', ahH: 620,
+      head: ['Lỡ đang ôm?'], size: 72,
+      icon: '🧘', iconTop: 480, iconSize: 160,
+      label: ['Chuyên gia: giữ bình tĩnh, đừng bán tháo (giá bị ép thấp)'], labelTop: 780, labelC: 'teal'},
+    // 11) CTA (6.07s)
+    {d: 182, bar: 'navy', pose: 'point', ahH: 700,
+      head: ['Bạn nghĩ sao về vụ này?'], size: 68,
+      q: ['Từng nghe ', {t: '“cam kết mua lại”', c: 'gold'}, ' chưa?']},
   ],
 };
 
