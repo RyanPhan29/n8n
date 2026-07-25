@@ -1309,4 +1309,50 @@ export const SHORT_ANHTUAN: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ĐIỂM TIN SJC (nguồn Znews) — thu sjc.mp3 (51.26s) · 9 nhịp PRO · thẻ bằng chứng
+// cut(s): 1.76|7.85|13.53|22.36|29.88|35.80|41.75|45.42|51.26
+export const SHORT_SJC: ShortSpec = {
+  slug: 'ShortSJC',
+  scenes: [
+    {d: 53, bar: 'navy', pose: 'present', ahH: 600,
+      source: {name: 'Znews', date: '25/7/2026'},
+      head: ['ĐIỂM TIN ', {t: 'TIỀN BẠC', c: 'gold'}], size: 78,
+      icon: '🥇  📊', iconTop: 560, iconSize: 150},
+    {d: 183, bar: 'red', pose: 'shock', ahH: 600,
+      source: {name: 'Znews', date: '25/7/2026'},
+      head: ['Hãng vàng SJC — mỗi ngày lãi'], size: 58,
+      value: 1, suffix: ' TỶ/NGÀY', staticNum: true, numColor: 'red', numTop: 540, numSize: 170,
+      label: ['Năm 2025 · mức kỷ lục'], labelTop: 850, labelC: 'red'},
+    {d: 170, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'Znews', date: '25/7/2026'},
+      evidence: {
+        headline: ['SJC kinh doanh ra sao\ntrong hơn một thập kỷ qua?'],
+        quote: ['“Mỗi ngày lãi hơn 1 tỷ đồng”'],
+        src: 'Znews · Tạp chí Tri Thức'},
+      evidenceTop: 300},
+    {d: 265, bar: 'amber', pose: 'worried', ahH: 600,
+      head: ['Lạ đời: cả thập kỷ lãi mỏng dính'], size: 56,
+      value: 88, suffix: ' tỷ', staticNum: true, numColor: 'amber', numTop: 540, numSize: 180,
+      label: ['2023: doanh thu >28.000 tỷ · giá vốn ăn 99%'], labelTop: 850, labelC: 'amber'},
+    {d: 226, bar: 'teal', pose: 'aha', ahH: 600,
+      head: ['Bước ngoặt 2024 → lãi'], size: 60,
+      value: 283, suffix: ' tỷ', staticNum: true, numColor: 'teal', numTop: 540, numSize: 180,
+      label: ['Gấp 4 lần · giữa cơn vàng 21 lần lập đỉnh'], labelTop: 850, labelC: 'teal'},
+    {d: 178, bar: 'red', pose: 'shock', ahH: 600,
+      head: ['2025 — lãi ròng kỷ lục'], size: 60,
+      value: 426, suffix: ' tỷ', numColor: 'red', numTop: 540, numSize: 180,
+      label: ['≈ hơn 1 tỷ/ngày · dù doanh thu giảm hơn nửa'], labelTop: 850, labelC: 'red'},
+    {d: 178, bar: 'blue', pose: 'think', ahH: 600,
+      head: ['👁 Anh Hai đọc vị:', {t: '\nvàng càng nhảy múa…', c: 'blue'}], size: 60,
+      icon: '🥇  📈📉', iconTop: 560, iconSize: 130,
+      label: ['…chênh mua–bán càng giãn rộng'], labelTop: 850, labelC: 'blue'},
+    {d: 110, bar: 'red', pose: 'sly', ahH: 620,
+      head: ['Khoảng chênh đó', {t: '\n= CHI PHÍ của bạn', c: 'red'}], size: 60,
+      icon: '💸', iconTop: 560, iconSize: 180},
+    {d: 175, bar: 'navy', pose: 'point', ahH: 700,
+      head: ['Lần tới mua vàng, nhìn kỹ khoảng chênh'], size: 52,
+      q: ['Ai đang hưởng ', {t: 'khoản chênh đó?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
