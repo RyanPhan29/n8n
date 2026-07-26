@@ -1396,4 +1396,83 @@ export const SHORT_SJC: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// LAISUAT-A "Kỳ vọng vs thực tế" — lãi mua nhà 2026 (VnExpress 26/7). Timed từ Vbee 24.4s / neo lặng 3.66|8.88|16.90|20.62.
+export const SHORT_LAISUAT_A: ShortSpec = {
+  slug: 'ShortLaiSuatA',
+  scenes: [
+    // 0) HOOK 0→3.66
+    {d: 110, bar: 'navy', pose: 'worried', ahCorner: 'right', ahH: 600,
+      head: ['Vì sao nhà thì nhiều', {t: '\nmà người cần vẫn chưa mua?', c: 'red'}], size: 58,
+      icon: '🏠  ❓', iconTop: 560, iconSize: 150},
+    // 1) THẺ BẰNG CHỨNG 3.66→8.88
+    {d: 157, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'VnExpress', date: '26/7/2026'},
+      evidence: {
+        headline: ['Mức lãi suất nào khiến\nngười mua nhà chịu vay?'],
+        quote: ['“Hơn 80% chỉ vay khi lãi dưới 9%”'],
+        src: 'VnExpress · khảo sát PropertyGuru · 26/7'},
+      evidenceTop: 300},
+    // 2) CARD SO SÁNH (hero) 8.88→16.90
+    {d: 241, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+      head: ['Kỳ vọng vs thực tế'], size: 82,
+      cards: [
+        {header: 'DÂN MUỐN', icon: '🙏', label: 'Lãi dưới 9%', c: 'teal', dim: true},
+        {header: 'THỰC TẾ', icon: '🥵', label: '12–14%', c: 'red'},
+      ], cardsTop: 440},
+    // 3) NHẤN ≥11% → dừng 16.90→20.62
+    {d: 112, bar: 'red', pose: 'shock', ahH: 600,
+      head: ['Ai cũng dừng ở ngưỡng'], size: 64,
+      value: 11, suffix: '%', staticNum: true, numColor: 'red', numTop: 520, numSize: 180,
+      label: ['Kẹt ở tiền vay quá đắt'], labelTop: 840, labelC: 'red'},
+    // 4) CÂU HỎI 20.62→24.40
+    {d: 112, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['Còn nhà mình?'], size: 88,
+      icon: '🤔💭', iconTop: 520, iconSize: 150,
+      q: ['Lãi xuống bao nhiêu bạn ', {t: 'mới dám vay mua nhà?', c: 'gold'}]},
+  ],
+};
+
+// LAISUAT-B "Bóc bài toán 30 triệu" — lãi mua nhà 2026 (VnExpress 26/7). Timed từ Vbee 29.1s / neo lặng 3.43|7.97|13.29|22.76|25.64.
+export const SHORT_LAISUAT_B: ShortSpec = {
+  slug: 'ShortLaiSuatB',
+  scenes: [
+    // 0) HOOK 0→3.43
+    {d: 103, bar: 'blue', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Lương ', {t: '30 triệu', c: 'blue'}, '/tháng\n= mua được nhà?'], size: 62,
+      icon: '🏠  💸  ❓', iconTop: 560, iconSize: 140},
+    // 1) THẺ BẰNG CHỨNG 3.43→7.97
+    {d: 136, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'VnExpress', date: '26/7/2026'},
+      evidence: {
+        headline: ['Cần dành bao nhiêu thu nhập\nđể trả nợ mua nhà?'],
+        quote: ['“An toàn: chỉ 20–40% thu nhập”'],
+        src: 'VnExpress · chuyên gia Lê Quốc Kiên'},
+      evidenceTop: 300},
+    // 2) SETUP an toàn 20–40% @ 8–10% · 7.97→13.29
+    {d: 160, bar: 'teal', pose: 'present', ahH: 600,
+      head: ['Trả nợ an toàn = ', {t: '20–40% lương', c: 'teal'}], size: 58,
+      icon: '🧮', iconTop: 560, iconSize: 170,
+      label: ['Tính với lãi 8–10%/năm'], labelTop: 850, labelC: 'teal'},
+    // 3) SỐ: vay nổi ~1,2 tỷ · 13.29→17.8
+    {d: 135, bar: 'blue', pose: 'think', ahH: 600,
+      head: ['Bạn chỉ vay nổi tối đa'], size: 62,
+      value: 1, suffix: '–1,2 tỷ', staticNum: true, numColor: 'blue', numTop: 540, numSize: 150,
+      label: ['Trong 20 năm'], labelTop: 850, labelC: 'blue'},
+    // 4) TWIST: phải có sẵn ~60% giá nhà · 17.8→22.76
+    {d: 149, bar: 'red', pose: 'shock', ahH: 600,
+      head: ['Nghĩa là phải CÓ SẴN'], size: 62,
+      value: 60, suffix: '%', staticNum: true, numColor: 'red', numTop: 540, numSize: 190,
+      label: ['…giá căn nhà, trong túi!'], labelTop: 850, labelC: 'red'},
+    // 5) Liều vay 50% → gánh 50–60% lương · 22.76→25.64
+    {d: 86, bar: 'red', pose: 'broke', ahH: 600,
+      head: ['Liều vay một nửa?'], size: 62,
+      value: 60, suffix: '%', staticNum: true, numColor: 'red', numTop: 540, numSize: 180,
+      label: ['Trả nợ ngốn 50–60% lương'], labelTop: 850, labelC: 'red'},
+    // 6) CHỐT + CÂU HỎI 25.64→29.14
+    {d: 105, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['Rào cản là ', {t: 'TIỀN LÃI', c: 'red'}], size: 64,
+      q: ['Bạn dám vay bao nhiêu % ', {t: 'giá căn nhà?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
