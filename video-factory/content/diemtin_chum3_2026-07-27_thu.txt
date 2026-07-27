@@ -1,0 +1,51 @@
+CHÙM 3 SHORT ĐIỂM TIN — 27/7/2026
+Ghi chú thu Vbee: CHỈ đọc phần trong ngoặc « ». Header/shotlist/nguồn KHÔNG đọc.
+Giọng nam Bắc, kể chuyện thân mật. Số nói dạng khoảng. Mỗi bài kết bằng CÂU HỎI.
+
+════════════════════════════════════════════
+SHORT 1 — BẪY "CHO MƯỢN/BÁN TÀI KHOẢN NGÂN HÀNG" (Bóc bẫy) · ~30s
+Nguồn: Nghị định 340/2025/NĐ-CP (hiệu lực 09/02/2026) · VnExpress · Thanh Niên · CafeF · Tuổi Trẻ (truy cập 27/7/2026)
+Số phạt cá nhân 100–150tr (1–<10 TK), 150–200tr (≥10 TK); tổ chức gấp đôi; nặng: Điều 291 BLHS tù tới 7 năm.
+════════════════════════════════════════════
+
+VBEE:
+«Bán một cái tài khoản ngân hàng lấy vài trăm ngàn, mà dính phạt tới hai trăm triệu đồng đó nhà mình. Kể Anh Hai nghe nè. Từ đầu tháng Hai năm nay, có quy định mới hẳn hoi: ai mà đem tài khoản ngân hàng của mình đi bán, cho thuê, hay cho người lạ mượn để nhận tiền giùm, là bị phạt từ khoảng một trăm tới một trăm năm chục triệu. Mượn cho nhiều tài khoản thì lên tới hai trăm triệu, mà tổ chức làm bậy thì gấp đôi luôn. Nghe hai trăm ngàn tiền công thấy ngon, nhưng mấy tài khoản đó thường bị tụi lừa đảo dùng để chuyển tiền bẩn, rồi tên mình đứng ra chịu. Nặng hơn là dính hình sự, đi tù như chơi. Anh Hai dặn thiệt: tài khoản với căn cước là của riêng mình, đừng cho ai mượn, đừng bán cho ai hết. Còn nhà mình, có ai từng được rủ "cho mượn tài khoản lấy tiền công" chưa, kể Anh Hai nghe với?»
+
+SHOTLIST (9:16, card/số to giữa, Anh Hai giữa đáy):
+1. HOOK 0–3s: card đỏ "200 TRIỆU" + nhỏ "chỉ vì bán 1 tài khoản?!" — pose shock 😱
+2. QUY ĐỊNH 3–12s: badge "TỪ 09/02/2026" + "Bán·Cho thuê·Cho mượn TK → 100–150tr" 🏦 — pose point
+3. NÂNG MỨC 12–20s: bậc thang "≥10 TK → 150–200tr" · "Tổ chức → GẤP ĐÔI" — pose think
+4. CẢNH BÁO 20–27s: nền tối, còng tay ⛓️ "Nặng hơn: tù tới 7 năm" + "TK dùng chuyển tiền bẩn" — pose worried
+5. LỜI KHUYÊN + HỎI 27–30s: teal, khiên 🛡️ "TK & CCCD = của riêng, ĐỪNG cho mượn" + "Bạn từng bị rủ chưa?" — pose point
+
+════════════════════════════════════════════
+SHORT 2 — BẪY "ĐÓNG PHÍ TRƯỚC / ĐỌC OTP" MẠO DANH NGÂN HÀNG (Bóc bẫy) · ~30s
+Nguồn: cảnh báo Vietcombank (T7/2026, CafeF) · Bộ Công an (nâng hạn mức thẻ) · Tuổi Trẻ · báo cáo NCA (thiệt hại >6.000 tỷ/2025)
+LƯU Ý DỰNG: KHÔNG hiện số điện thoại thật/logo ngân hàng thật (blur) — thông điệp là NGUYÊN TẮC.
+════════════════════════════════════════════
+
+VBEE:
+«Có ai vừa nhận cuộc gọi kiểu này chưa: "Chúc mừng anh chị đủ điều kiện nâng hạn mức thẻ, chỉ cần đóng trước một khoản phí nhỏ là giải ngân liền"? Khoan đã, để Anh Hai kể nhà mình nghe. Vietcombank tháng vừa rồi phải công khai hẳn bốn số điện thoại lừa đảo, vì bọn nó dựng tổng đài y như thật, mời mở thẻ, mời nâng hạn mức, rồi dụ mình chuyển tiền hoặc đọc mã. Bộ Công an cũng cảnh báo chiêu y hệt: gọi điện nâng hạn mức thẻ tín dụng, gửi cái link ngân hàng giả, xin số thẻ với mã OTP, chỉ vài phút là hạn mức bay sạch. Riêng năm ngoái, người Việt mình mất hơn sáu nghìn tỷ đồng vì mấy trò này đó. Nên nhớ một câu thôi, khắc vào đầu luôn: ngân hàng thật không bao giờ bắt mình đóng phí trước, và không bao giờ hỏi mã OTP. Nghe hai chữ "phí trước" hay "đọc mã", là cúp máy. Còn nhà mình, đã có ai bị gọi kiểu này chưa, số lạ hay số giống hotline, kể Anh Hai nghe với?»
+
+SHOTLIST (9:16):
+1. HOOK 0–4s: bong bóng gọi đến + đỏ to "ĐÓNG PHÍ TRƯỚC LÀ GIẢI NGÂN" ⚠️ — pose nghi ngờ 🤨
+2. BẰNG CHỨNG 4–12s: thẻ navy "NGÂN HÀNG cảnh báo" + "4 SỐ GIẢ MẠO" (blur số) tag "T7/2026" — pose point
+3. CHIÊU LẤY OTP 12–20s: link web giả + ô "OTP/CVV" nhấp nháy "XIN OTP = LỪA" ❌ — pose chặn ✋
+4. SỐ ĐAU 20–25s: ">6.000 TỶ" đỏ to, nhỏ "mất vì lừa đảo online · 2025" — pose shock 😱
+5. QUY TẮC + HỎI 25–30s: teal "KHÔNG phí trước · KHÔNG đọc OTP" + "Nhà mình bị gọi kiểu này chưa?" — pose point 👇
+
+════════════════════════════════════════════
+SHORT 3 — VÀNG SJC LẠI NHẢY (bình tĩnh, đừng đu đỉnh) · ~30s
+Nguồn: VnExpress · Thanh Niên · CafeF (27/7/2026). SJC mua ~139 – bán ~143tr (+~1,5tr/lượng); chênh mua–bán ~3–4tr; mấy hôm trước rơi 7–8tr; thế giới ~4.100 USD/oz.
+KHÔNG khuyên mua/bán · KHÔNG phím hàng.
+════════════════════════════════════════════
+
+VBEE:
+«Vàng hôm nay lại nhảy dựng, nhà mình có đang sốt ruột muốn ôm vào không? Khoan đã, Anh Hai kể nghe. Sáng nay vàng miếng SJC vọt thêm khoảng một triệu rưỡi một lượng, mua vào tầm một trăm ba chín, bán ra một trăm bốn ba triệu. Mà lạ à nha: mới mấy hôm trước nó còn rơi bảy tám triệu một lượng, giờ lại bật lên, lên xuống như tàu lượn vậy đó. Có một con số ít người để ý: chênh giữa giá mua với giá bán đang tầm ba tới bốn triệu một lượng. Nghĩa là mua xong quay đầu bán liền là mất luôn khoản đó, chưa cần giá giảm. Anh Hai không xúi mua hay bán gì hết, chỉ nhắc một câu: đừng thấy vàng tăng là chạy theo đám đông, mua vì kỳ vọng rồi bán vì sợ hãi. Còn nhà mình, đang giữ vàng chờ lên hay đứng ngoài nhìn cho lành, kể Anh Hai nghe?»
+
+SHOTLIST (9:16):
+1. HOOK 0–4s: "Vàng lại NHẢY DỰNG" 🥇📈 — pose sốt ruột/greedy
+2. GIÁ 4–11s: card "SJC mua 139 – bán 143" + "+1,5 triệu/lượng" — pose present
+3. TÀU LƯỢN 11–18s: "Mấy hôm trước rơi 7–8 triệu → nay bật lên" 🎢 — pose chóng mặt/worried
+4. CHÊNH MUA–BÁN (twist) 18–25s: đỏ to "3–4 triệu" + "mua xong bán liền = mất luôn" — pose broke
+5. CHỐT + HỎI 25–32s: navy "Mua vì kỳ vọng, bán vì sợ hãi" + "Giữ vàng chờ lên hay đứng ngoài?" — pose point
