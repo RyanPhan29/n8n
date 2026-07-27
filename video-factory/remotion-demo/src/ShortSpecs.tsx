@@ -1475,4 +1475,85 @@ export const SHORT_LAISUAT_B: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// TAIKHOAN "Bẫy cho mượn/bán tài khoản NH" — NĐ340/2025 (VnExpress/TN/CafeF). Vbee 24.94s / neo 4.30|11.62|17.38|19.69.
+export const SHORT_TAIKHOAN: ShortSpec = {
+  slug: 'ShortTaiKhoan',
+  scenes: [
+    {d: 129, bar: 'red', pose: 'shock', ahH: 600,
+      head: ['Bán 1 tài khoản, dính phạt'], size: 60,
+      value: 200, suffix: ' triệu', staticNum: true, numColor: 'red', numTop: 540, numSize: 180,
+      label: ['Chỉ vì vài trăm ngàn tiền công'], labelTop: 850, labelC: 'red'},
+    {d: 220, bar: 'navy', pose: 'point', ahH: 600,
+      source: {name: 'Nghị định 340/2025', date: 'HL 09/02/2026'},
+      head: ['Bán · cho thuê · cho mượn TK'], size: 54,
+      value: 100, suffix: '–150 tr', staticNum: true, numColor: 'red', numTop: 540, numSize: 150,
+      label: ['Phạt cá nhân · từ 09/02/2026'], labelTop: 850, labelC: 'navy'},
+    {d: 173, bar: 'red', pose: 'worried', ahH: 600,
+      head: ['Mượn nhiều tài khoản?'], size: 60,
+      value: 200, suffix: ' triệu', staticNum: true, numColor: 'red', numTop: 540, numSize: 180,
+      label: ['≥10 TK · tổ chức thì GẤP ĐÔI'], labelTop: 850, labelC: 'red'},
+    {d: 69, bar: 'red', pose: 'shock', ahH: 600,
+      head: ['Nặng hơn: dính hình sự'], size: 58,
+      icon: '⛓️', iconTop: 540, iconSize: 180,
+      label: ['Đi tù như chơi'], labelTop: 850, labelC: 'red'},
+    {d: 158, bar: 'teal', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['TK & CCCD = của riêng mình'], size: 54,
+      q: ['Bạn từng được rủ ', {t: '"cho mượn TK" chưa?', c: 'gold'}]},
+  ],
+};
+
+// BAYPHI "Bẫy đóng phí trước / đọc OTP" — VCB + Bộ Công an. Vbee 24.48s / neo 5.50|13.78|18.52|21.97.
+export const SHORT_BAYPHI: ShortSpec = {
+  slug: 'ShortBayPhi',
+  scenes: [
+    {d: 165, bar: 'red', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['"Đóng phí trước là', {t: '\ngiải ngân liền"?', c: 'red'}], size: 58,
+      icon: '📞  ⚠️', iconTop: 580, iconSize: 150},
+    {d: 248, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'Vietcombank', date: 'T7/2026'},
+      evidence: {
+        headline: ['Ngân hàng cảnh báo\n4 số điện thoại giả mạo'],
+        quote: ['“Dựng tổng đài y như thật”'],
+        src: 'Vietcombank · cảnh báo T7/2026'},
+      evidenceTop: 300},
+    {d: 142, bar: 'red', pose: 'shock', ahH: 600,
+      head: ['Xin số thẻ + mã OTP'], size: 62,
+      icon: '🔗  🔓', iconTop: 560, iconSize: 150,
+      label: ['Vài phút, hạn mức bay sạch'], labelTop: 850, labelC: 'red'},
+    {d: 104, bar: 'red', pose: 'broke', ahH: 600,
+      head: ['Năm ngoái mất HƠN'], size: 60,
+      value: 6, suffix: ' nghìn tỷ', staticNum: true, numColor: 'red', numTop: 540, numSize: 140,
+      label: ['…vì lừa đảo online (2025)'], labelTop: 850, labelC: 'red'},
+    {d: 75, bar: 'teal', pose: 'point', ahCorner: 'right', ahH: 640,
+      head: ['NH không đòi phí trước', {t: '\n· không hỏi OTP', c: 'teal'}], size: 50,
+      q: ['Nhà mình bị gọi kiểu này ', {t: 'chưa?', c: 'gold'}]},
+  ],
+};
+
+// VANG "SJC lại nhảy, đừng đu đỉnh" — VnExpress/TN 27/7. Vbee 25.08s / neo 4.97|11.27|16.90|21.80.
+export const SHORT_VANG2: ShortSpec = {
+  slug: 'ShortVang2',
+  scenes: [
+    {d: 149, bar: 'gold', pose: 'greedy', ahCorner: 'right', ahH: 600,
+      head: ['Vàng lại ', {t: 'NHẢY DỰNG', c: 'red'}, '\nsốt ruột ôm vào?'], size: 54,
+      icon: '🥇  📈', iconTop: 580, iconSize: 150},
+    {d: 189, bar: 'red', pose: 'shock', ahH: 600,
+      source: {name: 'VnExpress', date: '27/7/2026'},
+      head: ['Sáng nay SJC vọt ~1,5 triệu'], size: 54,
+      value: 143, suffix: ' triệu', staticNum: true, numColor: 'red', numTop: 540, numSize: 170,
+      label: ['Mua 139 – bán 143 / lượng'], labelTop: 850, labelC: 'red'},
+    {d: 169, bar: 'amber', pose: 'worried', ahH: 600,
+      head: ['Trước còn rơi 7–8 triệu'], size: 60,
+      icon: '🎢', iconTop: 540, iconSize: 180,
+      label: ['Lên xuống như tàu lượn'], labelTop: 850, labelC: 'amber'},
+    {d: 147, bar: 'red', pose: 'broke', ahH: 600,
+      head: ['Con số ít ai để ý'], size: 60,
+      value: 3, suffix: '–4 triệu', staticNum: true, numColor: 'red', numTop: 540, numSize: 150,
+      label: ['Chênh mua–bán · bán liền là mất'], labelTop: 850, labelC: 'red'},
+    {d: 98, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['Mua vì kỳ vọng,', {t: '\nbán vì sợ hãi', c: 'gold'}], size: 60,
+      q: ['Giữ vàng chờ lên hay ', {t: 'đứng ngoài cho lành?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
