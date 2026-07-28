@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  File nhập nội dung mẫu cho WordPress (3 bài Cẩm nang + 4 chuyên mục).
+  Cách dùng: WordPress → Công cụ → Nhập (Import) → WordPress → tải file này lên.
+-->
+<rss version="2.0"
+	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:wp="http://wordpress.org/export/1.2/">
+<channel>
+	<title>Văn phòng Luật sư Triều Nguyễn và Cộng sự</title>
+	<link>https://example.com</link>
+	<description>Nội dung mẫu</description>
+	<language>vi</language>
+	<wp:wxr_version>1.2</wp:wxr_version>
+
+	<wp:category>
+		<wp:term_id>10</wp:term_id>
+		<wp:category_nicename>dat-dai-thua-ke</wp:category_nicename>
+		<wp:cat_name><![CDATA[Đất đai – Thừa kế]]></wp:cat_name>
+	</wp:category>
+	<wp:category>
+		<wp:term_id>11</wp:term_id>
+		<wp:category_nicename>hon-nhan-gia-dinh</wp:category_nicename>
+		<wp:cat_name><![CDATA[Hôn nhân – Gia đình]]></wp:cat_name>
+	</wp:category>
+	<wp:category>
+		<wp:term_id>12</wp:term_id>
+		<wp:category_nicename>hinh-su-dan-su</wp:category_nicename>
+		<wp:cat_name><![CDATA[Hình sự – Dân sự]]></wp:cat_name>
+	</wp:category>
+	<wp:category>
+		<wp:term_id>13</wp:term_id>
+		<wp:category_nicename>doanh-nghiep-hop-dong</wp:category_nicename>
+		<wp:cat_name><![CDATA[Doanh nghiệp – Hợp đồng]]></wp:cat_name>
+	</wp:category>
+
+	<item>
+		<title>Thủ tục ly hôn cần giấy tờ gì? Mất bao lâu?</title>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<content:encoded><![CDATA[
+<p>Ly hôn là điều không ai mong muốn, nhưng khi đã quyết định, việc nắm rõ thủ tục sẽ giúp bạn đỡ vất vả và nhanh chóng hơn.</p>
+<h2>1. Có mấy loại ly hôn?</h2>
+<ul>
+<li><strong>Ly hôn thuận tình:</strong> Cả hai vợ chồng cùng đồng ý chia tay, thỏa thuận được về con cái và tài sản.</li>
+<li><strong>Ly hôn đơn phương:</strong> Chỉ một bên muốn ly hôn, hoặc hai bên không thỏa thuận được.</li>
+</ul>
+<h2>2. Hồ sơ cần chuẩn bị</h2>
+<ul>
+<li>Đơn xin ly hôn (theo mẫu của Tòa án);</li>
+<li>Giấy chứng nhận đăng ký kết hôn (bản chính);</li>
+<li>CCCD/CMND và sổ hộ khẩu của hai vợ chồng (bản sao);</li>
+<li>Giấy khai sinh của các con (bản sao);</li>
+<li>Giấy tờ về tài sản chung nếu có yêu cầu chia.</li>
+</ul>
+<h2>3. Nộp hồ sơ ở đâu?</h2>
+<p>Hồ sơ nộp tại <strong>Tòa án nhân dân cấp huyện</strong> nơi vợ hoặc chồng đang cư trú, làm việc.</p>
+<h2>4. Mất bao lâu?</h2>
+<ul>
+<li><strong>Ly hôn thuận tình:</strong> thường khoảng 1 – 2 tháng.</li>
+<li><strong>Ly hôn đơn phương:</strong> thường khoảng 4 – 6 tháng, có thể lâu hơn nếu tranh chấp phức tạp.</li>
+</ul>
+]]></content:encoded>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<category domain="category" nicename="hon-nhan-gia-dinh"><![CDATA[Hôn nhân – Gia đình]]></category>
+	</item>
+
+	<item>
+		<title>Tranh chấp ranh đất với hàng xóm phải làm sao?</title>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<content:encoded><![CDATA[
+<p>Tranh chấp ranh đất, lối đi chung là chuyện rất hay gặp ở quê. Nếu xử lý đúng cách, bạn sẽ giữ được quyền lợi mà vẫn giữ được tình làng nghĩa xóm.</p>
+<h2>Bước 1: Thương lượng trực tiếp</h2>
+<p>Hai bên nên ngồi lại trao đổi trên tinh thần thiện chí. Nhiều trường hợp chỉ do hiểu lầm về mốc giới.</p>
+<h2>Bước 2: Hòa giải tại UBND xã/phường</h2>
+<p>Nếu không tự thỏa thuận được, bạn làm <strong>đơn yêu cầu hòa giải</strong> gửi UBND cấp xã. Đây là bước <strong>bắt buộc</strong> trước khi đưa ra tòa.</p>
+<h2>Bước 3: Khởi kiện ra Tòa án (nếu hòa giải không thành)</h2>
+<ul>
+<li>Khởi kiện ra <strong>Tòa án nhân dân cấp huyện</strong> nơi có đất; hoặc</li>
+<li>Gửi đơn đề nghị giải quyết đến UBND cấp huyện (với đất chưa có sổ đỏ).</li>
+</ul>
+]]></content:encoded>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<category domain="category" nicename="dat-dai-thua-ke"><![CDATA[Đất đai – Thừa kế]]></category>
+	</item>
+
+	<item>
+		<title>Làm di chúc thế nào cho hợp pháp?</title>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<content:encoded><![CDATA[
+<p>Lập di chúc rõ ràng từ sớm giúp con cháu thuận hòa, tránh tranh chấp tài sản về sau.</p>
+<h2>1. Di chúc cần có những nội dung gì?</h2>
+<ul>
+<li>Ngày, tháng, năm lập di chúc;</li>
+<li>Họ tên, nơi cư trú của người lập di chúc;</li>
+<li>Họ tên người được hưởng di sản;</li>
+<li>Di sản để lại và nơi có di sản.</li>
+</ul>
+<h2>2. Có bắt buộc công chứng không?</h2>
+<p>Không bắt buộc, nhưng <strong>nên công chứng hoặc chứng thực</strong> để di chúc chắc chắn hợp pháp và khó bị tranh chấp.</p>
+<h2>3. Lưu ý quan trọng</h2>
+<p>Người lập di chúc phải <strong>minh mẫn, tỉnh táo</strong>, tự nguyện thì di chúc mới có giá trị.</p>
+]]></content:encoded>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:status><![CDATA[publish]]></wp:status>
+		<category domain="category" nicename="dat-dai-thua-ke"><![CDATA[Đất đai – Thừa kế]]></category>
+	</item>
+
+</channel>
+</rss>

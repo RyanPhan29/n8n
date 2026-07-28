@@ -117,7 +117,7 @@ function tnl_customize_register( $wp_customize ) {
 	$wp_customize->add_setting( 'tnl_lawyer_role', array( 'default' => 'Trưởng Văn phòng · Luật sư Nguyễn Thị Triều', 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control( 'tnl_lawyer_role', array( 'label' => 'Chức danh', 'section' => 'tnl_about', 'type' => 'text' ) );
 
-	$wp_customize->add_setting( 'tnl_lawyer_years', array( 'default' => '15', 'sanitize_callback' => 'sanitize_text_field' ) );
+	$wp_customize->add_setting( 'tnl_lawyer_years', array( 'default' => '30', 'sanitize_callback' => 'sanitize_text_field' ) );
 	$wp_customize->add_control( 'tnl_lawyer_years', array( 'label' => 'Số năm kinh nghiệm (hiện trên huy hiệu)', 'section' => 'tnl_about', 'type' => 'text' ) );
 
 	$wp_customize->add_setting( 'tnl_lawyer_bio', array(

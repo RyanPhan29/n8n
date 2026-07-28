@@ -296,7 +296,7 @@ def process():
     return f'<div class="steps">{s}</div>'
 
 def stats_band():
-    items = [("15+","Năm kinh nghiệm"),("500+","Vụ việc đã hỗ trợ"),("Toàn quốc","Phạm vi hỗ trợ"),("24/7","Tư vấn trực tuyến")]
+    items = [("30+","Năm kinh nghiệm"),("500+","Vụ việc đã hỗ trợ"),("Toàn quốc","Phạm vi hỗ trợ"),("24/7","Tư vấn trực tuyến")]
     s = "".join(f'<div class="stat"><div class="stat__num">{n}</div><div class="stat__label">{l}</div></div>' for n,l in items)
     return f'<section class="section--stats"><div class="container stats">{s}</div></section>'
 
@@ -423,19 +423,19 @@ def build():
     gt = page_header("Về chúng tôi", f"Giới thiệu {FULL}", [("index.html","Trang chủ"),(None,"Giới thiệu")]) + f"""
   <section class="section">
     <div class="container about">
-      <div class="about__media"><div class="about__placeholder"><span class="about__placeholder-ic">👨‍⚖️</span><span>Ảnh luật sư / văn phòng</span></div><div class="about__badge"><strong>15+</strong><span>năm kinh nghiệm</span></div></div>
+      <div class="about__media"><div class="about__placeholder"><span class="about__placeholder-ic">👨‍⚖️</span><span>Ảnh luật sư / văn phòng</span></div><div class="about__badge"><strong>30+</strong><span>năm kinh nghiệm</span></div></div>
       <div class="about__content">
         <h2 class="section__title">Tận tâm – Uy tín – Phục vụ trên toàn quốc</h2>
         <p>{FULL} có trụ sở tại <strong>{REGION}</strong>, nhưng phạm vi đồng hành của chúng tôi không dừng lại ở một địa phương. Nhờ kết hợp <strong>tư vấn trực tuyến</strong> và trực tiếp <strong>tham gia tố tụng tại tòa án nhiều tỉnh thành</strong>, chúng tôi hỗ trợ được khách hàng dù bạn đang ở đâu trên đất nước.</p>
         <p>Qua nhiều năm tư vấn và tranh tụng, chúng tôi hiểu người dân cần một luật sư <strong>nói thật, giải thích dễ hiểu và theo việc đến cùng</strong> — chứ không phải những lời hứa mơ hồ. Đó là cách chúng tôi giữ được niềm tin của khách hàng suốt thời gian qua.</p>
-        <ul class="about__list"><li>Hơn <strong>15</strong> năm kinh nghiệm tư vấn &amp; tranh tụng</li><li>Nhận việc <strong>liên huyện, liên tỉnh, toàn quốc</strong></li><li>Đã đồng hành cùng <strong>hàng trăm</strong> vụ việc ở nhiều tỉnh thành</li><li>Giữ <strong>bí mật</strong> thông tin khách hàng tuyệt đối</li></ul>
+        <ul class="about__list"><li>Hơn <strong>30</strong> năm kinh nghiệm tư vấn &amp; tranh tụng</li><li>Nhận việc <strong>liên huyện, liên tỉnh, toàn quốc</strong></li><li>Đã đồng hành cùng <strong>hàng trăm</strong> vụ việc ở nhiều tỉnh thành</li><li>Giữ <strong>bí mật</strong> thông tin khách hàng tuyệt đối</li></ul>
         <div class="about__actions"><a href="lien-he.html" class="btn btn--gold">📝 Đặt lịch gặp luật sư</a><a href="{tellink()}" class="btn btn--ghost-maroon" data-phone-link>📞 Gọi tư vấn</a></div>
       </div>
     </div>
   </section>
   <section class="section section--alt"><div class="container"><div class="section__head"><p class="section__eyebrow">Đội ngũ</p><h2 class="section__title">Luật sư &amp; cộng sự</h2></div>
     <div class="grid grid--3">
-      <div class="member"><div class="member__photo">👩‍⚖️</div><div class="member__body"><h3>Luật sư Nguyễn Thị Triều</h3><p class="member__role">Trưởng Văn phòng</p><p class="member__desc">Hơn 15 năm kinh nghiệm về đất đai, dân sự và hình sự; tận tâm theo từng vụ việc đến cùng.</p></div></div>
+      <div class="member"><div class="member__photo">👩‍⚖️</div><div class="member__body"><h3>Luật sư Nguyễn Thị Triều</h3><p class="member__role">Trưởng Văn phòng</p><p class="member__desc">Hơn 30 năm kinh nghiệm về đất đai, dân sự và hình sự; tận tâm theo từng vụ việc đến cùng.</p></div></div>
       <div class="member"><div class="member__photo">⚖️</div><div class="member__body"><h3>Luật sư cộng sự</h3><p class="member__role">Hôn nhân – Gia đình &amp; Thừa kế</p><p class="member__desc">Đồng hành xử lý các vụ việc ly hôn, nuôi con, phân chia di sản.</p></div></div>
       <div class="member"><div class="member__photo">🧑‍💼</div><div class="member__body"><h3>Chuyên viên pháp lý</h3><p class="member__role">Hồ sơ &amp; Thủ tục hành chính</p><p class="member__desc">Hỗ trợ soạn thảo hồ sơ, giấy tờ và thủ tục nhanh gọn cho khách hàng.</p></div></div>
     </div></div></section>

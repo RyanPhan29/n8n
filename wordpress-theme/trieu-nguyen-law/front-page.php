@@ -65,7 +65,7 @@ get_header();
 						<span>Thêm ảnh trong: Tùy biến → Giới thiệu luật sư</span>
 					</div>
 				<?php endif; ?>
-				<div class="about__badge"><strong><?php echo esc_html( tnl_opt( 'tnl_lawyer_years', '15' ) ); ?>+</strong><span>năm kinh nghiệm</span></div>
+				<div class="about__badge"><strong><?php echo esc_html( tnl_opt( 'tnl_lawyer_years', '30' ) ); ?>+</strong><span>năm kinh nghiệm</span></div>
 			</div>
 			<div class="about__content">
 				<p class="section__eyebrow">Về chúng tôi</p>
@@ -73,7 +73,7 @@ get_header();
 				<p class="about__role"><?php echo esc_html( tnl_opt( 'tnl_lawyer_role', 'Trưởng Văn phòng Luật sư Triều Nguyễn và Cộng sự' ) ); ?></p>
 				<p><?php echo esc_html( tnl_opt( 'tnl_lawyer_bio', 'Văn phòng có trụ sở tại Gia Lai (Bình Định cũ) nhưng nhận việc liên huyện, liên tỉnh, toàn quốc — kết hợp tư vấn trực tuyến và trực tiếp tham gia tố tụng tại tòa án nhiều tỉnh thành. Phương châm: nói thật, giải thích dễ hiểu và theo việc đến cùng.' ) ); ?></p>
 				<ul class="about__list">
-					<li>Hơn <strong><?php echo esc_html( tnl_opt( 'tnl_lawyer_years', '15' ) ); ?></strong> năm kinh nghiệm tư vấn &amp; tranh tụng tại tòa</li>
+					<li>Hơn <strong><?php echo esc_html( tnl_opt( 'tnl_lawyer_years', '30' ) ); ?></strong> năm kinh nghiệm tư vấn &amp; tranh tụng tại tòa</li>
 					<li>Nhận việc <strong>liên huyện, liên tỉnh, toàn quốc</strong></li>
 					<li>Đã đồng hành cùng <strong>hàng trăm</strong> vụ việc ở nhiều tỉnh thành</li>
 					<li>Tận tâm với từng hồ sơ, giữ <strong>bí mật</strong> thông tin tuyệt đối</li>
