@@ -1602,4 +1602,46 @@ export const SHORT_LIENNH: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// THUEDAT "Đánh thuế cao đất bỏ hoang/đầu cơ" — VnExpress 29/7 (NQ21). Vbee 34.75s / neo 4.45|12.56|16.27|20.72|23.04|27.92.
+export const SHORT_THUEDAT: ShortSpec = {
+  slug: 'ShortThueDat',
+  scenes: [
+    // 0) HOOK 0→4.45
+    {d: 134, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Ôm đất bỏ hoang chờ giá?'], size: 58,
+      icon: '🏞️  💤', iconTop: 560, iconSize: 150,
+      label: ['Kiểu làm giàu này sắp khó ăn'], labelTop: 850, labelC: 'red'},
+    // 1) THẺ BẰNG CHỨNG 4.45→12.56
+    {d: 243, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'VnExpress', date: '29/7/2026'},
+      evidence: {
+        headline: ['Nghiên cứu lộ trình áp thuế\ncao hơn với đất bỏ hoang'],
+        quote: ['“Đánh cả mua bán ngắn hạn”'],
+        src: 'VnExpress · Nghị quyết 21 · 29/7'},
+      evidenceTop: 300},
+    // 2) NHẮM ĐẦU CƠ 12.56→16.27
+    {d: 111, bar: 'red', pose: 'point', ahH: 600,
+      head: ['Nhắm thẳng ', {t: 'DÂN ĐẦU CƠ', c: 'red'}], size: 58,
+      icon: '🎯', iconTop: 540, iconSize: 180,
+      label: ['Ôm đất để không · chờ thổi giá'], labelTop: 850, labelC: 'red'},
+    // 3) QUOTE 16.27→20.72
+    {d: 134, bar: 'teal', pose: 'present', ahH: 600,
+      head: ['"Găm đất phải TỐN KÉM hơn', {t: '\nlợi ích đầu cơ"', c: 'teal'}], size: 50,
+      label: ['— PTT Phạm Gia Túc'], labelTop: 850, labelC: 'teal'},
+    // 4) TIN VUI NGƯỜI Ở THẬT 20.72→23.04
+    {d: 70, bar: 'teal', pose: 'aha', ahH: 600,
+      head: ['Sướng tai người mua ở thật?'], size: 58,
+      icon: '🙌', iconTop: 560, iconSize: 180},
+    // 5) TWIST HOÀI NGHI 23.04→27.92
+    {d: 146, bar: 'amber', pose: 'think', ahH: 600,
+      head: ['Nhưng… mới là NGHIÊN CỨU'], size: 56,
+      icon: '⏳', iconTop: 540, iconSize: 170,
+      label: ['Nói đi nói lại mấy năm rồi'], labelTop: 850, labelC: 'amber'},
+    // 6) CÂU HỎI 27.92→34.75
+    {d: 205, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['Kéo giá nhà xuống cho người trẻ?'], size: 50,
+      q: ['…hay lại ', {t: 'nghiên cứu để đó?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
