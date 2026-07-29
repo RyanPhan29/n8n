@@ -1556,4 +1556,50 @@ export const SHORT_VANG2: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// LIENNH "NH vay nhau 2% vs dân 12–14%" — VnExpress 29/7. Vbee 36.34s / neo 7.75|13.04|17.19|20.43|26.74|30.05.
+export const SHORT_LIENNH: ShortSpec = {
+  slug: 'ShortLienNH',
+  scenes: [
+    // 0) HOOK so sánh 0→7.75
+    {d: 232, bar: 'navy', pose: 'shock', ahCorner: 'left', ahH: 560,
+      head: ['Cùng là đi vay…'], size: 74,
+      cards: [
+        {header: 'NH VAY NHAU', icon: '🏦', label: 'chỉ 2,2%', c: 'teal', dim: true},
+        {header: 'DÂN VAY NHÀ', icon: '🏠', label: '12–14%', c: 'red'},
+      ], cardsTop: 440},
+    // 1) THẺ BẰNG CHỨNG 7.75→13.04
+    {d: 159, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'VnExpress', date: '29/7/2026'},
+      evidence: {
+        headline: ['Lãi suất liên ngân hàng\nxuống thấp nhất đầu năm'],
+        quote: ['“Qua đêm còn 2,2%/năm”'],
+        src: 'VnExpress · Vira · 29/7'},
+      evidenceTop: 300},
+    // 2) GIẢM SỐC 13.04→17.19
+    {d: 125, bar: 'teal', pose: 'present', ahH: 600,
+      head: ['Cuối tháng 6 còn 13%'], size: 60,
+      value: 2, suffix: ',2%', staticNum: true, numColor: 'teal', numTop: 540, numSize: 180,
+      label: ['Tiền hệ thống rẻ & dồi dào hẳn'], labelTop: 850, labelC: 'teal'},
+    // 3a) DỰNG KỲ VỌNG 17.19→20.43
+    {d: 97, bar: 'amber', pose: 'think', ahH: 600,
+      head: ['Dân sắp được vay rẻ?'], size: 66,
+      icon: '🤔', iconTop: 540, iconSize: 180,
+      label: ['…Khoan đã!'], labelTop: 850, labelC: 'amber'},
+    // 3b) TWIST 20.43→26.74
+    {d: 189, bar: 'red', pose: 'worried', ahH: 600,
+      head: ['Lãi vay của DÂN', {t: '\nchưa chắc giảm ngay', c: 'red'}], size: 56,
+      icon: '⏳', iconTop: 600, iconSize: 150,
+      label: ['Chuyên gia: chủ yếu là NH vay nhau'], labelTop: 850, labelC: 'red'},
+    // 4) NH RẺ TRƯỚC, DÂN GỒNG 26.74→30.05
+    {d: 99, bar: 'red', pose: 'broke', ahH: 600,
+      head: ['NH rẻ vốn trước…'], size: 60,
+      icon: '⚖️', iconTop: 540, iconSize: 170,
+      label: ['…còn dân vẫn gồng 12–14%'], labelTop: 850, labelC: 'red'},
+    // 5) CÂU HỎI 30.05→36.34
+    {d: 189, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['Khoảng chênh đó ai hưởng?'], size: 56,
+      q: ['Bao giờ mới tới lượt ', {t: 'DÂN được giảm?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
