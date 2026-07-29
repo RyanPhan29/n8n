@@ -1644,4 +1644,44 @@ export const SHORT_THUEDAT: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// THUEDAT-P2 "Bóc comment: mua đất để dành có bị đánh oan?" — phản hồi độc giả bài 29/7. Vbee 39.5s / neo 5.82|10.30|19.42|28.02|33.60.
+export const SHORT_THUEDAT_P2: ShortSpec = {
+  slug: 'ShortThueDatP2',
+  scenes: [
+    // 0) HOOK 0→5.82
+    {d: 175, bar: 'navy', pose: 'present', ahH: 600,
+      source: {name: 'VnExpress · độc giả', date: '95+ ý kiến'},
+      head: ['Bài thuế đất hôm qua', {t: '\ndân tranh luận quá trời', c: 'gold'}], size: 56,
+      icon: '💬  🔥', iconTop: 590, iconSize: 150},
+    // 1) COMMENT NHIỀU LIKE NHẤT 5.82→10.30
+    {d: 134, bar: 'navy', pose: 'think', ahH: 600,
+      evidence: {
+        headline: ['"Mua góp miếng đất, chưa có\ntiền xây nhà thì sao?"'],
+        quote: ['👍 55 · bình luận nhiều like nhất'],
+        src: 'Ý kiến độc giả dưới bài'},
+      evidenceTop: 300},
+    // 2) CHUYỆN NGƯỜI THẬT 10.30→19.42
+    {d: 274, bar: 'amber', pose: 'worried', ahH: 600,
+      head: ['Có bạn kể thật:', {t: '\nở thuê phố, mua đất tỉnh', c: 'amber'}], size: 56,
+      icon: '🏙️ ➡️ 🏞️', iconTop: 590, iconSize: 130,
+      label: ['Định 10 năm nữa mới xây để ở'], labelTop: 850, labelC: 'amber'},
+    // 3) PHÂN BIỆT (mấu chốt) 19.42→28.02
+    {d: 258, bar: 'navy', pose: 'point', ahCorner: 'left', ahH: 560,
+      head: ['Đánh thuế nhắm AI?'], size: 66,
+      cards: [
+        {header: 'ĐẦU CƠ', icon: '🏘️', label: 'Ôm chục lô · lướt sóng', c: 'red'},
+        {header: 'ĐỂ DÀNH', icon: '🏡', label: '1 miếng an cư', c: 'teal'},
+      ], cardsTop: 440},
+    // 4) ĐỀ XUẤT + LUẬT ĐANG TÍNH 28.02→33.60
+    {d: 167, bar: 'amber', pose: 'think', ahH: 600,
+      head: ['Đề xuất: đánh mạnh "lướt sóng"'], size: 52,
+      icon: '⏳', iconTop: 560, iconSize: 150,
+      label: ['Ranh giới ra sao? Còn đang tính'], labelTop: 850, labelC: 'amber'},
+    // 5) CÂU HỎI 33.60→39.50
+    {d: 177, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['Có miếng đất để dành xây nhà?'], size: 50,
+      q: ['Nghe tin này bạn thấy ', {t: 'LO hay MỪNG?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
