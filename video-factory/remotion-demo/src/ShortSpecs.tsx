@@ -1684,4 +1684,44 @@ export const SHORT_THUEDAT_P2: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// KIMCUONG-GIA "Giấy GIA chưa chắc an toàn — coi vân tay viên đá" — VnExpress. Vbee 39.62s / neo 3.14|9.41|13.56|18.64|26.55|34.61.
+export const SHORT_KIMCUONG_GIA: ShortSpec = {
+  slug: 'ShortKimCuongGIA',
+  scenes: [
+    // 0) HOOK Q 0→3.14
+    {d: 94, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Có giấy GIA là', {t: '\nkim cương chắc ăn?', c: 'gold'}], size: 58,
+      icon: '💎  📄', iconTop: 590, iconSize: 150},
+    // 1) REVEAL 3.14→9.41
+    {d: 188, bar: 'red', pose: 'think', ahH: 600,
+      head: ['Anh Hai nói thật:', {t: '\nCHƯA CHẮC đâu!', c: 'red'}], size: 60,
+      icon: '💎  ❓', iconTop: 600, iconSize: 150},
+    // 2) NHIỀU NGƯỜI TIN 9.41→13.56
+    {d: 124, bar: 'navy', pose: 'present', ahH: 600,
+      head: ['Nhiều người tin vào:'], size: 56,
+      icon: '🔖  📄', iconTop: 540, iconSize: 160,
+      label: ['Mã laser + tờ chứng thư'], labelTop: 850, labelC: 'navy'},
+    // 3) RỦI RO 1 · 13.56→18.64
+    {d: 152, bar: 'red', pose: 'worried', ahH: 600,
+      head: ['Nhưng mã do người KHẮC'], size: 56,
+      icon: '🛠️', iconTop: 540, iconSize: 160,
+      label: ['Có thể bị làm giả · khắc lại'], labelTop: 850, labelC: 'red'},
+    // 4) RỦI RO 2 · 18.64→26.55
+    {d: 237, bar: 'red', pose: 'shock', ahH: 600,
+      head: ['Thậm chí:'], size: 66,
+      icon: '📄 ➡️ 💎', iconTop: 540, iconSize: 140,
+      label: ['Chứng thư thật, ghép viên khác'], labelTop: 850, labelC: 'red'},
+    // 5) GIẢI PHÁP (mấu chốt) 26.55→34.61
+    {d: 242, bar: 'teal', pose: 'aha', ahH: 600,
+      source: {name: 'VnExpress', date: 'chuyên gia kiểm định'},
+      head: ['Bản đồ DẤU VẾT tự nhiên'], size: 56,
+      icon: '🔬', iconTop: 540, iconSize: 180,
+      label: ['Như vân tay — không viên nào giống'], labelTop: 850, labelC: 'teal'},
+    // 6) MÁCH NHỎ + CÂU HỎI 34.61→39.62
+    {d: 150, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['Viên lớn → kiểm định độc lập'], size: 50,
+      q: ['Bạn từng được xem "vân tay" viên đá ', {t: 'chưa?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
