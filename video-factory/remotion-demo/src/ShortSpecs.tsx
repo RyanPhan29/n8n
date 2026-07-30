@@ -1724,4 +1724,48 @@ export const SHORT_KIMCUONG_GIA: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// LONGTHANH-936 "Ứng 936 tỷ làm sân bay đem gửi tiết kiệm" — VnExpress 30/7 (trung lập, dẫn Thanh tra). Vbee 38.23s / neo 4.56|12.97|17.60|23.59|29.55|34.31.
+export const SHORT_LONGTHANH936: ShortSpec = {
+  slug: 'ShortLongThanh936',
+  scenes: [
+    // 0) HOOK 0→4.56
+    {d: 137, bar: 'navy', pose: 'shock', ahH: 600,
+      head: ['Ứng gần NGHÌN TỶ làm sân bay'], size: 50,
+      icon: '🏗️ ➡️ 🏦', iconTop: 560, iconSize: 140,
+      label: ['…đem gửi tiết kiệm ăn lãi?!'], labelTop: 850, labelC: 'red'},
+    // 1) THẺ BẰNG CHỨNG 4.56→12.97
+    {d: 252, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'VnExpress', date: '30/7/2026'},
+      evidence: {
+        headline: ['8 nhà thầu dùng 936 tỷ tạm ứng\ngửi tiết kiệm lấy lãi'],
+        quote: ['Dự án sân bay Long Thành'],
+        src: 'Kết luận Thanh tra Chính phủ · 30/7'},
+      evidenceTop: 300},
+    // 2) CON SỐ 12.97→17.60
+    {d: 139, bar: 'red', pose: 'worried', ahH: 600,
+      head: ['Số tiền tạm ứng:'], size: 56,
+      value: 936, suffix: ' tỷ', staticNum: true, numColor: 'red', numTop: 520, numSize: 160,
+      label: ['→ gửi tiết kiệm, thu lãi 10,6 tỷ'], labelTop: 840, labelC: 'red'},
+    // 3) THANH TRA: SAI 17.60→23.59
+    {d: 180, bar: 'red', pose: 'worried', ahH: 600,
+      head: ['Thanh tra Chính phủ đánh giá:'], size: 52,
+      icon: '⚖️ ❌', iconTop: 540, iconSize: 160,
+      label: ['Sai mục đích · trái quy định'], labelTop: 850, labelC: 'red'},
+    // 4) ĐỌC VỊ 1 · 23.59→29.55
+    {d: 179, bar: 'teal', pose: 'point', ahH: 600,
+      head: ['👁 Anh Hai đọc vị:', {t: '\ntiền tạm ứng để LÀM VIỆC', c: 'teal'}], size: 50,
+      icon: '💡', iconTop: 600, iconSize: 150,
+      label: ['Không phải để đi kiếm lời'], labelTop: 850, labelC: 'teal'},
+    // 5) NGHỊCH LÝ · đọc vị 2 · 29.55→34.31
+    {d: 143, bar: 'amber', pose: 'think', ahH: 600,
+      head: ['Ngộ chỗ này: dân gồng', {t: '\nlãi vay 12–14%', c: 'amber'}], size: 52,
+      icon: '⚖️', iconTop: 600, iconSize: 150,
+      label: ['…mà tiền dự án nằm ăn lãi'], labelTop: 850, labelC: 'amber'},
+    // 6) BÀI HỌC + CÂU HỎI 34.31→38.23
+    {d: 117, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['Đồng tiền nào cũng có mục đích'], size: 48,
+      q: ['Khôn lỏi hay ', {t: 'sai rõ ràng?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
