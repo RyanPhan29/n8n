@@ -109,7 +109,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"app_id\": \"{{ $env.VBEE_APP_ID }}\",\n  \"input_text\": {{ JSON.stringify($('Lấy text kịch bản').first().json.script) }},\n  \"voice_code\": \"{{ $env.VBEE_VOICE_CODE }}\",\n  \"audio_type\": \"mp3\",\n  \"bitrate\": 128,\n  \"speed_rate\": \"1.0\"\n}",
+        "jsonBody": "={\n  \"app_id\": \"{{ $env.VBEE_APP_ID }}\",\n  \"input_text\": {{ JSON.stringify($('Lấy text kịch bản').first().json.script) }},\n  \"voice_code\": \"{{ $env.VBEE_VOICE_CODE }}\",\n  \"audio_type\": \"mp3\",\n  \"bitrate\": 128,\n  \"speed_rate\": \"1.0\",\n  \"response_type\": \"direct\"\n}",
         "options": {}
       },
       "id": "vbee-tts",

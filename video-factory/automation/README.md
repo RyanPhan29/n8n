@@ -74,6 +74,18 @@ Body: {
 // Trả về: link .mp3 (sync) hoặc request_id để poll (indirect) — tuỳ gói.
 ```
 
+## 🔒 Cắm secret ở ĐÂU (KHÔNG commit vào repo!)
+- **n8n**: Settings → *Variables* (hoặc tạo Credential) → khai `VBEE_TOKEN`, `VBEE_APP_ID`, `VBEE_VOICE_CODE`, `ANTHROPIC_API_KEY`, `GITHUB_TOKEN`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `N8N_RENDER_CALLBACK`.
+- **GitHub**: repo → Settings → *Secrets and variables* → Actions → thêm `ANTHROPIC_API_KEY`.
+- ⚠️ Token/app_id **không bao giờ** nằm trong file `.json`/`.yml` được commit — workflow chỉ đọc qua `{{ $env.* }}`.
+
+### Vbee — 3 điều cần anh xác nhận trong dashboard
+1. **Endpoint** đúng của gói anh (node đang để `https://vbee.vn/api/v1/tts`).
+2. **Kiểu trả về**: `response_type: "direct"` (nhận thẳng `result.audio_link`) hay `indirect` (trả `request_id` → phải poll `GET .../tts/{request_id}`). Node đang set **direct**; nếu gói anh chỉ có indirect, báo em thêm node poll.
+3. **voice_code** giọng nam Bắc anh dùng (điền vào biến `VBEE_VOICE_CODE`).
+
+> 🔁 **Bảo mật:** token anh vừa gửi qua chat coi như đã lộ — cắm xong nên **tạo token mới** trong dashboard Vbee rồi cập nhật lại biến trong n8n.
+
 ## Ranh giới thật (đừng kỳ vọng full-auto)
 1. **Still-check layout khó auto 100%** → giữ Cửa 2.
 2. **Chủ đề nhạy cảm** (đại án, chính trị) → người gác ở Cửa 1, không auto đăng.
