@@ -2092,4 +2092,70 @@ export const SHORT_TT10: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ===================== ĐIỂM TIN — "GIẤY PHÉP CON" & SẦU RIÊNG (thu sr1.mp3, 54.46s) =====================
+// TIN NHẠY CẢM: KHÔNG tên, KHÔNG ảnh bị can, KHÔNG quy kết — "khởi tố để điều tra", dẫn nguồn. Góc DÒNG TIỀN.
+// beats: 3.27|6.55|9.58|16.66|19.99|26.21|29.47|33.43|37.90|41.48|45.88|49.83|54.46
+export const SHORT_SR1: ShortSpec = {
+  slug: 'ShortSR1',
+  scenes: [
+    // 1) HOOK số kỷ lục 0→3.27
+    {d: 98, bar: 'amber', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Sầu riêng xuất khẩu kỷ lục'], size: 70,
+      value: 3, suffix: ',86 tỷ USD', staticNum: true, numColor: 'amber', numTop: 560, numSize: 130,
+      label: ['cao nhất ngành rau quả'], labelTop: 840, labelC: 'amber'},
+    // 2) NGHỊCH LÝ xe ùn ứ 3.27→9.58
+    {d: 189, bar: 'amber', pose: 'think', ahCorner: 'right', ahH: 600,
+      head: ['Vậy mà xe vẫn ', {t: 'ùn ứ cửa khẩu', c: 'red'}], size: 62,
+      icon: '🚛⛔', iconTop: 520, iconSize: 180,
+      label: ['nghịch lý — có người tạo ra'], labelTop: 840, labelC: 'red'},
+    // 3) THẺ BẰNG CHỨNG 9.58→16.66
+    {d: 212, bar: 'red', ahSmall: true, pose: 'think', ahCorner: 'right', ahH: 420,
+      source: {name: 'BÁO CHÍ', date: '7/2026'},
+      evidence: {
+        headline: ['Khởi tố ', {t: 'để điều tra', c: 'red'}, '\nvụ "giấy phép con" sầu riêng'],
+        quote: ['Cấp khống mã số vùng trồng, mã cơ sở đóng gói — theo cơ quan điều tra'],
+        src: 'Nguồn: báo chí · Bộ Công an'}, evidenceTop: 400},
+    // 4) GIẤY PHÉP CON là gì 16.66→19.99
+    {d: 100, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 620,
+      head: ['"Giấy phép con" là gì?'], size: 72,
+      icon: '🚧📋', iconTop: 520, iconSize: 190,
+      label: ['điều kiện dựng thêm vô lý'], labelTop: 850, labelC: 'gray'},
+    // 5) ĐIỀU KIỆN THẬT 19.99→26.21
+    {d: 187, bar: 'teal', pose: 'point', ahCorner: 'left', ahH: 600,
+      head: ['3 điều kiện ', {t: 'THẬT', c: 'teal'}], size: 74,
+      icon: '🌱🏭🔬', iconTop: 520, iconSize: 150,
+      label: ['đi Trung Quốc bắt buộc'], labelTop: 840, labelC: 'teal'},
+    // 6) NGHỊCH LÝ đảo ngược (cards) 26.21→33.43
+    {d: 217, bar: 'navy', pose: 'shock', ahCorner: 'right', ahH: 620,
+      head: ['Siết bậy → mọi thứ đảo ngược'], size: 54,
+      cards: [
+        {header: 'LÀM THẬT', icon: '🌱', label: 'Bị chặn, phải bôi trơn', c: 'gray', dim: true},
+        {header: 'CHỤP GIẬT', icon: '📦', label: 'Mua mã chui → lọt', c: 'red'},
+      ], cardsTop: 440},
+    // 7a) ĐỌC VỊ 33.43→37.90
+    {d: 134, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 620,
+      head: ['👁 Anh Hai đọc vị'], size: 72,
+      icon: '🚦', iconTop: 520, iconSize: 190,
+      label: ['không phải để giữ chất lượng'], labelTop: 850, labelC: 'gray'},
+    // 7b) TRẠM THU PHÍ NGẦM 37.90→41.48
+    {d: 107, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 620,
+      head: ['Nó là ', {t: 'trạm thu phí ngầm', c: 'gold'}], size: 62,
+      icon: '🚧💰', iconTop: 520, iconSize: 180,
+      label: ['ai nắm cổng, cổng đẻ tiền'], labelTop: 850, labelC: 'gold'},
+    // 8) HỆ QUẢ 41.48→45.88
+    {d: 132, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 620,
+      head: ['Hàng tốt kẹt · hàng dởm lọt'], size: 56,
+      icon: '📉', iconTop: 520, iconSize: 190,
+      label: ['cả ngành mất uy tín'], labelTop: 850, labelC: 'red'},
+    // 9a) SETUP câu hỏi 45.88→49.83
+    {d: 118, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 640,
+      head: ['Bạn từng vướng\n"giấy phép con" nào?'], size: 62,
+      icon: '🤔', iconTop: 540, iconSize: 160},
+    // 9b) CÂU HỎI chốt 49.83→54.46
+    {d: 139, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Kể vụ oái oăm nhất nhé'], size: 60,
+      q: ['Mình ', {t: 'đọc hết 👇', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
