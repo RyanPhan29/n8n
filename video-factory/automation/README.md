@@ -39,8 +39,13 @@ Gom nhiều báo chính thống + chuyên tài chính; 1 feed lỗi vẫn chạy
 
 > ⚠️ Sandbox chặn mạng nên em chưa curl-test được; trên server anh (mạng thật) chạy bình thường. Feed nào 404 thì bỏ khỏi mảng `FEEDS` — không ảnh hưởng cái khác. Muốn thêm nguồn (Znews, Tinnhanhchungkhoan, VTC…): chèn 1 dòng `{ source, url }` vào node đầu.
 
+## Chọn bản nào?
+- ⭐ **`chuyentien_radar.n8n.json` — KHUYÊN DÙNG (bản gọn).** n8n chỉ quét 12 báo → lọc hợp kênh → **gửi bản tin gọn** mỗi sáng. Anh liếc → chọn bài → nhắn Claude làm short. Không Vbee/render/gate → **chắc, ít lỗi**. Luồng làm video giữ nguyên (nhanh + kiểm soát chất lượng).
+- `chuyentien_poc.n8n.json` — **bản đầy đủ (tùy chọn, phức tạp hơn):** thêm Vbee API + render Action + 2 cửa duyệt. Chỉ dùng khi muốn tự động hoá sâu; đánh đổi bằng nhiều điểm gãy (token, môi trường render, poll).
+
 ## File trong folder này
-- `chuyentien_poc.n8n.json` — workflow n8n (import vào n8n: *Workflows → Import from File*).
+- `chuyentien_radar.n8n.json` — ⭐ RADAR TIN (bản gọn, khuyên dùng).
+- `chuyentien_poc.n8n.json` — bản đầy đủ (tùy chọn).
 - `../../.github/workflows/render-short.yml` — Action render khi n8n kích (repository_dispatch).
 - `env.example` — danh sách biến/credential cần khai.
 
