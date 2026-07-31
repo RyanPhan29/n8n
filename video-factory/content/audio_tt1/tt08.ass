@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.53,Sub,,0,0,0,,Chú Ba chạy xe ôm
+Dialogue: 0,0:00:01.53,0:00:03.24,Sub,,0,0,0,,chiều nào cũng mua\Nvài tờ vé số
+Dialogue: 0,0:00:03.24,0:00:04.18,Sub,,0,0,0,,mười nghìn một tờ
+Dialogue: 0,0:00:04.18,0:00:05.74,Sub,,0,0,0,,chú bảo biết đâu đổi đời
+Dialogue: 0,0:00:05.74,0:00:09.10,Sub,,0,0,0,,Nhưng xác suất trúng độc đắc\Ncòn hiếm hơn bị sét đánh
+Dialogue: 0,0:00:09.10,0:00:10.17,Sub,,0,0,0,,giữa trời quang
+Dialogue: 0,0:00:10.17,0:00:10.95,Sub,,0,0,0,,Mỗi ngày mười nghìn
+Dialogue: 0,0:00:10.95,0:00:12.57,Sub,,0,0,0,,tưởng nhỏ, một năm\Ncộng lại gần bốn triệu
+Dialogue: 0,0:00:12.57,0:00:14.16,Sub,,0,0,0,,và gần như\Nchắc chắn bay hết
+Dialogue: 0,0:00:14.16,0:00:17.17,Sub,,0,0,0,,Người ta gọi vé số là\Nthứ thuế mà người nghèo tự
+Dialogue: 0,0:00:17.17,0:00:18.65,Sub,,0,0,0,,nguyện đóng, vì người\Nbán thì giàu đều đặn
+Dialogue: 0,0:00:18.65,0:00:20.38,Sub,,0,0,0,,còn người mua\Nthì nghèo đều đặn
+Dialogue: 0,0:00:20.38,0:00:22.80,Sub,,0,0,0,,Nó không thật sự bán\Ncho chú cơ hội đổi đời
+Dialogue: 0,0:00:22.80,0:00:24.92,Sub,,0,0,0,,Nó bán cho chú\Nvài giây được phép mơ
+Dialogue: 0,0:00:24.92,0:00:26.06,Sub,,0,0,0,,mỗi chiều tan việc

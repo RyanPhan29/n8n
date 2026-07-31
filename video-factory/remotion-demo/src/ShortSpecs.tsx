@@ -1814,4 +1814,282 @@ export const SHORT_PNJ: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ===================== ĐỢT TĂNG TRƯỞNG 1 — 10 SHORT "BẢN ĐỜI" (thu tt01..tt10) =====================
+// TT01 cà phê chú Tư (29.18s) · beats 5.24|7.27|8.59|12.40|15.80|23.65|25.48|29.16
+export const SHORT_TT01: ShortSpec = {
+  slug: 'ShortTT01',
+  scenes: [
+    {d: 218, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+      head: ['Ly cà phê ', {t: '25k', c: 'amber'}, ' mỗi sáng'], size: 78,
+      icon: '☕', iconTop: 500, iconSize: 220,
+      label: ['"Rẻ mà, đáng gì"'], labelTop: 850, labelC: 'gray'},
+    {d: 154, bar: 'teal', pose: 'think', ahCorner: 'right', ahH: 600,
+      head: ['Cộng lại một năm'], size: 76,
+      value: 9, suffix: ' triệu', numColor: 'teal', numTop: 540, numSize: 210,
+      label: ['25k mỗi ngày dồn lại'], labelTop: 820, labelC: 'teal'},
+    {d: 102, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 620,
+      head: ['10 năm là'], size: 80,
+      value: 90, suffix: ' triệu', numColor: 'red', numTop: 540, numSize: 200,
+      label: ['bằng cả con xe máy đang chạy'], labelTop: 820, labelC: 'red'},
+    {d: 235, bar: 'teal', pose: 'cash', ahCorner: 'left', ahH: 600,
+      head: ['Nếu đem gửi tiết kiệm'], size: 72,
+      value: 150, suffix: ' triệu', numColor: 'teal', numTop: 540, numSize: 190,
+      label: ['đủ mua miếng đất nhỏ ngoại thành'], labelTop: 820, labelC: 'teal'},
+    {d: 165, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Cái đắt không phải ', {t: 'ly cà phê', c: 'gray'}], size: 66,
+      icon: '💡', iconTop: 500, iconSize: 170,
+      q: ['Mà là ', {t: 'khoản lãi', c: 'gold'}, ' nó đẻ ra suốt 10 năm']},
+  ],
+};
+
+// TT02 bà Sáu giấu tiền (26.62s) · beats 5.52|10.71|14.21|18.46|21.18|26.59
+export const SHORT_TT02: ShortSpec = {
+  slug: 'ShortTT02',
+  scenes: [
+    {d: 166, bar: 'navy', pose: 'cash', ahCorner: 'right', ahH: 620,
+      head: ['Giấu ', {t: '100 triệu', c: 'gold'}, ' trong tủ'], size: 76,
+      icon: '🧳💰', iconTop: 500, iconSize: 180,
+      label: ['khóa hai lớp, chắc ăn'], labelTop: 850, labelC: 'gray'},
+    {d: 156, bar: 'teal', pose: 'celebrate', ahCorner: 'right', ahH: 600,
+      head: ['10 năm sau vẫn đủ'], size: 78,
+      value: 100, suffix: ' triệu', numColor: 'teal', numTop: 540, numSize: 200,
+      label: ['không thiếu một tờ, bà mừng'], labelTop: 820, labelC: 'teal'},
+    {d: 105, bar: 'amber', pose: 'think', ahCorner: 'left', ahH: 600,
+      head: ['Nhưng bát phở đã lên'], size: 74,
+      value: 50, suffix: 'k', numColor: 'amber', numTop: 540, numSize: 200,
+      label: ['xưa 30k · nay 50k'], labelTop: 820, labelC: 'amber'},
+    {d: 128, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Cùng số tiền, mua ít đi'], size: 70,
+      icon: '🍜📉', iconTop: 500, iconSize: 170,
+      label: ['3000 bát phở → còn 2000'], labelTop: 840, labelC: 'red'},
+    {d: 82, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 620,
+      head: ['Tiền không rời khỏi tủ'], size: 74,
+      icon: '🧳', iconTop: 520, iconSize: 210},
+    {d: 162, bar: 'red', pose: 'warning', ahCorner: 'right', ahH: 660,
+      head: ['Nó mất giá ngay khi ', {t: 'nằm yên', c: 'red'}], size: 62,
+      icon: '💸', iconTop: 500, iconSize: 180,
+      q: [{t: 'Lạm phát', c: 'gold'}, ' gặm mỗi năm một ít']},
+  ],
+};
+
+// TT03 anh Đức trả góp 0% (27.89s) · beats 3.80|8.84|12.19|14.90|18.91|22.92|27.87
+export const SHORT_TT03: ShortSpec = {
+  slug: 'ShortTT03',
+  scenes: [
+    {d: 265, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+      head: ['Mua tivi 15 triệu\n', {t: 'trả góp 0% lãi', c: 'teal'}], size: 72,
+      icon: '📺', iconTop: 520, iconSize: 200,
+      label: ['nghe sướng tai đúng không?'], labelTop: 860, labelC: 'gray'},
+    {d: 182, bar: 'amber', pose: 'sly', ahCorner: 'left', ahH: 600,
+      head: ['Trả thẳng có bớt không?'], size: 70,
+      value: 500, suffix: 'k', numColor: 'amber', numTop: 540, numSize: 190,
+      label: ['"Dạ bớt được 500 nghìn"'], labelTop: 820, labelC: 'amber'},
+    {d: 120, bar: 'teal', pose: 'aha', ahCorner: 'right', ahH: 600,
+      head: ['500k đó chính là ', {t: 'LÃI', c: 'teal'}], size: 74,
+      icon: '💡', iconTop: 520, iconSize: 190,
+      label: ['bạn đáng lẽ được hưởng'], labelTop: 840, labelC: 'teal'},
+    {d: 120, bar: 'red', pose: 'sly', ahCorner: 'left', ahH: 600,
+      head: ['Họ cộng sẵn vào giá bán'], size: 70,
+      icon: '🏷️', iconTop: 520, iconSize: 190,
+      label: ['rồi mới dán chữ 0% lên'], labelTop: 840, labelC: 'red'},
+    {d: 149, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: [{t: '0%', c: 'teal'}, ' không phải miễn phí'], size: 68,
+      q: ['Lãi chỉ được ', {t: 'giấu vào giá', c: 'gold'}]},
+  ],
+};
+
+// TT04 ông Bảy quy tắc 72 (28.08s) · beats 4.46|8.77|10.90|15.39|18.69|21.51|25.03|28.06
+export const SHORT_TT04: ShortSpec = {
+  slug: 'ShortTT04',
+  scenes: [
+    {d: 263, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+      head: ['Bao lâu tiền ', {t: 'gấp đôi?', c: 'gold'}], size: 78,
+      icon: '🤔💰', iconTop: 500, iconSize: 180,
+      label: ['gửi tiết kiệm thì mấy năm?'], labelTop: 850, labelC: 'gray'},
+    {d: 199, bar: 'teal', pose: 'cool', ahCorner: 'right', ahH: 600,
+      head: ['Ông Bảy nhẩm 3 giây'], size: 74,
+      value: 72, numColor: 'teal', numTop: 540, numSize: 240,
+      label: ['bí quyết: con số 72'], labelTop: 830, labelC: 'teal'},
+    {d: 99, bar: 'blue', pose: 'present', ahCorner: 'left', ahH: 600,
+      head: ['Gửi 6%/năm'], size: 76,
+      value: 12, suffix: ' năm', numColor: 'blue', numTop: 540, numSize: 200,
+      label: ['72 ÷ 6 = 12'], labelTop: 820, labelC: 'blue'},
+    {d: 85, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+      head: ['Gửi 9%/năm'], size: 76,
+      value: 8, suffix: ' năm', numColor: 'teal', numTop: 540, numSize: 200,
+      label: ['72 ÷ 9 = 8'], labelTop: 820, labelC: 'teal'},
+    {d: 106, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 640,
+      head: ['Biết tiền chạy nhanh hay chậm'], size: 62,
+      icon: '⏱️', iconTop: 520, iconSize: 200},
+    {d: 91, bar: 'navy', pose: 'cool', ahCorner: 'right', ahH: 700,
+      head: ['Nhẩm nhanh hơn bấm máy'], size: 64,
+      q: ['Thử tính ', {t: 'lãi của bạn', c: 'gold'}, ' xem!']},
+  ],
+};
+
+// TT05 Nam vs Hùng nợ tốt/xấu (29.47s) · beats 3.01|5.79|10.11|14.18|17.74|21.30|26.73|29.45
+export const SHORT_TT05: ShortSpec = {
+  slug: 'ShortTT05',
+  scenes: [
+    {d: 174, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+      head: ['2 người cùng vay'], size: 76,
+      value: 500, suffix: ' triệu', numColor: 'navy', numTop: 540, numSize: 190,
+      label: ['Nam & Hùng'], labelTop: 830, labelC: 'gray'},
+    {d: 130, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Nam mua xe hơi'], size: 76,
+      icon: '🚗📉', iconTop: 500, iconSize: 180,
+      label: ['gồng trả góp — xe mất giá dần'], labelTop: 840, labelC: 'red'},
+    {d: 229, bar: 'teal', pose: 'cash', ahCorner: 'left', ahH: 600,
+      head: ['Hùng mua ki-ốt cho thuê'], size: 70,
+      icon: '🏪', iconTop: 500, iconSize: 200,
+      label: ['tiền thuê trả luôn khoản vay'], labelTop: 840, labelC: 'teal'},
+    {d: 107, bar: 'teal', pose: 'celebrate', ahCorner: 'right', ahH: 620,
+      head: ['Nợ xong, ki-ốt ', {t: 'vẫn đẻ tiền', c: 'teal'}], size: 66,
+      icon: '💰', iconTop: 520, iconSize: 200},
+    {d: 163, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 640,
+      head: ['Cùng vay — khác một trời'], size: 60,
+      cards: [
+        {header: 'NỢ XẤU', icon: '🚗', label: 'Móc túi mỗi tháng', c: 'red'},
+        {header: 'NỢ TỐT', icon: '🏪', label: 'Người khác trả hộ', c: 'teal'},
+      ], cardsTop: 440},
+    {d: 82, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Người giàu chọn ', {t: 'đúng loại nợ', c: 'gold'}], size: 60,
+      q: ['Nợ của bạn thuộc loại nào?']},
+  ],
+};
+
+// TT06 bác Hòa lãi thực âm (29.18s) · beats 3.69|8.43|14.67|18.96|23.38|25.39|29.16
+export const SHORT_TT06: ShortSpec = {
+  slug: 'ShortTT06',
+  scenes: [
+    {d: 253, bar: 'teal', pose: 'celebrate', ahCorner: 'right', ahH: 600,
+      head: ['Gửi 500tr — lãi 5%/năm'], size: 68,
+      value: 25, suffix: ' triệu', numColor: 'teal', numTop: 540, numSize: 200,
+      label: ['cuối năm lãi 25 triệu, mừng'], labelTop: 820, labelC: 'teal'},
+    {d: 187, bar: 'amber', pose: 'think', ahCorner: 'left', ahH: 600,
+      head: ['Nhưng bác quên 1 con số'], size: 70,
+      icon: '🤔', iconTop: 520, iconSize: 190,
+      label: ['giá cả năm đó tăng 6%'], labelTop: 840, labelC: 'amber'},
+    {d: 129, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 620,
+      head: ['Lãi 5% – lạm phát 6%'], size: 68,
+      icon: '📉', iconTop: 500, iconSize: 180,
+      label: ['sức mua hụt đi 1%'], labelTop: 840, labelC: 'red'},
+    {d: 133, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Sổ dày lên, túi mỏng đi'], size: 68,
+      icon: '📓💸', iconTop: 500, iconSize: 170,
+      label: ['ra chợ mua được ít đồ hơn'], labelTop: 840, labelC: 'red'},
+    {d: 173, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Lãi thật = ', {t: 'lãi − lạm phát', c: 'gold'}], size: 62,
+      icon: '💡', iconTop: 500, iconSize: 160,
+      q: ['Sổ của bạn ', {t: 'lãi thật', c: 'gold'}, ' bao nhiêu?']},
+  ],
+};
+
+// TT07 chị Mai bảo hiểm (29.64s) · beats 7.18|10.15|15.39|17.62|25.44|28.13|29.62
+export const SHORT_TT07: ShortSpec = {
+  slug: 'ShortTT07',
+  scenes: [
+    {d: 216, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+      head: ['Mua bảo hiểm nhân thọ'], size: 74,
+      icon: '🛡️', iconTop: 500, iconSize: 210,
+      label: ['vừa bảo vệ vừa đầu tư?'], labelTop: 850, labelC: 'gray'},
+    {d: 246, bar: 'blue', pose: 'present', ahCorner: 'right', ahH: 600,
+      head: ['Bảo hiểm = tấm chắn rủi ro'], size: 66,
+      icon: '🛡️', iconTop: 500, iconSize: 200,
+      label: ['có chuyện thì gia đình được đền'], labelTop: 840, labelC: 'blue'},
+    {d: 67, bar: 'teal', pose: 'cash', ahCorner: 'left', ahH: 600,
+      head: ['Đầu tư = tiền đẻ tiền'], size: 70,
+      icon: '📈', iconTop: 520, iconSize: 200},
+    {d: 235, bar: 'amber', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Gói "2 trong 1"'], size: 76,
+      icon: '🎁', iconTop: 500, iconSize: 190,
+      label: ['phần lời thường thấp hơn bạn tưởng'], labelTop: 840, labelC: 'amber'},
+    {d: 125, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Biết mình đang mua gì'], size: 66,
+      q: [{t: 'Tấm chắn', c: 'gold'}, ' hay ', {t: 'máy đẻ tiền?', c: 'gold'}]},
+  ],
+};
+
+// TT08 chú Ba vé số (26.06s) · beats 5.74|9.10|14.16|20.38|22.81|26.04
+export const SHORT_TT08: ShortSpec = {
+  slug: 'ShortTT08',
+  scenes: [
+    {d: 273, bar: 'navy', pose: 'cash', ahCorner: 'right', ahH: 620,
+      head: ['Chiều nào cũng mua vé số'], size: 70,
+      icon: '🎟️', iconTop: 500, iconSize: 210,
+      label: ['"biết đâu đổi đời"'], labelTop: 850, labelC: 'gray'},
+    {d: 152, bar: 'amber', pose: 'sly', ahCorner: 'left', ahH: 600,
+      head: ['Trúng độc đắc còn hiếm hơn'], size: 62,
+      icon: '⚡', iconTop: 500, iconSize: 200,
+      label: ['bị sét đánh giữa trời quang'], labelTop: 840, labelC: 'amber'},
+    {d: 187, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['10k/ngày, tưởng nhỏ'], size: 72,
+      value: 4, suffix: ' triệu/năm', numColor: 'red', numTop: 540, numSize: 170,
+      label: ['gần như chắc chắn bay hết'], labelTop: 820, labelC: 'red'},
+    {d: 73, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+      head: ['"Thuế" của người nghèo'], size: 68,
+      icon: '🧾', iconTop: 520, iconSize: 190},
+    {d: 97, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Bán cho ta vài giây ', {t: 'được mơ', c: 'gold'}], size: 60,
+      q: ['Không phải cơ hội đổi đời']},
+  ],
+};
+
+// TT09 chị Lan thẻ tín dụng (28.82s) · beats 5.36|10.55|13.53|18.94|23.50|25.86|28.80
+export const SHORT_TT09: ShortSpec = {
+  slug: 'ShortTT09',
+  scenes: [
+    {d: 161, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+      head: ['Cuối tháng mở sao kê thẻ'], size: 70,
+      icon: '💳📱', iconTop: 500, iconSize: 180,
+      label: ['xem hết bao nhiêu…'], labelTop: 850, labelC: 'gray'},
+    {d: 156, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 620,
+      head: ['Nợ hiện ra'], size: 78,
+      value: 20, suffix: ' triệu', numColor: 'red', numTop: 540, numSize: 210,
+      label: ['chị hơi hoảng'], labelTop: 820, labelC: 'red'},
+    {d: 89, bar: 'amber', pose: 'think', ahCorner: 'left', ahH: 600,
+      head: ['"Thanh toán tối thiểu"'], size: 70,
+      value: 1, suffix: ' triệu', numColor: 'amber', numTop: 540, numSize: 200},
+    {d: 162, bar: 'amber', pose: 'cool', ahCorner: 'right', ahH: 600,
+      head: ['Trả 1 triệu cho nhẹ đầu'], size: 70,
+      icon: '😌', iconTop: 520, iconSize: 180,
+      label: ['"tháng sau tính tiếp"'], labelTop: 840, labelC: 'amber'},
+    {d: 137, bar: 'red', pose: 'warning', ahCorner: 'right', ahH: 620,
+      head: ['19 triệu còn lại: lãi'], size: 68,
+      value: 30, suffix: '%/năm', numColor: 'red', numTop: 540, numSize: 200,
+      label: ['cao hơn cả vay nóng!'], labelTop: 820, labelC: 'red'},
+    {d: 71, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Nợ kéo dài mấy năm chưa dứt'], size: 58,
+      icon: '⛓️', iconTop: 520, iconSize: 180},
+    {d: 88, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['"Tối thiểu" là ', {t: 'cái móc', c: 'gold'}], size: 62,
+      q: ['Giữ bạn mắc nợ càng lâu càng tốt']},
+  ],
+};
+
+// TT10 ông chú 1 tỷ sức mua (27.79s) · beats 6.36|9.09|13.08|17.43|23.51|27.77
+export const SHORT_TT10: ShortSpec = {
+  slug: 'ShortTT10',
+  scenes: [
+    {d: 273, bar: 'navy', pose: 'cash', ahCorner: 'right', ahH: 620,
+      head: ['Năm 2000 có ', {t: '1 tỷ', c: 'gold'}], size: 76,
+      icon: '🏘️', iconTop: 500, iconSize: 200,
+      label: ['đại gia — mua mấy căn mặt phố'], labelTop: 850, labelC: 'gray'},
+    {d: 120, bar: 'amber', pose: 'think', ahCorner: 'left', ahH: 600,
+      head: ['Bây giờ cầm 1 tỷ ra phố'], size: 70,
+      icon: '💵', iconTop: 520, iconSize: 190},
+    {d: 131, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 620,
+      head: ['Chưa mua nổi 1 căn nhà nhỏ'], size: 64,
+      icon: '🏠❓', iconTop: 500, iconSize: 180,
+      label: ['vẫn là con số 1 tỷ'], labelTop: 840, labelC: 'red'},
+    {d: 182, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 620,
+      head: ['Sức mua rơi thẳng đứng'], size: 68,
+      icon: '📉', iconTop: 500, iconSize: 200,
+      label: ['sau hơn 20 năm lạm phát'], labelTop: 840, labelC: 'red'},
+    {d: 128, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Mất giá từ từ mỗi năm một chút'], size: 58,
+      q: [{t: '"Tỷ phú" 2000', c: 'gold'}, ' ≠ tỷ phú nay']},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];

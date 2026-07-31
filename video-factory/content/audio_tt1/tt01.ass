@@ -1,0 +1,31 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.85,Sub,,0,0,0,,Chú Tư sáng nào\Ncũng ghé quán quen
+Dialogue: 0,0:00:01.85,0:00:03.18,Sub,,0,0,0,,cà phê sữa hai lăm nghìn
+Dialogue: 0,0:00:03.18,0:00:05.23,Sub,,0,0,0,,ngồi ngắm phố mười lăm\Nphút rồi đi làm
+Dialogue: 0,0:00:05.23,0:00:06.40,Sub,,0,0,0,,Chú bảo, rẻ mà đáng gì
+Dialogue: 0,0:00:06.40,0:00:07.27,Sub,,0,0,0,,Nhưng thử cộng lại nhé
+Dialogue: 0,0:00:07.27,0:00:08.59,Sub,,0,0,0,,Hai lăm nghìn một ngày
+Dialogue: 0,0:00:08.59,0:00:09.66,Sub,,0,0,0,,một tháng bảy trăm rưỡi nghìn
+Dialogue: 0,0:00:09.66,0:00:11.09,Sub,,0,0,0,,một năm chín triệu
+Dialogue: 0,0:00:11.09,0:00:12.40,Sub,,0,0,0,,Mười năm là\Nchín mươi triệu tiền gốc
+Dialogue: 0,0:00:12.40,0:00:14.13,Sub,,0,0,0,,bằng con xe\Nmáy chú đang chạy
+Dialogue: 0,0:00:14.13,0:00:17.19,Sub,,0,0,0,,Mà nếu mỗi sáng chú bỏ\Nđúng số đó vào sổ tiết
+Dialogue: 0,0:00:17.19,0:00:18.28,Sub,,0,0,0,,kiệm thay vì ra quán
+Dialogue: 0,0:00:18.28,0:00:20.77,Sub,,0,0,0,,mười năm sau nó\Nthành một trăm ba
+Dialogue: 0,0:00:20.77,0:00:21.82,Sub,,0,0,0,,một trăm rưỡi triệu
+Dialogue: 0,0:00:21.82,0:00:23.65,Sub,,0,0,0,,đủ mua miếng\Nđất nhỏ ngoại thành
+Dialogue: 0,0:00:23.65,0:00:25.48,Sub,,0,0,0,,Cái đắt không nằm\Nở cốc cà phê
+Dialogue: 0,0:00:25.48,0:00:28.14,Sub,,0,0,0,,Cái đắt là khoản lãi lẽ\Nra nó đẻ ra cho chú
+Dialogue: 0,0:00:28.14,0:00:29.18,Sub,,0,0,0,,suốt mười năm

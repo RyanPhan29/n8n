@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:02.18,Sub,,0,0,0,,Anh Đức ra cửa\Nhàng mua cái tivi
+Dialogue: 0,0:00:02.18,0:00:03.80,Sub,,0,0,0,,giá niêm yết mười lăm triệu
+Dialogue: 0,0:00:03.80,0:00:06.29,Sub,,0,0,0,,Nhân viên cười tươi mời trả\Ngóp không phần trăm lãi suất
+Dialogue: 0,0:00:06.29,0:00:07.70,Sub,,0,0,0,,mỗi tháng góp hơn một triệu
+Dialogue: 0,0:00:07.70,0:00:08.84,Sub,,0,0,0,,nghe sướng tai
+Dialogue: 0,0:00:08.84,0:00:09.77,Sub,,0,0,0,,Nhưng anh Đức tinh
+Dialogue: 0,0:00:09.77,0:00:12.19,Sub,,0,0,0,,hỏi luôn: thế trả thẳng\Ntiền mặt có bớt không?
+Dialogue: 0,0:00:12.19,0:00:13.31,Sub,,0,0,0,,Cô nhân viên gãi đầu
+Dialogue: 0,0:00:13.31,0:00:14.90,Sub,,0,0,0,,dạ bớt được năm trăm nghìn
+Dialogue: 0,0:00:14.90,0:00:17.55,Sub,,0,0,0,,Đấy, cái năm trăm nghìn đó\Nchính là tiền lãi anh đáng
+Dialogue: 0,0:00:17.55,0:00:18.91,Sub,,0,0,0,,lẽ được hưởng nếu trả ngay
+Dialogue: 0,0:00:18.91,0:00:21.54,Sub,,0,0,0,,Người ta cộng sẵn chi phí\Ntrả góp vào giá bán rồi
+Dialogue: 0,0:00:21.54,0:00:22.92,Sub,,0,0,0,,mới dán chữ\Nkhông phần trăm lên
+Dialogue: 0,0:00:22.92,0:00:25.07,Sub,,0,0,0,,Zero phần trăm không\Ncó nghĩa là miễn phí
+Dialogue: 0,0:00:25.07,0:00:27.89,Sub,,0,0,0,,nó chỉ có nghĩa là lãi\Nđã được giấu khéo vào trong giá
