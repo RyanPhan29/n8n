@@ -2158,4 +2158,145 @@ export const SHORT_SR1: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ===================== ĐỢT 2 — 10 SHORT "LỜI ĐỒN KINH TẾ GÂY TRANH CÃI" (thu d01..d10) =====================
+export const SHORT_D01: ShortSpec = { slug: 'ShortD01', scenes: [
+  {d: 196, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 600,
+    head: ['Nội trợ thì\n"làm ra tiền" đâu?'], size: 66, icon: '🏠', iconTop: 540, iconSize: 150,
+    label: ['câu nói nghe quen không?'], labelTop: 850, labelC: 'gray'},
+  {d: 109, bar: 'teal', pose: 'think', ahCorner: 'right', ahH: 600,
+    head: ['Thuê người làm hết ngần ấy việc'], size: 54,
+    value: 10, suffix: ' triệu/tháng', staticNum: true, numColor: 'teal', numTop: 540, numSize: 150,
+    label: ['nấu, dọn, chăm con, đưa đón'], labelTop: 830, labelC: 'teal'},
+  {d: 178, bar: 'navy', pose: 'present', ahCorner: 'left', ahH: 600,
+    head: ['Giá trị THẬT — chỉ là vô hình'], size: 56, icon: '💡', iconTop: 520, iconSize: 180,
+    label: ['không phiếu lương nên bị bỏ quên'], labelTop: 850, labelC: 'gray'},
+  {d: 162, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+    head: ['Không lương ≠ không đáng giá'], size: 58,
+    q: ['Nội trợ có nên tính là ', {t: 'nghề có thu nhập?', c: 'gold'}]},
+]};
+export const SHORT_D02: ShortSpec = { slug: 'ShortD02', scenes: [
+  {d: 197, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 620,
+    head: ['Làm công cả đời không giàu?'], size: 62, icon: '💼', iconTop: 520, iconSize: 180,
+    label: ['phải khởi nghiệp mới đổi đời?'], labelTop: 850, labelC: 'gray'},
+  {d: 158, bar: 'teal', pose: 'cash', ahCorner: 'right', ahH: 600,
+    head: ['Chủ DN thành công giàu nhanh'], size: 58, icon: '🚀', iconTop: 520, iconSize: 190,
+    label: ['nhưng ít ai kể phần còn lại'], labelTop: 850, labelC: 'teal'},
+  {d: 72, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
+    head: ['Phần lớn startup ', {t: 'đóng cửa sớm', c: 'red'}], size: 56, icon: '📉', iconTop: 520, iconSize: 190},
+  {d: 102, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 640,
+    head: ['Đây là một đánh đổi'], size: 60, cards: [
+      {header: 'LÀM CÔNG', icon: '💼', label: 'Ổn, tăng chậm', c: 'blue'},
+      {header: 'KHỞI NGHIỆP', icon: '🚀', label: 'Cao, rủi ro cao', c: 'red'}], cardsTop: 440},
+  {d: 76, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+    head: ['Bạn chọn phe nào?'], size: 64, q: ['Lương đều hay ', {t: 'đặt cược khởi nghiệp?', c: 'gold'}]},
+]};
+export const SHORT_D03: ShortSpec = { slug: 'ShortD03', scenes: [
+  {d: 163, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 600,
+    head: ['20 triệu ở quê\nvs 40 triệu ở phố'], size: 60, icon: '🏞️🆚🏙️', iconTop: 540, iconSize: 130,
+    label: ['cãi nhau muôn thuở'], labelTop: 850, labelC: 'gray'},
+  {d: 200, bar: 'teal', pose: 'cool', ahCorner: 'right', ahH: 600,
+    head: ['Quê: chi phí thấp'], size: 66, icon: '🏞️', iconTop: 520, iconSize: 190,
+    label: ['cầm 20 có khi dư hơn'], labelTop: 850, labelC: 'teal'},
+  {d: 107, bar: 'blue', pose: 'present', ahCorner: 'left', ahH: 600,
+    head: ['Phố: cơ hội, tăng nhanh'], size: 62, icon: '🏙️', iconTop: 520, iconSize: 190,
+    label: ['quen biết rộng'], labelTop: 850, labelC: 'blue'},
+  {d: 89, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+    head: ['Tính cả trần thu nhập tương lai'], size: 52,
+    q: ['Bạn chọn ', {t: '20 ở quê hay 40 ở phố?', c: 'gold'}]},
+]};
+export const SHORT_D04: ShortSpec = { slug: 'ShortD04', scenes: [
+  {d: 182, bar: 'amber', pose: 'greedy', ahCorner: 'right', ahH: 600,
+    head: ['Khóa học dạy "làm giàu"'], size: 62, icon: '📱💰', iconTop: 520, iconSize: 180,
+    label: ['cam kết đổi đời sau vài tuần'], labelTop: 850, labelC: 'amber'},
+  {d: 137, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 600,
+    head: ['Kiến thức tốt thì đáng tiền'], size: 60, icon: '📚', iconTop: 520, iconSize: 180,
+    label: ['nhưng để ý điều này…'], labelTop: 850, labelC: 'gray'},
+  {d: 192, bar: 'amber', pose: 'sly', ahCorner: 'left', ahH: 600,
+    head: ['Công thức mà chắc ăn vậy…'], size: 58, icon: '🤨', iconTop: 520, iconSize: 190,
+    label: ['sao không tự làm cho giàu?'], labelTop: 850, labelC: 'amber'},
+  {d: 94, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 700,
+    head: ['Họ bán ', {t: 'giấc mơ giàu', c: 'gold'}, ' của BẠN'], size: 56,
+    q: ['Bạn từng học khóa "làm giàu" chưa?']},
+]};
+export const SHORT_D05: ShortSpec = { slug: 'ShortD05', scenes: [
+  {d: 178, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+    head: ['Học đại học phí thời gian?'], size: 62, icon: '🎓', iconTop: 520, iconSize: 190,
+    label: ['đi làm sớm giàu hơn?'], labelTop: 850, labelC: 'gray'},
+  {d: 143, bar: 'teal', pose: 'present', ahCorner: 'right', ahH: 600,
+    head: ['Bằng cấp vẫn nâng thu nhập'], size: 58, icon: '📈', iconTop: 520, iconSize: 180,
+    label: ['nhưng 4 năm là chi phí cơ hội'], labelTop: 850, labelC: 'teal'},
+  {d: 124, bar: 'amber', pose: 'present', ahCorner: 'left', ahH: 600,
+    head: ['Ngành hoàn vốn nhanh — ngành lâu'], size: 50, icon: '⚖️', iconTop: 520, iconSize: 180,
+    label: ['không phải cứ ĐH là lời'], labelTop: 850, labelC: 'amber'},
+  {d: 123, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+    head: ['Không ai đúng cho tất cả'], size: 60, q: ['Quay lại, bạn ', {t: 'vẫn học ĐH chứ?', c: 'gold'}]},
+]};
+export const SHORT_D06: ShortSpec = { slug: 'ShortD06', scenes: [
+  {d: 155, bar: 'amber', pose: 'cash', ahCorner: 'right', ahH: 600,
+    head: ['Trúng số là hết khổ?'], size: 64, icon: '🎉🎟️', iconTop: 520, iconSize: 170,
+    label: ['ai cũng mơ điều đó'], labelTop: 850, labelC: 'gray'},
+  {d: 124, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+    head: ['Nhiều người trúng lớn\nvài năm sau trắng tay'], size: 54, icon: '📉', iconTop: 560, iconSize: 160},
+  {d: 107, bar: 'red', pose: 'warning', ahCorner: 'right', ahH: 620,
+    head: ['Tiền đến nhanh, kỹ năng giữ = 0'], size: 50, icon: '💸', iconTop: 520, iconSize: 180,
+    label: ['tiêu vung tay rồi hết'], labelTop: 850, labelC: 'red'},
+  {d: 74, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+    head: ['Cục tiền lớn không sửa thói quen'], size: 50, q: ['Trúng 10 tỷ, ', {t: 'giữ được mấy năm?', c: 'gold'}]},
+]};
+export const SHORT_D07: ShortSpec = { slug: 'ShortD07', scenes: [
+  {d: 198, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 620,
+    head: ['Giàu càng giàu,\nnghèo càng nghèo?'], size: 58, icon: '🤨', iconTop: 540, iconSize: 150,
+    label: ['nghe là thấy tức'], labelTop: 850, labelC: 'gray'},
+  {d: 168, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 600,
+    head: ['Giàu: tài sản đẻ ra tiền'], size: 60, icon: '💰📈', iconTop: 520, iconSize: 170,
+    label: ['nghèo: chỉ có sức lao động'], labelTop: 850, labelC: 'gray'},
+  {d: 113, bar: 'teal', pose: 'present', ahCorner: 'left', ahH: 600,
+    head: ['10% của tỷ ≠ 10% của triệu'], size: 54, icon: '⚖️', iconTop: 520, iconSize: 180,
+    label: ['toán học của lãi kép'], labelTop: 850, labelC: 'teal'},
+  {d: 83, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+    head: ['Không hẳn là âm mưu'], size: 62, q: ['Do ', {t: 'cơ chế', c: 'gold'}, ' hay do ', {t: 'nỗ lực?', c: 'gold'}]},
+]};
+export const SHORT_D08: ShortSpec = { slug: 'ShortD08', scenes: [
+  {d: 148, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+    head: ['Trả hết nợ trước\nhay đầu tư trước?'], size: 60, icon: '🤔', iconTop: 540, iconSize: 160,
+    label: ['mười người nói mười kiểu'], labelTop: 850, labelC: 'gray'},
+  {d: 118, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 600,
+    head: ['Thước đo gọn:'], size: 66, icon: '⚖️', iconTop: 520, iconSize: 190,
+    label: ['lãi vay vs lợi nhuận kỳ vọng'], labelTop: 850, labelC: 'gray'},
+  {d: 85, bar: 'teal', pose: 'cool', ahCorner: 'left', ahH: 600,
+    head: ['Nợ 15% > đầu tư 8%'], size: 62, icon: '➡️', iconTop: 520, iconSize: 150,
+    label: ['trả nợ lời hơn'], labelTop: 850, labelC: 'teal'},
+  {d: 98, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+    head: ['Nợ 3% < đầu tư 10%'], size: 62, icon: '➡️', iconTop: 520, iconSize: 150,
+    label: ['giữ nợ, đem tiền đầu tư'], labelTop: 850, labelC: 'teal'},
+  {d: 113, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+    head: ['Chỉ có phép so sánh'], size: 62, q: ['Có tiền dư: ', {t: 'trả nợ hay đầu tư?', c: 'gold'}]},
+]};
+export const SHORT_D09: ShortSpec = { slug: 'ShortD09', scenes: [
+  {d: 180, bar: 'amber', pose: 'greedy', ahCorner: 'right', ahH: 600,
+    head: ['Săn sale = khôn?'], size: 66, icon: '🛒🏷️', iconTop: 520, iconSize: 170,
+    label: ['gom mã, canh giảm giá'], labelTop: 850, labelC: 'amber'},
+  {d: 142, bar: 'red', pose: 'facepalm', ahCorner: 'right', ahH: 600,
+    head: ['Giảm 50% món bạn không cần'], size: 54, icon: '💸', iconTop: 520, iconSize: 180,
+    label: ['vẫn là mất tiền'], labelTop: 850, labelC: 'red'},
+  {d: 76, bar: 'teal', pose: 'present', ahCorner: 'left', ahH: 600,
+    head: ['Chỉ lời khi mua đúng thứ đã cần'], size: 50, icon: '✅', iconTop: 520, iconSize: 180},
+  {d: 100, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 700,
+    head: ['Cảm giác "săn được" là cái bẫy'], size: 50, q: ['Mua vì sale rồi để đó — ', {t: 'món gì?', c: 'gold'}]},
+]};
+export const SHORT_D10: ShortSpec = { slug: 'ShortD10', scenes: [
+  {d: 228, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+    head: ['Tuổi trẻ: tiêu trải nghiệm\nhay để dành?'], size: 54, cards: [
+      {header: 'TRẢI NGHIỆM', icon: '✈️', label: 'Đi cho đã', c: 'amber'},
+      {header: 'ĐỂ DÀNH', icon: '🏦', label: 'Lo tương lai', c: 'teal'}], cardsTop: 470},
+  {d: 190, bar: 'amber', pose: 'excited', ahCorner: 'right', ahH: 600,
+    head: ['Trải nghiệm cũng là đầu tư'], size: 58, icon: '✈️💭', iconTop: 520, iconSize: 170,
+    label: ['đầu tư vào chính mình, ký ức'], labelTop: 850, labelC: 'amber'},
+  {d: 107, bar: 'teal', pose: 'think', ahCorner: 'left', ahH: 600,
+    head: ['Tiết kiệm = đầu tư tương lai'], size: 56, icon: '🏦', iconTop: 520, iconSize: 180,
+    label: ['an toàn về sau'], labelTop: 850, labelC: 'teal'},
+  {d: 81, bar: 'navy', pose: 'shrug', ahCorner: 'right', ahH: 700,
+    head: ['Không chọn 1 bỏ 1 — chia tỷ lệ'], size: 50, q: ['Dư 10 triệu: ', {t: 'xách vali hay bỏ ống?', c: 'gold'}]},
+]};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
