@@ -1768,4 +1768,50 @@ export const SHORT_LONGTHANH936: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// PNJ "Bán vàng chạy phà phà mà lỗ kỷ lục" — VnExpress (châm biếm nhẹ). Vbee 39.91s / neo 6.58|11.84|18.58|23.33|28.30|31.84|35.45. Cảnh 2 = overlay biểu đồ (11.83–18.57s).
+export const SHORT_PNJ: ShortSpec = {
+  slug: 'ShortPNJ',
+  scenes: [
+    // 0) HOOK 0→6.58
+    {d: 197, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Bán hàng vẫn TĂNG', {t: '\nmà LỖ KỶ LỤC?', c: 'red'}], size: 56,
+      icon: '💰  ❓', iconTop: 580, iconSize: 150},
+    // 1) THẺ BẰNG CHỨNG 6.58→11.84
+    {d: 158, bar: 'navy', pose: 'think', ahH: 600,
+      source: {name: 'VnExpress', date: 'BCTC Q2/2026'},
+      evidence: {
+        headline: ['PNJ lỗ kỷ lục vì dự phòng\nmua lại kim cương, vàng'],
+        quote: ['Doanh thu vẫn tăng 12%'],
+        src: 'VnExpress · Báo cáo tài chính quý II'},
+      evidenceTop: 300},
+    // 2) BIỂU ĐỒ (overlay ảnh 11.83–18.57s) — ẩn Anh Hai, chừa giữa cho chart
+    {d: 202, bar: 'red', ah: false,
+      head: ['Lợi nhuận lộn nhào ↓'], size: 50},
+    // 3) LÝ DO (châm biếm) 18.58→23.33
+    {d: 143, bar: 'amber', pose: 'sly', ahH: 600,
+      head: ['Lý do hơi mắc cười:'], size: 54,
+      icon: '🔄', iconTop: 540, iconSize: 160,
+      label: ['Không đi MUA — mà đi BÁN LẠI'], labelTop: 850, labelC: 'amber'},
+    // 4) SỐ MUA LẠI 23.33→28.30
+    {d: 149, bar: 'red', pose: 'worried', ahH: 600,
+      head: ['Mấy tuần đã chi HƠN'], size: 54,
+      value: 7, suffix: ' nghìn tỷ', staticNum: true, numColor: 'red', numTop: 540, numSize: 140,
+      label: ['…mua lại hàng · dự phòng 865 tỷ'], labelTop: 850, labelC: 'red'},
+    // 5a) CAM KẾT → CỤC NỢ 28.30→31.84
+    {d: 106, bar: 'amber', pose: 'think', ahH: 600,
+      head: ['Cam kết "mua lại" nghe sang…'], size: 50,
+      icon: '📉', iconTop: 560, iconSize: 150,
+      label: ['…giờ hóa CỤC NỢ'], labelTop: 850, labelC: 'red'},
+    // 5b) ĐỌC VỊ 31.84→35.45
+    {d: 108, bar: 'teal', pose: 'point', ahH: 600,
+      head: ['👁 Anh Hai đọc vị:'], size: 52,
+      icon: '💡', iconTop: 560, iconSize: 150,
+      label: ['Bán ra dễ — mua lại mới ĐAU'], labelTop: 850, labelC: 'teal'},
+    // 6) CÂU HỎI 35.45→39.91
+    {d: 134, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 660,
+      head: ['"Mua dễ, bán khó"'], size: 60,
+      q: ['Món gì khiến bạn ', {t: 'thấm câu này?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
