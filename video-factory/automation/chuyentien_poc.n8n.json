@@ -1,5 +1,5 @@
 {
-  "name": "Chuyện Tiền — POC bán tự động (2 cửa duyệt)",
+  "name": "Chuyện Tiền — POC bán tự động (2 cửa duyệt · đa nguồn)",
   "nodes": [
     {
       "parameters": {},
@@ -7,28 +7,39 @@
       "name": "▶ Chạy thử (Manual)",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [-1120, 300]
+      "position": [-1180, 300]
     },
     {
       "parameters": {
-        "url": "https://vnexpress.net/rss/kinh-doanh.rss",
-        "options": {}
+        "jsCode": "// === CHÙM NGUỒN RSS (thêm/bớt tuỳ ý) ===\n// Đã gom nhiều báo chính thống + chuyên tài chính. Nếu 1 feed lỗi, node sau vẫn chạy các feed còn lại.\nconst FEEDS = [\n  { source: 'VnExpress · KD',      url: 'https://vnexpress.net/rss/kinh-doanh.rss' },\n  { source: 'VnExpress · BĐS',     url: 'https://vnexpress.net/rss/bat-dong-san.rss' },\n  { source: 'Tuổi Trẻ · KD',       url: 'https://tuoitre.vn/rss/kinh-doanh.rss' },\n  { source: 'Thanh Niên · KT',     url: 'https://thanhnien.vn/rss/kinh-te.rss' },\n  { source: 'CafeF · TC-NH',       url: 'https://cafef.vn/tai-chinh-ngan-hang.rss' },\n  { source: 'CafeF · BĐS',         url: 'https://cafef.vn/bat-dong-san.rss' },\n  { source: 'CafeF · Vĩ mô',       url: 'https://cafef.vn/vi-mo-dau-tu.rss' },\n  { source: 'Dân Trí · KD',        url: 'https://dantri.com.vn/rss/kinh-doanh.rss' },\n  { source: 'VietnamNet · KD',     url: 'https://vietnamnet.vn/rss/kinh-doanh.rss' },\n  { source: 'Người Lao Động · KT', url: 'https://nld.com.vn/kinh-te.rss' },\n  { source: 'Vietnambiz · TC',     url: 'https://vietnambiz.vn/tai-chinh.rss' },\n  { source: 'Báo Đầu tư · TC-CK',  url: 'https://baodautu.vn/tai-chinh-chung-khoan-d6.rss' }\n];\nreturn FEEDS.map(f => ({ json: f }));"
       },
-      "id": "rss-vnexpress",
-      "name": "RSS VnExpress KD",
-      "type": "n8n-nodes-base.rssFeedRead",
-      "typeVersion": 1,
-      "position": [-900, 300]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Lọc tin hợp kênh (tiền đời thường) + lấy tin mới nhất chưa làm.\n// TODO: thay 'seen' bằng đọc DB/Sheet để nhớ tin đã làm.\nconst KEYWORDS = ['lãi suất','vay','mua nhà','vàng','kim cương','thuế','tiết kiệm','đầu cơ','ngân hàng','bất động sản','tạm ứng'];\nconst items = $input.all().map(i => i.json);\nconst pick = items.find(it => {\n  const t = ((it.title||'') + ' ' + (it.contentSnippet||'')).toLowerCase();\n  return KEYWORDS.some(k => t.includes(k));\n}) || items[0];\nreturn [{ json: { title: pick.title, link: pick.link, summary: pick.contentSnippet || '', pubDate: pick.pubDate || '' } }];"
-      },
-      "id": "pick-topic",
-      "name": "Lọc + chọn tin",
+      "id": "feed-list",
+      "name": "Nguồn tin (RSS)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [-680, 300]
+      "position": [-960, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": { "ignoreSSL": true }
+      },
+      "id": "rss-read",
+      "name": "Đọc RSS (mọi nguồn)",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [-740, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Gộp mọi nguồn → lọc trùng → lọc chủ đề hợp kênh → xếp mới nhất → chọn top + kèm shortlist.\nconst KEYWORDS = ['lãi suất','vay','mua nhà','giá nhà','vàng','kim cương','thuế','tiết kiệm','đầu cơ','ngân hàng','bất động sản','tạm ứng','tỷ giá','usd','trái phiếu','lừa đảo','phí','tài khoản','đất'];\nconst HOURS = 36; // chỉ tin trong ~1.5 ngày\nconst now = Date.now();\nconst seen = new Set();\nlet items = $input.all().map(i => i.json).filter(it => {\n  const link = it.link || it.guid || it.title;\n  if (!link || seen.has(link)) return false; seen.add(link);\n  const t = ((it.title||'')+' '+(it.contentSnippet||it.content||'')).toLowerCase();\n  if (!KEYWORDS.some(k => t.includes(k))) return false;\n  const d = it.isoDate || it.pubDate; const ts = d ? Date.parse(d) : now;\n  return !ts || (now - ts) < HOURS*3600*1000;\n});\nitems.sort((a,b) => Date.parse(b.isoDate||b.pubDate||0) - Date.parse(a.isoDate||a.pubDate||0));\nif (!items.length) items = $input.all().map(i=>i.json).slice(0,1);\nconst top = items[0];\nconst shortlist = items.slice(0,5).map((it,idx)=>`${idx+1}. ${it.title}`).join('\\n');\nreturn [{ json: {\n  title: top.title, link: top.link, summary: top.contentSnippet||top.content||'', pubDate: top.pubDate||'',\n  shortlist, count: items.length\n} }];"
+      },
+      "id": "merge-filter",
+      "name": "Gộp + lọc + xếp hạng",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-520, 300]
     },
     {
       "parameters": {
@@ -51,41 +62,38 @@
       "name": "Claude · viết kịch bản",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [-460, 300]
+      "position": [-300, 300]
     },
     {
       "parameters": {
-        "jsCode": "const r = $json;\nconst script = (r.content && r.content[0] && r.content[0].text) ? r.content[0].text.trim() : '';\nreturn [{ json: { script, title: $('Lọc + chọn tin').first().json.title, link: $('Lọc + chọn tin').first().json.link } }];"
+        "jsCode": "const r = $json;\nconst script = (r.content && r.content[0] && r.content[0].text) ? r.content[0].text.trim() : '';\nconst t = $('Gộp + lọc + xếp hạng').first().json;\nreturn [{ json: { script, title: t.title, link: t.link, shortlist: t.shortlist } }];"
       },
       "id": "extract-script",
       "name": "Lấy text kịch bản",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [-240, 300]
+      "position": [-80, 300]
     },
     {
       "parameters": {
         "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
-        "text": "=🚪 *CỬA 1 — Duyệt kịch bản*\n\n*{{ $json.title }}*\n\n{{ $json.script }}\n\n👉 Bấm nút hoặc gõ /approve — /edit <ghi chú>",
+        "text": "=🚪 *CỬA 1 — Duyệt kịch bản*\n\n*{{ $json.title }}*\n\n{{ $json.script }}\n\n———\n🗞 Tin nóng khác đang chờ:\n{{ $json.shortlist }}\n\n👉 /approve  ·  /edit <ghi chú>  ·  /pick <số> (chọn tin khác)",
         "additionalFields": {}
       },
       "id": "tg-gate1",
       "name": "Telegram · Cửa 1 (kịch bản)",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [-20, 300],
+      "position": [140, 300],
       "webhookId": "gate1"
     },
     {
-      "parameters": {
-        "resume": "webhook",
-        "options": {}
-      },
+      "parameters": { "resume": "webhook", "options": {} },
       "id": "wait-gate1",
       "name": "⏸ Chờ duyệt Cửa 1",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [200, 300],
+      "position": [360, 300],
       "webhookId": "approve-gate1"
     },
     {
@@ -108,7 +116,7 @@
       "name": "Vbee · sinh giọng (mp3)  ⚠️ sửa theo doc",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [420, 300]
+      "position": [580, 300]
     },
     {
       "parameters": {
@@ -130,18 +138,15 @@
       "name": "GitHub · kích render Action",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [640, 300]
+      "position": [800, 300]
     },
     {
-      "parameters": {
-        "resume": "webhook",
-        "options": {}
-      },
+      "parameters": { "resume": "webhook", "options": {} },
       "id": "wait-render",
       "name": "⏸ Chờ render xong (Action gọi về)",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [860, 300],
+      "position": [1020, 300],
       "webhookId": "render-done"
     },
     {
@@ -154,25 +159,26 @@
       "name": "Telegram · Cửa 2 (thành phẩm)",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1080, 300]
+      "position": [1240, 300]
     },
     {
       "parameters": {
-        "content": "## Xưởng Chuyện Tiền — POC bán tự động\n\nLuồng: RSS → Claude viết kịch bản → **Cửa 1 duyệt** → Vbee sinh giọng → kích render (GitHub Action) → **Cửa 2 thành phẩm** → anh đăng.\n\n⚠️ Cần cắm credential (xem README) + sửa node **Vbee** cho khớp doc gói của anh.",
-        "height": 200,
-        "width": 420
+        "content": "## Đa nguồn RSS\n\nNode **Nguồn tin (RSS)** giữ danh sách feed (VnExpress, Tuổi Trẻ, Thanh Niên, CafeF, Dân Trí, VietnamNet, NLĐ, Vietnambiz, Báo Đầu tư…). **Đọc RSS** đọc từng feed (1 feed lỗi vẫn chạy tiếp), **Gộp + lọc** khử trùng + lọc từ khoá + xếp mới nhất.\n\nThêm/bớt nguồn: sửa mảng FEEDS trong node đầu.",
+        "height": 220,
+        "width": 440
       },
       "id": "note-main",
       "name": "Ghi chú",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-1120, 40]
+      "position": [-1180, 20]
     }
   ],
   "connections": {
-    "▶ Chạy thử (Manual)": { "main": [[{ "node": "RSS VnExpress KD", "type": "main", "index": 0 }]] },
-    "RSS VnExpress KD": { "main": [[{ "node": "Lọc + chọn tin", "type": "main", "index": 0 }]] },
-    "Lọc + chọn tin": { "main": [[{ "node": "Claude · viết kịch bản", "type": "main", "index": 0 }]] },
+    "▶ Chạy thử (Manual)": { "main": [[{ "node": "Nguồn tin (RSS)", "type": "main", "index": 0 }]] },
+    "Nguồn tin (RSS)": { "main": [[{ "node": "Đọc RSS (mọi nguồn)", "type": "main", "index": 0 }]] },
+    "Đọc RSS (mọi nguồn)": { "main": [[{ "node": "Gộp + lọc + xếp hạng", "type": "main", "index": 0 }]] },
+    "Gộp + lọc + xếp hạng": { "main": [[{ "node": "Claude · viết kịch bản", "type": "main", "index": 0 }]] },
     "Claude · viết kịch bản": { "main": [[{ "node": "Lấy text kịch bản", "type": "main", "index": 0 }]] },
     "Lấy text kịch bản": { "main": [[{ "node": "Telegram · Cửa 1 (kịch bản)", "type": "main", "index": 0 }]] },
     "Telegram · Cửa 1 (kịch bản)": { "main": [[{ "node": "⏸ Chờ duyệt Cửa 1", "type": "main", "index": 0 }]] },

@@ -19,6 +19,26 @@
                                            └─► anh ĐĂNG
 ```
 
+## Nguồn tin (đa nguồn, thêm/bớt trong node "Nguồn tin (RSS)")
+Gom nhiều báo chính thống + chuyên tài chính; 1 feed lỗi vẫn chạy tiếp các feed còn lại, rồi **khử trùng + lọc từ khoá + xếp mới nhất**:
+
+| Báo | Feed |
+|---|---|
+| VnExpress · Kinh doanh | `https://vnexpress.net/rss/kinh-doanh.rss` |
+| VnExpress · Bất động sản | `https://vnexpress.net/rss/bat-dong-san.rss` |
+| Tuổi Trẻ · Kinh doanh | `https://tuoitre.vn/rss/kinh-doanh.rss` |
+| Thanh Niên · Kinh tế | `https://thanhnien.vn/rss/kinh-te.rss` |
+| CafeF · Tài chính–Ngân hàng | `https://cafef.vn/tai-chinh-ngan-hang.rss` |
+| CafeF · Bất động sản | `https://cafef.vn/bat-dong-san.rss` |
+| CafeF · Vĩ mô–Đầu tư | `https://cafef.vn/vi-mo-dau-tu.rss` |
+| Dân Trí · Kinh doanh | `https://dantri.com.vn/rss/kinh-doanh.rss` |
+| VietnamNet · Kinh doanh | `https://vietnamnet.vn/rss/kinh-doanh.rss` |
+| Người Lao Động · Kinh tế | `https://nld.com.vn/kinh-te.rss` |
+| Vietnambiz · Tài chính | `https://vietnambiz.vn/tai-chinh.rss` |
+| Báo Đầu tư · TC–Chứng khoán | `https://baodautu.vn/tai-chinh-chung-khoan-d6.rss` |
+
+> ⚠️ Sandbox chặn mạng nên em chưa curl-test được; trên server anh (mạng thật) chạy bình thường. Feed nào 404 thì bỏ khỏi mảng `FEEDS` — không ảnh hưởng cái khác. Muốn thêm nguồn (Znews, Tinnhanhchungkhoan, VTC…): chèn 1 dòng `{ source, url }` vào node đầu.
+
 ## File trong folder này
 - `chuyentien_poc.n8n.json` — workflow n8n (import vào n8n: *Workflows → Import from File*).
 - `../../.github/workflows/render-short.yml` — Action render khi n8n kích (repository_dispatch).
