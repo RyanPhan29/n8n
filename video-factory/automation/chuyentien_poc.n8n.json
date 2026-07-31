@@ -1,0 +1,186 @@
+{
+  "name": "Chuyện Tiền — POC bán tự động (2 cửa duyệt)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-manual",
+      "name": "▶ Chạy thử (Manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-1120, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://vnexpress.net/rss/kinh-doanh.rss",
+        "options": {}
+      },
+      "id": "rss-vnexpress",
+      "name": "RSS VnExpress KD",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [-900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lọc tin hợp kênh (tiền đời thường) + lấy tin mới nhất chưa làm.\n// TODO: thay 'seen' bằng đọc DB/Sheet để nhớ tin đã làm.\nconst KEYWORDS = ['lãi suất','vay','mua nhà','vàng','kim cương','thuế','tiết kiệm','đầu cơ','ngân hàng','bất động sản','tạm ứng'];\nconst items = $input.all().map(i => i.json);\nconst pick = items.find(it => {\n  const t = ((it.title||'') + ' ' + (it.contentSnippet||'')).toLowerCase();\n  return KEYWORDS.some(k => t.includes(k));\n}) || items[0];\nreturn [{ json: { title: pick.title, link: pick.link, summary: pick.contentSnippet || '', pubDate: pick.pubDate || '' } }];"
+      },
+      "id": "pick-topic",
+      "name": "Lọc + chọn tin",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-680, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-5\",\n  \"max_tokens\": 1200,\n  \"system\": \"Bạn viết KỊCH BẢN Vbee cho kênh faceless tài chính VN 'Chuyện Tiền · Anh Hai Kể'. Prose sạch LIỀN MẠCH, KHÔNG nhãn 'Đoạn 1/2'. Số nói dạng KHOẢNG, dẫn nguồn báo chính thống. Kết bằng 1 CÂU HỎI kéo comment. Giọng nam Bắc kể chuyện thân mật ('nhà mình','kể Anh Hai nghe'). Chủ đề nhạy cảm/pháp luật: trung lập, KHÔNG nêu tên cá nhân, KHÔNG quy kết. ~30-40 giây (90-120 từ). CHỈ trả về phần lời đọc.\",\n  \"messages\": [{\"role\":\"user\",\"content\": \"Tin: {{ $json.title }}\\nTóm tắt: {{ $json.summary }}\\nNguồn: {{ $json.link }}\\n\\nViết kịch bản Vbee.\"}]\n}",
+        "options": {}
+      },
+      "id": "claude-script",
+      "name": "Claude · viết kịch bản",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $json;\nconst script = (r.content && r.content[0] && r.content[0].text) ? r.content[0].text.trim() : '';\nreturn [{ json: { script, title: $('Lọc + chọn tin').first().json.title, link: $('Lọc + chọn tin').first().json.link } }];"
+      },
+      "id": "extract-script",
+      "name": "Lấy text kịch bản",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-240, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=🚪 *CỬA 1 — Duyệt kịch bản*\n\n*{{ $json.title }}*\n\n{{ $json.script }}\n\n👉 Bấm nút hoặc gõ /approve — /edit <ghi chú>",
+        "additionalFields": {}
+      },
+      "id": "tg-gate1",
+      "name": "Telegram · Cửa 1 (kịch bản)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [-20, 300],
+      "webhookId": "gate1"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {}
+      },
+      "id": "wait-gate1",
+      "name": "⏸ Chờ duyệt Cửa 1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [200, 300],
+      "webhookId": "approve-gate1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://vbee.vn/api/v1/tts",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "=Bearer {{ $env.VBEE_TOKEN }}" },
+            { "name": "content-type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"app_id\": \"{{ $env.VBEE_APP_ID }}\",\n  \"input_text\": {{ JSON.stringify($('Lấy text kịch bản').first().json.script) }},\n  \"voice_code\": \"{{ $env.VBEE_VOICE_CODE }}\",\n  \"audio_type\": \"mp3\",\n  \"bitrate\": 128,\n  \"speed_rate\": \"1.0\"\n}",
+        "options": {}
+      },
+      "id": "vbee-tts",
+      "name": "Vbee · sinh giọng (mp3)  ⚠️ sửa theo doc",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.github.com/repos/RyanPhan29/n8n/dispatches",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "=Bearer {{ $env.GITHUB_TOKEN }}" },
+            { "name": "Accept", "value": "application/vnd.github+json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"event_type\": \"render-short\",\n  \"client_payload\": {\n    \"title\": {{ JSON.stringify($('Lấy text kịch bản').first().json.title) }},\n    \"script\": {{ JSON.stringify($('Lấy text kịch bản').first().json.script) }},\n    \"voice_url\": {{ JSON.stringify($json.result ? $json.result.audio_link : $json.audio_link) }},\n    \"callback\": {{ JSON.stringify($env.N8N_RENDER_CALLBACK) }}\n  }\n}",
+        "options": {}
+      },
+      "id": "gh-dispatch",
+      "name": "GitHub · kích render Action",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {}
+      },
+      "id": "wait-render",
+      "name": "⏸ Chờ render xong (Action gọi về)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [860, 300],
+      "webhookId": "render-done"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=🚪 *CỬA 2 — Thành phẩm*\n\n✅ Master: {{ $json.master_url }}\n📊 SEO: {{ $json.seo_url }}\n\nLiếc lại rồi ĐĂNG nhé anh.",
+        "additionalFields": {}
+      },
+      "id": "tg-gate2",
+      "name": "Telegram · Cửa 2 (thành phẩm)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "content": "## Xưởng Chuyện Tiền — POC bán tự động\n\nLuồng: RSS → Claude viết kịch bản → **Cửa 1 duyệt** → Vbee sinh giọng → kích render (GitHub Action) → **Cửa 2 thành phẩm** → anh đăng.\n\n⚠️ Cần cắm credential (xem README) + sửa node **Vbee** cho khớp doc gói của anh.",
+        "height": 200,
+        "width": 420
+      },
+      "id": "note-main",
+      "name": "Ghi chú",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-1120, 40]
+    }
+  ],
+  "connections": {
+    "▶ Chạy thử (Manual)": { "main": [[{ "node": "RSS VnExpress KD", "type": "main", "index": 0 }]] },
+    "RSS VnExpress KD": { "main": [[{ "node": "Lọc + chọn tin", "type": "main", "index": 0 }]] },
+    "Lọc + chọn tin": { "main": [[{ "node": "Claude · viết kịch bản", "type": "main", "index": 0 }]] },
+    "Claude · viết kịch bản": { "main": [[{ "node": "Lấy text kịch bản", "type": "main", "index": 0 }]] },
+    "Lấy text kịch bản": { "main": [[{ "node": "Telegram · Cửa 1 (kịch bản)", "type": "main", "index": 0 }]] },
+    "Telegram · Cửa 1 (kịch bản)": { "main": [[{ "node": "⏸ Chờ duyệt Cửa 1", "type": "main", "index": 0 }]] },
+    "⏸ Chờ duyệt Cửa 1": { "main": [[{ "node": "Vbee · sinh giọng (mp3)  ⚠️ sửa theo doc", "type": "main", "index": 0 }]] },
+    "Vbee · sinh giọng (mp3)  ⚠️ sửa theo doc": { "main": [[{ "node": "GitHub · kích render Action", "type": "main", "index": 0 }]] },
+    "GitHub · kích render Action": { "main": [[{ "node": "⏸ Chờ render xong (Action gọi về)", "type": "main", "index": 0 }]] },
+    "⏸ Chờ render xong (Action gọi về)": { "main": [[{ "node": "Telegram · Cửa 2 (thành phẩm)", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}
