@@ -2299,4 +2299,41 @@ export const SHORT_D10: ShortSpec = { slug: 'ShortD10', scenes: [
     head: ['Không chọn 1 bỏ 1 — chia tỷ lệ'], size: 50, q: ['Dư 10 triệu: ', {t: 'xách vali hay bỏ ống?', c: 'gold'}]},
 ]};
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ===================== ĐIỂM TIN — MR PIPS: SÀN FOREX ẢO & RỬA TIỀN (thu mrpips.mp3, 46.58s) =====================
+// NHẠY CẢM: "bị truy tố / theo cáo trạng", KHÔNG quy kết, dẫn nguồn. Góc: bóc bẫy forex + cơ chế rửa tiền.
+// beats: 3.70|7.52|12.74|14.97|18.47|20.79|24.29|28.63|33.25|37.71|41.22|43.27|46.54
+export const SHORT_MRPIPS: ShortSpec = {
+  slug: 'ShortMrPips',
+  scenes: [
+    {d: 226, bar: 'red', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Một vụ án vừa bị truy tố'], size: 60,
+      value: 1, suffix: '.568 tỷ', staticNum: true, numColor: 'red', numTop: 540, numSize: 150,
+      label: ['chiếm đoạt · hơn 900 vụ lừa đảo'], labelTop: 830, labelC: 'red'},
+    {d: 224, bar: 'red', ahSmall: true, pose: 'think', ahCorner: 'right', ahH: 420,
+      source: {name: 'BÁO CHÍ · VKS', date: '2026'},
+      evidence: {
+        headline: ['Truy tố đường dây "Mr Pips"\nlừa đảo, rửa tiền'],
+        quote: ['Lập hàng loạt sàn forex, chứng khoán quốc tế — theo cáo trạng'],
+        src: 'Bị truy tố · chưa xét xử'}, evidenceTop: 400},
+    {d: 175, bar: 'amber', pose: 'warning', ahCorner: 'right', ahH: 620,
+      head: ['Cái bẫy nằm ở đây'], size: 70, icon: '🪤', iconTop: 520, iconSize: 200,
+      label: ['khách tưởng đang đầu tư thế giới'], labelTop: 850, labelC: 'amber'},
+    {d: 235, bar: 'navy', pose: 'shock', ahCorner: 'right', ahH: 620,
+      head: ['Sự thật phũ phàng'], size: 60, cards: [
+        {header: 'KHÁCH TƯỞNG', icon: '🌍', label: 'Chơi với thế giới', c: 'blue', dim: true},
+        {header: 'THỰC RA', icon: '🎰', label: 'Chơi với chủ sàn', c: 'red'}], cardsTop: 440},
+    {d: 139, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Cho thắng nhỏ → dụ nạp thêm'], size: 54, icon: '🔥💳', iconTop: 520, iconSize: 170,
+      label: ['nạp đậm là cháy tài khoản'], labelTop: 850, labelC: 'red'},
+    {d: 239, bar: 'navy', pose: 'sly', ahCorner: 'left', ahH: 600,
+      head: ['Rồi tới phần "rửa"'], size: 60, icon: '🔁💰', iconTop: 500, iconSize: 160,
+      label: ['tiền bẩn → nhà, vàng, đô la'], labelTop: 840, labelC: 'gray'},
+    {d: 62, bar: 'red', pose: 'warning', ahCorner: 'right', ahH: 640,
+      head: ['Sàn hứa thắng chắc\n= TRÁNH XA'], size: 60, icon: '⚠️', iconTop: 560, iconSize: 150},
+    {d: 98, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 700,
+      head: ['Đầu tư thật không ai hứa thắng'], size: 52,
+      q: ['Bạn từng bị mời vào sàn "ngon ăn" chưa?']},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
