@@ -71,3 +71,32 @@ Cắt theo góc **"vì sao thương hiệu moi được tiền của bạn"**:
 2. **Cuốn ② làm mũi phụ** — 1–2 short nhắm nhóm "bạn có bán hàng/kinh doanh không?", đẩy vào giỏ.
 3. **Luật vàng:** nội dung phải **giá trị thật trước, bán sau** (đúng tinh thần vali #2: nêu vấn đề trước). Gắn **nhãn tài trợ/affiliate** cho minh bạch.
 4. Đừng để 1 video vừa dạy tiền vừa hard-sell — mất chất kênh. Tách short "review sách" riêng, pin link.
+
+---
+
+## 📖 BỔ SUNG — Đọc bản demo "Giải Mã Marketing Hiện Đại" (21 trang thử)
+
+### Cấu trúc thật (mục lục)
+- **Phần 1 — Chúng ta nên bắt đầu từ đâu?** (Ch1 Kiến thức quan trọng nhất; Ch2 Tư duy khoa học/Evidence-based; Ch3 Nguyên tắc đầu tiên/First principles)
+- **Phần 2 — Hãy bắt đầu từ khách hàng, tư duy ngược lại** (Ch4 *Chúng ta không phải là khách hàng*; Ch5 Quan hệ người tiêu dùng–nhãn hiệu; Ch6 PTTC – Promise To The Customer; Ch7 *Huyễn tưởng Brand Purpose*; Ch8 Khi nào khách nghĩ đến nhãn)
+- **Phần 3 — Cách người tiêu dùng ra quyết định**
+- **Phần 4 — Công cụ marketing** (…Ch24 Quảng cáo cảm xúc không phải đũa thần; Ch25 Distinctive Brand Asset; Ch26 Hoạch định kênh truyền thông)
+
+### Trích dẫn / ý ĐẮT (dùng làm hook, có thật trong sách)
+- Bill Bernbach: *"Mất hàng triệu năm để hình thành bản năng con người. Và phải mất hàng triệu năm để những bản năng này thay đổi."*
+- *"Hiểu bản chất con người là kiến thức quan trọng nhất trong marketing — đơn vị sự thật nhỏ nhất."*
+- Ẩn dụ **thân cây / cành cây / chiếc lá**: *"Tôi đang xây thân cây, hay chỉ đang nhặt lá?"*
+- *"Chúng ta không phải là khách hàng"* (nguyên tắc marketing đầu tiên).
+- *"Brand Purpose"* bị gọi là **huyễn tưởng** → hook gây tranh cãi mạnh.
+
+### 3 SHORT MỒI AFFILIATE (dùng trích dẫn thật)
+**A. "Kiến thức số 1 của marketing không phải chạy ads"**
+> Cuốn này nói thẳng: thứ quan trọng nhất trong marketing không phải chạy quảng cáo, mà là hiểu bản chất con người. Trích Bill Bernbach: mất hàng triệu năm để hình thành bản năng con người, và cũng mất hàng triệu năm để nó đổi. Nghĩa là hành vi mua của bạn hôm nay vẫn y như người tiền sử mười nghìn năm trước. Hiểu cái gốc đó thì mọi chiêu marketing chỉ là ngọn. → *link giỏ 🛒*
+
+**B. "Vì sao học marketing hoài mà không giỏi lên?"**
+> Sách chỉ ra: ta cứ lao vào "những chiếc lá" — mẹo vặt, chi tiết — mà quên mất "thân cây", tức nguyên tắc gốc. Nhớ mẹo rời rạc thì mau quên; nắm nguyên tắc gốc thì tự suy ra được mọi chi tiết. Câu tác giả bắt bạn tự hỏi: "Tôi đang xây thân cây, hay chỉ đang nhặt lá?" → *link giỏ 🛒*
+
+**C. "Sai lầm marketing số 1: nghĩ khách hàng giống mình"**
+> Nguyên tắc đầu tiên trong sách: chúng ta KHÔNG phải là khách hàng. Bạn mê sản phẩm của mình, thuộc từng tính năng — nhưng khách thì phần lớn chẳng nhớ nổi tên nhãn. Marketing giỏi là bắt đầu từ khách, tư duy ngược lại. Sách còn gọi thẳng "Brand Purpose" là huyễn tưởng — nghe là muốn cãi. → *link giỏ 🛒*
+
+> Ghi chú: cuốn này thiên marketer/chủ shop → đẩy vào nhánh khán giả kinh doanh. Gắn nhãn affiliate minh bạch.
