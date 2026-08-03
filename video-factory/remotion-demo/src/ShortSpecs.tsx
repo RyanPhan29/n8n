@@ -2507,4 +2507,76 @@ export const SHORT_E10: ShortSpec = { slug: 'ShortE10', scenes: [
     q: ['Khó mua nhà: ', {t: 'lỗi thu nhập hay giá nhà?', c: 'gold'}]},
 ]};
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ===================== 5 SHORT BÁN SÁCH "GIẢI MÃ MARKETING" (affiliate, thu g01..g05) =====================
+export const SHORT_G01: ShortSpec = { slug: 'ShortG01', scenes: [
+  {d: 182, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+    head: ['Ai cũng hỏi:\n"10 năm tới gì THAY ĐỔI?"'], size: 50, icon: '🤔', iconTop: 560, iconSize: 150,
+    label: ['Jeff Bezos'], labelTop: 860, labelC: 'gray'},
+  {d: 168, bar: 'teal', pose: 'present', ahCorner: 'right', ahH: 600,
+    head: ['Ông hỏi ngược:\n"Cái gì sẽ KHÔNG đổi?"'], size: 50, icon: '💡', iconTop: 560, iconSize: 150,
+    label: ['xây chiến lược trên thứ ổn định'], labelTop: 860, labelC: 'teal'},
+  {d: 155, bar: 'navy', pose: 'cool', ahCorner: 'left', ahH: 600,
+    head: ['Khách vẫn muốn 3 thứ'], size: 56, icon: '💵 🚚 🛒', iconTop: 520, iconSize: 130,
+    label: ['giá rẻ · nhanh · nhiều lựa chọn'], labelTop: 850, labelC: 'navy'},
+  {d: 70, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 640,
+    head: ['Đừng chạy theo mọi trend'], size: 54, icon: '🎯', iconTop: 540, iconSize: 160},
+  {d: 79, bar: 'gold', pose: 'present', ahCorner: 'right', ahH: 700,
+    head: ['📖 Giải Mã\nMarketing Hiện Đại'], size: 50, q: ['Link ở ', {t: 'giỏ 🛒', c: 'gold'}]},
+]};
+export const SHORT_G02: ShortSpec = { slug: 'ShortG02', scenes: [
+  {d: 197, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 600,
+    head: ['"Biết TÊN một loài chim…"'], size: 54, icon: '🐦', iconTop: 520, iconSize: 180,
+    label: ['Richard Feynman'], labelTop: 850, labelC: 'gray'},
+  {d: 94, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+    head: ['…vẫn không HIỂU gì về nó'], size: 54, icon: '🤔', iconTop: 540, iconSize: 160},
+  {d: 126, bar: 'amber', pose: 'think', ahCorner: 'left', ahH: 600,
+    head: ['Lướt mạng gặp cả tá thuật ngữ'], size: 48, icon: '📱', iconTop: 520, iconSize: 160,
+    label: ['nghe câu nào cũng gật'], labelTop: 850, labelC: 'amber'},
+  {d: 185, bar: 'navy', pose: 'sly', ahCorner: 'right', ahH: 620,
+    head: ['Biết TÊN ≠ HIỂU'], size: 64, icon: '💬', iconTop: 520, iconSize: 160,
+    label: ['thử giải thích lại bằng lời của bạn'], labelTop: 850, labelC: 'gray'},
+  {d: 78, bar: 'gold', pose: 'present', ahCorner: 'right', ahH: 700,
+    head: ['📖 Giải Mã\nMarketing Hiện Đại'], size: 50, q: ['Link ở ', {t: 'giỏ 🛒', c: 'gold'}]},
+]};
+export const SHORT_G03: ShortSpec = { slug: 'ShortG03', scenes: [
+  {d: 218, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 620,
+    head: ['Học hoài mà không giỏi lên?'], size: 56, icon: '🤔', iconTop: 540, iconSize: 160,
+    label: ['marketing, đầu tư…'], labelTop: 860, labelC: 'gray'},
+  {d: 144, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 640,
+    head: ['Vấn đề ở đây'], size: 58, cards: [
+      {header: 'CHIẾC LÁ', icon: '🍃', label: 'Mẹo vặt, rời rạc', c: 'gray', dim: true},
+      {header: 'THÂN CÂY', icon: '🌳', label: 'Nguyên tắc gốc', c: 'teal'}], cardsTop: 450},
+  {d: 167, bar: 'navy', pose: 'present', ahCorner: 'left', ahH: 600,
+    head: ['Mỗi lĩnh vực chỉ ~3–12 gốc'], size: 50, icon: '🔑', iconTop: 520, iconSize: 160,
+    label: ['nhớ mẹo mau quên, nắm gốc suy ra hết'], labelTop: 850, labelC: 'gray'},
+  {d: 90, bar: 'gold', pose: 'present', ahCorner: 'right', ahH: 700,
+    head: ['📖 Xây cho bạn "thân cây"'], size: 48, q: ['Giải Mã Marketing · ', {t: 'giỏ 🛒', c: 'gold'}]},
+]};
+export const SHORT_G04: ShortSpec = { slug: 'ShortG04', scenes: [
+  {d: 208, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 600,
+    head: ['Kiến thức SỐ 1 của marketing'], size: 52, icon: '🧠', iconTop: 520, iconSize: 170,
+    label: ['không phải chạy quảng cáo…'], labelTop: 850, labelC: 'gray'},
+  {d: 146, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 600,
+    head: ['"Bản năng con người mất\ntriệu năm mới đổi"'], size: 44, icon: '⏳', iconTop: 560, iconSize: 140,
+    label: ['Bill Bernbach'], labelTop: 860, labelC: 'gray'},
+  {d: 221, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 620,
+    head: ['Bạn mua hàng hôm nay'], size: 52, icon: '🧍', iconTop: 520, iconSize: 160,
+    label: ['y hệt người tiền sử 10.000 năm trước'], labelTop: 850, labelC: 'red'},
+  {d: 83, bar: 'gold', pose: 'present', ahCorner: 'right', ahH: 700,
+    head: ['📖 Nguyên lý mở đầu sách'], size: 48, q: ['Giải Mã Marketing · ', {t: 'giỏ 🛒', c: 'gold'}]},
+]};
+export const SHORT_G05: ShortSpec = { slug: 'ShortG05', scenes: [
+  {d: 131, bar: 'amber', pose: 'present', ahCorner: 'right', ahH: 600,
+    head: ['Sách kinh điển:\n"định luật bất biến"'], size: 50, icon: '📚', iconTop: 560, iconSize: 150,
+    label: ['nghe rất chắc…'], labelTop: 860, labelC: 'gray'},
+  {d: 247, bar: 'amber', pose: 'sly', ahCorner: 'right', ahH: 600,
+    head: ['Nhưng thiếu bằng chứng khoa học'], size: 48, icon: '🤨', iconTop: 520, iconSize: 160,
+    label: ['rút từ kinh nghiệm, chưa kiểm chứng'], labelTop: 850, labelC: 'amber'},
+  {d: 129, bar: 'teal', pose: 'present', ahCorner: 'left', ahH: 600,
+    head: ['Marketing giỏi = dựa trên BẰNG CHỨNG'], size: 44, icon: '🔬', iconTop: 520, iconSize: 160,
+    label: ['không phải câu nghe cho sướng tai'], labelTop: 850, labelC: 'teal'},
+  {d: 93, bar: 'gold', pose: 'point', ahCorner: 'right', ahH: 700,
+    head: ['📖 Cuốn này bóc rõ'], size: 50, q: ['Giải Mã Marketing · ', {t: 'giỏ 🛒', c: 'gold'}]},
+]};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
