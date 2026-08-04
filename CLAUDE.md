@@ -31,6 +31,7 @@ Node_modules chỉ có ở **bản scratchpad** `…/scratchpad/remotion-demo` �
 - **Chữ Việt CHỈ do code render** — AI dựng chữ Việt là hỏng dấu. Nền/ảnh AI KHÔNG chứa chữ Việt.
 - **Vbee = prose sạch, liền mạch, KHÔNG nhãn "Đoạn 1/2/3".** Số liệu thật, có nguồn; nói dạng KHOẢNG để khỏi bị bắt bẻ.
 - **Verify file thu trước khi dùng:** luôn kiểm thời lượng + đếm khoảng lặng (tránh nhầm file / file ghép).
+- **MỌI video/short MỞ ĐẦU bằng cảnh COVER** = `cover('DÒNG 1','KEYWORD','DÒNG 3','Hook','pose')` (helper `ShortSpecs.tsx`): chữ TO chiếm ~1/2 khung trên, keyword đỏ, pill hook navy, Anh Hai cảm xúc → **frame đầu = ảnh bìa** (xuất bằng `remotion still <slug> out/<slug>_THUMB.png --frame=20`). Mỗi dòng ≤~10 ký tự, hook ≤~26 ký tự.
 - **Loudness -14 LUFS** cho mọi bản (chuẩn feed). Bitrate cao cho YouTube (đừng đưa bản nén nát).
 - **Giờ đăng** (trước peak 2–3h): Thứ 6 18:30 · CN 08:00 · Thứ 4 19:00. Rải short 4–5/ngày khung 19–21h.
 - Model ID `claude-opus-4-8` KHÔNG xuất hiện trong commit/PR/artifact.

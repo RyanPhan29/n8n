@@ -22,6 +22,7 @@ resources: "examples/ (trỏ spec thật: SHORT_LONGTHANH936, SHORT_PNJ, SHORT_K
 - Số nói dạng **KHOẢNG**, có nguồn. Không bịa.
 
 ## Cấu trúc 6–8 nhịp (khóa mềm)
+0. **COVER / THUMBNAIL (BẮT BUỘC — cảnh 0)**: `cover('DÒNG 1','KEYWORD','DÒNG 3','Hook phụ đề','shock')` (helper trong `ShortSpecs.tsx`). Chữ TO chiếm ~1/2 khung trên (keyword đỏ) + pill hook navy + Anh Hai cảm xúc → **frame đầu dùng luôn làm ảnh bìa**. Mỗi dòng ≤~10 ký tự, hook ≤~26 ký tự. Giữ ~1.2–1.5s (d~40) rồi vào HOOK. Xuất bìa: `remotion still <slug> out/<slug>_THUMB.png --frame=20 --browser-executable="$HS"`.
 1. **HOOK** (`head`+`icon`, pose sly/shock): nghịch lý / số sốc / câu hỏi.
 2. **THẺ BẰNG CHỨNG** (`source`+`evidence`): headline báo + quote + `src`.
 3. **SỐ / DỮ LIỆU** (`value`+`staticNum`+`label`) hoặc **BIỂU ĐỒ** (xem dưới).

@@ -94,3 +94,6 @@ bash ../tools/export_master.sh out/<slug>_raw.mp4 <giong.mp3> ../<slug>.ass <slu
 - Anh Hai = bộ 23 pose đã khóa. SFX tự động (pop/ding/ticker/whoosh). Font Montserrat 900/800 + Be Vietnam Pro 800/700.
 - Giờ đăng: đăng TRƯỚC peak 2-3h → Thứ 6 18:30 / Chủ Nhật 08:00 / Thứ 4 19:00.
 - Xác minh file thu: luôn kiểm thời lượng + số khoảng lặng trước khi dùng (tránh nhầm file).
+
+## COVER / THUMBNAIL (BẮT BUỘC — cảnh 0)
+Mọi short/video mở đầu bằng `cover('DÒNG 1','KEYWORD','DÒNG 3','Hook phụ đề','shock')` (helper trong `ShortSpecs.tsx`): chữ TO chiếm ~1/2 khung trên (keyword đỏ) + pill hook navy + Anh Hai cảm xúc → **frame đầu = ảnh bìa**. Mỗi dòng ≤~10 ký tự, hook ≤~26 ký tự. Xuất bìa: `remotion still <slug> out/<slug>_THUMB.png --frame=20 --browser-executable="$HS"`.

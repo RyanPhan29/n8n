@@ -66,3 +66,6 @@ $FF -y -i out/<slug>_raw.mp4 -i <giong.mp3> -filter_complex "[1:a]volume=1.15[vo
 
 ## Anh Hai, màu, 23 pose, giờ đăng, bất biến
 → Giống Tem 1. Anh Hai **căn giữa đáy** (cx), full người, thứ yếu — nội dung không bao giờ bị che.
+
+## COVER / THUMBNAIL (BẮT BUỘC — cảnh 0)
+Mọi short/video mở đầu bằng `cover('DÒNG 1','KEYWORD','DÒNG 3','Hook phụ đề','shock')` (helper trong `ShortSpecs.tsx`): chữ TO chiếm ~1/2 khung trên (keyword đỏ) + pill hook navy + Anh Hai cảm xúc → **frame đầu = ảnh bìa**. Mỗi dòng ≤~10 ký tự, hook ≤~26 ký tự. Xuất bìa: `remotion still <slug> out/<slug>_THUMB.png --frame=20 --browser-executable="$HS"`.

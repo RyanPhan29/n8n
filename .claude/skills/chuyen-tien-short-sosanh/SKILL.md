@@ -51,3 +51,6 @@ resources: "examples/ShortSpec-example.tsx (spec so sánh mẫu) · scripts dùn
 
 ## Anh Hai, màu, pose, giờ đăng, bất biến
 → Giống Tem 1 (`chuyen-tien-longform`). Anh Hai ở đây **căn giữa đáy** (cx), full người, thứ yếu. Nội dung KHÔNG bao giờ để Anh Hai che.
+
+## COVER / THUMBNAIL (BẮT BUỘC — cảnh 0)
+Mọi short/video mở đầu bằng `cover('DÒNG 1','KEYWORD','DÒNG 3','Hook phụ đề','shock')` (helper trong `ShortSpecs.tsx`): chữ TO chiếm ~1/2 khung trên (keyword đỏ) + pill hook navy + Anh Hai cảm xúc → **frame đầu = ảnh bìa**. Mỗi dòng ≤~10 ký tự, hook ≤~26 ký tự. Xuất bìa: `remotion still <slug> out/<slug>_THUMB.png --frame=20 --browser-executable="$HS"`.
