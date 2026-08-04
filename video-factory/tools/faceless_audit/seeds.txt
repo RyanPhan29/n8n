@@ -1,0 +1,32 @@
+# Seed queries cho discovery kênh faceless (mọi ngách, ưu tiên ngách faceless-density cao).
+# Mỗi dòng 1 query. yt-dlp ytsearch sẽ gom channel từ kết quả. Dòng bắt đầu # bị bỏ qua.
+# Tiếng Việt (ưu tiên — so trực tiếp với kênh mình)
+tài chính cá nhân
+đầu tư chứng khoán
+quản lý tiền
+giá vàng phân tích
+bất động sản việt nam
+kinh tế giải thích
+làm giàu tư duy
+kể chuyện lịch sử
+top 10 sự thật
+khám phá vũ trụ
+tâm lý học
+review phim tóm tắt
+truyện ma có thật
+động lực thành công
+# Faceless-heavy niches (tiếng Anh — học craft đỉnh, đánh dấu nhóm đối chiếu)
+finance explained
+personal finance tips
+stock market explained
+history explained
+scary stories reddit
+top 10 facts
+space documentary
+psychology facts
+motivation speech
+how money works
+true crime story
+philosophy explained
+tech explained
+ai news
