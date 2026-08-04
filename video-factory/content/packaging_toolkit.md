@@ -1,109 +1,147 @@
-# BỘ CÔNG CỤ PACKAGING (Title + Thumbnail) — long-form "Chuyện Tiền · Anh Hai Kể"
-> Đòn số 1: viết TITLE + THUMBNAIL trước khi viết script. Không lọt "cổng" → không sản xuất.
-> Luật gốc (YouTube 2026): title mạnh = **phơi 1 NỖI ĐAU TỐN TIỀN**, không "dạy chủ đề". Thumbnail = **1 căng thẳng tiền nhìn-tem-hiểu**, KHÔNG lặp title.
+# BỘ CÔNG CỤ PACKAGING + EDIT — long-form "Chuyện Tiền · Anh Hai Kể" (v2, truy-bằng-chứng)
+> **v2 khác v1:** v1 rút từ "best-practice YouTube chung chung" (anh Hai đúng: tự nghĩ tự thấy sướng). v2 **mỗi luật gắn bằng chứng** từ khảo sát thật → xem `KHAOSAT_packaging_edit.md`.
+> **Nhãn tin cậy:** 🟢 data thật (kênh mình / study có gốc) · 🟡 convention nhiều nguồn đồng thuận · 🔴 suy đoán, cần test.
+> **Neo gốc:** hard-data mạnh nhất = số kênh MÌNH → **So sánh + Bóc bẫy THẮNG, khái niệm trừu tượng THUA** (🟢 DOITHU_DINHLUONG). Mọi khuôn dưới đây phải phục vụ điều này.
 
 ---
 
-## PHẦN 1 — KHO 10 CÔNG THỨC TITLE (tiền)
-
-| # | Khuôn | Mẫu | Ví dụ kênh mình |
-|---|-------|-----|------------------|
-| 1 | **Con số bẫy** | "[N] [thứ] khiến bạn [mất tiền]" | *7 bẫy khiến đi làm 10 năm vẫn không có dư* |
-| 2 | **Nghịch lý** | "Càng [X] càng [Y ngược đời]" | *Càng kiếm nhiều càng hết tiền — vì sao?* |
-| 3 | **Sự thật bị giấu** | "Sự thật về [X] không ai nói" | *Sự thật về lãi kép ngân hàng không ai nói bạn nghe* |
-| 4 | **Sai lầm đắt giá** | "[N] sai lầm khi [làm] khiến [lỗ]" | *5 sai lầm khi mua vàng khiến bạn lỗ mà không biết* |
-| 5 | **Vì sao (mở vòng lặp)** | "Vì sao [hiện tượng đau]" | *Vì sao người Việt đi làm cả đời vẫn khó giàu* |
-| 6 | **Trường không dạy** | "[X] mà không ai/trường dạy bạn" | *5 bước quản lý tiền mà trường không dạy* |
-| 7 | **So sánh chọn phe** | "[A] hay [B]? Ai đang [thiệt]" | *Gửi ngân hàng hay mua vàng — ai đang lỗ mà không biết* |
-| 8 | **Người giàu vs bạn** | "Người giàu [nghĩ/làm] khác bạn thế nào" | *Người giàu nghĩ về tiền khác bạn thế nào* |
-| 9 | **Cảnh báo/bóc bẫy** | "[X] đang âm thầm rút ví bạn" | *Cái bẫy trả góp 0% đang âm thầm rút ví bạn* |
-| 10 | **Biến đổi trước–sau** | "Từ [tệ] đến [tốt] nhờ 1 [thứ]" | *Từ cháy túi cuối tháng đến dư 3 tháng lương nhờ 1 quy tắc* |
-
-**7 quy tắc viết title (bắt buộc):**
-1. **Front-load nỗi đau** — từ khoá đau/số đứng ĐẦU (mobile cắt đuôi title).
-2. **Có con số/cụ thể** ("7", "10 năm", "3 tháng lương") — não bám số.
-3. **1 curiosity gap** — hé chứ không spoil ("cái cuối đắt nhất", "mà không biết").
-4. **Ngôn ngữ đời, không thuật ngữ** ("có dư" > "tích lũy tài sản ròng").
-5. **≤ ~60 ký tự** phần cốt (đọc hết trên mobile).
-6. **KHÔNG clickbait rỗng** — 2026 chấm "độ hài lòng"; title hứa gì nội dung phải trả nấy, nếu không tụt đề xuất.
-7. **Luôn đẻ 3 title/ý tưởng** → chọn 1, giữ 2 cái kia để A/B đổi sau 48h nếu CTR yếu.
+## ⚠️ CĂNG THẲNG PHẢI BIẾT TRƯỚC (phát hiện từ khảo sát title)
+🟡 Nhóm title "ăn" nhất trong ngách faceless tiền = **"N bí mật/tư duy của người GIÀU", "đổi đời", "triệu phú giữ kín"** — tức giọng **guru dạy làm giàu**. Nhưng định vị kênh (🟢 `KENH_DINHVI`) là **"không lên lớp dạy đời", "à hóa ra vậy", tiền đời thường**. Hai cái CHỌI nhau.
+**→ Quyết định khung:** MƯỢN **cấu trúc** guru (câu hỏi nghịch lý, số lẻ, VIẾT HOA từ đau, curiosity gap) NHƯNG **không mượn lời hứa** guru ("bí mật làm giàu"). Thay bằng lời hứa **giải thích/bóc tách** ("giải mã… trong N phút", "vì sao… mà không ai nói"). Đây là cách ăn CTR mà không phản định vị + không dính vùng scam bị YouTube siết.
 
 ---
 
-## PHẦN 2 — HỆ THUMBNAIL LONG-FORM (khác short)
+## PHẦN 1 — KHO TITLE (xếp theo BẰNG CHỨNG, không phải cảm tính)
 
-**Vì sao khác short:** short dọc, xem 1 mình trên feed dọc, chữ chiếm ~1/2. **Long-form 16:9 phải THẮNG trên trang chủ/gợi ý** — nơi nó nằm cạnh cả chục thumbnail khác, hiển thị bằng con tem nhỏ. → luật khác:
+**Ưu tiên khuôn theo mức khớp (data kênh mình) × (tần suất thắng ngách):**
 
-**6 nguyên tắc thumbnail long-form:**
-1. **1 CĂNG THẲNG TIỀN duy nhất** (không kể cả bài): ví rỗng · mũi tên đỏ đi xuống · xấp tiền cháy · sổ tiết kiệm · cân vàng-tiền. 1 hình đủ.
-2. **Anh Hai 1 BIỂU CẢM MẠNH** = "nhân vật cảm xúc" (shock/lo/ranh mãnh/tiếc). Mặt to, rõ.
-3. **Chữ ≤ 3–5 TỪ, KHÁC title** (bổ sung, không lặp). VD title *"7 bẫy khiến đi làm 10 năm không có dư"* → thumbnail chỉ ghi **"VẪN NGHÈO?"**.
-4. **Tương phản CỰC mạnh**: nền tối/1 khối màu + chữ vàng hoặc đỏ; hoặc mũi tên đỏ trên nền sáng. Tránh nền rối.
-5. **Luật "nhìn tem 3 giây hiểu"**: thu nhỏ bằng móng tay vẫn đọc được chữ + hiểu tension.
-6. **Nhất quán bộ nhận diện**: cùng font code, cùng bảng màu, Anh Hai luôn 1 góc → lướt feed nhận ra ngay = thương hiệu.
+| Hạng | Khuôn | Bằng chứng | Mẫu cho mình |
+|------|-------|-----------|--------------|
+| ⭐1 | **So sánh chọn phe "A hay B — ai đang thiệt?"** | 🟢 kênh mình: 100tr bank vs vàng 1.646; Tài sản vs Tiêu sản 1.793 THẮNG | *Gửi ngân hàng hay mua vàng — ai đang lỗ mà không biết?* |
+| ⭐2 | **Bóc bẫy "[X] đang âm thầm rút ví bạn"** | 🟢 kênh mình: Bẫy cashback 1.711; "trả tối thiểu" 1.697 THẮNG | *Cái bẫy trả góp 0% đang âm thầm rút ví bạn* |
+| ⭐3 | **"Vì sao/Tại sao …?" (nghịch lý)** | 🟡 khuôn DÀY NHẤT ngách (mũi 1, top 1) | *Vì sao càng kiếm nhiều càng hết tiền?* |
+| 4 | **"Giải thích/Giải mã … trong N phút"** | 🟡 hợp giọng "Anh Hai kể" NHẤT (mũi 1, khuôn 6) | *Giải mã lãi kép ngân hàng trong 8 phút* |
+| 5 | **"Sự thật về [X] không ai nói"** | 🟡 khuôn "thông tin bị giấu" phổ biến (mũi 1, khuôn 3) | *Sự thật về giá vàng trong nước không ai nói* |
+| 6 | **"N [sai lầm/bẫy] khiến bạn [mất tiền]"** (số lẻ) | 🟡 khuôn "N + …" + 🟢 bóc bẫy hợp mình | *7 bẫy khiến đi làm 10 năm vẫn không có dư* |
+| ⛔ | ~~"N bí mật người GIÀU/triệu phú giữ kín"~~ | 🟡 ăn view NHƯNG 🟢 phản định vị + 🟡 vùng scam YouTube siết | TRÁNH |
 
-**Lợi thế riêng của mình (khai thác tối đa):**
-- **Chữ do code render** → nét sắc, dấu tiếng Việt chuẩn, bung to không vỡ (đa số kênh faceless dùng ảnh AI bị lỗi chữ).
-- **Anh Hai 23 pose** sẵn → biểu cảm khớp tension, không cần thuê vẽ.
-- **Có thể tạo TEMPLATE 16:9 auto** → điền 1 dòng là ra thumbnail, A/B nhanh (giống COVER của short nhưng khung ngang).
-
-**Do / Don't:**
-- ✅ 1 tiêu điểm · mặt Anh Hai to · chữ vàng/đỏ trên nền tối · mũi tên/số đỏ.
-- ❌ nhồi 2–3 câu · lặp nguyên title · nền nhiều chi tiết · chữ nhỏ · nhiều màu chọi nhau.
-
----
-
-## PHẦN 3 — CỔNG PACKAGING (scorecard, chấm TRƯỚC khi viết script)
-
-Mỗi ý tưởng → viết **3 title + 1–2 concept thumbnail** → chấm 5 tiêu chí (0–2đ), **cần ≥ 7/10 mới sản xuất**:
-
-| Tiêu chí | 0 | 1 | 2 |
-|----------|---|---|---|
-| **Nỗi đau tiền** rõ & lớn | mờ nhạt | có nhưng nhẹ | đau, ai cũng dính |
-| **Cụ thể/con số** | chung chung | có 1 số | số + mốc rõ |
-| **Curiosity gap** (muốn bấm) | spoil hết | hơi tò mò | phải bấm mới biết |
-| **Thumbnail nhìn-tem-hiểu** | rối/chữ nhỏ | ổn | 3s hiểu, tương phản mạnh |
-| **Title ↔ Thumbnail** bổ sung & khớp nội dung | lặp/lệch | ổn | bổ sung nhau, làm được thật |
-
-< 7đ → sửa packaging hoặc **bỏ đề tài** (đỡ tốn công dựng). ≥ 7đ → viết script, **script phải TRẢ đúng lời hứa packaging**.
+**🟡 7 quy tắc viết title (từ mẫu title thật — mũi 1):**
+1. **Front-load** bằng câu hỏi ("Vì sao…") hoặc con số — đừng mở bằng chủ ngữ trung tính.
+2. **VIẾT HOA đúng 1 cụm đau/thèm** giữa câu (VẪN NGHÈO, MẤT TRẮNG, KHÔNG DƯ) — không hoa cả câu, không emoji (title long-form ngách này gần như không emoji).
+3. **Con số lẻ** (3, 7, 9) ăn hơn số chẵn tròn.
+4. **Curiosity gap** — hé không spoil ("mà không biết", "ai đang lỗ").
+5. **Cam kết thời lượng** khi chủ đề nặng ("trong N phút") — hạ ngưỡng ngại.
+6. **Độ dài 40–75 ký tự** phần cốt; vế phụ (nếu có) sau `|` hoặc `-`.
+7. **KHÔNG clickbait rỗng** — 🟡 YouTube 2026 gỡ "egregious clickbait"; số/lời hứa trên title PHẢI có trong video + có nguồn (khớp bất biến Vbee). Luôn đẻ **3 title → A/B sau 48h** nếu CTR yếu.
 
 ---
 
-## PHẦN 4 — ÁP THỬ 5 ĐỀ TÀI THẬT (packaging hoàn chỉnh)
+## PHẦN 2 — HỆ THUMBNAIL 16:9 (mỗi luật có nguồn — mũi 2)
 
-### Đề tài 1 — "Đi làm 10 năm vẫn không có dư" ⭐
-- **Title (chọn):** *7 bẫy khiến đi làm 10 năm vẫn không có dư*
-- **Title A/B:** *Vì sao đi làm chăm chỉ mà mãi không có tiền dư?* · *Đi làm 10 năm, tài khoản vẫn 0 — bạn dính bẫy nào?*
-- **Thumbnail:** chữ **"VẪN NGHÈO?"** (vàng) trên nền navy tối · Anh Hai mặt **shock**, tay lộn ví rỗng · mũi tên đỏ đi xuống. Số nhỏ góc: "10 NĂM".
-- **Scorecard:** 2+2+2+2+2 = **10/10** → sản xuất.
+**🟡 8 luật (đồng thuận nhiều nguồn):**
+1. **Chữ 2–5 từ, < ~20 ký tự.** Dài hơn → đẩy xuống title. (Áp: dòng cover TO ≤~10 ký tự/dòng đang đúng; tổng chữ ăn tiền ≤4–5 từ.)
+2. **SỐ TO / 1 outcome là VUA** — đặt 1/3 trên, chiếm 15–20% khung ("3 THÁNG LƯƠNG", "-12TR/LƯỢNG", "540→720"). Thứ tự motif: số > mũi tên > xấp tiền/vàng > chart.
+3. **Anh Hai = "mặt cảm xúc"** (🟡 mặt +25–38% CTR; 🔴 cartoon có thể yếu hơn mặt thật nhưng vẫn giữ vai hook + nhận diện). Mặt to, biểu cảm mạnh & **ĐA DẠNG** (lo/nhíu mày/khoái chí — 🟡 "há mồm sốc" đang bị lạm dụng, hạ nhiệt).
+4. **Màu "tài chính đáng tin": nền TỐI navy/charcoal + accent VÀNG/teal/trắng** (🟡 bắt chước bank/Bloomberg = tín hiệu chuyên nghiệp; khớp màu KHÓA kênh).
+5. **ĐỎ có liều** — 🟡 đỏ lọc riêng nhóm chờ tin xấu → chỉ dùng khi nội dung thật về mất tiền/nợ/sụp, KHÔNG mặc định nền đỏ.
+6. **1 điểm nhìn + tương phản cao, đọc được cỡ móng tay.** Font đậm sans.
+7. **Neo tin cậy faceless = Anh Hai + 1 vật chủ đề** (sổ tiết kiệm/xấp tiền/chart) thay cho "mặt người thật".
+8. **Chữ ≠ title** (bổ sung, không lặp). VD title *"7 bẫy… không có dư"* → thumbnail chỉ **"VẪN NGHÈO?"**.
+
+**🟢 Lợi thế riêng khai thác tối đa:** chữ Việt code-render (nét sắc, dấu chuẩn, bung to không vỡ — đa số faceless dùng ảnh AI hỏng chữ) · Anh Hai 23 pose sẵn · có thể làm **template 16:9 auto** điền 1 dòng ra bìa.
+
+**🟡 Kỳ vọng thực tế:** CTR ngách tài chính chỉ **3–5%** (kênh mới ~3% là ổn) — đừng so giải trí; bù lại RPM cao.
+
+**🟡 TRÁNH:** mũi tên/vòng đỏ trỏ chỗ vô nghĩa · há-mồm-sốc lạm dụng · >4–5 từ · số phóng đại lệch nội dung · mồi "nhân đôi tiền/bí mật giàu" (scam) · nhiều màu/vật · nền AI chèn chữ Việt · đỏ rực mặc định.
+
+---
+
+## PHẦN 3 — EDIT / RETENTION (MỚI ở v2 — cái v1 thiếu; mũi 3)
+
+**🟡 Checklist retention áp cho engine motion-graphics:**
+
+**Hook (0–30s):**
+- [ ] Frame đầu = cover **có chuyển động ngay giây 1** (interrupt 5s đầu → +23%).
+- [ ] Dòng 1 = **con số sốc / nỗi đau cụ thể**, không chung chung.
+- [ ] Cắm **1 open loop** bằng chữ trước giây 15 ("cuối video sẽ rõ vì sao…").
+- [ ] Nhắc lại lời hứa title trong 5s đầu.
+
+**Thân bài:**
+- [ ] **3–5 cắt/phút** (1 cảnh ~12–20s) — đúng vùng explainer giáo dục.
+- [ ] Đổi kích thích (pose/màu/số) **mỗi 30–60s**; micro-change mỗi 5–7s.
+- [ ] **1 cảnh = 1 ý mới**; visual/chữ hiện **≤0.5s** sau từ khoá giọng.
+- [ ] Cảnh biểu đồ/nhiều số giữ **≥3–5s** để kịp đọc; số liệt kê thì pop nhanh.
+- [ ] Pacing biến thiên: nhanh khi kể, chậm ở ví dụ/biểu đồ/cảm xúc.
+
+**Chống rơi giữa video:**
+- [ ] Pattern interrupt lớn **mỗi 2–4 phút** (đổi màu chương + Anh Hai đổi pose + music swell).
+- [ ] Re-hook ở **60–70%** thời lượng; mỗi khi chốt 1 ý → mở ngay hook mới.
+
+**Chữ/âm:**
+- [ ] Chữ on-screen gần như suốt (🟢 caption +12–25% watch time; completion 66→91%) — **thế mạnh gốc của mình**.
+- [ ] 🔴 Whoosh/ping đúng frame cắt (audio nhanh ~2×) — *pipeline chưa có, cần thêm export*.
+- [ ] Music bed -14 LUFS + **swell ở câu chốt**.
+
+**Long-form:** chia **chương 2–5 phút** (đánh số/chapter marker cho thấy tiến độ) · chuyển chương = chỗ đặt CTA/nhắc kênh.
+
+**🔴 4 hạng mục ENGINE nên thêm (đụng file KHÓA → CHỜ ANH DUYỆT, không tự sửa):**
+(1) subtle zoom/drift khung không tĩnh · (2) SFX whoosh/ping ở export · (3) music swell câu chốt · (4) đổi màu chuyển-chương mỗi 2–4' long-form.
+
+---
+
+## PHẦN 4 — CỔNG PACKAGING (scorecard, chấm TRƯỚC khi viết script)
+
+Mỗi ý tưởng → **3 title + 1–2 concept thumbnail** → chấm 6 tiêu chí (0–2đ), **cần ≥ 9/12 mới sản xuất**:
+
+| Tiêu chí | 0 | 1 | 2 | Nguồn |
+|----------|---|---|---|-------|
+| **Nỗi đau tiền** rõ & lớn | mờ | nhẹ | ai cũng dính | 🟢 kênh mình |
+| **Cụ thể/con số** (lẻ) | chung chung | 1 số | số + mốc | 🟡 mũi 1 |
+| **Curiosity gap** | spoil | hơi | phải bấm mới biết | 🟡 mũi 1 |
+| **Thumbnail: 1 số TO + tương phản, tem 3s hiểu** | rối/chữ nhỏ | ổn | 3s hiểu | 🟡 mũi 2 |
+| **Title ↔ Thumbnail** bổ sung, khớp nội dung thật | lặp/lệch | ổn | bổ sung + làm được | 🟡 clickbait risk |
+| **Khớp định vị "không guru dạy đời"** | giọng guru làm giàu | trung tính | đúng "à hóa ra vậy" | 🟢 KENH_DINHVI |
+
+< 9đ → sửa packaging hoặc **bỏ đề tài**. ≥ 9đ → viết script, **script phải TRẢ đúng lời hứa**.
+
+---
+
+## PHẦN 5 — ÁP THỬ 5 ĐỀ TÀI (chấm lại theo scorecard 6 tiêu chí)
+
+### ⭐ Đề tài 1 — "Đi làm 10 năm vẫn không có dư"
+- **Title:** *7 bẫy khiến đi làm 10 năm vẫn không có dư* (khuôn 6 + bóc bẫy 🟢)
+- **A/B:** *Vì sao đi làm chăm chỉ mà mãi không có tiền dư?* · *Đi làm 10 năm tài khoản vẫn 0 — bạn dính bẫy nào?*
+- **Thumbnail:** **"VẪN NGHÈO?"** (vàng) nền navy tối · Anh Hai mặt lo/nhíu mày (không há mồm) lộn ví rỗng · số nhỏ góc **"10 NĂM"**.
+- **Scorecard:** đau 2 · số 2 · gap 2 · thumb 2 · khớp 2 · **định vị 2** = **12/12** → sản xuất.
 
 ### Đề tài 2 — Newsjack Vàng (nối chuỗi short đang chạy)
-- **Title:** *Gửi ngân hàng hay mua vàng — ai đang lỗ mà không biết?*
+- **Title:** *Gửi ngân hàng hay mua vàng — ai đang lỗ mà không biết?* (khuôn ⭐1 so sánh 🟢)
 - **A/B:** *Vàng đắt hơn thế giới 12 triệu/lượng: còn nên mua?* · *Sự thật về giá vàng trong nước không ai nói*
-- **Thumbnail:** cân 2 bên **VÀNG ⚖️ SỔ TIẾT KIỆM** · chữ **"AI ĐANG LỖ?"** (đỏ) · Anh Hai mặt **ngờ vực**.
-- **Scorecard:** 2+2+2+1+2 = **9/10** → sản xuất.
+- **Thumbnail:** cân VÀNG ⚖️ SỔ TIẾT KIỆM · SỐ TO **"-12TR/LƯỢNG"** (đỏ — hợp vì là mất tiền) · Anh Hai ngờ vực.
+- **Scorecard:** 2·2·2·2·1·2 = **11/12** → sản xuất.
 
 ### Đề tài 3 — Lạm phát lối sống
-- **Title:** *Càng kiếm nhiều càng hết tiền — vì sao?*
+- **Title:** *Vì sao càng kiếm nhiều càng hết tiền?* (khuôn ⭐3 nghịch lý 🟡)
 - **A/B:** *Lương tăng gấp đôi mà vẫn cháy túi: cái bẫy vô hình* · *Vì sao tăng lương không làm bạn giàu lên*
-- **Thumbnail:** 1 bên "LƯƠNG ↑" (xanh) — 1 bên "VÍ RỖNG" · Anh Hai mặt **khó hiểu** · chữ **"NGƯỢC ĐỜI"** (vàng).
-- **Scorecard:** 2+1+2+2+2 = **9/10** → sản xuất.
+- **Thumbnail:** "LƯƠNG ↑" (xanh) vs "VÍ RỖNG" · chữ **"NGƯỢC ĐỜI"** (vàng) · Anh Hai khó hiểu.
+- **Scorecard:** 2·1·2·2·2·2 = **11/12** → sản xuất. (điểm số thấp vì title thiếu con số cụ thể — cân nhắc thêm "gấp đôi")
 
 ### Đề tài 4 — Sai lầm đầu tư (bắt sóng)
-- **Title:** *5 sai lầm khi mới đầu tư khiến bạn mất tiền*
+- **Title:** *5 sai lầm khi mới đầu tư khiến bạn mất tiền* (khuôn 6, số lẻ)
 - **A/B:** *Người mới đầu tư hay mất tiền vì 5 bẫy này* · *Mất tiền đầu tư không phải do xui — do 5 lỗi này*
-- **Thumbnail:** biểu đồ nến **đỏ lao dốc** · Anh Hai mặt **tiếc/ôm đầu** · chữ **"MẤT TRẮNG?"** (đỏ).
-- **Scorecard:** 2+2+2+2+1 = **9/10** → sản xuất.
+- **Thumbnail:** biểu đồ nến **đỏ lao dốc** + SỐ **"-40%"** · Anh Hai tiếc/ôm đầu · chữ **"MẤT TRẮNG?"**.
+- **Scorecard:** 2·2·2·2·1·2 = **11/12** → sản xuất.
 
-### Đề tài 5 — Quản lý tiền (thường xanh, nuôi view dài hạn)
-- **Title:** *5 bước quản lý tiền mà trường không dạy*
+### Đề tài 5 — Quản lý tiền (thường xanh)
+- **Title:** *5 bước quản lý tiền mà trường không dạy* (khuôn 6)
 - **A/B:** *Cách chia tiền lương để cuối tháng luôn có dư* · *Quản lý tiền kiểu này, 30 triệu sống thoải hơn 50 triệu*
-- **Thumbnail:** 1 đồng lương chia **nhiều hũ** · Anh Hai mặt **aha/chỉ tay** · chữ **"CHIA SAO?"** (teal).
-- **Scorecard:** 2+1+2+2+2 = **9/10** → sản xuất.
+- **Thumbnail:** 1 đồng lương chia **nhiều hũ** + SỐ **"30 > 50TR?"** · Anh Hai aha/chỉ tay · chữ **"CHIA SAO?"** (teal).
+- **Scorecard:** 2·1·2·2·2·2 = **11/12** → sản xuất. ⚠️ 🟢 lưu ý: "quy tắc chia tiền" trừu tượng ĐÃ THUA ở short mình (50/30/20 chỉ 235đ) → long-form phải bọc bằng **câu chuyện/ví dụ đời**, đừng dạy khô.
 
 ---
 
-## VIỆC TIẾP (biến toolkit thành máy)
-1. **Dựng TEMPLATE thumbnail 16:9 auto trong engine** (giống COVER short nhưng khung ngang) → điền `thumb('VẪN NGHÈO?', pose, hình tension, màu)` là ra ảnh bìa 1920×1080. Render thử 2–3 đề tài trên để anh chọn look.
-2. Khoá kho title + scorecard này thành **skill packaging** (mọi video phải qua cổng).
-3. Chốt 1 đề tài (đề xuất Đề tài 1, 10/10) → sang bước Hook + script.
+## VIỆC TIẾP (đề xuất, chờ anh chốt)
+1. **Dựng template thumbnail 16:9 auto** trong engine (giống COVER short, khung ngang) → render thử 2–3 đề tài để anh **nhìn tận mắt chọn look**. Nhược: đụng vùng engine → em làm ở scratchpad, khóa lại sau.
+2. **Chốt Đề tài 1 (12/12) → sang Hook + script** theo checklist retention Phần 3.
+3. **Nâng cấp bằng chứng (nếu anh muốn chắc hơn):** anh mở YouTube chụp title+thumbnail 4 kênh đối thủ (Một Phút Đầu Tư/Thành Công/Hieu.tv/Cú Thông Thái) gửi em → em thay data "convention" bằng data thật của chính đối thủ.
+4. **Khóa v2 thành skill packaging** (mọi long-form qua cổng scorecard).
