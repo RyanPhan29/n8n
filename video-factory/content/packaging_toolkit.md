@@ -38,7 +38,9 @@
 
 ## PHẦN 2 — HỆ THUMBNAIL 16:9 (mỗi luật có nguồn — mũi 2)
 
-**🟡 8 luật (đồng thuận nhiều nguồn):**
+> 🟢 **CẬP NHẬT 5/8 (từ ẢNH THẬT — xem `BAOCAO_thumbnail_docvi.md`):** 8 luật dưới là trường phái **creator phương Tây** (nền tối, ít chữ). NHƯNG thumbnail **velocity cao nhất ngách tiền VN là TABLOID**: nền VÀNG/ĐỎ bão hoà, **10–14 từ chia 3–4 dòng**, số to, tag "TIN MỚI", dải chữ đáy, ảnh quan chức nhỏ góc. Đối thủ cartoon trực hệ **"Anh Ba Tài Chính"** lai 2 look. → Với chủ đề TIN/thời sự, ưu tiên **look tabloid-clean** (bố cục tabloid + chữ code sắc nét); giữ 8 luật dưới cho video kiến thức/evergreen. A/B cả hai.
+
+**🟡 8 luật (creator school — cho evergreen/kiến thức):**
 1. **Chữ 2–5 từ, < ~20 ký tự.** Dài hơn → đẩy xuống title. (Áp: dòng cover TO ≤~10 ký tự/dòng đang đúng; tổng chữ ăn tiền ≤4–5 từ.)
 2. **SỐ TO / 1 outcome là VUA** — đặt 1/3 trên, chiếm 15–20% khung ("3 THÁNG LƯƠNG", "-12TR/LƯỢNG", "540→720"). Thứ tự motif: số > mũi tên > xấp tiền/vàng > chart.
 3. **Anh Hai = "mặt cảm xúc"** (🟡 mặt +25–38% CTR; 🔴 cartoon có thể yếu hơn mặt thật nhưng vẫn giữ vai hook + nhận diện). Mặt to, biểu cảm mạnh & **ĐA DẠNG** (lo/nhíu mày/khoái chí — 🟡 "há mồm sốc" đang bị lạm dụng, hạ nhiệt).
