@@ -2601,7 +2601,7 @@ export const SHORT_G05: ShortSpec = { slug: 'ShortG05', scenes: [
 // ===================== ĐIỂM TIN NGÀY 4/8/2026 (5 tin) — audio_dt0408 =====================
 // DT1 — Cha tặng con 1,5ha đất rồi kiện đòi lại (Đồng Nai). NHẠY CẢM: navy, không tên, "theo tòa/báo".
 export const SHORT_DT1: ShortSpec = { slug: 'ShortDT1', scenes: [
-  cover('CHO CON', 'ĐẤT', 'RỒI ĐÒI LẠI', 'Tặng 1,5ha rồi ra tòa', 'shock'),
+  cover('CHO CON', 'ĐẤT', 'RỒI ĐÒI LẠI', 'Tặng 1,5ha rồi ra tòa', 'shock', 80),
   {d: 53, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 600,
     source: {name: 'VietnamNet', date: '4/8/2026'},
     head: ['Chuyện thật ở ', {t: 'ĐỒNG NAI', c: 'navy'}], size: 70, htop: 250,
@@ -2635,7 +2635,7 @@ export const SHORT_DT1: ShortSpec = { slug: 'ShortDT1', scenes: [
 
 // DT2 — Lãi suất huy động tăng (7,2–7,8%, ~7 NH ≥7%)
 export const SHORT_DT2: ShortSpec = { slug: 'ShortDT2', scenes: [
-  cover('LÃI GỬI', 'TĂNG', 'MẠNH', 'Nhiều NH đẩy lên trên 7%', 'aha'),
+  cover('LÃI GỬI', 'TĂNG', 'MẠNH', 'Nhiều NH đẩy lên trên 7%', 'aha', 72),
   {d: 104, bar: 'blue', pose: 'present', ahCorner: 'right', ahH: 600,
     head: ['Lãi huy động ', {t: 'NHÍCH LÊN', c: 'blue'}], size: 66, htop: 250,
     icon: '🏦  📈', iconTop: 540, iconSize: 170},
@@ -2667,7 +2667,7 @@ export const SHORT_DT2: ShortSpec = { slug: 'ShortDT2', scenes: [
 
 // DT3 — Vàng nhẫn ~142tr, cao hơn thế giới ~12tr/lượng
 export const SHORT_DT3: ShortSpec = { slug: 'ShortDT3', scenes: [
-  cover('VÀNG NỘI', 'VƯỢT XA', 'THẾ GIỚI', 'Chênh tới 12 triệu/lượng', 'shock'),
+  cover('VÀNG NỘI', 'VƯỢT XA', 'THẾ GIỚI', 'Chênh tới 12 triệu/lượng', 'shock', 67),
   {d: 200, bar: 'gold', pose: 'present', ahCorner: 'right', ahH: 580,
     head: ['Vàng nhẫn trong nước'], size: 60, htop: 230,
     value: 142, suffix: ' tr', numColor: 'gold', numTop: 500, numSize: 170,
@@ -2692,7 +2692,7 @@ export const SHORT_DT3: ShortSpec = { slug: 'ShortDT3', scenes: [
 
 // DT4 — Thuế kiểm 30 DN BĐS → kiến nghị xử lý ~565,6 tỷ
 export const SHORT_DT4: ShortSpec = { slug: 'ShortDT4', scenes: [
-  cover('30 DN', 'BĐS', 'BỊ KIỂM THUẾ', 'Kiến nghị xử lý 565 tỷ', 'shock'),
+  cover('30 DN', 'BĐS', 'BỊ KIỂM THUẾ', 'Kiến nghị xử lý 565 tỷ', 'shock', 77),
   {d: 81, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
     head: ['Con số ', {t: 'GIẬT MÌNH', c: 'red'}], size: 68, htop: 250,
     icon: '🏢  🧾', iconTop: 540, iconSize: 170},
