@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.className+=" js";</script>
+  <title>Đặt Lịch Khám Online — BS CKI Lê Hiếu | Da liễu Bình Dương</title>
+  <meta name="description" content="Đặt lịch khám da liễu online với Bác sĩ CKI Lê Hiếu. Chọn dịch vụ, ngày và khung giờ phù hợp. Tư vấn 1-1 miễn phí buổi đầu, không ép mua gói. Thủ Dầu Một, Bình Dương." />
+  <meta name="keywords" content="đặt lịch khám da liễu bình dương, booking bác sĩ hiếu, đặt lịch trị mụn sẹo thủ dầu một" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'><rect%20width='100'%20height='100'%20rx='20'%20fill='%23fff'/><g%20fill='none'%20stroke='%23A11626'%20stroke-width='5'><ellipse%20cx='50'%20cy='50'%20rx='15'%20ry='32'/><ellipse%20cx='50'%20cy='50'%20rx='15'%20ry='32'%20transform='rotate(45%2050%2050)'/><ellipse%20cx='50'%20cy='50'%20rx='15'%20ry='32'%20transform='rotate(90%2050%2050)'/><ellipse%20cx='50'%20cy='50'%20rx='15'%20ry='32'%20transform='rotate(135%2050%2050)'/></g></svg>" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html" aria-label="Trang chủ Dr Lê Hiếu">
+        <span class="brand__mark"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4"><ellipse cx="50" cy="50" rx="15" ry="32"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(45 50 50)"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(90 50 50)"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(135 50 50)"/><g stroke-width="3"><ellipse cx="50" cy="50" rx="4.5" ry="10"/><ellipse cx="50" cy="50" rx="4.5" ry="10" transform="rotate(90 50 50)"/></g></svg></span>
+        <span class="brand__name">Dr Lê Hiếu<span>SKINLAB DE BEAUTY</span></span>
+      </a>
+      <nav class="nav" aria-label="Điều hướng chính">
+        <a href="index.html">Trang chủ</a>
+        <a href="about.html">Về bác sĩ</a>
+        <div class="has-sub">
+          <a href="dich-vu.html">Dịch vụ ▾</a>
+          <div class="submenu">
+            <a href="services/tri-mun.html">Trị Mụn Y Khoa</a>
+            <a href="services/tri-seo-ro.html">Trị Sẹo Rỗ</a>
+            <a href="services/peel-da.html">Peel Da Dược Mỹ Phẩm</a>
+            <a href="services/laser-tre-hoa.html">Laser Trẻ Hoá</a>
+            <a href="services/triet-long.html">Triệt Lông Diode</a>
+          </div>
+        </div>
+        <a href="index.html#cases">Case study</a>
+        <a href="index.html#tech">Công nghệ</a>
+        <a href="dat-lich.html">Đặt lịch online</a>
+      </nav>
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+84900000000">📞 Hotline</a>
+        <a class="btn btn--primary" href="#book-form">Đặt lịch khám</a>
+        <button class="nav-toggle" aria-label="Mở menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container reveal">
+      <div class="breadcrumb"><a href="index.html">Trang chủ</a> / Đặt lịch online</div>
+      <span class="eyebrow">Đặt lịch online</span>
+      <h1>Đặt lịch khám cùng BS CKI Lê Hiếu</h1>
+      <p>Chọn dịch vụ, ngày và khung giờ phù hợp với bạn. Bác sĩ tư vấn 1-1 trực tiếp — miễn phí buổi đầu tiên, không ép mua gói dịch vụ.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:56px">
+    <div class="container">
+      <div class="book-wrap">
+        <!-- Booking form -->
+        <div class="book-panel reveal" id="book-form">
+          <form id="booking-form" novalidate>
+            <!-- Step 1: service -->
+            <div class="step-block">
+              <div class="step-label"><span class="step-num">1</span> Chọn dịch vụ</div>
+              <div class="choice-grid">
+                <button type="button" class="choice js-service" data-value="Trị mụn y khoa"><span class="ic">🔬</span> Trị mụn y khoa</button>
+                <button type="button" class="choice js-service" data-value="Trị sẹo rỗ"><span class="ic">✨</span> Trị sẹo rỗ</button>
+                <button type="button" class="choice js-service" data-value="Peel da dược mỹ phẩm"><span class="ic">🧴</span> Peel da</button>
+                <button type="button" class="choice js-service" data-value="Laser trẻ hoá"><span class="ic">💫</span> Laser trẻ hoá</button>
+                <button type="button" class="choice js-service" data-value="Triệt lông diode"><span class="ic">❄️</span> Triệt lông diode</button>
+                <button type="button" class="choice js-service" data-value="Soi da & tư vấn"><span class="ic">💬</span> Soi da &amp; tư vấn</button>
+              </div>
+              <input type="hidden" name="service" required />
+            </div>
+
+            <!-- Step 2: date -->
+            <div class="step-block">
+              <div class="step-label"><span class="step-num">2</span> Chọn ngày</div>
+              <div class="field" style="margin:0;max-width:280px">
+                <input type="date" name="date" required />
+              </div>
+            </div>
+
+            <!-- Step 3: time slot -->
+            <div class="step-block">
+              <div class="step-label"><span class="step-num">3</span> Chọn khung giờ</div>
+              <div class="slot-grid">
+                <div class="slot js-slot">08:30</div>
+                <div class="slot js-slot">09:30</div>
+                <div class="slot js-slot">10:30</div>
+                <div class="slot js-slot">13:30</div>
+                <div class="slot js-slot">14:30</div>
+                <div class="slot js-slot">15:30</div>
+                <div class="slot js-slot">16:30</div>
+                <div class="slot js-slot">17:30</div>
+              </div>
+              <input type="hidden" name="slot" required />
+              <p class="form-note" style="text-align:left;margin-top:10px">Giờ mở cửa 8:00 – 19:00 (Thứ 2 – Chủ Nhật). Phòng khám sẽ gọi xác nhận khung giờ chính xác.</p>
+            </div>
+
+            <!-- Step 4: info -->
+            <div class="step-block">
+              <div class="step-label"><span class="step-num">4</span> Thông tin liên hệ</div>
+              <div class="field">
+                <label>Họ tên <span class="req">*</span></label>
+                <input type="text" name="name" placeholder="Nguyễn Văn A" required />
+              </div>
+              <div class="field">
+                <label>Số điện thoại <span class="req">*</span></label>
+                <input type="tel" name="phone" placeholder="09xx xxx xxx" required />
+              </div>
+              <div class="field">
+                <label>Mô tả tình trạng da (không bắt buộc)</label>
+                <textarea name="note" placeholder="Ví dụ: mụn viêm 2 năm, đã trị nhiều nơi chưa hết…"></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">Xác nhận đặt lịch</button>
+            <p class="form-note">Thông tin của bạn được bảo mật, chỉ dùng để liên hệ tư vấn.</p>
+            <div class="form-ok" role="status"></div>
+          </form>
+        </div>
+
+        <!-- Aside -->
+        <aside class="book-aside reveal">
+          <div class="aside-card">
+            <h3>Thông tin phòng khám</h3>
+            <div class="aside-list">
+              <a href="tel:+84900000000"><span class="ico">📞</span><div>Hotline<small>Bấm để gọi trực tiếp</small></div></a>
+              <a href="https://zalo.me/" target="_blank" rel="noopener"><span class="ico">💬</span><div>Zalo<small>Nhắn tin tư vấn nhanh</small></div></a>
+              <a href="https://m.me/" target="_blank" rel="noopener"><span class="ico">📱</span><div>Messenger<small>fb.com/SKINLAB</small></div></a>
+              <div><span class="ico">📍</span><div>Thủ Dầu Một, Bình Dương<small>Giờ mở cửa: 8:00 – 19:00 · T2 – CN</small></div></div>
+            </div>
+          </div>
+
+          <div class="map-embed">📍 Google Map<br /><small style="font-weight:500">(nhúng bản đồ thật khi go-live)</small></div>
+
+          <div class="aside-card" style="background:var(--navy)">
+            <h3 style="color:#fff">Cam kết của phòng khám</h3>
+            <ul class="booking-trust">
+              <li><span class="chk">✓</span> Tư vấn miễn phí buổi đầu</li>
+              <li><span class="chk">✓</span> Không ép mua gói dịch vụ</li>
+              <li><span class="chk">✓</span> Bác sĩ CKI trực tiếp khám</li>
+              <li><span class="chk">✓</span> Soi da 17 chỉ số trước điều trị</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <span class="brand__mark"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4"><ellipse cx="50" cy="50" rx="15" ry="32"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(45 50 50)"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(90 50 50)"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(135 50 50)"/><g stroke-width="3"><ellipse cx="50" cy="50" rx="4.5" ry="10"/><ellipse cx="50" cy="50" rx="4.5" ry="10" transform="rotate(90 50 50)"/></g></svg></span>
+            <span class="brand__name">Dr Lê Hiếu<span>SKINLAB DE BEAUTY</span></span>
+          </div>
+          <p class="footer-about">Phòng khám Da liễu Bác sĩ CKI Lê Hiếu — Thủ Dầu Một, Bình Dương.</p>
+        </div>
+        <div>
+          <h4>Dịch vụ</h4>
+          <ul>
+            <li><a href="services/tri-mun.html">Trị Mụn Y Khoa</a></li>
+            <li><a href="services/tri-seo-ro.html">Trị Sẹo Rỗ</a></li>
+            <li><a href="services/peel-da.html">Peel Da Dược Mỹ Phẩm</a></li>
+            <li><a href="services/laser-tre-hoa.html">Laser Trẻ Hoá</a></li>
+            <li><a href="services/triet-long.html">Triệt Lông Diode</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Liên kết</h4>
+          <ul>
+            <li><a href="about.html">Về BS Lê Hiếu</a></li>
+            <li><a href="dich-vu.html">Dịch vụ</a></li>
+            <li><a href="index.html#cases">Case study</a></li>
+            <li><a href="dat-lich.html">Đặt lịch online</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Liên hệ</h4>
+          <ul class="footer-contact">
+            <li>📍 Thủ Dầu Một, Bình Dương</li>
+            <li>📞 <a href="tel:+84900000000">Hotline (cập nhật)</a></li>
+            <li>🕐 8:00 – 19:00 · T2 – CN</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© 2026 Phòng khám Da liễu BS CKI Lê Hiếu — SKINLAB DE BEAUTY.</span>
+        <span>Kết quả điều trị phụ thuộc cơ địa mỗi người.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

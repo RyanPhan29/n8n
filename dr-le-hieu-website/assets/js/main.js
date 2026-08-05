@@ -36,14 +36,45 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var ok = form.querySelector('.form-ok');
+      // Validate chip-based fields when present (booking page)
+      var svc = form.querySelector('[name="service"]');
+      var slot = form.querySelector('[name="slot"]');
+      if ((svc && !svc.value) || (slot && !slot.value)) {
+        if (ok) {
+          ok.textContent = 'Vui lòng chọn dịch vụ và khung giờ trước khi đặt lịch.';
+          ok.style.display = 'block';
+          ok.style.background = 'rgba(192,83,29,.08)';
+          ok.style.borderColor = 'rgba(192,83,29,.3)';
+          ok.style.color = '#C0531D';
+        }
+        return;
+      }
       var name = (form.querySelector('[name="name"]') || {}).value || 'bạn';
       if (ok) {
         ok.textContent = 'Cảm ơn ' + name + '! Phòng khám sẽ liên hệ xác nhận lịch trong thời gian sớm nhất.';
         ok.style.display = 'block';
       }
       form.reset();
+      form.querySelectorAll('.choice.active, .slot.active').forEach(function (c) { c.classList.remove('active'); });
     });
   }
+
+  // Booking page: single-select chip groups (service + time slot)
+  function chipGroup(selector, hiddenName) {
+    var chips = document.querySelectorAll(selector);
+    if (!chips.length) return;
+    var hidden = hiddenName ? document.querySelector('[name="' + hiddenName + '"]') : null;
+    chips.forEach(function (chip) {
+      if (chip.classList.contains('off')) return;
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        if (hidden) hidden.value = chip.getAttribute('data-value') || chip.textContent.trim();
+      });
+    });
+  }
+  chipGroup('.js-service', 'service');
+  chipGroup('.js-slot', 'slot');
 
   // Shrink header shadow on scroll
   var header = document.querySelector('.site-header');

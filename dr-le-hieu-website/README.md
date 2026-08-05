@@ -8,6 +8,8 @@ Website tĩnh (HTML/CSS/JS thuần) cho phòng khám da liễu **BS CKI Lê Hi�
 dr-le-hieu-website/
 ├── index.html                 # Trang chủ (Hero + Dịch vụ + Case study + Về BS + Công nghệ + Testimonial + Đặt lịch)
 ├── about.html                 # Về BS Lê Hiếu (câu chuyện + bằng cấp + triết lý)
+├── dich-vu.html               # Trang menu Dịch vụ (tổng hợp 5 dịch vụ)
+├── dat-lich.html              # Đặt lịch online (chọn dịch vụ → ngày → khung giờ → thông tin)
 ├── services/
 │   ├── tri-mun.html           # Trị Mụn Y Khoa
 │   ├── tri-seo-ro.html        # Trị Sẹo Rỗ Chuyên Sâu
