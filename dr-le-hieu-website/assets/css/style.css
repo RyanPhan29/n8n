@@ -176,6 +176,15 @@ p  { margin-bottom: 1rem; }
 .trust-badges .chk { color: var(--success); font-weight: 800; }
 .hero-loc { margin-top: 18px; color: var(--gray-text); font-weight: 600; }
 
+/* Chỉ dẫn cuộn xuống — mời khách khám phá kết quả thật */
+.scroll-cue { grid-column: 1 / -1; justify-self: center; margin-top: 30px; display: inline-flex; flex-direction: column; align-items: center; gap: 10px; color: var(--gray-text); font-weight: 600; font-size: 14px; text-decoration: none; letter-spacing: .01em; }
+.scroll-cue:hover { color: var(--red); }
+.scroll-cue .chev { width: 18px; height: 18px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); opacity: .8; }
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-cue .chev { animation: cueBounce 1.7s ease-in-out infinite; }
+  @keyframes cueBounce { 0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: .55; } 50% { transform: rotate(45deg) translate(3px, 3px); opacity: 1; } }
+}
+
 /* Hero visual card */
 .hero-visual { position: relative; }
 .hero-card {

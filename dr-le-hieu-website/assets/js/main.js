@@ -59,6 +59,34 @@
     });
   }
 
+  // Đếm số liệu hero (0 → mục tiêu) — tạo ấn tượng quy mô ngay khi vào trang
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var nums = document.querySelectorAll('.hero-stats .num[data-count]');
+    if (!nums.length || reduce) return;
+    function animate(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      var dur = 1300, start = null;
+      el.textContent = '0' + suffix;
+      function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.5 });
+      nums.forEach(function (n) { io.observe(n); });
+    } else { nums.forEach(animate); }
+  })();
+
   // Sticky mobile call bar (Gọi · Zalo · Đặt lịch) — chèn vào mọi trang
   (function () {
     if (document.querySelector('.mobile-callbar')) return;
