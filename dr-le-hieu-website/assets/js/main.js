@@ -55,14 +55,26 @@
         return;
       }
       function val(n) { var el = form.querySelector('[name="' + n + '"]'); return el ? (el.value || '').trim() : ''; }
-      var name = val('name'), phone = val('phone');
-      if (!name || !phone) {
+      function showErr(msg, focusName) {
         if (ok) {
-          ok.textContent = 'Vui lòng nhập họ tên và số điện thoại.';
+          ok.textContent = msg;
           ok.style.display = 'block';
           ok.style.background = 'rgba(192,83,29,.08)'; ok.style.borderColor = 'rgba(192,83,29,.3)'; ok.style.color = '#C0531D';
+          ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-        return;
+        if (focusName) { var f = form.querySelector('[name="' + focusName + '"]'); if (f && f.focus) try { f.focus(); } catch (e) {} }
+      }
+      var name = val('name'), phone = val('phone');
+      if (!name) { showErr('Vui lòng nhập họ tên.', 'name'); return; }
+      if (!phone) { showErr('Vui lòng nhập số điện thoại.', 'phone'); return; }
+      // Kiểm tra định dạng SĐT Việt Nam (bỏ khoảng trắng, chấp nhận +84)
+      var digits = phone.replace(/[\s.\-()]/g, '').replace(/^\+84/, '0');
+      if (!/^0\d{9}$/.test(digits)) { showErr('Số điện thoại chưa đúng (cần 10 số, ví dụ 0934 113 839).', 'phone'); return; }
+      // Ngày không được ở quá khứ
+      var dateEl = form.querySelector('[name="date"]');
+      if (dateEl && dateEl.value) {
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+        if (new Date(dateEl.value) < today) { showErr('Ngày mong muốn không thể ở quá khứ.', 'date'); return; }
       }
       // Soạn nội dung đặt lịch, sao chép vào clipboard & mở Zalo để khách gửi cho bác sĩ
       var service = val('service') || val('issue'), date = val('date'), slotv = val('slot'), note = val('note');
@@ -136,14 +148,23 @@
     chips.forEach(function (chip) {
       if (chip.classList.contains('off')) return;
       chip.addEventListener('click', function () {
-        chips.forEach(function (c) { c.classList.remove('active'); });
+        chips.forEach(function (c) { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
         chip.classList.add('active');
+        chip.setAttribute('aria-pressed', 'true');
         if (hidden) hidden.value = chip.getAttribute('data-value') || chip.textContent.trim();
       });
     });
   }
   chipGroup('.js-service', 'service');
   chipGroup('.js-slot', 'slot');
+
+  // Chặn chọn ngày quá khứ trên ô chọn ngày đặt lịch
+  (function () {
+    var d = document.querySelector('#booking-form [name="date"]');
+    if (!d) return;
+    var t = new Date(); t.setMinutes(t.getMinutes() - t.getTimezoneOffset());
+    d.min = t.toISOString().slice(0, 10);
+  })();
 
   // Shrink header shadow on scroll
   var header = document.querySelector('.site-header');

@@ -1,4 +1,4 @@
-# Website Bác sĩ CKI Lê Hiếu — SKINLAB the Beauty
+# Website Bác sĩ CKI Lê Hiếu — SKINLAB DE BEAUTY
 
 Website tĩnh (HTML/CSS/JS thuần) cho phòng khám da liễu **BS CKI Lê Hiếu** tại Thủ Dầu Một, Bình Dương. Xây dựng theo đúng brief: định hướng chiến lược, design system, full copy và design brief.
 
