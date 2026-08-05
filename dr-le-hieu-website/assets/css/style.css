@@ -128,10 +128,11 @@ p  { margin-bottom: 1rem; }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand__mark {
-  width: 40px; height: 40px; border-radius: 8px; background: var(--navy);
-  display: grid; place-items: center; color: #fff; flex: none;
+  width: 46px; height: 46px; display: grid; place-items: center;
+  color: var(--red); flex: none;
 }
-.brand__mark svg { width: 22px; height: 22px; }
+.brand__mark svg { width: 46px; height: 46px; }
+.site-footer .brand__mark { color: #fff; }
 .brand__name { font-family: var(--font-head); font-weight: 800; font-size: 19px; color: var(--navy); line-height: 1.05; }
 .brand__name span { display: block; font-family: var(--font-body); font-weight: 600; font-size: 11px; letter-spacing: .14em; color: var(--red); text-transform: uppercase; }
 .nav { display: flex; align-items: center; gap: 28px; }

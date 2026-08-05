@@ -129,10 +129,11 @@ p  { margin-bottom: 1rem; }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand__mark {
-  width: 40px; height: 40px; border-radius: 8px; background: var(--navy);
-  display: grid; place-items: center; color: #fff; flex: none;
+  width: 46px; height: 46px; display: grid; place-items: center;
+  color: var(--red); flex: none;
 }
-.brand__mark svg { width: 22px; height: 22px; }
+.brand__mark svg { width: 46px; height: 46px; }
+.site-footer .brand__mark { color: #fff; }
 .brand__name { font-family: var(--font-head); font-weight: 800; font-size: 19px; color: var(--navy); line-height: 1.05; }
 .brand__name span { display: block; font-family: var(--font-body); font-weight: 600; font-size: 11px; letter-spacing: .14em; color: var(--red); text-transform: uppercase; }
 .nav { display: flex; align-items: center; gap: 28px; }
@@ -420,9 +421,9 @@ p  { margin-bottom: 1rem; }
     <div class="container">
       <a class="brand" href="index.html" aria-label="Trang chủ BS Lê Hiếu">
         <span class="brand__mark">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.2 5.7.8-4.1 4 .97 5.7L12 16.9 6.93 18.7 7.9 13l-4.1-4 5.7-.8z" fill="currentColor"/></svg>
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4"><ellipse cx="50" cy="50" rx="15" ry="32"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(45 50 50)"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(90 50 50)"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(135 50 50)"/><g stroke-width="3"><ellipse cx="50" cy="50" rx="4.5" ry="10"/><ellipse cx="50" cy="50" rx="4.5" ry="10" transform="rotate(90 50 50)"/></g></svg>
         </span>
-        <span class="brand__name">BS Lê Hiếu<span>SKINLAB the Beauty</span></span>
+        <span class="brand__name">Dr Lê Hiếu<span>SKINLAB DE BEAUTY</span></span>
       </a>
 
       <nav class="nav" aria-label="Điều hướng chính">
@@ -504,278 +505,8 @@ p  { margin-bottom: 1rem; }
 
       <div class="grid grid-3">
         <article class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="9" r="1.2" fill="currentColor"/><circle cx="13" cy="14" r="1.2" fill="currentColor"/></svg></div>
-          <h3>Trị Mụn Y Khoa</h3>
-          <p>Từ mụn ẩn, mụn viêm đến mụn bọc nội tiết. Phác đồ cá nhân hoá theo 4 loại mụn + 3 nguyên nhân gốc. Không dùng công thức "chung cho mọi khách".</p>
-          <ul class="tags">
-            <li>Mụn ẩn · Mụn đầu đen</li>
-            <li>Mụn viêm · Mụn bọc</li>
-            <li>Mụn nội tiết · Mụn lưng</li>
-            <li>Thâm sau mụn</li>
-          </ul>
-          <div class="card-cta"><a class="link-arrow" href="#services">Tìm hiểu thêm <span class="ar">→</span></a></div>
-        </article>
-
-        <article class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12c3-4 5-4 8 0s5 4 8 0"/><path d="M4 17c3-4 5-4 8 0s5 4 8 0"/></svg></div>
-          <h3>Trị Sẹo Rỗ Chuyên Sâu</h3>
-          <p>5 loại sẹo lõm khác nhau — phương pháp khác nhau. Kết hợp công nghệ Fractional CO2 + Subcision + TCA CROSS. Bác sĩ CKI xác định đúng loại sẹo trước điều trị.</p>
-          <ul class="tags">
-            <li>Sẹo Ice Pick · Boxcar · Rolling</li>
-            <li>Sẹo hỗn hợp phức tạp</li>
-            <li>Sẹo lồi và sẹo lõm</li>
-            <li>Sẹo do thuỷ đậu, tai nạn</li>
-          </ul>
-          <div class="card-cta"><a class="link-arrow" href="#services">Tìm hiểu thêm <span class="ar">→</span></a></div>
-        </article>
-
-        <article class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3h8l-1 5c2 1 3 3 3 6a6 6 0 01-12 0c0-3 1-5 3-6z"/><path d="M9 8h6"/></svg></div>
-          <h3>Peel Da Dược Mỹ Phẩm</h3>
-          <p>Peel bằng dược mỹ phẩm nhập từ châu Âu. Nồng độ acid chọn theo loại da từng khách. Có nguồn gốc rõ ràng, hoá đơn nhập khẩu minh bạch.</p>
-          <ul class="tags">
-            <li>Peel BHA · AHA · TCA</li>
-            <li>Thâm sau mụn · Nám bề mặt</li>
-            <li>Da xỉn màu · Lỗ chân lông to</li>
-            <li>Peel định kỳ chăm sóc da</li>
-          </ul>
-          <div class="card-cta"><a class="link-arrow" href="#services">Tìm hiểu thêm <span class="ar">→</span></a></div>
-        </article>
-      </div>
-
-      <div class="text-center mt-32 reveal">
-        <a class="btn btn--secondary" href="#services">Xem thêm: Laser Trẻ Hoá</a>
-        <a class="btn btn--secondary" href="#services" style="margin-left:12px">Triệt Lông Diode</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CASE STUDY ============ -->
-  <section class="section section--cream" id="cases">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Kết quả thật</span>
-        <h2>Kết quả thật từ khách hàng</h2>
-        <p class="lead">Không photoshop. Không dàn dựng. Đây là những khách đã đồng ý cho phép sử dụng hình ảnh.</p>
-      </div>
-
-      <div class="case-card reveal">
-        <div class="case-media">
-          <figure class="before"><figcaption>BEFORE</figcaption>Ảnh trước điều trị</figure>
-          <figure class="after"><figcaption>AFTER</figcaption>Ảnh sau điều trị</figure>
-        </div>
-        <div class="case-body">
-          <h3>Điều trị sẹo rỗ do mụn</h3>
-          <dl class="case-grid">
-            <div>
-              <dt>Tình trạng ban đầu</dt>
-              <dd>Sẹo hỗn hợp phức tạp, sẹo lâu năm</dd>
-              <dt>Tiền sử</dt>
-              <dd>Đã từng làm sẹo nhiều lần không cải thiện</dd>
-              <dt>Kết quả</dt>
-              <dd><strong style="color:var(--success)">Sau 1 buổi điều trị</strong></dd>
-            </div>
-            <div>
-              <dt>Phác đồ điều trị</dt>
-              <dd>
-                <ul>
-                  <li>Tái lập cấu trúc sẹo</li>
-                  <li>Thủ thuật chuyên sâu thay đổi hình thái sẹo</li>
-                  <li>Công nghệ cao Fractional CO2 tái cấu trúc đa tầng</li>
-                  <li>Liệu trình tăng sinh từ gốc tế bào</li>
-                  <li>Thiết lập bề mặt sinh học</li>
-                </ul>
-              </dd>
-            </div>
-          </dl>
-          <div class="callout callout--warn mt-16"><span class="i">⚠️</span> Kết quả phụ thuộc cơ địa và mức độ tổn thương của từng người.</div>
-          <div class="mt-16"><a class="link-arrow" href="#booking">Xem thêm 50+ case study <span class="ar">→</span></a></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ ABOUT ============ -->
-  <section class="section" id="about">
-    <div class="container">
-      <div class="about-split">
-        <div class="about-portrait reveal">
-          <div>
-            <div class="ph-label" style="font-size:13px">Portrait</div>
-            <strong style="font-size:20px;color:rgba(255,255,255,.8)">BS CKI Lê Hiếu</strong>
-          </div>
-        </div>
-        <div class="about-copy reveal">
-          <span class="eyebrow">Về bác sĩ</span>
-          <h2>Bác sĩ CKI Lê Hiếu</h2>
-          <p class="lead" style="color:var(--red);font-weight:600">10 năm — hàng nghìn khách — 1 triết lý duy nhất</p>
-          <p>Bác sĩ Lê Hiếu tốt nghiệp Chuyên khoa I Da liễu, với 10 năm kinh nghiệm điều trị chuyên sâu các vấn đề mụn, sẹo, nám và peel da tại Bình Dương.</p>
-          <p>Không giống các spa quảng cáo "trị mụn sau 1 buổi", bác Hiếu tin vào phác đồ y khoa được cá nhân hoá cho từng khách. Da mỗi người khác nhau — phác đồ cũng phải khác.</p>
-          <div class="quote-block">"Bác từng bị mụn nặng thời sinh viên, từng tự nặn sai cách để lại sẹo. Chính trải nghiệm đó khiến bác chọn ngành da liễu — và không phán xét bất kỳ khách nào đang bế tắc với làn da của mình."</div>
-          <ul class="badge-list">
-            <li><span class="chk">✓</span> Chuyên khoa I Da liễu</li>
-            <li><span class="chk">✓</span> 10 năm kinh nghiệm</li>
-            <li><span class="chk">✓</span> 5000+ khách điều trị</li>
-            <li><span class="chk">✓</span> Cập nhật công nghệ mới</li>
-          </ul>
-          <a class="btn btn--secondary" href="#about">Đọc câu chuyện đầy đủ</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TECHNOLOGY ============ -->
-  <section class="section section--gray" id="tech">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Công nghệ y khoa</span>
-        <h2>Công nghệ điều trị</h2>
-        <p class="lead">Thiết bị y khoa chính hãng — không phải máy spa</p>
-      </div>
-      <div class="grid grid-4">
-        <div class="tech-card reveal">
-          <div class="kicker">Soi da</div>
-          <h3>Máy soi da Bitmoji A3</h3>
-          <p class="role">Phân tích 17 chỉ số da chuyên sâu</p>
-          <ul>
-            <li>8 quang phổ (UV, Wood, Red, Brown, RGB…)</li>
-            <li>Đánh giá độ ẩm, dầu, mụn ẩn, sắc tố tầng sâu</li>
-            <li>Cloud storage — so sánh trước/sau mỗi buổi</li>
-          </ul>
-        </div>
-        <div class="tech-card reveal">
-          <div class="kicker">Trị sẹo</div>
-          <h3>Laser Fractional CO2</h3>
-          <p class="role">Tái cấu trúc sẹo đa tầng</p>
-          <ul>
-            <li>Kích thích tái tạo collagen mới</li>
-            <li>Hiệu quả cho sẹo rỗ Boxcar và Rolling</li>
-            <li>Xử lý được sẹo lâu năm nhiều loại</li>
-          </ul>
-        </div>
-        <div class="tech-card reveal">
-          <div class="kicker">Triệt lông</div>
-          <h3>Diode Laser 808nm</h3>
-          <p class="role">Triệt lông bền vững</p>
-          <ul>
-            <li>Bước sóng tối ưu cho nang lông</li>
-            <li>Đầu máy làm lạnh −8°C — giảm đau</li>
-            <li>Phù hợp đa số loại da và lông</li>
-          </ul>
-        </div>
-        <div class="tech-card reveal">
-          <div class="kicker">Trị nám</div>
-          <h3>Pico Laser</h3>
-          <p class="role">Xử lý thâm — nám tầng sâu</p>
-          <ul>
-            <li>Xung ngắn nano giây</li>
-            <li>Phá vỡ melanin tầng bì</li>
-            <li>Downtime chỉ 1–2 ngày</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TESTIMONIALS ============ -->
-  <section class="section" id="testimonials">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Đánh giá</span>
-        <h2>Khách hàng nói gì về BS Hiếu</h2>
-      </div>
-      <div class="grid grid-3">
-        <figure class="tst reveal">
-          <div class="stars">★★★★★</div>
-          <blockquote>"Em trị mụn 3 năm chỗ khác không hết. Đến BS Hiếu — 4 tháng sạch mụn. Điều em thích nhất là bác không hối em mua thêm gói — chỉ tập trung trị hết vấn đề trước."</blockquote>
-          <figcaption class="who"><strong>Chị M., 26 tuổi, Bình Dương</strong><span>Điều trị: Mụn nội tiết</span></figcaption>
-        </figure>
-        <figure class="tst reveal">
-          <div class="stars">★★★★★</div>
-          <blockquote>"Sẹo rỗ 10 năm — em đã tuyệt vọng. Sau 6 buổi Fractional CO2, da em cải thiện 70%. Kỳ vọng thực tế + tay nghề BS là combo em tìm mãi."</blockquote>
-          <figcaption class="who"><strong>Anh T., 32 tuổi, Thủ Dầu Một</strong><span>Điều trị: Sẹo rỗ do mụn</span></figcaption>
-        </figure>
-        <figure class="tst reveal">
-          <div class="stars">★★★★★</div>
-          <blockquote>"Peel dược mỹ phẩm đúng nghĩa — không phải peel spa rẻ tiền. Da em sáng hơn thấy rõ sau 3 buổi. Có BS khám trước mỗi lần — yên tâm."</blockquote>
-          <figcaption class="who"><strong>Chị L., 29 tuổi, Bình Dương</strong><span>Điều trị: Peel da định kỳ</span></figcaption>
-        </figure>
-      </div>
-      <div class="text-center mt-32 reveal">
-        <a class="link-arrow" href="#booking">Xem thêm 100+ đánh giá Google <span class="ar">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ BOOKING ============ -->
-  <section class="section section--navy" id="booking">
-    <div class="container">
-      <div class="booking">
-        <div class="booking-info reveal">
-          <span class="eyebrow" style="color:#ff8494">Đặt lịch</span>
-          <h2>Đặt lịch khám miễn phí</h2>
-          <p class="lead">Bác sĩ CKI Lê Hiếu tư vấn 1-1 trực tiếp. Không tính phí buổi đầu tiên.</p>
-          <div class="contact-list">
-            <a href="tel:+84900000000"><span class="ico">📞</span><div>Hotline<small>Bấm để gọi trực tiếp</small></div></a>
-            <a href="https://zalo.me/" target="_blank" rel="noopener"><span class="ico">💬</span><div>Zalo<small>Nhắn tin tư vấn nhanh</small></div></a>
-            <a href="https://m.me/" target="_blank" rel="noopener"><span class="ico">📱</span><div>Messenger<small>fb.com/SKINLAB</small></div></a>
-            <div><span class="ico">📍</span><div>Thủ Dầu Một, Bình Dương<small>Giờ mở cửa: 8:00 – 19:00 (Thứ 2 – Chủ Nhật)</small></div></div>
-          </div>
-          <ul class="booking-trust">
-            <li><span class="chk">✓</span> Tư vấn miễn phí buổi đầu</li>
-            <li><span class="chk">✓</span> Không ép mua gói dịch vụ</li>
-            <li><span class="chk">✓</span> Bác sĩ CKI trực tiếp khám</li>
-          </ul>
-        </div>
-
-        <div class="form-card reveal">
-          <h3>Điền thông tin đặt lịch</h3>
-          <p class="muted">Phòng khám sẽ gọi lại xác nhận trong thời gian sớm nhất.</p>
-          <form id="booking-form" novalidate>
-            <div class="field">
-              <label>Họ tên <span class="req">*</span></label>
-              <input type="text" name="name" placeholder="Nguyễn Văn A" required />
-            </div>
-            <div class="field">
-              <label>Số điện thoại <span class="req">*</span></label>
-              <input type="tel" name="phone" placeholder="09xx xxx xxx" required />
-            </div>
-            <div class="field">
-              <label>Vấn đề da <span class="req">*</span></label>
-              <select name="issue" required>
-                <option value="">— Chọn vấn đề —</option>
-                <option>Mụn</option>
-                <option>Sẹo rỗ</option>
-                <option>Nám</option>
-                <option>Peel da</option>
-                <option>Triệt lông</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Ngày mong muốn</label>
-              <input type="date" name="date" />
-            </div>
-            <div class="field">
-              <label>Ghi chú thêm</label>
-              <textarea name="note" placeholder="Mô tả ngắn tình trạng da của bạn…"></textarea>
-            </div>
-            <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">Đặt lịch ngay</button>
-            <p class="form-note">Thông tin của bạn được bảo mật và chỉ dùng để liên hệ tư vấn.</p>
-            <div class="form-ok" role="status"></div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="brand">
-            <span class="brand__mark"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.2 5.7.8-4.1 4 .97 5.7L12 16.9 6.93 18.7 7.9 13l-4.1-4 5.7-.8z" fill="#B22234"/></svg></span>
-            <span class="brand__name">BS Lê Hiếu<span>SKINLAB the Beauty</span></span>
+          <div class="card__icon"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4"><ellipse cx="50" cy="50" rx="15" ry="32"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(45 50 50)"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(90 50 50)"/><ellipse cx="50" cy="50" rx="15" ry="32" transform="rotate(135 50 50)"/><g stroke-width="3"><ellipse cx="50" cy="50" rx="4.5" ry="10"/><ellipse cx="50" cy="50" rx="4.5" ry="10" transform="rotate(90 50 50)"/></g></svg></span>
+            <span class="brand__name">Dr Lê Hiếu<span>SKINLAB DE BEAUTY</span></span>
           </div>
           <p class="footer-about">Phòng khám Da liễu Bác sĩ CKI Lê Hiếu — điều trị mụn, sẹo, nám bằng phác đồ y khoa cá nhân hoá tại Thủ Dầu Một, Bình Dương.</p>
           <div class="socials">
