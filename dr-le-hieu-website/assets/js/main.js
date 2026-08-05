@@ -49,13 +49,31 @@
         }
         return;
       }
-      var name = (form.querySelector('[name="name"]') || {}).value || 'bạn';
+      function val(n) { var el = form.querySelector('[name="' + n + '"]'); return el ? (el.value || '').trim() : ''; }
+      var name = val('name'), phone = val('phone');
+      if (!name || !phone) {
+        if (ok) {
+          ok.textContent = 'Vui lòng nhập họ tên và số điện thoại.';
+          ok.style.display = 'block';
+          ok.style.background = 'rgba(192,83,29,.08)'; ok.style.borderColor = 'rgba(192,83,29,.3)'; ok.style.color = '#C0531D';
+        }
+        return;
+      }
+      // Soạn nội dung đặt lịch, sao chép vào clipboard & mở Zalo để khách gửi cho bác sĩ
+      var service = val('service') || val('issue'), date = val('date'), slotv = val('slot'), note = val('note');
+      var lines = ['📅 ĐẶT LỊCH KHÁM — SKINLAB DE BEAUTY', '• Họ tên: ' + name, '• SĐT: ' + phone];
+      if (service) lines.push('• Vấn đề / Dịch vụ: ' + service);
+      if (date) lines.push('• Ngày mong muốn: ' + date);
+      if (slotv) lines.push('• Khung giờ: ' + slotv);
+      if (note) lines.push('• Ghi chú: ' + note);
+      var text = lines.join('\n');
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).catch(function () {}); }
+      try { window.open('https://zalo.me/0934113839', '_blank', 'noopener'); } catch (e2) {}
       if (ok) {
-        ok.textContent = 'Cảm ơn ' + name + '! Phòng khám sẽ liên hệ xác nhận lịch trong thời gian sớm nhất.';
+        ok.style.background = ''; ok.style.borderColor = ''; ok.style.color = '';
+        ok.innerHTML = 'Đã mở Zalo &amp; sao chép thông tin đặt lịch của bạn. Vui lòng <b>dán (paste) vào khung chat Zalo</b> rồi gửi để bác sĩ xác nhận. Hoặc gọi ngay <a href="tel:+84934113839">0934 113 839</a>.';
         ok.style.display = 'block';
       }
-      form.reset();
-      form.querySelectorAll('.choice.active, .slot.active').forEach(function (c) { c.classList.remove('active'); });
     });
   }
 
@@ -129,4 +147,21 @@
       header.style.boxShadow = window.scrollY > 8 ? '0 4px 20px rgba(14,30,52,0.08)' : 'none';
     }, { passive: true });
   }
+
+  // Cookie consent (lưu localStorage, chỉ hiện 1 lần)
+  (function () {
+    try { if (localStorage.getItem('skinlab-cookie-ok')) return; } catch (e) { return; }
+    var inServices = /\/services\//.test(location.pathname);
+    var priv = (inServices ? '../' : '') + 'chinh-sach-bao-mat.html';
+    var bar = document.createElement('div');
+    bar.className = 'cookie-bar';
+    bar.setAttribute('role', 'dialog');
+    bar.setAttribute('aria-label', 'Thông báo cookie');
+    bar.innerHTML = '<p>Website dùng cookie để cải thiện trải nghiệm và đo lường hiệu quả. Xem <a href="' + priv + '">Chính sách bảo mật</a>.</p><button class="btn btn--primary" type="button">Đồng ý</button>';
+    document.body.appendChild(bar);
+    bar.querySelector('button').addEventListener('click', function () {
+      try { localStorage.setItem('skinlab-cookie-ok', '1'); } catch (e) {}
+      bar.remove();
+    });
+  })();
 })();

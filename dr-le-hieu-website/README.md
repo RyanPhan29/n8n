@@ -84,3 +84,10 @@ Tìm và thay các chỗ sau:
 ---
 
 *Nội dung copy lấy nguyên văn từ file brief "DR_LE_HIEU_Website_Full_Copy". Ảnh minh hoạ hiện là placeholder — thay bằng hình thật của phòng khám khi go-live.*
+
+## 🌐 Trước khi go-live — cấu hình domain & tracking
+
+- **Domain:** file `sitemap.xml` và `robots.txt` đang dùng placeholder `https://drlehieu.com` — tìm & thay bằng domain thật.
+- **Form đặt lịch:** hiện gửi lead bằng cách **sao chép thông tin vào clipboard + mở Zalo** để khách dán gửi (chạy được ngay, không cần backend). Muốn tự động lưu về Google Sheet/email, gắn thêm Google Apps Script / Formspree vào `assets/js/main.js`.
+- **Tracking:** dán mã **GA4 + Google Tag Manager + Facebook Pixel** vào `<head>` các trang khi có.
+- **Trang pháp lý:** `chinh-sach-bao-mat.html`, `dieu-khoan.html` đã có; cookie banner tự hiện lần đầu.
