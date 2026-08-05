@@ -37,13 +37,17 @@ dr-le-hieu-website/
 
 ## 🚀 Cách xem / chạy
 
-Chỉ là file tĩnh — mở trực tiếp hoặc chạy server nhẹ:
+**Xem nhanh trang chủ:** mở thẳng file `preview.html` bằng trình duyệt (bản gộp 1 file, không cần server — dùng để demo nhanh).
+
+**Xem full site (nhiều trang):** chạy server tĩnh nhẹ:
 
 ```bash
 cd dr-le-hieu-website
 python3 -m http.server 8000
 # mở http://localhost:8000
 ```
+
+> `preview.html` là bản tự sinh gộp CSS/JS vào 1 file (font dùng fallback hệ thống). Bản chính thức để deploy là `index.html` + thư mục `assets/` + `services/`.
 
 ## ✅ Đã có sẵn
 

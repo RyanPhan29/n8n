@@ -1,0 +1,896 @@
+<style>
+/* =========================================================
+   WEBSITE BS LÊ HIẾU · SKINLAB the Beauty
+   Design System — theo brief chính thức
+   ========================================================= */
+
+/* ---------- Design Tokens ---------- */
+:root {
+  /* Primary */
+  --red:         #B22234;  /* CTA, highlight, accent */
+  --red-dark:    #8E1B2A;  /* hover state */
+  --navy:        #0E1E34;  /* header, text chính */
+  --white:       #FFFFFF;
+
+  /* Secondary */
+  --cream:       #F8F5F0;  /* background section */
+  --gray-light:  #F5F5F5;  /* card bg, divider */
+  --gray-text:   #4A4A4A;  /* body text */
+  --gold:        #BC913A;  /* badge cao cấp */
+
+  /* Utility */
+  --success:     #1B6B3A;
+  --warning:     #C0531D;
+  --info:        #1A5276;
+
+  /* Derived */
+  --navy-80:     rgba(14, 30, 52, 0.80);
+  --line:        #E7E7E7;
+  --shadow-sm:   0 2px 8px rgba(14, 30, 52, 0.06);
+  --shadow-md:   0 8px 24px rgba(14, 30, 52, 0.10);
+  --shadow-lg:   0 16px 48px rgba(14, 30, 52, 0.14);
+
+  /* Layout */
+  --container:   1280px;
+  --radius:      8px;
+  --radius-sm:   4px;
+
+  /* Type */
+  --font-head: Georgia, 'Times New Roman', 'Playfair Display', serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--gray-text);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--red); text-decoration: none; }
+ul { list-style: none; }
+
+/* ---------- Typography ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  color: var(--navy);
+  line-height: 1.18;
+  font-weight: 700;
+}
+h1 { font-size: clamp(32px, 5.5vw, 54px); letter-spacing: -0.01em; }
+h2 { font-size: clamp(26px, 4vw, 38px); }
+h3 { font-size: clamp(20px, 2.6vw, 26px); }
+h4 { font-size: 19px; }
+p  { margin-bottom: 1rem; }
+.lead { font-size: clamp(18px, 2.2vw, 21px); color: var(--gray-text); }
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+/* ---------- Layout ---------- */
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+.section { padding: 88px 0; }
+.section--cream { background: var(--cream); }
+.section--navy  { background: var(--navy); }
+.section--gray  { background: var(--gray-light); }
+.section-head { max-width: 760px; margin: 0 auto 52px; text-align: center; }
+.section-head p { margin-bottom: 0; }
+.text-center { text-align: center; }
+.mt-8 { margin-top: 8px; } .mt-16 { margin-top: 16px; } .mt-32 { margin-top: 32px; }
+
+.grid { display: grid; gap: 32px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-body); font-weight: 700; font-size: 16px;
+  padding: 16px 32px; border-radius: var(--radius-sm);
+  border: 2px solid transparent; cursor: pointer;
+  transition: all .22s ease; text-transform: uppercase; letter-spacing: 0.02em;
+  line-height: 1;
+}
+.btn--primary { background: var(--red); color: #fff; }
+.btn--primary:hover { background: var(--red-dark); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.btn--secondary { background: transparent; color: var(--navy); border-color: var(--navy); }
+.btn--secondary:hover { background: var(--navy); color: #fff; }
+.btn--ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
+.btn--ghost-light:hover { background: #fff; color: var(--navy); border-color:#fff; }
+.btn--lg { padding: 18px 40px; font-size: 17px; }
+.link-arrow {
+  font-weight: 700; color: var(--red); display: inline-flex; align-items: center; gap: 6px;
+}
+.link-arrow:hover { text-decoration: underline; }
+.link-arrow .ar { transition: transform .2s; }
+.link-arrow:hover .ar { transform: translateX(4px); }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.96); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  height: 80px; display: flex; align-items: center;
+}
+.site-header .container { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand__mark {
+  width: 40px; height: 40px; border-radius: 8px; background: var(--navy);
+  display: grid; place-items: center; color: #fff; flex: none;
+}
+.brand__mark svg { width: 22px; height: 22px; }
+.brand__name { font-family: var(--font-head); font-weight: 800; font-size: 19px; color: var(--navy); line-height: 1.05; }
+.brand__name span { display: block; font-family: var(--font-body); font-weight: 600; font-size: 11px; letter-spacing: .14em; color: var(--red); text-transform: uppercase; }
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a { color: var(--navy); font-weight: 600; font-size: 15px; position: relative; }
+.nav a:hover { color: var(--red); }
+.nav .has-sub { position: relative; }
+.nav .submenu {
+  position: absolute; top: 130%; left: 50%; transform: translateX(-50%);
+  background: #fff; border: 1px solid var(--line); border-radius: 10px;
+  box-shadow: var(--shadow-md); padding: 10px; min-width: 240px;
+  opacity: 0; visibility: hidden; transition: all .18s; display: grid; gap: 2px;
+}
+.nav .has-sub:hover .submenu { opacity: 1; visibility: visible; top: 120%; }
+.nav .submenu a { padding: 10px 14px; border-radius: 6px; font-weight: 600; }
+.nav .submenu a:hover { background: var(--cream); }
+.header-cta { display: flex; align-items: center; gap: 18px; }
+.header-phone { font-weight: 700; color: var(--navy); white-space: nowrap; }
+.header-phone:hover { color: var(--red); }
+.nav-toggle { display: none; background: none; border: 0; cursor: pointer; width: 44px; height: 44px; }
+.nav-toggle span { display: block; width: 24px; height: 2px; background: var(--navy); margin: 5px auto; transition: .25s; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; background:
+    radial-gradient(120% 90% at 85% 10%, rgba(178,34,52,.06), transparent 60%),
+    linear-gradient(180deg, #fff 0%, var(--cream) 100%);
+  padding: 80px 0 90px;
+}
+.hero .container { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+.hero h1 { margin-bottom: 20px; }
+.hero h1 .accent { color: var(--red); }
+.hero .sub { font-size: 20px; color: var(--navy); font-weight: 600; margin-bottom: 10px; }
+.hero .tagline { font-size: 17px; color: var(--gray-text); max-width: 520px; margin-bottom: 30px; }
+.hero .cta-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+.trust-badges { display: flex; flex-wrap: wrap; gap: 10px 22px; padding-top: 26px; border-top: 1px solid var(--line); }
+.trust-badges span { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--navy); font-size: 15px; }
+.trust-badges .chk { color: var(--success); font-weight: 800; }
+.hero-loc { margin-top: 18px; color: var(--gray-text); font-weight: 600; }
+
+/* Hero visual card */
+.hero-visual { position: relative; }
+.hero-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 18px;
+  box-shadow: var(--shadow-lg); padding: 30px; position: relative; overflow: hidden;
+}
+.hero-card::before { content:""; position:absolute; inset:0 0 auto 0; height:6px; background: var(--red); }
+.hero-portrait {
+  aspect-ratio: 4/5; border-radius: 12px; background:
+    linear-gradient(160deg, var(--navy), #16305a);
+  display: grid; place-items: center; color: rgba(255,255,255,.5); text-align:center;
+  font-family: var(--font-head); position: relative;
+}
+.hero-portrait .ph-label { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; }
+.hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 22px; text-align: center; }
+.hero-stats .num { font-family: var(--font-head); font-weight: 800; font-size: 26px; color: var(--red); }
+.hero-stats .lbl { font-size: 12.5px; color: var(--gray-text); line-height: 1.3; }
+.badge-float {
+  position: absolute; bottom: -16px; left: -16px; background: #fff;
+  border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-md);
+  padding: 12px 16px; display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--navy);
+}
+.badge-float .g { width: 34px; height: 34px; border-radius: 8px; background: var(--gold); display: grid; place-items: center; color: #fff; }
+
+/* ---------- Cards ---------- */
+.card {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 32px; transition: transform .2s, box-shadow .2s; height: 100%;
+  display: flex; flex-direction: column;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.card__icon {
+  width: 56px; height: 56px; border-radius: 12px; background: rgba(178,34,52,.08);
+  color: var(--red); display: grid; place-items: center; margin-bottom: 20px;
+}
+.card__icon svg { width: 28px; height: 28px; }
+.card h3 { margin-bottom: 12px; }
+.card p { color: var(--gray-text); font-size: 16px; }
+.card .tags { margin: 14px 0 22px; display: grid; gap: 8px; }
+.card .tags li { position: relative; padding-left: 22px; font-size: 15px; color: var(--gray-text); }
+.card .tags li::before { content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+.card .card-cta { margin-top: auto; }
+
+/* Reason / feature card */
+.feature {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px;
+  height: 100%;
+}
+.feature .n { font-family: var(--font-head); font-weight: 800; color: var(--red); font-size: 15px; letter-spacing: .1em; }
+.feature h3 { font-size: 20px; margin: 8px 0 10px; }
+.feature p { font-size: 15.5px; margin: 0; }
+
+/* ---------- Case study ---------- */
+.case-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+  box-shadow: var(--shadow-sm); max-width: 940px; margin: 0 auto;
+}
+.case-media { display: grid; grid-template-columns: 1fr 1fr; }
+.case-media figure { position: relative; aspect-ratio: 4/3; display: grid; place-items: center; color: rgba(255,255,255,.65); font-weight: 700; letter-spacing: .12em; }
+.case-media .before { background: linear-gradient(160deg, #1A5276, #113a54); }
+.case-media .after  { background: linear-gradient(160deg, var(--red), var(--red-dark)); }
+.case-media figcaption { position: absolute; top: 14px; left: 14px; background: rgba(0,0,0,.28); padding: 5px 12px; border-radius: 20px; font-size: 12px; letter-spacing: .1em; }
+.case-body { padding: 30px 34px; }
+.case-body h3 { margin-bottom: 16px; }
+.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 28px; }
+.case-grid dt { font-weight: 700; color: var(--navy); font-size: 14px; margin-top: 10px; }
+.case-grid dd { color: var(--gray-text); font-size: 15px; }
+.case-body ul { display: grid; gap: 6px; margin: 6px 0 0; }
+.case-body ul li { position: relative; padding-left: 20px; font-size: 15px; }
+.case-body ul li::before { content:"✓"; position:absolute; left:0; color: var(--success); font-weight:800; }
+
+/* ---------- About preview ---------- */
+.about-split { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
+.about-portrait {
+  aspect-ratio: 4/5; border-radius: 16px; background: linear-gradient(160deg, var(--navy), #1c3b66);
+  box-shadow: var(--shadow-lg); display: grid; place-items: center; color: rgba(255,255,255,.5);
+  font-family: var(--font-head); text-align: center; position: relative;
+}
+.quote-block {
+  border-left: 4px solid var(--red); padding: 8px 0 8px 24px; margin: 28px 0;
+  font-family: var(--font-head); font-size: 21px; color: var(--navy); font-style: italic; line-height: 1.4;
+}
+.quote-block cite { display: block; font-size: 15px; color: var(--red); font-style: normal; margin-top: 10px; font-family: var(--font-body); font-weight: 700; }
+.badge-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0 28px; }
+.badge-list li { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--navy); }
+.badge-list .chk { color: var(--success); font-weight: 800; }
+
+/* ---------- Technology ---------- */
+.tech-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; height: 100%; border-top: 3px solid var(--red); }
+.tech-card .kicker { font-size: 12px; letter-spacing: .14em; color: var(--red); font-weight: 700; text-transform: uppercase; }
+.tech-card h3 { font-size: 20px; margin: 8px 0 6px; }
+.tech-card .role { color: var(--gray-text); font-weight: 600; margin-bottom: 14px; }
+.tech-card ul { display: grid; gap: 8px; }
+.tech-card ul li { position: relative; padding-left: 20px; font-size: 15px; }
+.tech-card ul li::before { content:""; position:absolute; left:0; top:9px; width:7px; height:7px; border-radius:50%; background: var(--gold); }
+
+/* ---------- Testimonials ---------- */
+.tst {
+  background: var(--cream); border-radius: var(--radius); padding: 36px; position: relative; height: 100%;
+  display: flex; flex-direction: column;
+}
+.tst::before { content: "\201C"; font-family: var(--font-head); position: absolute; top: 6px; left: 22px; font-size: 72px; color: var(--red); opacity: .22; line-height: 1; }
+.tst .stars { color: var(--gold); letter-spacing: 3px; margin-bottom: 12px; position: relative; }
+.tst blockquote { font-size: 16.5px; color: var(--navy); line-height: 1.65; margin-bottom: 20px; }
+.tst .who { margin-top: auto; }
+.tst .who strong { color: var(--navy); display: block; }
+.tst .who span { font-size: 14px; color: var(--red); font-weight: 600; }
+
+/* ---------- Booking ---------- */
+.booking { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.booking-info h2 { color: #fff; }
+.booking-info .lead { color: rgba(255,255,255,.82); }
+.contact-list { display: grid; gap: 16px; margin: 26px 0; }
+.contact-list a, .contact-list div { display: flex; align-items: flex-start; gap: 14px; color: #fff; font-weight: 600; }
+.contact-list .ico { width: 42px; height: 42px; border-radius: 10px; background: rgba(255,255,255,.10); display: grid; place-items: center; flex: none; color: #fff; }
+.contact-list small { display: block; color: rgba(255,255,255,.6); font-weight: 500; font-size: 13px; }
+.booking-trust { display: grid; gap: 8px; margin-top: 8px; }
+.booking-trust li { color: rgba(255,255,255,.9); display: flex; gap: 10px; align-items: center; }
+.booking-trust .chk { color: #6fce9a; font-weight: 800; }
+
+.form-card { background: #fff; border-radius: 14px; padding: 34px; box-shadow: var(--shadow-lg); }
+.form-card h3 { margin-bottom: 6px; }
+.form-card .muted { font-size: 14px; color: var(--gray-text); margin-bottom: 22px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-weight: 600; color: var(--navy); font-size: 14px; margin-bottom: 6px; }
+.field label .req { color: var(--red); }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 8px;
+  font-family: var(--font-body); font-size: 15.5px; color: var(--navy); background: #fff; transition: border .18s;
+}
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(178,34,52,.10); }
+.field textarea { resize: vertical; min-height: 84px; }
+.form-note { font-size: 13px; color: var(--gray-text); margin-top: 12px; text-align: center; }
+.form-ok { background: rgba(27,107,58,.08); border: 1px solid rgba(27,107,58,.3); color: var(--success); padding: 14px; border-radius: 8px; font-weight: 600; margin-top: 14px; display: none; }
+
+/* ---------- Disclaimer / callouts ---------- */
+.callout { border-radius: 10px; padding: 16px 20px; font-size: 15px; display: flex; gap: 12px; align-items: flex-start; }
+.callout--warn { background: rgba(192,83,29,.08); color: var(--warning); border: 1px solid rgba(192,83,29,.25); }
+.callout--info { background: rgba(26,82,118,.07); color: var(--info); border: 1px solid rgba(26,82,118,.2); }
+.callout .i { font-weight: 800; flex: none; }
+.disclaimer { font-size: 13px; font-style: italic; color: var(--gray-text); }
+
+/* ---------- Page hero (inner pages) ---------- */
+.page-hero { background: linear-gradient(180deg, var(--navy) 0%, #12294a 100%); color: #fff; padding: 70px 0; }
+.page-hero .eyebrow { color: #ff8494; }
+.page-hero h1 { color: #fff; margin-bottom: 16px; }
+.page-hero p { color: rgba(255,255,255,.85); max-width: 620px; font-size: 19px; }
+.breadcrumb { font-size: 14px; color: rgba(255,255,255,.6); margin-bottom: 18px; }
+.breadcrumb a { color: rgba(255,255,255,.85); }
+
+/* ---------- Stage / step blocks (service pages) ---------- */
+.steps { display: grid; gap: 22px; }
+.step { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--red); border-radius: 10px; padding: 24px 28px; }
+.step .st { font-weight: 700; color: var(--red); font-size: 14px; letter-spacing: .06em; text-transform: uppercase; }
+.step h3 { margin: 6px 0 8px; }
+.step p { margin: 0; font-size: 15.5px; }
+.type-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+.type { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 24px; }
+.type .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+.type h3 { display: flex; align-items: center; font-size: 19px; margin-bottom: 8px; }
+.type p { margin: 0; font-size: 15px; }
+.type .rx { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 14.5px; color: var(--navy); font-weight: 600; }
+.timeline-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.tl { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 26px; text-align: center; }
+.tl h3 { font-size: 20px; margin-bottom: 14px; }
+.tl ul { display: inline-grid; gap: 8px; text-align: left; }
+.tl ul li { font-size: 15px; position: relative; padding-left: 18px; }
+.tl ul li::before { content:"•"; position:absolute; left:0; color: var(--red); }
+
+/* ---------- CTA band ---------- */
+.cta-band { background: var(--red); color: #fff; text-align: center; padding: 60px 0; }
+.cta-band h2 { color: #fff; margin-bottom: 12px; }
+.cta-band p { color: rgba(255,255,255,.9); max-width: 560px; margin: 0 auto 26px; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--navy); color: rgba(255,255,255,.72); padding: 64px 0 0; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; }
+.site-footer h4 { color: #fff; font-family: var(--font-body); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 18px; }
+.site-footer a { color: rgba(255,255,255,.72); }
+.site-footer a:hover { color: #fff; }
+.site-footer ul { display: grid; gap: 10px; }
+.footer-brand .brand__name { color: #fff; }
+.footer-about { margin: 16px 0; font-size: 15px; max-width: 320px; }
+.socials { display: flex; gap: 12px; }
+.socials a { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,.08); display: grid; place-items: center; }
+.socials a:hover { background: var(--red); }
+.socials svg { width: 18px; height: 18px; fill: #fff; }
+.footer-contact li { display: flex; gap: 10px; font-size: 15px; }
+.footer-bottom { margin-top: 48px; border-top: 1px solid rgba(255,255,255,.1); padding: 22px 0; font-size: 13.5px; color: rgba(255,255,255,.5); }
+.footer-bottom .container { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+/* ---------- Floating quick actions (mobile) ---------- */
+.quick-actions { position: fixed; right: 16px; bottom: 16px; z-index: 90; display: grid; gap: 12px; }
+.quick-actions a { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; box-shadow: var(--shadow-md); color: #fff; }
+.qa-phone { background: var(--red); } .qa-zalo { background: var(--info); } .qa-mess { background: #0084ff; }
+.quick-actions svg { width: 24px; height: 24px; fill: #fff; }
+
+/* ---------- Reveal animation ----------
+   Chỉ ẩn khi JS hoạt động (.js). Không JS → nội dung luôn hiển thị (an toàn SEO). */
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .hero .container { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { max-width: 460px; }
+  .about-split { grid-template-columns: 1fr; gap: 36px; }
+  .about-portrait { max-width: 380px; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .booking { grid-template-columns: 1fr; gap: 36px; }
+}
+@media (max-width: 860px) {
+  .nav, .header-phone { display: none; }
+  .nav-toggle { display: block; }
+  .site-header .header-cta .btn { display: none; }
+  .nav.open {
+    display: flex; position: absolute; top: 80px; left: 0; right: 0; flex-direction: column;
+    align-items: stretch; background: #fff; border-bottom: 1px solid var(--line); padding: 16px 24px 24px; gap: 4px;
+    box-shadow: var(--shadow-md);
+  }
+  .nav.open a { padding: 12px 6px; border-bottom: 1px solid var(--gray-light); }
+  .nav.open .submenu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; border: 0; padding: 0 0 0 14px; min-width: 0; }
+  .nav.open .has-sub:hover .submenu { top: auto; }
+}
+@media (max-width: 760px) {
+  .section { padding: 60px 0; }
+  .container { padding: 0 20px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .type-grid, .timeline-grid, .case-grid { grid-template-columns: 1fr; }
+  .case-media { grid-template-columns: 1fr 1fr; }
+  .badge-list { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero .cta-row { flex-direction: column; align-items: stretch; }
+  .hero .cta-row .btn { justify-content: center; }
+}
+
+</style>
+
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html" aria-label="Trang chủ BS Lê Hiếu">
+        <span class="brand__mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.2 5.7.8-4.1 4 .97 5.7L12 16.9 6.93 18.7 7.9 13l-4.1-4 5.7-.8z" fill="currentColor"/></svg>
+        </span>
+        <span class="brand__name">BS Lê Hiếu<span>SKINLAB the Beauty</span></span>
+      </a>
+
+      <nav class="nav" aria-label="Điều hướng chính">
+        <a href="index.html">Trang chủ</a>
+        <a href="#about">Về bác sĩ</a>
+        <div class="has-sub">
+          <a href="#services">Dịch vụ ▾</a>
+          <div class="submenu">
+            <a href="#services">Trị Mụn Y Khoa</a>
+            <a href="#services">Trị Sẹo Rỗ</a>
+            <a href="#services">Peel Da Dược Mỹ Phẩm</a>
+            <a href="#services">Laser Trẻ Hoá</a>
+            <a href="#services">Triệt Lông Diode</a>
+          </div>
+        </div>
+        <a href="#cases">Case study</a>
+        <a href="#tech">Công nghệ</a>
+        <a href="#testimonials">Đánh giá</a>
+        <a href="#booking">Liên hệ</a>
+      </nav>
+
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+84900000000">📞 Hotline</a>
+        <a class="btn btn--primary" href="#booking">Đặt lịch khám</a>
+        <button class="nav-toggle" aria-label="Mở menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-copy reveal">
+        <h1>TRỊ MỤN · SẸO · NÁM<br /><span class="accent">CHUYÊN SÂU Y KHOA</span></h1>
+        <p class="sub">Phòng khám Da liễu Bác sĩ CKI Lê Hiếu</p>
+        <p class="tagline">10 năm kinh nghiệm · 5000+ khách điều trị thành công. Không phải spa. Không quảng cáo ảo. Chỉ có phác đồ y khoa được cá nhân hoá cho từng khách.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary btn--lg" href="#booking">Đặt lịch khám miễn phí</a>
+          <a class="link-arrow" href="#cases">Xem case study thật <span class="ar">→</span></a>
+        </div>
+        <div class="trust-badges">
+          <span><span class="chk">✓</span> Bác sĩ CKI Da liễu</span>
+          <span><span class="chk">✓</span> 10 năm kinh nghiệm</span>
+          <span><span class="chk">✓</span> 5000+ khách hài lòng</span>
+        </div>
+        <p class="hero-loc">📍 Thủ Dầu Một, Bình Dương</p>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="hero-card">
+          <div class="hero-portrait">
+            <div>
+              <div class="ph-label">Portrait</div>
+              <strong style="font-size:22px;color:rgba(255,255,255,.8)">BS CKI Lê Hiếu</strong>
+            </div>
+          </div>
+          <div class="hero-stats">
+            <div><div class="num">10+</div><div class="lbl">Năm kinh nghiệm</div></div>
+            <div><div class="num">5000+</div><div class="lbl">Khách điều trị</div></div>
+            <div><div class="num">CKI</div><div class="lbl">Chuyên khoa Da liễu</div></div>
+          </div>
+          <div class="badge-float">
+            <span class="g">★</span>
+            <div>Bác sĩ CKI<br /><small style="font-weight:500;color:var(--gray-text)">trực tiếp khám</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Dịch vụ</span>
+        <h2>Dịch vụ điều trị chuyên sâu</h2>
+        <p class="lead">Mỗi vấn đề da cần phác đồ riêng — không có công thức chung</p>
+      </div>
+
+      <div class="grid grid-3">
+        <article class="card reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="9" r="1.2" fill="currentColor"/><circle cx="13" cy="14" r="1.2" fill="currentColor"/></svg></div>
+          <h3>Trị Mụn Y Khoa</h3>
+          <p>Từ mụn ẩn, mụn viêm đến mụn bọc nội tiết. Phác đồ cá nhân hoá theo 4 loại mụn + 3 nguyên nhân gốc. Không dùng công thức "chung cho mọi khách".</p>
+          <ul class="tags">
+            <li>Mụn ẩn · Mụn đầu đen</li>
+            <li>Mụn viêm · Mụn bọc</li>
+            <li>Mụn nội tiết · Mụn lưng</li>
+            <li>Thâm sau mụn</li>
+          </ul>
+          <div class="card-cta"><a class="link-arrow" href="#services">Tìm hiểu thêm <span class="ar">→</span></a></div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12c3-4 5-4 8 0s5 4 8 0"/><path d="M4 17c3-4 5-4 8 0s5 4 8 0"/></svg></div>
+          <h3>Trị Sẹo Rỗ Chuyên Sâu</h3>
+          <p>5 loại sẹo lõm khác nhau — phương pháp khác nhau. Kết hợp công nghệ Fractional CO2 + Subcision + TCA CROSS. Bác sĩ CKI xác định đúng loại sẹo trước điều trị.</p>
+          <ul class="tags">
+            <li>Sẹo Ice Pick · Boxcar · Rolling</li>
+            <li>Sẹo hỗn hợp phức tạp</li>
+            <li>Sẹo lồi và sẹo lõm</li>
+            <li>Sẹo do thuỷ đậu, tai nạn</li>
+          </ul>
+          <div class="card-cta"><a class="link-arrow" href="#services">Tìm hiểu thêm <span class="ar">→</span></a></div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3h8l-1 5c2 1 3 3 3 6a6 6 0 01-12 0c0-3 1-5 3-6z"/><path d="M9 8h6"/></svg></div>
+          <h3>Peel Da Dược Mỹ Phẩm</h3>
+          <p>Peel bằng dược mỹ phẩm nhập từ châu Âu. Nồng độ acid chọn theo loại da từng khách. Có nguồn gốc rõ ràng, hoá đơn nhập khẩu minh bạch.</p>
+          <ul class="tags">
+            <li>Peel BHA · AHA · TCA</li>
+            <li>Thâm sau mụn · Nám bề mặt</li>
+            <li>Da xỉn màu · Lỗ chân lông to</li>
+            <li>Peel định kỳ chăm sóc da</li>
+          </ul>
+          <div class="card-cta"><a class="link-arrow" href="#services">Tìm hiểu thêm <span class="ar">→</span></a></div>
+        </article>
+      </div>
+
+      <div class="text-center mt-32 reveal">
+        <a class="btn btn--secondary" href="#services">Xem thêm: Laser Trẻ Hoá</a>
+        <a class="btn btn--secondary" href="#services" style="margin-left:12px">Triệt Lông Diode</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE STUDY ============ -->
+  <section class="section section--cream" id="cases">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Kết quả thật</span>
+        <h2>Kết quả thật từ khách hàng</h2>
+        <p class="lead">Không photoshop. Không dàn dựng. Đây là những khách đã đồng ý cho phép sử dụng hình ảnh.</p>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-media">
+          <figure class="before"><figcaption>BEFORE</figcaption>Ảnh trước điều trị</figure>
+          <figure class="after"><figcaption>AFTER</figcaption>Ảnh sau điều trị</figure>
+        </div>
+        <div class="case-body">
+          <h3>Điều trị sẹo rỗ do mụn</h3>
+          <dl class="case-grid">
+            <div>
+              <dt>Tình trạng ban đầu</dt>
+              <dd>Sẹo hỗn hợp phức tạp, sẹo lâu năm</dd>
+              <dt>Tiền sử</dt>
+              <dd>Đã từng làm sẹo nhiều lần không cải thiện</dd>
+              <dt>Kết quả</dt>
+              <dd><strong style="color:var(--success)">Sau 1 buổi điều trị</strong></dd>
+            </div>
+            <div>
+              <dt>Phác đồ điều trị</dt>
+              <dd>
+                <ul>
+                  <li>Tái lập cấu trúc sẹo</li>
+                  <li>Thủ thuật chuyên sâu thay đổi hình thái sẹo</li>
+                  <li>Công nghệ cao Fractional CO2 tái cấu trúc đa tầng</li>
+                  <li>Liệu trình tăng sinh từ gốc tế bào</li>
+                  <li>Thiết lập bề mặt sinh học</li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+          <div class="callout callout--warn mt-16"><span class="i">⚠️</span> Kết quả phụ thuộc cơ địa và mức độ tổn thương của từng người.</div>
+          <div class="mt-16"><a class="link-arrow" href="#booking">Xem thêm 50+ case study <span class="ar">→</span></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-split">
+        <div class="about-portrait reveal">
+          <div>
+            <div class="ph-label" style="font-size:13px">Portrait</div>
+            <strong style="font-size:20px;color:rgba(255,255,255,.8)">BS CKI Lê Hiếu</strong>
+          </div>
+        </div>
+        <div class="about-copy reveal">
+          <span class="eyebrow">Về bác sĩ</span>
+          <h2>Bác sĩ CKI Lê Hiếu</h2>
+          <p class="lead" style="color:var(--red);font-weight:600">10 năm — hàng nghìn khách — 1 triết lý duy nhất</p>
+          <p>Bác sĩ Lê Hiếu tốt nghiệp Chuyên khoa I Da liễu, với 10 năm kinh nghiệm điều trị chuyên sâu các vấn đề mụn, sẹo, nám và peel da tại Bình Dương.</p>
+          <p>Không giống các spa quảng cáo "trị mụn sau 1 buổi", bác Hiếu tin vào phác đồ y khoa được cá nhân hoá cho từng khách. Da mỗi người khác nhau — phác đồ cũng phải khác.</p>
+          <div class="quote-block">"Bác từng bị mụn nặng thời sinh viên, từng tự nặn sai cách để lại sẹo. Chính trải nghiệm đó khiến bác chọn ngành da liễu — và không phán xét bất kỳ khách nào đang bế tắc với làn da của mình."</div>
+          <ul class="badge-list">
+            <li><span class="chk">✓</span> Chuyên khoa I Da liễu</li>
+            <li><span class="chk">✓</span> 10 năm kinh nghiệm</li>
+            <li><span class="chk">✓</span> 5000+ khách điều trị</li>
+            <li><span class="chk">✓</span> Cập nhật công nghệ mới</li>
+          </ul>
+          <a class="btn btn--secondary" href="#about">Đọc câu chuyện đầy đủ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECHNOLOGY ============ -->
+  <section class="section section--gray" id="tech">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Công nghệ y khoa</span>
+        <h2>Công nghệ điều trị</h2>
+        <p class="lead">Thiết bị y khoa chính hãng — không phải máy spa</p>
+      </div>
+      <div class="grid grid-4">
+        <div class="tech-card reveal">
+          <div class="kicker">Soi da</div>
+          <h3>Máy soi da Bitmoji A3</h3>
+          <p class="role">Phân tích 17 chỉ số da chuyên sâu</p>
+          <ul>
+            <li>8 quang phổ (UV, Wood, Red, Brown, RGB…)</li>
+            <li>Đánh giá độ ẩm, dầu, mụn ẩn, sắc tố tầng sâu</li>
+            <li>Cloud storage — so sánh trước/sau mỗi buổi</li>
+          </ul>
+        </div>
+        <div class="tech-card reveal">
+          <div class="kicker">Trị sẹo</div>
+          <h3>Laser Fractional CO2</h3>
+          <p class="role">Tái cấu trúc sẹo đa tầng</p>
+          <ul>
+            <li>Kích thích tái tạo collagen mới</li>
+            <li>Hiệu quả cho sẹo rỗ Boxcar và Rolling</li>
+            <li>Xử lý được sẹo lâu năm nhiều loại</li>
+          </ul>
+        </div>
+        <div class="tech-card reveal">
+          <div class="kicker">Triệt lông</div>
+          <h3>Diode Laser 808nm</h3>
+          <p class="role">Triệt lông bền vững</p>
+          <ul>
+            <li>Bước sóng tối ưu cho nang lông</li>
+            <li>Đầu máy làm lạnh −8°C — giảm đau</li>
+            <li>Phù hợp đa số loại da và lông</li>
+          </ul>
+        </div>
+        <div class="tech-card reveal">
+          <div class="kicker">Trị nám</div>
+          <h3>Pico Laser</h3>
+          <p class="role">Xử lý thâm — nám tầng sâu</p>
+          <ul>
+            <li>Xung ngắn nano giây</li>
+            <li>Phá vỡ melanin tầng bì</li>
+            <li>Downtime chỉ 1–2 ngày</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section" id="testimonials">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Đánh giá</span>
+        <h2>Khách hàng nói gì về BS Hiếu</h2>
+      </div>
+      <div class="grid grid-3">
+        <figure class="tst reveal">
+          <div class="stars">★★★★★</div>
+          <blockquote>"Em trị mụn 3 năm chỗ khác không hết. Đến BS Hiếu — 4 tháng sạch mụn. Điều em thích nhất là bác không hối em mua thêm gói — chỉ tập trung trị hết vấn đề trước."</blockquote>
+          <figcaption class="who"><strong>Chị M., 26 tuổi, Bình Dương</strong><span>Điều trị: Mụn nội tiết</span></figcaption>
+        </figure>
+        <figure class="tst reveal">
+          <div class="stars">★★★★★</div>
+          <blockquote>"Sẹo rỗ 10 năm — em đã tuyệt vọng. Sau 6 buổi Fractional CO2, da em cải thiện 70%. Kỳ vọng thực tế + tay nghề BS là combo em tìm mãi."</blockquote>
+          <figcaption class="who"><strong>Anh T., 32 tuổi, Thủ Dầu Một</strong><span>Điều trị: Sẹo rỗ do mụn</span></figcaption>
+        </figure>
+        <figure class="tst reveal">
+          <div class="stars">★★★★★</div>
+          <blockquote>"Peel dược mỹ phẩm đúng nghĩa — không phải peel spa rẻ tiền. Da em sáng hơn thấy rõ sau 3 buổi. Có BS khám trước mỗi lần — yên tâm."</blockquote>
+          <figcaption class="who"><strong>Chị L., 29 tuổi, Bình Dương</strong><span>Điều trị: Peel da định kỳ</span></figcaption>
+        </figure>
+      </div>
+      <div class="text-center mt-32 reveal">
+        <a class="link-arrow" href="#booking">Xem thêm 100+ đánh giá Google <span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOOKING ============ -->
+  <section class="section section--navy" id="booking">
+    <div class="container">
+      <div class="booking">
+        <div class="booking-info reveal">
+          <span class="eyebrow" style="color:#ff8494">Đặt lịch</span>
+          <h2>Đặt lịch khám miễn phí</h2>
+          <p class="lead">Bác sĩ CKI Lê Hiếu tư vấn 1-1 trực tiếp. Không tính phí buổi đầu tiên.</p>
+          <div class="contact-list">
+            <a href="tel:+84900000000"><span class="ico">📞</span><div>Hotline<small>Bấm để gọi trực tiếp</small></div></a>
+            <a href="https://zalo.me/" target="_blank" rel="noopener"><span class="ico">💬</span><div>Zalo<small>Nhắn tin tư vấn nhanh</small></div></a>
+            <a href="https://m.me/" target="_blank" rel="noopener"><span class="ico">📱</span><div>Messenger<small>fb.com/SKINLAB</small></div></a>
+            <div><span class="ico">📍</span><div>Thủ Dầu Một, Bình Dương<small>Giờ mở cửa: 8:00 – 19:00 (Thứ 2 – Chủ Nhật)</small></div></div>
+          </div>
+          <ul class="booking-trust">
+            <li><span class="chk">✓</span> Tư vấn miễn phí buổi đầu</li>
+            <li><span class="chk">✓</span> Không ép mua gói dịch vụ</li>
+            <li><span class="chk">✓</span> Bác sĩ CKI trực tiếp khám</li>
+          </ul>
+        </div>
+
+        <div class="form-card reveal">
+          <h3>Điền thông tin đặt lịch</h3>
+          <p class="muted">Phòng khám sẽ gọi lại xác nhận trong thời gian sớm nhất.</p>
+          <form id="booking-form" novalidate>
+            <div class="field">
+              <label>Họ tên <span class="req">*</span></label>
+              <input type="text" name="name" placeholder="Nguyễn Văn A" required />
+            </div>
+            <div class="field">
+              <label>Số điện thoại <span class="req">*</span></label>
+              <input type="tel" name="phone" placeholder="09xx xxx xxx" required />
+            </div>
+            <div class="field">
+              <label>Vấn đề da <span class="req">*</span></label>
+              <select name="issue" required>
+                <option value="">— Chọn vấn đề —</option>
+                <option>Mụn</option>
+                <option>Sẹo rỗ</option>
+                <option>Nám</option>
+                <option>Peel da</option>
+                <option>Triệt lông</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Ngày mong muốn</label>
+              <input type="date" name="date" />
+            </div>
+            <div class="field">
+              <label>Ghi chú thêm</label>
+              <textarea name="note" placeholder="Mô tả ngắn tình trạng da của bạn…"></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">Đặt lịch ngay</button>
+            <p class="form-note">Thông tin của bạn được bảo mật và chỉ dùng để liên hệ tư vấn.</p>
+            <div class="form-ok" role="status"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <span class="brand__mark"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.2 5.7.8-4.1 4 .97 5.7L12 16.9 6.93 18.7 7.9 13l-4.1-4 5.7-.8z" fill="#B22234"/></svg></span>
+            <span class="brand__name">BS Lê Hiếu<span>SKINLAB the Beauty</span></span>
+          </div>
+          <p class="footer-about">Phòng khám Da liễu Bác sĩ CKI Lê Hiếu — điều trị mụn, sẹo, nám bằng phác đồ y khoa cá nhân hoá tại Thủ Dầu Một, Bình Dương.</p>
+          <div class="socials">
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13 22v-8h2.7l.4-3H13V9c0-.9.3-1.5 1.6-1.5H16V4.8C15.7 4.8 14.8 4.7 13.8 4.7c-2.2 0-3.8 1.4-3.8 3.9V11H7.3v3H10v8z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.9-1.5-1.7-1.7C19.4 5.2 12 5.2 12 5.2s-7.4 0-8.9.4c-.8.2-1.5.9-1.7 1.7C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.9 1.5 1.7 1.7 1.5.4 8.9.4 8.9.4s7.4 0 8.9-.4c.8-.2 1.5-.9 1.7-1.7.4-1.5.4-4.7.4-4.7zM9.8 15V9l5.2 3z"/></svg></a>
+            <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.5 3c.3 2.1 1.5 3.4 3.5 3.6v2.4c-1.2.1-2.3-.3-3.5-1v6.2c0 3.6-2.9 5.9-5.9 5.4-2.7-.4-4.4-2.9-4-5.6.4-2.5 2.7-4.2 5.2-3.9v2.5c-.4-.1-.8-.1-1.2 0-1 .3-1.6 1.1-1.5 2.1.1 1 1 1.8 2 1.7 1.1-.1 1.9-1 1.9-2.2V3z"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Dịch vụ</h4>
+          <ul>
+            <li><a href="#services">Trị Mụn Y Khoa</a></li>
+            <li><a href="#services">Trị Sẹo Rỗ</a></li>
+            <li><a href="#services">Peel Da Dược Mỹ Phẩm</a></li>
+            <li><a href="#services">Laser Trẻ Hoá</a></li>
+            <li><a href="#services">Triệt Lông Diode</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Liên kết</h4>
+          <ul>
+            <li><a href="#about">Về BS Lê Hiếu</a></li>
+            <li><a href="#cases">Case study</a></li>
+            <li><a href="#tech">Công nghệ</a></li>
+            <li><a href="#testimonials">Đánh giá khách</a></li>
+            <li><a href="#booking">Đặt lịch khám</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Liên hệ</h4>
+          <ul class="footer-contact">
+            <li>📍 Thủ Dầu Một, Bình Dương</li>
+            <li>📞 <a href="tel:+84900000000">Hotline (cập nhật)</a></li>
+            <li>🕐 8:00 – 19:00 · T2 – CN</li>
+            <li>💬 <a href="https://zalo.me/" target="_blank" rel="noopener">Zalo tư vấn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© 2026 Phòng khám Da liễu BS CKI Lê Hiếu — SKINLAB the Beauty. Bảo lưu mọi quyền.</span>
+        <span>Kết quả điều trị phụ thuộc cơ địa mỗi người.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating quick actions -->
+  <div class="quick-actions">
+    <a class="qa-phone" href="tel:+84900000000" aria-label="Gọi điện"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1z"/></svg></a>
+    <a class="qa-zalo" href="https://zalo.me/" aria-label="Zalo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.5 1.4 4.7 3.6 6.1-.1 1-.5 2.2-1.1 3.1-.2.3.1.7.4.6 1.7-.5 3.1-1.3 4-2 1 .2 2 .3 3.1.3 5.5 0 10-3.6 10-8s-4.5-8-10-8z"/></svg></a>
+    <a class="qa-mess" href="https://m.me/" aria-label="Messenger" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2C6.4 2 2 6.1 2 11.5c0 2.9 1.3 5.4 3.4 7.1V22l3.1-1.7c.8.2 1.6.3 2.5.3 5.6 0 10-4.1 10-9.5S17.6 2 12 2zm1 12l-2.5-2.7L5.6 14l5.4-5.7 2.6 2.7L18.4 8z"/></svg></a>
+  </div>
+
+  
+
+<script>
+(function(){document.documentElement.className+=" js";})();
+/* SKINLAB · BS Lê Hiếu — interactions */
+(function () {
+  'use strict';
+
+  // Mobile nav toggle
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.querySelector('.nav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', function () {
+      nav.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A' && !e.target.closest('.has-sub')) {
+        nav.classList.remove('open');
+      }
+    });
+  }
+
+  // Scroll reveal
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && reveals.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // Booking form (demo handler — thay bằng endpoint thật khi go-live)
+  var form = document.getElementById('booking-form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var ok = form.querySelector('.form-ok');
+      var name = (form.querySelector('[name="name"]') || {}).value || 'bạn';
+      if (ok) {
+        ok.textContent = 'Cảm ơn ' + name + '! Phòng khám sẽ liên hệ xác nhận lịch trong thời gian sớm nhất.';
+        ok.style.display = 'block';
+      }
+      form.reset();
+    });
+  }
+
+  // Shrink header shadow on scroll
+  var header = document.querySelector('.site-header');
+  if (header) {
+    window.addEventListener('scroll', function () {
+      header.style.boxShadow = window.scrollY > 8 ? '0 4px 20px rgba(14,30,52,0.08)' : 'none';
+    }, { passive: true });
+  }
+})();
+
+</script>
