@@ -61,6 +61,7 @@ h1, h2, h3, h4 {
   color: var(--navy);
   line-height: 1.18;
   font-weight: 700;
+  text-wrap: balance; /* tránh chữ mồ côi khi xuống dòng */
 }
 h1 { font-size: clamp(32px, 5.5vw, 54px); letter-spacing: -0.01em; }
 h2 { font-size: clamp(26px, 4vw, 38px); }
@@ -163,7 +164,9 @@ p  { margin-bottom: 1rem; }
   padding: 80px 0 90px;
 }
 .hero .container { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
-.hero h1 { margin-bottom: 20px; }
+/* Mỗi dòng tiêu đề hero nằm gọn 1 hàng, tự co theo bề rộng màn hình → không mồ côi chữ */
+.hero h1 { margin-bottom: 20px; font-size: clamp(22px, 7.2vw, 52px); }
+.hero h1 .line { display: block; white-space: nowrap; }
 .hero h1 .accent { color: var(--red); }
 .hero .sub { font-size: 20px; color: var(--navy); font-weight: 600; margin-bottom: 10px; }
 .hero .tagline { font-size: 17px; color: var(--gray-text); max-width: 520px; margin-bottom: 30px; }
