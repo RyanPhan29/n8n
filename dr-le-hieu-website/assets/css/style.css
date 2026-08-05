@@ -471,6 +471,16 @@ p  { margin-bottom: 1rem; }
 .slot:hover { border-color: var(--red); }
 .slot.active { background: var(--red); color: #fff; border-color: var(--red); }
 .slot.off { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
+
+/* ---------- FAQ (accordion) ---------- */
+.faq { max-width: 820px; margin: 0 auto; }
+.faq-item { border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px; background: #fff; overflow: hidden; }
+.faq-item > summary { cursor: pointer; padding: 18px 22px; font-weight: 700; color: var(--navy); font-family: var(--font-body); font-size: 16px; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary::after { content: '+'; color: var(--red); font-size: 24px; font-weight: 400; line-height: 1; flex: none; transition: transform .2s; }
+.faq-item[open] > summary::after { transform: rotate(45deg); }
+.faq-item > div { padding: 0 22px 18px; color: var(--gray-text); }
+.faq-item > div p:last-child { margin-bottom: 0; }
 .book-aside { display: grid; gap: 20px; position: sticky; top: 96px; }
 .aside-card { background: var(--cream); border-radius: 14px; padding: 26px; }
 .aside-card h3 { font-size: 19px; margin-bottom: 14px; }
