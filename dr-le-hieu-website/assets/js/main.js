@@ -2,6 +2,11 @@
 (function () {
   'use strict';
 
+  // Dịch nhãn (fallback về tiếng Việt nếu i18n chưa nạp)
+  function tt(key, vi) {
+    return (typeof window.__i18nText === 'function') ? window.__i18nText(key) : vi;
+  }
+
   // Mobile nav toggle
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.querySelector('.nav');
@@ -117,9 +122,9 @@
     bar.className = 'mobile-callbar';
     bar.setAttribute('aria-label', 'Liên hệ nhanh');
     bar.innerHTML =
-      '<a class="mcb-call" href="tel:+84934113839">' + call + 'Gọi</a>' +
-      '<a class="mcb-zalo" href="https://zalo.me/0934113839" target="_blank" rel="noopener">' + zalo + 'Zalo</a>' +
-      '<a class="mcb-book" href="' + bookHref + '">' + book + 'Đặt lịch</a>';
+      '<a class="mcb-call" href="tel:+84934113839">' + call + '<span data-i18n="mb.call">' + tt('mb.call', 'Gọi') + '</span></a>' +
+      '<a class="mcb-zalo" href="https://zalo.me/0934113839" target="_blank" rel="noopener">' + zalo + '<span data-i18n="mb.zalo">' + tt('mb.zalo', 'Zalo') + '</span></a>' +
+      '<a class="mcb-book" href="' + bookHref + '">' + book + '<span data-i18n="mb.book">' + tt('mb.book', 'Đặt lịch') + '</span></a>';
     document.body.appendChild(bar);
   })();
 
@@ -157,7 +162,7 @@
     bar.className = 'cookie-bar';
     bar.setAttribute('role', 'dialog');
     bar.setAttribute('aria-label', 'Thông báo cookie');
-    bar.innerHTML = '<p>Website dùng cookie để cải thiện trải nghiệm và đo lường hiệu quả. Xem <a href="' + priv + '">Chính sách bảo mật</a>.</p><button class="btn btn--primary" type="button">Đồng ý</button>';
+    bar.innerHTML = '<p><span data-i18n="ck.text">' + tt('ck.text', 'Website dùng cookie để cải thiện trải nghiệm và đo lường hiệu quả.') + '</span> <a href="' + priv + '" data-i18n="ck.more">' + tt('ck.more', 'Xem Chính sách bảo mật') + '</a></p><button class="btn btn--primary" type="button" data-i18n="ck.ok">' + tt('ck.ok', 'Đồng ý') + '</button>';
     document.body.appendChild(bar);
     bar.querySelector('button').addEventListener('click', function () {
       try { localStorage.setItem('skinlab-cookie-ok', '1'); } catch (e) {}

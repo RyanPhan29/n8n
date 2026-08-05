@@ -22,26 +22,38 @@
         <span class="brand__name">Dr Lê Hiếu<span>SKINLAB DE BEAUTY</span></span>
       </a>
       <nav class="nav" aria-label="Điều hướng chính">
-        <a href="index.html">Trang chủ</a>
-        <a href="about.html">Về bác sĩ</a>
+        <a href="index.html" data-i18n="nav.home">Trang chủ</a>
+        <a href="about.html" data-i18n="nav.about">Về bác sĩ</a>
         <div class="has-sub">
-          <a href="dich-vu.html">Dịch vụ ▾</a>
+          <a href="dich-vu.html" data-i18n="nav.services">Dịch vụ ▾</a>
           <div class="submenu">
-            <a href="services/tri-mun.html">Trị Mụn Y Khoa</a>
-            <a href="services/tri-seo-ro.html">Trị Sẹo Rỗ</a>
-            <a href="services/peel-da.html">Peel Da Dược Mỹ Phẩm</a>
-            <a href="services/laser-tre-hoa.html">Laser Trẻ Hoá</a>
-            <a href="services/triet-long.html">Triệt Lông Diode</a>
-            <a href="bang-dich-vu.html">📋 Bảng dịch vụ đầy đủ</a>
+            <a href="services/tri-mun.html" data-i18n="sub.trimun">Trị Mụn Y Khoa</a>
+            <a href="services/tri-seo-ro.html" data-i18n="sub.seo">Trị Sẹo Rỗ</a>
+            <a href="services/peel-da.html" data-i18n="sub.peel">Peel Da Dược Mỹ Phẩm</a>
+            <a href="services/laser-tre-hoa.html" data-i18n="sub.laser">Laser Trẻ Hoá</a>
+            <a href="services/triet-long.html" data-i18n="sub.triet">Triệt Lông Diode</a>
+            <a href="bang-dich-vu.html" data-i18n="nav.menu">📋 Bảng dịch vụ đầy đủ</a>
           </div>
         </div>
-        <a href="index.html#cases">Case study</a>
-        <a href="index.html#tech">Công nghệ</a>
+        <a href="index.html#cases" data-i18n="nav.cases">Case study</a>
+        <a href="index.html#tech" data-i18n="nav.tech">Công nghệ</a>
         <a href="dat-lich.html">Đặt lịch online</a>
       </nav>
       <div class="header-cta">
         <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#book-form">Đặt lịch khám</a>
+        <div class="lang-switch">
+          <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
+            <span class="lang-switch__cur">VI</span>
+          </button>
+          <div class="lang-switch__menu" role="menu">
+            <button class="lang-switch__opt" type="button" role="menuitem" data-lang="vi">🇻🇳 Tiếng Việt</button>
+            <button class="lang-switch__opt" type="button" role="menuitem" data-lang="en">🇬🇧 English</button>
+            <button class="lang-switch__opt" type="button" role="menuitem" data-lang="ko">🇰🇷 한국어</button>
+            <button class="lang-switch__opt" type="button" role="menuitem" data-lang="zh">🇨🇳 中文</button>
+          </div>
+        </div>
         <button class="nav-toggle" aria-label="Mở menu"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -163,7 +175,7 @@
           <p class="footer-about">Phòng khám Da liễu Bác sĩ CKI Lê Hiếu — Thủ Dầu Một, Bình Dương.</p>
         </div>
         <div>
-          <h4>Dịch vụ</h4>
+          <h4 data-i18n="ft.services">Dịch vụ</h4>
           <ul>
             <li><a href="services/tri-mun.html">Trị Mụn Y Khoa</a></li>
             <li><a href="services/tri-seo-ro.html">Trị Sẹo Rỗ</a></li>
@@ -173,7 +185,7 @@
           </ul>
         </div>
         <div>
-          <h4>Liên kết</h4>
+          <h4 data-i18n="ft.links">Liên kết</h4>
           <ul>
             <li><a href="about.html">Về BS Lê Hiếu</a></li>
             <li><a href="dich-vu.html">Dịch vụ</a></li>
@@ -182,7 +194,7 @@
           </ul>
         </div>
         <div>
-          <h4>Liên hệ</h4>
+          <h4 data-i18n="ft.contact">Liên hệ</h4>
           <ul class="footer-contact">
             <li>📍 762 Hùng Vương, Khu Phú Mỹ, Thủ Dầu Một, Bình Dương</li>
             <li>📞 <a href="tel:+84934113839">0934 113 839</a></li>
@@ -199,6 +211,7 @@
     </div>
   </footer>
 
+  <script src="assets/js/i18n.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

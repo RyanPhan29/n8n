@@ -156,6 +156,35 @@ p  { margin-bottom: 1rem; }
 .nav-toggle { display: none; background: none; border: 0; cursor: pointer; width: 44px; height: 44px; }
 .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--navy); margin: 5px auto; transition: .25s; }
 
+/* ---------- Language switcher ---------- */
+.lang-switch { position: relative; }
+.lang-switch__btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: 1px solid var(--line, #e6e1d8); border-radius: 999px;
+  padding: 7px 12px; cursor: pointer; color: var(--navy);
+  font: inherit; font-weight: 600; font-size: 13px; line-height: 1;
+  transition: border-color .2s, color .2s;
+}
+.lang-switch__btn:hover { border-color: var(--red); color: var(--red); }
+.lang-switch__btn svg { opacity: .8; flex: none; }
+.lang-switch__cur { letter-spacing: .02em; }
+.lang-switch__menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
+  min-width: 168px; background: #fff; border: 1px solid var(--line, #e6e1d8);
+  border-radius: 12px; padding: 6px; box-shadow: 0 12px 30px rgba(14,30,52,.14);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity .18s, transform .18s, visibility .18s;
+}
+.lang-switch.open .lang-switch__menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.lang-switch__opt {
+  display: flex; width: 100%; align-items: center; gap: 8px;
+  background: none; border: 0; cursor: pointer; text-align: left;
+  padding: 9px 10px; border-radius: 8px; color: var(--navy);
+  font: inherit; font-size: 14px; font-weight: 500;
+}
+.lang-switch__opt:hover { background: var(--cream); }
+.lang-switch__opt[aria-current="true"] { color: var(--red); font-weight: 700; background: rgba(178,34,52,.06); }
+
 /* ---------- Hero ---------- */
 .hero {
   position: relative; background:
@@ -539,6 +568,9 @@ p  { margin-bottom: 1rem; }
   .nav, .header-phone { display: none; }
   .nav-toggle { display: block; }
   .site-header .header-cta .btn { display: none; }
+  .header-cta { gap: 8px; }
+  .lang-switch__btn { padding: 8px 10px; }
+  .lang-switch__menu { min-width: 156px; }
   .nav.open {
     display: flex; position: absolute; top: 80px; left: 0; right: 0; flex-direction: column;
     align-items: stretch; background: #fff; border-bottom: 1px solid var(--line); padding: 16px 24px 24px; gap: 4px;
