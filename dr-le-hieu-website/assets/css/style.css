@@ -447,6 +447,37 @@ p  { margin-bottom: 1rem; }
   .slot-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* ---------- Map iframe ---------- */
+.map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ---------- Sticky mobile call bar (Gọi · Zalo · Đặt lịch) ---------- */
+.mobile-callbar { display: none; }
+@media (max-width: 860px) {
+  .mobile-callbar {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+    background: #fff; border-top: 1px solid var(--line);
+    box-shadow: 0 -4px 20px rgba(14,30,52,.10);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .mobile-callbar a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    padding: 9px 4px 10px; font-weight: 700; font-size: 12.5px; color: var(--navy);
+    text-decoration: none; border-right: 1px solid var(--line);
+  }
+  .mobile-callbar a:last-child { border-right: 0; }
+  .mobile-callbar svg { width: 22px; height: 22px; }
+  .mobile-callbar .mcb-call { color: var(--red); }
+  .mobile-callbar .mcb-call svg { fill: var(--red); }
+  .mobile-callbar .mcb-zalo { color: var(--info); }
+  .mobile-callbar .mcb-zalo svg { fill: var(--info); }
+  .mobile-callbar .mcb-book { background: var(--red); color: #fff; }
+  .mobile-callbar .mcb-book svg { fill: #fff; }
+  /* nhường chỗ cho thanh dưới, ẩn nút tròn nổi để không chồng */
+  body { padding-bottom: 64px; }
+  .quick-actions { display: none !important; }
+}
+
 /* ---------- Reveal animation ----------
    Chỉ ẩn khi JS hoạt động (.js). Không JS → nội dung luôn hiển thị (an toàn SEO). */
 .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
