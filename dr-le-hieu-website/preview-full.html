@@ -128,7 +128,7 @@ p  { margin-bottom: 1rem; }
   height: 80px; display: flex; align-items: center;
 }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; }
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
 .brand__mark {
   width: 46px; height: 46px; flex: none;
   background-color: var(--red);
@@ -136,10 +136,10 @@ p  { margin-bottom: 1rem; }
   mask: url("data:image/svg+xml,%3Csvg%20viewBox='0%200%2056.448%2056.475'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M43.734%2012.714%20C42.31%205.461%2035.9%200.0%2028.224%200.0%20C20.522%200.0%2014.138%205.461%2012.715%2012.714%20C12.504%2013.716%2012.397%2014.772%2012.397%2015.827%20C12.397%2016.486%2012.451%2017.146%2012.53%2017.779%20C13.03%2022.026%2015.22%2025.745%2018.411%2028.251%20C19.203%2028.858%2020.021%2029.411%2020.918%2029.86%20C22.211%2030.546%2023.634%2031.047%2025.112%2031.337%20C25.586%2031.443%2026.087%2031.522%2026.616%2031.574%20C26.43%2031.178%2026.272%2030.756%2026.168%2030.335%20C25.719%2030.203%2025.297%2030.045%2024.875%2029.86%20C24.004%2029.464%2023.186%2028.936%2022.422%2028.251%20C21.893%2027.776%2021.366%2027.222%2020.892%2026.615%20C19.098%2024.32%2017.884%2021.155%2017.568%2017.594%20C17.514%2017.014%2017.488%2016.433%2017.488%2015.827%20C17.488%2014.693%2017.568%2013.585%2017.753%2012.529%20C18.861%205.962%2023.107%201.082%2028.224%201.082%20C33.315%201.082%2037.562%205.962%2038.671%2012.529%20C38.828%2013.585%2038.934%2014.693%2038.934%2015.827%20C38.934%2016.433%2038.908%2017.014%2038.854%2017.594%20C38.538%2021.155%2037.324%2024.32%2035.53%2026.615%20C35.056%2027.222%2034.555%2027.776%2034.001%2028.251%20C33.263%2028.936%2032.444%2029.464%2031.574%2029.86%20C31.152%2030.045%2030.73%2030.203%2030.309%2030.308%20C30.202%2030.73%2030.044%2031.152%2029.859%2031.574%20C30.361%2031.522%2030.862%2031.443%2031.337%2031.337%20C32.814%2031.047%2034.212%2030.546%2035.504%2029.886%20C36.401%2029.411%2037.245%2028.858%2038.036%2028.251%20C41.228%2025.745%2043.418%2022.026%2043.919%2017.779%20C43.999%2017.146%2044.051%2016.486%2044.051%2015.827%20C44.051%2014.772%2043.945%2013.716%2043.734%2012.714%20Z%20M43.919%2038.696%20C43.418%2034.449%2041.202%2030.757%2038.037%2028.251%20C37.246%2027.617%2036.428%2027.064%2035.531%2026.615%20C34.238%2025.929%2032.84%2025.428%2031.363%2025.138%20C30.888%2025.032%2030.387%2024.953%2029.886%2024.901%20C30.071%2025.323%2030.203%2025.745%2030.335%2026.193%20C30.756%2026.299%2031.179%2026.457%2031.574%2026.642%20C32.445%2027.011%2033.262%2027.565%2034.001%2028.251%20C34.555%2028.726%2035.056%2029.279%2035.504%2029.886%20C37.325%2032.181%2038.538%2035.346%2038.855%2038.881%20C38.907%2039.461%2038.934%2040.042%2038.934%2040.648%20C38.934%2041.782%2038.855%2042.864%2038.67%2043.919%20C37.588%2050.487%2033.315%2055.42%2028.224%2055.42%20C23.107%2055.42%2018.834%2050.487%2017.752%2043.919%20C17.568%2042.864%2017.489%2041.782%2017.489%2040.648%20C17.489%2040.042%2017.515%2039.461%2017.568%2038.881%20C17.884%2035.32%2019.098%2032.154%2020.918%2029.86%20C21.366%2029.253%2021.894%2028.699%2022.421%2028.251%20C23.186%2027.565%2024.004%2027.037%2024.875%2026.642%20C25.296%2026.457%2025.718%2026.299%2026.14%2026.167%20C26.273%2025.745%2026.431%2025.323%2026.615%2024.901%20C26.087%2024.953%2025.586%2025.032%2025.085%2025.138%20C23.608%2025.428%2022.184%2025.929%2020.891%2026.615%20C20.021%2027.09%2019.177%2027.617%2018.412%2028.251%20C15.22%2030.757%2013.031%2034.449%2012.53%2038.696%20C12.45%2039.329%2012.398%2039.988%2012.398%2040.648%20C12.398%2041.703%2012.503%2042.732%2012.688%2043.735%20C14.139%2051.014%2020.522%2056.475%2028.224%2056.475%20C35.9%2056.475%2042.31%2051.014%2043.761%2043.735%20C43.945%2042.732%2044.051%2041.703%2044.051%2040.648%20C44.051%2039.988%2043.998%2039.329%2043.919%2038.696%20Z%20M29.86%2031.574%20C29.464%2032.444%2028.937%2033.262%2028.251%2034.027%20C27.776%2034.581%2027.222%2035.082%2026.589%2035.557%20C24.268%2037.377%2021.129%2038.591%2017.568%2038.881%20C17.014%2038.933%2016.407%2038.96%2015.827%2038.96%20C14.693%2038.96%2013.585%2038.881%2012.53%2038.696%20C5.962%2037.588%201.082%2033.341%201.082%2028.224%20C1.082%2023.133%205.962%2018.886%2012.53%2017.779%20C13.585%2017.62%2014.693%2017.514%2015.827%2017.514%20C16.407%2017.514%2017.014%2017.541%2017.568%2017.594%20C21.129%2017.884%2024.268%2019.097%2026.589%2020.917%20C27.222%2021.366%2027.776%2021.893%2028.251%2022.447%20C28.937%2023.212%2029.49%2024.03%2029.886%2024.9%20C30.071%2025.323%2030.203%2025.744%2030.335%2026.193%20C30.756%2026.298%2031.179%2026.456%2031.574%2026.641%20C31.522%2026.114%2031.443%2025.613%2031.363%2025.137%20C31.047%2023.634%2030.546%2022.21%2029.86%2020.917%20C29.411%2020.02%2028.858%2019.176%2028.224%2018.385%20C25.718%2015.22%2021.999%2013.031%2017.753%2012.529%20C17.119%2012.424%2016.486%2012.397%2015.827%2012.397%20C14.772%2012.397%2013.716%2012.503%2012.714%2012.714%20C5.461%2014.138%200.0%2020.548%200.0%2028.224%20C0.0%2035.9%205.461%2042.283%2012.688%2043.734%20C13.691%2043.945%2014.745%2044.051%2015.827%2044.051%20C16.486%2044.051%2017.119%2044.024%2017.753%2043.919%20C21.999%2043.417%2025.718%2041.255%2028.224%2038.063%20C28.831%2037.271%2029.385%2036.454%2029.86%2035.557%20C30.546%2034.264%2031.047%2032.84%2031.337%2031.337%20C31.443%2030.862%2031.522%2030.361%2031.574%2029.859%20C31.152%2030.044%2030.73%2030.202%2030.308%2030.308%20C30.203%2030.73%2030.045%2031.152%2029.86%2031.574%20Z%20M43.734%2012.714%20C42.732%2012.503%2041.676%2012.398%2040.621%2012.398%20C39.962%2012.398%2039.302%2012.45%2038.671%2012.529%20C34.449%2013.031%2030.757%2015.22%2028.224%2018.385%20C27.591%2019.176%2027.038%2020.021%2026.589%2020.918%20C25.902%2022.21%2025.401%2023.634%2025.086%2025.138%20C25.007%2025.613%2024.926%2026.114%2024.875%2026.642%20C25.297%2026.457%2025.719%2026.298%2026.141%2026.167%20C26.272%2025.745%2026.43%2025.323%2026.616%2024.901%20C26.984%2024.03%2027.539%2023.213%2028.25%2022.447%20C28.699%2021.894%2029.254%2021.392%2029.859%2020.918%20C32.155%2019.124%2035.293%2017.911%2038.854%2017.594%20C39.435%2017.541%2040.016%2017.515%2040.621%2017.515%20C41.755%2017.515%2042.863%2017.62%2043.919%2017.779%20C50.487%2018.886%2055.393%2023.133%2055.393%2028.224%20C55.393%2033.341%2050.487%2037.589%2043.919%2038.696%20C42.863%2038.881%2041.755%2038.96%2040.621%2038.96%20C40.016%2038.96%2039.435%2038.934%2038.854%2038.881%20C35.293%2038.564%2032.155%2037.351%2029.859%2035.557%20C29.254%2035.083%2028.699%2034.555%2028.25%2034.027%20C27.539%2033.262%2027.01%2032.444%2026.616%2031.574%20C26.43%2031.178%2026.272%2030.756%2026.168%2030.335%20C25.719%2030.203%2025.297%2030.045%2024.875%2029.86%20C24.926%2030.361%2025.007%2030.862%2025.112%2031.337%20C25.401%2032.84%2025.902%2034.265%2026.589%2035.557%20C27.064%2036.454%2027.617%2037.272%2028.224%2038.063%20C30.757%2041.229%2034.449%2043.418%2038.671%2043.919%20C39.302%2043.998%2039.962%2044.051%2040.621%2044.051%20C41.703%2044.051%2042.758%2043.945%2043.76%2043.735%20C51.014%2042.283%2056.448%2035.9%2056.448%2028.224%20C56.448%2020.548%2050.988%2014.139%2043.734%2012.714%20Z'%20fill='%23000'%20fill-rule='evenodd'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 .site-footer .brand__mark { background-color: #fff; }
-.brand__name { font-family: var(--font-head); font-weight: 800; font-size: 19px; color: var(--navy); line-height: 1.05; }
+.brand__name { font-family: var(--font-head); font-weight: 800; font-size: 19px; color: var(--navy); line-height: 1.05; white-space: nowrap; }
 .brand__name span { display: block; font-family: var(--font-body); font-weight: 600; font-size: 11px; letter-spacing: .14em; color: var(--red); text-transform: uppercase; }
 .nav { display: flex; align-items: center; gap: 28px; }
-.nav a { color: var(--navy); font-weight: 600; font-size: 15px; position: relative; }
+.nav a { color: var(--navy); font-weight: 600; font-size: 15px; position: relative; white-space: nowrap; }
 .nav a:hover { color: var(--red); }
 .nav .has-sub { position: relative; }
 .nav .submenu {
@@ -575,7 +575,7 @@ p  { margin-bottom: 1rem; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .booking { grid-template-columns: 1fr; gap: 36px; }
 }
-@media (max-width: 860px) {
+@media (max-width: 1024px) {
   .nav, .header-phone { display: none; }
   .nav-toggle { display: block; }
   .site-header .header-cta .btn { display: none; }
@@ -644,7 +644,6 @@ p  { margin-bottom: 1rem; }
       </nav>
 
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -1048,7 +1047,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/dat-lich">Đặt lịch online</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -1241,7 +1239,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/dat-lich">Đặt lịch online</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -1399,7 +1396,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/dat-lich" data-i18n="nav.contact">Liên hệ</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -1551,7 +1547,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/dat-lich" data-i18n="nav.contact">Liên hệ</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -1696,7 +1691,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/dat-lich" data-i18n="nav.contact">Liên hệ</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -1829,7 +1823,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/dat-lich" data-i18n="nav.contact">Liên hệ</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -2033,7 +2026,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/dat-lich" data-i18n="nav.contact">Liên hệ</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -2203,7 +2195,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/home" data-i18n="nav.contact">Liên hệ</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#p/dat-lich" data-i18n="cta.book">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -2392,7 +2383,6 @@ p  { margin-bottom: 1rem; }
         <a href="#p/dat-lich">Đặt lịch online</a>
       </nav>
       <div class="header-cta">
-        <a class="header-phone" href="tel:+84934113839">📞 0934 113 839</a>
         <a class="btn btn--primary" href="#book-form">Đặt lịch khám</a>
         <div class="lang-switch">
           <button class="lang-switch__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Chọn ngôn ngữ / Language">
@@ -3000,20 +2990,11 @@ p  { margin-bottom: 1rem; }
 </script>
 <script>
 
-(function(){
-  var pages=[].slice.call(document.querySelectorAll('.rp-page'));
-  function show(id){
-    var found=false;
-    pages.forEach(function(p){var on=p.id===id;p.classList.toggle('rp-active',on);if(on)found=true;});
-    if(!found&&pages[0])pages[0].classList.add('rp-active');
-    if(window.__applyI18n)window.__applyI18n();
-    window.scrollTo(0,0);
-  }
-  function route(){var h=location.hash||'';if(h.indexOf('#p/')===0){show('rp-'+h.slice(3));}}
-  window.addEventListener('hashchange',route);
-  // wire nav toggles on non-first pages (main.js wires only the first)
-  pages.forEach(function(pg,i){ if(i===0) return; var t=pg.querySelector('.nav-toggle'),n=pg.querySelector('.nav'); if(t&&n){t.addEventListener('click',function(){n.classList.toggle('open');t.classList.toggle('active');});}});
-  route();
-})();
+(function(){var pages=[].slice.call(document.querySelectorAll('.rp-page'));
+function show(id){var found=false;pages.forEach(function(p){var on=p.id===id;p.classList.toggle('rp-active',on);if(on)found=true;});if(!found&&pages[0])pages[0].classList.add('rp-active');if(window.__applyI18n)window.__applyI18n();window.scrollTo(0,0);}
+function route(){var h=location.hash||'';if(h.indexOf('#p/')===0){show('rp-'+h.slice(3));}}
+window.addEventListener('hashchange',route);
+pages.forEach(function(pg,i){if(i===0)return;var t=pg.querySelector('.nav-toggle'),n=pg.querySelector('.nav');if(t&&n){t.addEventListener('click',function(){n.classList.toggle('open');t.classList.toggle('active');});}});
+route();})();
 
 </script>
