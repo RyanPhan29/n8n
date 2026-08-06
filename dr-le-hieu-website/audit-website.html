@@ -1,0 +1,222 @@
+<title>Kiểm toán Website Dr Lê Hiếu — Chấm điểm theo chuẩn thế giới</title>
+<style>
+  :root {
+    --navy:#0E1E34; --navy-soft:#16294a; --red:#9C1C22; --red-bright:#B22234;
+    --gold:#BC913A; --cream:#F7F3EC; --paper:#fff; --ink:#1b2333; --muted:#5c6470;
+    --line:#e6ddd0; --good:#1B6B3A; --warn:#C0531D; --crit:#9C1C22;
+    --track:#ece3d6;
+    --shadow:0 10px 30px rgba(14,30,52,.10); --shadow-sm:0 2px 10px rgba(14,30,52,.06);
+    --serif:Georgia,'Times New Roman','Playfair Display',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){ :root{
+    --navy:#0b1626;--navy-soft:#12213c;--cream:#131a26;--paper:#172032;--ink:#e9edf4;--muted:#9aa5b5;
+    --line:#26314a;--track:#222c42;--red-bright:#e15b6a;--gold:#d7ab54;--good:#5fbf87;--warn:#e2895a;--crit:#e15b6a;
+    --shadow:0 12px 34px rgba(0,0,0,.42);--shadow-sm:0 2px 12px rgba(0,0,0,.3);
+  }}
+  :root[data-theme="dark"]{ --navy:#0b1626;--navy-soft:#12213c;--cream:#131a26;--paper:#172032;--ink:#e9edf4;--muted:#9aa5b5;--line:#26314a;--track:#222c42;--red-bright:#e15b6a;--gold:#d7ab54;--good:#5fbf87;--warn:#e2895a;--crit:#e15b6a;--shadow:0 12px 34px rgba(0,0,0,.42);--shadow-sm:0 2px 12px rgba(0,0,0,.3);}
+  :root[data-theme="light"]{ --navy:#0E1E34;--navy-soft:#16294a;--cream:#F7F3EC;--paper:#fff;--ink:#1b2333;--muted:#5c6470;--line:#e6ddd0;--track:#ece3d6;--red-bright:#B22234;--gold:#BC913A;--good:#1B6B3A;--warn:#C0531D;--crit:#9C1C22;--shadow:0 10px 30px rgba(14,30,52,.10);--shadow-sm:0 2px 10px rgba(14,30,52,.06);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px 80px}
+  h1,h2,h3{font-family:var(--serif);color:var(--ink);text-wrap:balance;line-height:1.15}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red-bright)}
+
+  .masthead{background:linear-gradient(160deg,var(--navy),var(--navy-soft));color:#fff;padding:52px 0 40px}
+  .masthead .wrap{padding-bottom:0}
+  .masthead .eyebrow{color:var(--gold)}
+  .masthead h1{color:#fff;font-size:clamp(28px,5vw,44px);margin:12px 0 12px}
+  .masthead p{color:rgba(255,255,255,.82);max-width:64ch;margin:0;font-size:16.5px}
+
+  /* Overall grade */
+  .grade{margin-top:-30px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px 26px;box-shadow:var(--shadow)}
+  .gauge{--val:57;width:120px;height:120px;border-radius:50%;display:grid;place-items:center;flex:none;
+    background:conic-gradient(var(--warn) calc(var(--val)*1%), var(--track) 0);position:relative}
+  .gauge::before{content:"";position:absolute;inset:12px;border-radius:50%;background:var(--paper)}
+  .gauge span{position:relative;font-family:var(--serif);font-weight:800;font-size:30px;color:var(--warn);line-height:1}
+  .gauge small{position:relative;display:block;text-align:center;font-family:var(--sans);font-size:11px;color:var(--muted);margin-top:3px}
+  .grade h2{margin:0 0 6px;font-size:22px}
+  .grade p{margin:0;color:var(--muted);font-size:15px}
+  .grade .tag{display:inline-block;background:color-mix(in srgb,var(--warn) 15%,transparent);color:var(--warn);font-weight:700;font-size:12.5px;padding:3px 10px;border-radius:999px;margin-top:10px}
+
+  section{margin-top:44px}
+  .method{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:18px 20px;color:var(--muted);font-size:14.5px}
+  .method b{color:var(--ink)}
+
+  h2.sec{font-size:clamp(20px,3vw,26px);margin:0 0 4px}
+  .sec-sub{color:var(--muted);font-size:14.5px;margin:0 0 18px}
+
+  /* Scorecard rows */
+  .row{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow-sm)}
+  .row-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .row-top h3{font-size:16.5px;margin:0;flex:1;min-width:180px}
+  .sev{font-size:11px;font-weight:800;letter-spacing:.03em;padding:3px 9px;border-radius:999px;color:#fff;flex:none}
+  .sev.s-good{background:var(--good)} .sev.s-mid{background:var(--warn)} .sev.s-bad{background:var(--crit)}
+  .score{font-family:var(--serif);font-weight:800;font-size:19px;flex:none;font-variant-numeric:tabular-nums}
+  .score.g{color:var(--good)} .score.m{color:var(--warn)} .score.b{color:var(--crit)}
+  .bar{position:relative;height:8px;border-radius:6px;background:var(--track);margin:12px 0 10px;overflow:visible}
+  .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;display:block}
+  .bar i.g{background:var(--good)} .bar i.m{background:var(--warn)} .bar i.b{background:var(--crit)}
+  .bar .target{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--navy);opacity:.55}
+  .bar .target::after{content:"chuẩn TG";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--muted);white-space:nowrap;font-weight:700}
+  .gap{font-size:14px;color:var(--muted);margin:0}
+  .gap b{color:var(--ink)}
+
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:14px 0 0}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .dot.g{background:var(--good)}.dot.m{background:var(--warn)}.dot.b{background:var(--crit)}
+
+  .final{background:linear-gradient(160deg,var(--red),#7d151b);color:#fff;border-radius:16px;padding:26px;box-shadow:var(--shadow);margin-top:30px}
+  .final .eyebrow{color:rgba(255,255,255,.75)}
+  .final h2{color:#fff;margin:8px 0 14px;font-size:22px}
+  .final ol{margin:0;padding-left:20px;display:grid;gap:9px}
+  .final li{font-size:15.5px} .final li b{font-weight:700}
+  .final .kpi{margin-top:16px;font-size:14px;color:rgba(255,255,255,.85)}
+  .foot{margin-top:36px;text-align:center;color:var(--muted);font-size:13px}
+  @media (max-width:560px){ .grade{grid-template-columns:1fr;justify-items:center;text-align:center} }
+  @media (prefers-reduced-motion:no-preference){ .row,.grade{animation:rise .5s ease both} @keyframes rise{from{opacity:0;transform:translateY(8px)}} }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Kiểm toán Website · Benchmark chuẩn thế giới</div>
+    <h1>Web mình đã "tốt" chưa? Chấm điểm khắt khe</h1>
+    <p>14 tiêu chí đúc kết từ cách các phòng khám da liễu &amp; thẩm mỹ hàng đầu thế giới xây web — thứ họ đã tốn rất nhiều tiền để test. Em tự chấm web của mình, không nương tay.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grade">
+    <div class="gauge" role="img" aria-label="Điểm tổng 5.7 trên 10"><div><span>5.7</span><small>/ 10</small></div></div>
+    <div>
+      <h2>Loại C+ · "Đẹp vỏ, chưa đủ ruột"</h2>
+      <p>Về <b>thẩm mỹ &amp; trải nghiệm</b> web đã ở nhóm 7–8.5/10 (đẹp, mượt, hợp gu). Nhưng <b>bộ máy chuyển đổi</b> — booking thật, đo lường, bằng chứng, pháp lý, nội dung — mới 1.5–5.5, kéo điểm tổng xuống. Chuẩn để "đấu" đẳng cấp thế giới là <b>8.5+</b>.</p>
+      <span class="tag">Khoảng cách tới chuẩn thế giới: +2.8 điểm</span>
+    </div>
+  </div>
+
+  <div class="method" style="margin-top:22px">
+    <b>Minh bạch cách chấm:</b> Em không mở tay từng trang trong 500 website (nhiều trang bị chặn). Thay vào đó, bộ tiêu chí này tổng hợp best-practice đã được chứng minh của các phòng khám top (drsturm, lancerskincare, các clinic Hàn/Sing/US…): <b>uy tín y khoa (EEAT), bằng chứng thật, tốc độ Core Web Vitals, chuyển đổi đa kênh, đo lường</b>. Mỗi tiêu chí chấm 0–10, có trọng số theo mức ảnh hưởng doanh thu.
+  </div>
+
+  <section>
+    <h2 class="sec">Bảng điểm chi tiết — 14 tiêu chí</h2>
+    <p class="sec-sub">Xếp theo mức độ cần xử lý. Vạch dọc = mức các web hàng đầu thế giới đạt (~9/10).</p>
+
+    <!-- CRITICAL / WEAK first -->
+    <div class="row">
+      <div class="row-top"><h3>Đo lường &amp; Tracking</h3><span class="sev s-bad">NGHIÊM TRỌNG</span><span class="score b">1.5</span></div>
+      <div class="bar"><i class="b" style="width:15%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap"><b>Đang trống hoàn toàn.</b> Chưa có GA4, Google Tag Manager, Facebook Pixel, call tracking, heatmap. Không đo được đồng nào quảng cáo ra bao nhiêu lịch hẹn → không tối ưu được. Web top xem đây là "hệ thần kinh".</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Pháp lý &amp; Tuân thủ</h3><span class="sev s-bad">NGHIÊM TRỌNG</span><span class="score b">3.0</span></div>
+      <div class="bar"><i class="b" style="width:30%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Có disclaimer y khoa (tốt), nhưng <b>thiếu trang Chính sách bảo mật, Điều khoản, thông báo cookie.</b> Đây là điều kiện bắt buộc để duyệt quảng cáo Google/Facebook ngành y tế + tạo niềm tin pháp lý.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Nội dung &amp; EEAT (chuyên môn)</h3><span class="sev s-bad">YẾU</span><span class="score b">3.5</span></div>
+      <div class="bar"><i class="b" style="width:35%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Google xếp web y tế vào nhóm "YMYL" — đòi hỏi <b>Chuyên môn · Uy tín · Đáng tin</b> rất cao. Ta chưa có blog/kiến thức, chưa có bài ký tên bác sĩ, chưa trích nguồn. Đối thủ top có hàng trăm bài chuẩn y khoa.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Chuyển đổi &amp; Đặt lịch</h3><span class="sev s-mid">CẦN CẢI THIỆN</span><span class="score m">5.0</span></div>
+      <div class="bar"><i class="m" style="width:50%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Vỏ UX rất tốt (thanh gọi nổi, click-to-call, Zalo, nhiều CTA) nhưng <b>form đặt lịch chưa gửi về đâu</b> (đang demo) và chưa có chat Zalo OA nhúng trực tiếp. Web top nối thẳng lịch (Calendly/Acuity) + chat trực tuyến.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Bằng chứng xã hội (Reviews)</h3><span class="sev s-mid">CẦN CẢI THIỆN</span><span class="score m">5.0</span></div>
+      <div class="bar"><i class="m" style="width:50%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Có 9 ảnh before/after thật (mạnh) nhưng testimonial còn chung chung, <b>chưa gắn số sao + số lượt Google Review thật, chưa có video testimonial.</b> Web top nhúng widget review Google/Trustpilot cập nhật realtime.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Uy tín y khoa &amp; Bác sĩ</h3><span class="sev s-mid">CẦN CẢI THIỆN</span><span class="score m">5.5</span></div>
+      <div class="bar"><i class="m" style="width:55%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Có chân dung + "CKI" + kinh nghiệm. Thiếu <b>số chứng chỉ hành nghề, ảnh bằng cấp/chứng chỉ, hội viên chuyên môn, tiểu sử bác sĩ chi tiết.</b> Đây là yếu tố quyết định niềm tin ở ngành y.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>SEO kỹ thuật</h3><span class="sev s-mid">CẦN CẢI THIỆN</span><span class="score m">6.0</span></div>
+      <div class="bar"><i class="m" style="width:60%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Nền tốt: meta, Open Graph, Schema MedicalBusiness. Thiếu <b>sitemap.xml, robots.txt, thẻ canonical, tối ưu local SEO (đồng bộ NAP với Google Business).</b></p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Tốc độ &amp; Core Web Vitals</h3><span class="sev s-mid">CẦN CẢI THIỆN</span><span class="score m">6.0</span></div>
+      <div class="bar"><i class="m" style="width:60%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Web tĩnh + ảnh webp + lazy-load = nền tốt, nhưng <b>chưa đo thật (PageSpeed), font Google chặn render, ảnh chưa responsive srcset, chưa CDN.</b> Chuẩn top: LCP &lt; 2.5s, CLS &lt; 0.1, điểm &gt; 90.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Khả năng tiếp cận (Accessibility)</h3><span class="sev s-mid">KHÁ</span><span class="score m">6.0</span></div>
+      <div class="bar"><i class="m" style="width:60%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Có alt ảnh, tôn trọng giảm chuyển động, HTML ngữ nghĩa. Cần thêm <b>skip-link, trạng thái focus rõ, kiểm tra tương phản màu, ARIA landmark đầy đủ.</b></p>
+    </div>
+
+    <!-- STRONG -->
+    <div class="row">
+      <div class="row-top"><h3>Điều hướng &amp; Cấu trúc (IA)</h3><span class="sev s-good">MẠNH</span><span class="score g">7.5</span></div>
+      <div class="bar"><i class="g" style="width:75%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Menu rõ, có submenu, breadcrumb, menu mobile, header dính. Có thể thêm ô tìm kiếm cho blog sau này.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Thông tin dịch vụ</h3><span class="sev s-good">MẠNH</span><span class="score g">7.5</span></div>
+      <div class="bar"><i class="g" style="width:75%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">5 trang dịch vụ chi tiết + bảng dịch vụ đầy đủ. Nên bổ sung <b>FAQ theo từng dịch vụ + downtime/kết quả kỳ vọng</b> dạng cấu trúc.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Thiết kế &amp; Thương hiệu</h3><span class="sev s-good">MẠNH</span><span class="score g">7.5</span></div>
+      <div class="bar"><i class="g" style="width:75%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Design system nhất quán, typography premium, logo gốc, nhiều khoảng thở. Cần thay <b>ảnh không gian phòng khám &amp; thiết bị thật</b> (đang là icon minh hoạ).</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Trải nghiệm Mobile</h3><span class="sev s-good">MẠNH</span><span class="score g">8.0</span></div>
+      <div class="bar"><i class="g" style="width:80%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Responsive tốt, thanh gọi nổi Gọi/Zalo/Đặt lịch, vùng chạm đủ lớn, chữ dễ đọc. Rất hợp thói quen mobile-first của khách Việt.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Ấn tượng đầu &amp; Hero</h3><span class="sev s-good">MẠNH</span><span class="score g">8.5</span></div>
+      <div class="bar"><i class="g" style="width:85%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Value proposition rõ, ảnh bác sĩ thật, 1 CTA chính nổi bật, số liệu đếm động, chỉ dẫn cuộn. Đây là điểm sáng nhất, gần chuẩn thế giới.</p>
+    </div>
+
+    <div class="row">
+      <div class="row-top"><h3>Phù hợp thị trường địa phương</h3><span class="sev s-good">MẠNH</span><span class="score g">8.0</span></div>
+      <div class="bar"><i class="g" style="width:80%"></i><span class="target" style="left:90%"></span></div>
+      <p class="gap">Zalo, hotline, Google Map, địa chỉ, giờ mở cửa, tiếng Việt — đúng hành vi khách Bình Dương. Hơn nhiều web "bê nguyên" mẫu nước ngoài.</p>
+    </div>
+
+    <div class="legend">
+      <span><i class="dot g"></i> Mạnh (7.5–10)</span>
+      <span><i class="dot m"></i> Cần cải thiện (5–7.4)</span>
+      <span><i class="dot b"></i> Yếu / Nghiêm trọng (&lt;5)</span>
+      <span>| Vạch dọc = chuẩn web top thế giới (~9)</span>
+    </div>
+  </section>
+
+  <div class="final">
+    <div class="eyebrow">Lộ trình nâng điểm 5.7 → 8.5+</div>
+    <h2>Sửa theo đúng thứ tự "kéo điểm" nhanh nhất</h2>
+    <ol>
+      <li><b>Nối form đặt lịch về Zalo/Google Sheet + nhúng chat Zalo OA</b> → Chuyển đổi 5.0 ⭢ 8.5 <em>(em làm được ngay)</em></li>
+      <li><b>Trang Chính sách + Điều khoản + cookie</b> → Pháp lý 3.0 ⭢ 8.0 <em>(em làm được ngay)</em></li>
+      <li><b>Gắn GA4 + Search Console + Pixel</b> → Đo lường 1.5 ⭢ 8.0 <em>(cần anh tạo/đưa mã)</em></li>
+      <li><b>Khối review Google thật (sao + số lượt) + 1–2 video testimonial</b> → Bằng chứng 5.0 ⭢ 8.5</li>
+      <li><b>Chứng chỉ hành nghề + ảnh bằng cấp + tiểu sử bác sĩ</b> → Uy tín 5.5 ⭢ 8.5</li>
+      <li><b>Blog kiến thức da (2 bài/tuần từ 55 script)</b> → EEAT 3.5 ⭢ 7.5 <em>(dài hạn)</em></li>
+    </ol>
+    <p class="kpi">Chỉ cần xong <b>4 việc đầu</b>, điểm tổng dự kiến lên <b>~7.6/10</b> — đủ tự tin bật quảng cáo. Xong cả 6, web vào nhóm <b>8.5+ đẳng cấp khu vực</b>.</p>
+  </div>
+
+  <p class="foot">Kiểm toán Website · Dr Lê Hiếu — SKINLAB DE BEAUTY · Tự chấm khắt khe theo chuẩn quốc tế</p>
+</div>
