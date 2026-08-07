@@ -67,3 +67,44 @@
 
 ## 9) TRÁNH
 Khuyên đầu tư cụ thể (Ponzi, pháp lý) · how-to bám UI tool (cũ nhanh) · self-help sáo rỗng dạy đời · "AI xấu" cực đoan (tự mâu thuẫn vì mình dùng AI) · review tool AI thuần (sân reviewer lộ mặt) · góc "kiếm tiền online bằng AI" (spam/bão hoà) · nhảy >5 trụ.
+
+---
+
+# 🟢 CẬP NHẬT v2 — DATA VN THẬT (Gemini Deep Research, 7/8/2026)
+
+## Δ1 — Nhu cầu (Google Trends VN, thang 0–100)
+- **Tài chính #1 (90–100, bùng nổ)** — "giá vàng hôm nay" (100), tiết kiệm, lãi suất. ✅ xác nhận trụ tiền là xương sống. Mùa vụ: cao điểm Tết + Vía Thần Tài + đợt vàng lập đỉnh.
+- 🔄 **How-to AI (75–85) > AI-mất-việc (45–60): cầu THỰC HÀNH cao gấp 1,5–2 lần cầu THẢO LUẬN.** → **Chỉnh Trụ 4:** nghiêng về **"DÙNG AI để giữ việc/tăng thu nhập"** (thực hành, quy về tiền) hơn là chỉ "AI sẽ lấy việc" (sợ hãi). Giữ khung evergreen (nguyên tắc/tư duy) để đỡ lỗi thời.
+- "Lầm tưởng" (25–35) = **format**, không phải topic. ✅
+
+## Δ2 — KHOẢNG TRỐNG THẮNG ĐƯỢC (chưa ai chiếm — hợp Anh Hai)
+1. 🎯 **Tài chính THỰC HÀNH đời thường cho thu nhập thấp** — "lương 7–10tr ở HN/SG phân bổ từng nghìn sao cho không nợ", "nhật ký xử nợ thẻ tín dụng". *(Đối thủ toàn lý thuyết chung chung/vĩ mô — bỏ trống mảng thực chiến.)*
+2. 🎯 **Case study tài chính VN thật bằng đồ hoạ** — bóc chi phí thật nhượng quyền trà sữa, mua nhà trả góp 30 năm HN/SG.
+3. 🎯 **"Real case story" mất việc/tái cấu trúc vì AI, kể bằng đồ hoạ 2D** — chưa faceless nào làm.
+4. 🎯 **Workflow AI theo NGÀNH** (kế toán xử Excel, HR/marketer làm báo cáo) — đối thủ chỉ làm "top 5 tool" chung chung.
+→ **Đây là hero-angle của mình:** đời thường + số thật + đồ hoạ, đúng DNA Anh Hai.
+
+## Δ3 — ĐỐI THỦ MẪU (để MODEL, không clone)
+- **Góc Nhìn Tài Chính** (320K, 🚀 lên nhanh) — faceless B-roll + biểu đồ + voiceover; *"Sự Thật Về Lãi Kép Và Bẫy Tiết Kiệm"* 1.8M · *"Tại Sao Bạn Mãi Nghèo Dù Làm Cật Lực"* 950K. **Analog gần nhất — mổ packaging + cấu trúc của họ.**
+- Tri Kỷ Cảm Xúc / ex-Web5Ngay (4.26M) · Người Thành Công (1.85M) — faceless slide/motion, evergreen.
+- AI: Thư Viện AI (185K, how-to) · Trí Tuệ Nhân Tạo AI (110K, *"Nghề Sẽ Biến Mất"* 910K).
+
+## Δ4 — PACKAGING THẬT (bổ sung đọc-vị)
+- **Title tiền:** `[Số]+[Quy tắc/Bài học]+[mục tiêu]` · `Cách [người giàu] [làm]` · `[Khái niệm] trong [N phút]`.
+- **Title AI:** `[AI]+[đe doạ]+[số/ngành giật gân]` · `câu hỏi sinh tồn +?` · `A-Z cho người mới`.
+- **Thumbnail tiền:** vàng/xanh-lá/navy · **SỐ TO chiếm 30–40% khung** · mũi tên/túi tiền/lọ · 3–6 chữ.
+- **Thumbnail AI:** **đỏ/tím-neon/đen (báo động)** · tương phản robot vs người hoang mang · mũi tên đỏ xuống/gạch chéo/? đỏ · logo ChatGPT to.
+
+## Δ5 — AFFILIATE (số đã verify)
+| Nền | Hoa hồng | Cookie | Vào | Min | Lưu ý |
+|---|---|---|---|---|---|
+| **Unica** khoá video | **40–60%** | 30d | **mở tự do (dễ)** | 500k | trả ngày 15 · **nguồn chính** |
+| **Coursera** | 10–45% | 30d | qua Impact | $10 | cần site giáo dục |
+| **Canva Pro** | 80% tháng đầu / 15% năm | 30d | Impact, **duyệt khắt khe ~40–50%** | $10 | cần site design/content |
+| **Khoá AI nội địa** (AccessTrade) | 10–30% | 30d | duyệt nhanh | 200k | Edumall/Gitiho AI |
+| **Tiki** sách | 5–12% | 7d | MakeSense | 200k | mồi |
+→ **Bắt đầu: Unica (dễ vào + cao) + Tiki.** Canva để sau (khó duyệt, cần kênh có tí "design/content").
+
+## Δ6 — KHO Ý TƯỞNG TƯƠI (newsjack 90 ngày + evergreen)
+**Tiền/an toàn tài sản:** *Sinh trắc học rồi tiền vẫn "bốc hơi" — vì sao?* (ghost tapping) · *Lầm tưởng: chuyển tiền tài khoản cá nhân không bị thuế?* · *5 dấu hiệu cuộc gọi hotline ngân hàng là giả* (voice phishing/deepfake) · *NHNN chặn 5.200 tỷ lừa đảo — tài khoản bạn có bị "gắn cờ"?* · *Bẫy "chuyển nhầm tiền": 3 bước xử đúng luật*.
+**AI/nghề:** *Sa thải vì AI thật hay "đổ lỗi" cho AI?* (AI Washing) · *Vì sao dân ngân hàng/nhân sự là nhóm tiếp theo lo mất việc?* (Standard Chartered) · *3 kỹ năng AI "miễn nhiễm" cắt giảm* · *Lầm tưởng: chỉ dân IT mới lo AI?* · *Quỹ dự phòng bao nhiêu trước nguy cơ sa thải?* (giao tiền × AI).
