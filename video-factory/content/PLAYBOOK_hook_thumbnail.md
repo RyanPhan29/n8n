@@ -92,3 +92,26 @@
 - [ ] Rà con flagship "7 bẫy" theo khung 6 bước + title↔hook.
 - [ ] Thêm biến thể `cover()` "Anh Hai lệch trái + vật ẩn dụ".
 - [ ] Chốt kho title/thumbnail cho 10 video dài đầu tiên.
+
+---
+## 10) MẪU THẬT — Cosmic Writer (kênh kiến thức/tâm lý VN, 135K sub) ✅ SỐ LIỆU THẬT
+> User xem trực tiếp, transcript + analytics thật (khác hẳn phần Gemini nội suy).
+
+**Đọc số thật (đừng thần thánh hoá):**
+- "Thinking 101 — Tư duy về tư duy": 22K view · **Outlier 0.5x** · Engagement 5% · 32 phút.
+- "Sức mạnh của sự khiêm nhường": 7,4K view · **Outlier 0.2x** · Engagement 4,1% · 26 phút.
+- → Outlier <1 = chạy **DƯỚI trung bình kênh**. Đây là mẫu **CHẤT LƯỢNG/chiều sâu**, KHÔNG phải mẫu ăn view. Engagement cao (4–5%) = khán giả thấm, hợp xây uy tín, KHÔNG hợp cày reach.
+
+**Kỹ thuật chuyển được (áp Anh Hai):**
+1. **Hook chủ đề sâu** (khác hook "bẫy"): tầm quan trọng → "nhưng vấn đề là ta không biết…" (mở gap) → **gắn thời sự AI** ("AI đang nghĩ thay bạn — đây là cách giữ quyền làm chủ") → hẹn vào bài. KHÔNG giật tít sốc.
+2. **CỖ MÁY ẨN DỤ** (điểm mạnh nhất): giải cái trừu tượng bằng hình đời — cặp kính bẩn · con cá không thấy nước · ngón tay sát mắt · nhà quản lý nhìn phòng ban · máy tính bỏ túi. → vừa "à hoá ra vậy" vừa cho sẵn ẩn dụ làm thumbnail + cảnh 2D.
+3. **Dẫn nguồn uy tín** cài mượt (Kahneman "Tư duy nhanh và chậm", Epictetus, Daniel Siegel, Flavell).
+4. **Cấu trúc đặt tên phần** (3 cơ chế → định nghĩa → 3 tầng) → khán giả biết đang ở đâu.
+
+**Phản biện (không copy):** kênh LỘ MẶT (nửa lực giữ chân là gương mặt + phòng + mic) → Anh Hai faceless bù bằng chuyển động/ẩn dụ/hài · dài 26–32' quá dài cho faceless mới (mình giữ 8–13') · giọng trầm-triết-lý NGƯỢC Anh Hai "đời, không dạy đời" → chỉ lấy cấu trúc + ẩn dụ + góc AI, KHÔNG lấy giọng.
+
+## 11) TEM MỚI: "GIẢI THÍCH SÂU" (deep-explainer) — bên cạnh "bóc bẫy N thứ"
+- **Khi dùng:** 1 khái niệm/1 hiện tượng tâm lý-tiền hoặc AI×Nghề, đào SÂU bằng chuỗi ẩn dụ (không liệt kê N mối).
+- **Khác "N bẫy":** 7 bẫy = liệt kê N mối, đếm ngược tới "số N đắt nhất". Giải-thích-sâu = 1 lỗ khoan sâu, dắt bằng 2–3 ẩn dụ nối nhau.
+- **Khung:** Hook sâu (stakes→gap→AI-now→promise) → Cơ chế (ẩn dụ 1) → Phân loại/đối chiếu (ẩn dụ 2) → Wow/re-frame (~50%) → Giải pháp thực chiến (~70%) → Payoff ~85% (điều thật sự mất) → Callback + câu hỏi chốt.
+- Độ dài 8–12'. Vẫn giọng Anh Hai đời + số dạng khoảng, KHÔNG bịa "nghiên cứu/MRI".
