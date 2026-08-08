@@ -75,3 +75,15 @@
 - [ ] Wow moment ~mốc 3', re-hook 40–60%
 - [ ] Đóng bằng callback hook, KHÔNG "tóm lại"
 - [ ] Reference sheet mỗi cảnh (chống trôi mặt) · 1 LUT màu
+
+---
+## 🔒 QUY CHUẨN "TITLE ↔ CÂU MỞ" (VIDEO DÀI · test 1 tháng từ 8/2026)
+> Áp cho **video dài**. Short giữ nguyên (mở 1 chủ đề nhỏ → giải thẳng, đang tốt).
+
+- **Title = câu hỏi/hook tạo khoảng trống thông tin** (open loop, Zeigarnik).
+- **Câu 1 của video LAO THẲNG vào đúng câu hỏi title** — không intro lòng vòng, không "xin chào anh em". Khẳng định hoặc ĐẢO NGƯỢC điều title gợi.
+- **Câu 2 hé cấu trúc payoff** ("vì có N thứ / vì 1 lý do bất ngờ / cái số X ai cũng dính") — nêu con số mồi, CHƯA giải hết.
+- **Payoff đầy đủ dời tới ~70%** (giữ chân).
+- Công thức: `Title hỏi X → câu1 đáp/đảo X → câu2 hẹn "có N thứ" + số mồi → vào bài`.
+- VD: Title *"Vì sao đi làm 10 năm vẫn không có dư?"* → Mở: *"Không phải vì anh em lười. Mà vì 7 cái bẫy này — cái số 4 gần như ai cũng dính."*
+- **Đánh giá sau 1 tháng:** so retention 30s đầu + AVD giữa nhóm video áp vs không áp → giữ/bỏ.
