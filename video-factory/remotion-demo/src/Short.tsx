@@ -19,7 +19,7 @@ const VPaper: React.FC = () => (
     <Loop durationInFrames={2400}>
       <OffthreadVideo src={staticFile('paper_bg.mp4')} muted style={{position: 'absolute', width: '100%', height: '100%', objectFit: 'cover'}} />
     </Loop>
-    <AbsoluteFill style={{background: 'rgba(255,255,255,0.30)'}} />
+    <AbsoluteFill style={{background: 'rgba(255,255,255,0.10)'}} />
   </AbsoluteFill>
 );
 
