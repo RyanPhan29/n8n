@@ -2751,4 +2751,151 @@ export const SHORT_DT5: ShortSpec = { slug: 'ShortDT5', scenes: [
     q: ['BĐS sẽ ấm lên hay ', {t: 'còn khó? Chia phe 👇', c: 'gold'}]},
 ]};
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_DT1, SHORT_DT2, SHORT_DT3, SHORT_DT4, SHORT_DT5, SHORT_COVER, SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ============================================================================
+// PILOT bộ 30 short MỚI (khớp KHO30short_tiktok.md + audio short_audio/shortNN.mp3)
+// d[] neo theo word-time Whisper (không even-split). 1 spec = 1 trụ để duyệt look.
+// ============================================================================
+
+// N01 — SO SÁNH: Gửi bank vs mua vàng (short01.mp3 27.43s)
+export const SHORT_N01: ShortSpec = {
+  slug: 'ShortN01',
+  scenes: [
+    cover('GỬI BANK', 'HAY VÀNG', '10 NĂM?', 'Ai thắng khi ngủ ngon?', 'think', 141),
+    {d: 177, bar: 'teal', pose: 'cool', ahCorner: 'right', ahH: 600,
+      head: ['Gửi tiết kiệm'], size: 78,
+      value: 6, suffix: '%/năm', staticNum: true, numColor: 'teal', numTop: 520, numSize: 160,
+      label: ['Đều đặn, chắc tay · chỉ ~4,7–6%'], labelTop: 830, labelC: 'teal'},
+    {d: 105, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 600,
+      head: ['Vàng thì ', {t: 'thất thường', c: 'red'}], size: 72,
+      icon: '📈📉', iconTop: 540, iconSize: 170,
+      label: ['Hôm nay lời, mai lỗ'], labelTop: 840, labelC: 'red'},
+    {d: 189, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Vàng trong nước chênh thế giới'], size: 58,
+      value: 12, suffix: ' triệu', staticNum: true, numColor: 'red', numTop: 540, numSize: 180,
+      label: ['Chưa lời đã mất một khúc'], labelTop: 850, labelC: 'red'},
+    {d: 129, bar: 'navy', pose: 'point', ahCorner: 'left', ahH: 600,
+      head: ['Mỗi bên một kiểu thắng'], size: 62,
+      cards: [
+        {header: 'ĐỘI VÀNG', icon: '🥇', label: 'Thắng lúc sốt', c: 'red'},
+        {header: 'ĐỘI SỔ', icon: '🏦', label: 'Thắng nhờ ngủ ngon', c: 'teal'},
+      ], cardsTop: 450},
+    {d: 82, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 680,
+      head: ['Không ai đúng mãi'], size: 76,
+      q: ['Bạn đội vàng hay ', {t: 'đội sổ tiết kiệm?', c: 'gold'}]},
+  ],
+};
+
+// N09 — BÓC BẪY: Trả góp 0% (short09.mp3 22.94s)
+export const SHORT_N09: ShortSpec = {
+  slug: 'ShortN09',
+  scenes: [
+    cover('TRẢ GÓP', '0%', 'CÓ BẪY?', 'Ai cho không anh em?', 'sly', 138),
+    {d: 75, bar: 'amber', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Lãi ', {t: '0%', c: 'teal'}, ' là thật…'], size: 82,
+      label: ['…nhưng phí nằm chỗ khác'], labelTop: 560, labelC: 'amber'},
+    {d: 114, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Phí chuyển đổi trả góp'], size: 62,
+      value: 6, suffix: '%', staticNum: true, numColor: 'red', numTop: 540, numSize: 180,
+      label: ['Tầm 2,5% – 6% khoản vay'], labelTop: 850, labelC: 'red'},
+    {d: 123, bar: 'red', pose: 'worried', ahCorner: 'right', ahH: 600,
+      head: ['Rồi ép thêm bảo hiểm khoản vay'], size: 56,
+      value: 6, suffix: '%', staticNum: true, numColor: 'red', numTop: 540, numSize: 180,
+      label: ['Thêm 3% – 6% nữa'], labelTop: 850, labelC: 'red'},
+    {d: 141, bar: 'navy', pose: 'point', ahCorner: 'left', ahH: 620,
+      head: ['Cái mác ', {t: '0%', c: 'red'}, '\nchỉ là mồi'], size: 78,
+      icon: '🪝', iconTop: 600, iconSize: 190},
+    {d: 97, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 680,
+      head: ['Đọc kỹ hợp đồng nhé'], size: 74,
+      q: ['Bạn từng ', {t: 'dính bẫy 0%', c: 'gold'}, ' chưa?']},
+  ],
+};
+
+// N17 — ĐIỂM TIN: Lãi suất vượt 7% (short17.mp3 24.79s)
+export const SHORT_N17: ShortSpec = {
+  slug: 'ShortN17',
+  scenes: [
+    cover('LÃI GỬI', 'VƯỢT 7%', 'NÊN KHÓA?', 'Khóa dài hay linh hoạt?', 'think', 87),
+    {d: 120, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 600,
+      head: ['Nhiều nhà băng đẩy lãi vượt'], size: 60,
+      value: 7, suffix: '%', staticNum: true, numColor: 'red', numTop: 540, numSize: 190,
+      label: ['Kỳ dài 7,2 – 7,8%/năm'], labelTop: 850, labelC: 'red'},
+    {d: 162, bar: 'navy', pose: 'worried', ahCorner: 'right', ahH: 600,
+      head: ['Nhưng lãi cao đi kèm ', {t: 'kỳ dài', c: 'red'}], size: 60,
+      value: 36, suffix: ' tháng', staticNum: true, numColor: 'navy', numTop: 540, numSize: 160,
+      label: ['Khóa 18 – 36 tháng, tiền nằm im'], labelTop: 850, labelC: 'navy'},
+    {d: 147, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Giữa đường cần rút thì sao?'], size: 60,
+      icon: '⚠️💸', iconTop: 540, iconSize: 170,
+      label: ['Rút non: lãi về gần bằng 0'], labelTop: 850, labelC: 'red'},
+    {d: 90, bar: 'navy', pose: 'think', ahCorner: 'left', ahH: 600,
+      head: ['Lãi 7 hôm nay\nchưa chắc 7 sang năm'], size: 64,
+      icon: '📆', iconTop: 660, iconSize: 150},
+    {d: 138, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 600,
+      head: ['Bạn chọn phe nào?'], size: 68,
+      cards: [
+        {header: 'KHÓA DÀI', icon: '🔒', label: 'Ăn chắc lãi cao', c: 'teal'},
+        {header: 'LINH HOẠT', icon: '💧', label: 'Chờ sóng, dễ rút', c: 'blue'},
+      ], cardsTop: 450},
+  ],
+};
+
+// N23 — KIẾN THỨC: Lãi kép (short23.mp3 29.83s)
+export const SHORT_N23: ShortSpec = {
+  slug: 'ShortN23',
+  scenes: [
+    cover('3 TRIỆU', '1,5 TỶ', 'SAU 20N', 'Phép màu lãi kép', 'aha', 132),
+    {d: 135, bar: 'blue', pose: 'greedy', ahCorner: 'right', ahH: 600,
+      head: ['3 triệu/tháng → ', {t: '1,5 tỷ', c: 'blue'}], size: 66,
+      label: ['Sau 20 năm · gốc chỉ ~720 triệu'], labelTop: 560, labelC: 'blue',
+      icon: '🤯', iconTop: 680, iconSize: 150},
+    {d: 147, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+      head: ['800 triệu kia ở đâu ra?'], size: 64,
+      icon: '💰➕💰', iconTop: 540, iconSize: 150,
+      label: ['Lãi đẻ ra lãi — chỉ vậy thôi'], labelTop: 850, labelC: 'teal'},
+    {d: 174, bar: 'blue', pose: 'cool', ahCorner: 'right', ahH: 600,
+      head: ['Tiền tự làm việc, ~7%/năm'], size: 60,
+      icon: '☃️📈', iconTop: 540, iconSize: 180,
+      label: ['Kiên trì 20 năm, cuộn như cầu tuyết'], labelTop: 850, labelC: 'blue'},
+    {d: 99, bar: 'navy', pose: 'point', ahCorner: 'left', ahH: 600,
+      head: ['Bắt đầu ', {t: 'SỚM', c: 'teal'}, '\nluôn thắng ', {t: 'MUỘN', c: 'gray'}], size: 74},
+    {d: 105, bar: 'navy', pose: 'aha', ahCorner: 'right', ahH: 600,
+      head: ['Không phải giỏi hơn'], size: 70,
+      label: ['Chỉ là có thêm ', {t: 'THỜI GIAN', c: 'gold'}], labelTop: 560, labelC: 'navy'},
+    {d: 103, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 680,
+      head: ['Càng chần chừ càng thiệt'], size: 66,
+      q: ['Bạn ', {t: 'bắt đầu để dành', c: 'gold'}, ' chưa?']},
+  ],
+};
+
+// N27 — AI×NGHỀ: AI làm bạn giỏi hay ngu (short27.mp3 27.74s)
+export const SHORT_N27: ShortSpec = {
+  slug: 'ShortN27',
+  scenes: [
+    cover('DÙNG AI', 'GIỎI HAY', 'NGU ĐI?', 'Khác ở một điểm', 'sly', 117),
+    {d: 111, bar: 'blue', pose: 'think', ahCorner: 'right', ahH: 600,
+      head: ['Khác ở chỗ:'], size: 80,
+      label: ['Dùng để ', {t: 'LÀM HỘ', c: 'red'}, ' hay để ', {t: 'HỌC', c: 'teal'}, '?'], labelTop: 560, labelC: 'navy'},
+    {d: 123, bar: 'red', pose: 'broke', ahCorner: 'right', ahH: 600,
+      head: ['Bắt AI làm hết, chép xong'], size: 60,
+      icon: '🧠⬇️', iconTop: 540, iconSize: 180,
+      label: ['Không hiểu gì — não lười dần'], labelTop: 850, labelC: 'red'},
+    {d: 129, bar: 'teal', pose: 'aha', ahCorner: 'left', ahH: 600,
+      head: ['Bắt AI giảng lại, hỏi tới cùng'], size: 58,
+      icon: '🧠⬆️', iconTop: 540, iconSize: 180,
+      label: ['Xong tự làm được một mình'], labelTop: 850, labelC: 'teal'},
+    {d: 159, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 600,
+      head: ['AI như máy tính bỏ túi'], size: 62,
+      cards: [
+        {header: 'HIỂU BẢN CHẤT', icon: '💪', label: 'Mạnh hơn', c: 'teal'},
+        {header: 'PHỤ THUỘC', icon: '🫗', label: 'Rỗng dần', c: 'gray', dim: true},
+      ], cardsTop: 450},
+    {d: 75, bar: 'navy', pose: 'sly', ahCorner: 'left', ahH: 600,
+      head: ['Công cụ không làm bạn ngu'], size: 58,
+      label: [{t: 'Cách dùng', c: 'gold'}, ' mới làm'], labelTop: 560, labelC: 'navy'},
+    {d: 118, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 680,
+      head: ['Dùng để học mới lời'], size: 74,
+      q: ['Bạn dùng AI để ', {t: 'làm hộ hay để học?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_N01, SHORT_N09, SHORT_N17, SHORT_N23, SHORT_N27, SHORT_DT1, SHORT_DT2, SHORT_DT3, SHORT_DT4, SHORT_DT5, SHORT_COVER, SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
