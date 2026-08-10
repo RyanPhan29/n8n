@@ -3644,4 +3644,46 @@ export const SHORT_N30: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_N01, SHORT_N02, SHORT_N03, SHORT_N04, SHORT_N05, SHORT_N06, SHORT_N07, SHORT_N08, SHORT_N09, SHORT_N10, SHORT_N11, SHORT_N12, SHORT_N13, SHORT_N14, SHORT_N15, SHORT_N16, SHORT_N17, SHORT_N18, SHORT_N19, SHORT_N20, SHORT_N21, SHORT_N22, SHORT_N23, SHORT_N24, SHORT_N25, SHORT_N26, SHORT_N27, SHORT_N28, SHORT_N29, SHORT_N30, SHORT_DT1, SHORT_DT2, SHORT_DT3, SHORT_DT4, SHORT_DT5, SHORT_COVER, SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ĐIỂM TIN — Sổ đỏ điện tử + mã định danh thửa đất (VnExpress 10/8/2026) · thu sodo.mp3 (60.4s)
+export const SHORT_SODO: ShortSpec = {
+  slug: 'ShortSoDo',
+  scenes: [
+    cover('ĐẤT CŨNG', 'CÓ CCCD', 'LỘ HẾT?', 'Ôm nhiều đất hết cửa giấu', 'sly', 45),
+    {d: 157, bar: 'navy', pose: 'shock', ahCorner: 'right', ahH: 600,
+      head: ['Mỗi mảnh đất giờ có\n', {t: 'MÃ ĐỊNH DANH', c: 'red'}], size: 60,
+      icon: '🪪🏠', iconTop: 600, iconSize: 150,
+      label: ['Y như căn cước của người'], labelTop: 880, labelC: 'navy'},
+    {d: 261, bar: 'red', pose: 'present', ahCorner: 'right', ahH: 560,
+      source: {name: 'VnExpress', date: '10/8/2026'},
+      evidence: {
+        headline: ['Mỗi mảnh đất sẽ có sổ đỏ\nđiện tử gắn mã định danh'],
+        quote: ['Mã hoá từ toạ độ, không theo ranh giới phường xã'],
+        src: 'VnExpress · 10/8/2026'},
+      evidenceTop: 300},
+    {d: 202, bar: 'navy', pose: 'point', ahCorner: 'left', ahH: 600,
+      head: ['Cả nước đã cấp mã'], size: 64,
+      value: 69, suffix: ',7 triệu', staticNum: true, numColor: 'navy', numTop: 540, numSize: 170,
+      label: ['Hết 2027 phủ kín, lên VNeID'], labelTop: 850, labelC: 'navy'},
+    {d: 217, bar: 'red', pose: 'sly', ahCorner: 'right', ahH: 600,
+      head: ['Mở app ra là ', {t: 'lộ hết', c: 'red'}], size: 66,
+      icon: '📱🔍', iconTop: 540, iconSize: 170,
+      label: ['Chủ · thế chấp · tranh chấp'], labelTop: 850, labelC: 'red'},
+    {d: 232, bar: 'red', pose: 'worried', ahCorner: 'left', ahH: 600,
+      head: ['Ôm chục lô, cắm sổ vay 3 nơi'], size: 58,
+      icon: '😅💦', iconTop: 540, iconSize: 170,
+      label: ['Giờ hết đường giấu'], labelTop: 850, labelC: 'red'},
+    {d: 266, bar: 'teal', pose: 'cool', ahCorner: 'right', ahH: 600,
+      head: ['Lợi thì thấy rõ'], size: 70,
+      icon: '✅', iconTop: 640, iconSize: 150,
+      label: ['Minh bạch, chặn sổ giả, chặn lừa'], labelTop: 560, labelC: 'teal'},
+    {d: 224, bar: 'amber', pose: 'worried', ahCorner: 'left', ahH: 600,
+      head: ['Nhưng mặt kia'], size: 72,
+      icon: '⚠️', iconTop: 640, iconSize: 150,
+      label: ['Lộ tài sản · dễ bị soi đánh thuế'], labelTop: 560, labelC: 'amber'},
+    {d: 208, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 680,
+      head: ['Bạn thấy sao?'], size: 78,
+      q: ['Mừng vì minh bạch, hay ', {t: 'lo vì lộ tài sản?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_SODO, SHORT_N01, SHORT_N02, SHORT_N03, SHORT_N04, SHORT_N05, SHORT_N06, SHORT_N07, SHORT_N08, SHORT_N09, SHORT_N10, SHORT_N11, SHORT_N12, SHORT_N13, SHORT_N14, SHORT_N15, SHORT_N16, SHORT_N17, SHORT_N18, SHORT_N19, SHORT_N20, SHORT_N21, SHORT_N22, SHORT_N23, SHORT_N24, SHORT_N25, SHORT_N26, SHORT_N27, SHORT_N28, SHORT_N29, SHORT_N30, SHORT_DT1, SHORT_DT2, SHORT_DT3, SHORT_DT4, SHORT_DT5, SHORT_COVER, SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
