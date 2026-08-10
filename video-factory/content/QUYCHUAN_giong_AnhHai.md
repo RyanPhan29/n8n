@@ -13,3 +13,11 @@
 *nói thật với anh em nhé · nghe quen không · đừng xoắn · chỗ này mới đau · nghe hợp lý phết đúng không · thế mới đểu.*
 
 > Nhấn giọng vào động từ/tính từ cảm xúc: BỐC HƠI · TEO NHỎ · TRẮNG TAY · CẮT CỔ · ĐỂU.
+
+---
+## 🔒 GIỌNG THEO ĐỊNH DẠNG (khoá 8/2026) — bài học từ Cosmic Writer + test Vbee
+- **SHORT (20–45s):** câu CỤT, punch nhanh, chốt hạ 3–5 từ. Giữ như đang làm (hợp nhịp lướt).
+- **VIDEO DÀI (8–15p):** **VĂN NÓI MƯỢT** — câu DÀI, nối bằng liên từ (*vậy mà / nhưng thật ra / bởi vì / cho nên / rồi / mà / thế là*), giọng như đang ngồi kể-giải thích cho bạn nghe. **CẤM bắn staccato** câu 3–4 chữ liên tục → Vbee đọc nghe cứng, như robot.
+- **Giọng BẮC chuẩn** (Vbee nam Bắc): dùng *chả/chẳng · tí · hoá ra · đấy · nhé · thật ra · lúc nãy · ơ hay*. **BỎ từ Nam** đọc bị sượng: nè→này · vô→vào · thấy mồ→cực kỳ · hồi nãy→lúc nãy · ủa→ơ · trớt/trơn.
+- **Vẫn giữ:** từ đệm hội thoại ("nghe thì hợp lý đúng không", "nói thật lòng nhé"), ẩn dụ đời, số dạng khoảng, KHÔNG dạy đời.
+- Mở đầu dài: nêu câu hỏi → BẮT ĐẦU GIẢI luôn (kiểu Cosmic Writer), KHÔNG hù, KHÔNG "trụ tới cuối tặng quà", tối đa 1 mồi.
