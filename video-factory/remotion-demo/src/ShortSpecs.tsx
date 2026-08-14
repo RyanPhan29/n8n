@@ -3686,4 +3686,62 @@ export const SHORT_SODO: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_SODO, SHORT_N01, SHORT_N02, SHORT_N03, SHORT_N04, SHORT_N05, SHORT_N06, SHORT_N07, SHORT_N08, SHORT_N09, SHORT_N10, SHORT_N11, SHORT_N12, SHORT_N13, SHORT_N14, SHORT_N15, SHORT_N16, SHORT_N17, SHORT_N18, SHORT_N19, SHORT_N20, SHORT_N21, SHORT_N22, SHORT_N23, SHORT_N24, SHORT_N25, SHORT_N26, SHORT_N27, SHORT_N28, SHORT_N29, SHORT_N30, SHORT_DT1, SHORT_DT2, SHORT_DT3, SHORT_DT4, SHORT_DT5, SHORT_COVER, SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ĐIỂM TIN — 38.800 DN rời thị trường TP.HCM (VietnamNet 12/8/2026). Audio dnrut.mp3 = 86.208s = 2586 frame.
+// Nhịp neo theo khoảng lặng lớn (~1.42s): 9.53 / 19.5 / 28.5 / 42.37 / 57.29 / 77.52. Cảnh 2 = overlay ảnh TP.HCM (VietnamNet).
+export const SHORT_DNRUT: ShortSpec = {
+  slug: 'ShortDNRut',
+  scenes: [
+    cover('38.800', 'RỜI CHỢ', 'VÌ SAO?', 'Kinh tế khỏe mà DN đuối?', 'shock', 45),
+    // S1 HOOK — số sốc 38.800
+    {d: 241, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 560,
+      head: ['7 tháng đầu năm, ', {t: 'TP.HCM', c: 'red'}], size: 58, htop: 175,
+      value: 38, suffix: '.800', staticNum: true, numColor: 'red', numTop: 500, numSize: 168,
+      label: ['doanh nghiệp rời thị trường'], labelTop: 820, labelC: 'navy'},
+    // S2 THẺ BẰNG CHỨNG — ẩn Anh Hai, chừa giữa để overlay ẢNH VietnamNet (9.53s–19.5s)
+    {d: 299, bar: 'red', ah: false,
+      source: {name: 'VietnamNet', date: '12/8/2026'},
+      head: ['Báo VietnamNet đưa tin:'], size: 50, htop: 470,
+      label: ['Lãnh đạo TP.HCM yêu cầu\nlàm rõ nguyên nhân'], labelTop: 1330, labelC: 'navy'},
+    // S3 SỐ SỐC — giải thể +158%
+    {d: 270, bar: 'red', pose: 'worried', ahCorner: 'left', ahH: 560,
+      head: ['Số doanh nghiệp giải thể'], size: 58, htop: 175,
+      value: 158, suffix: '%', numColor: 'red', numTop: 500, numSize: 175,
+      label: ['So cùng kỳ — đóng cửa hẳn'], labelTop: 820, labelC: 'red'},
+    // S4 NGHỊCH LÝ-a — bức tranh lớn lại khỏe (FDI)
+    {d: 224, bar: 'blue', pose: 'think', ahCorner: 'right', ahH: 540,
+      head: ['Nhưng bức tranh lớn lại', {t: ' khỏe', c: 'blue'}], size: 56, htop: 170,
+      value: 44, suffix: '%', numColor: 'blue', numTop: 500, numSize: 160,
+      label: ['Vốn ngoại (FDI) đổ vào tăng'], labelTop: 820, labelC: 'blue'},
+    // S5 NGHỊCH LÝ-b — punchline
+    {d: 191, bar: 'amber', pose: 'shrug', ahCorner: 'left', ahH: 560,
+      head: ['Trên giấy thì đẹp...'], size: 62, htop: 210,
+      icon: '📄', iconTop: 500, iconSize: 130,
+      label: ['...ngoài chợ treo biển nghỉ'], labelTop: 820, labelC: 'amber'},
+    // S6 ĐỌC VỊ-a
+    {d: 218, bar: 'navy', pose: 'point', ahCorner: 'right', ahH: 540,
+      head: ['Anh Hai ', {t: 'đọc vị', c: 'gold'}, ' nè'], size: 62, htop: 175,
+      icon: '🏢🌐', iconTop: 500, iconSize: 130,
+      label: ['Số đẹp phần lớn của DN lớn & FDI'], labelTop: 820, labelC: 'navy'},
+    // S7 ĐỌC VỊ-b — người đuối
+    {d: 231, bar: 'navy', pose: 'worried', ahCorner: 'left', ahH: 560,
+      head: ['Người đuối là ', {t: 'DN nhỏ', c: 'red'}], size: 60, htop: 175,
+      icon: '🏪💦', iconTop: 500, iconSize: 150,
+      label: ['Vốn mỏng, ế vài tháng là đuối'], labelTop: 820, labelC: 'red'},
+    // S8 BÀI HỌC-a — chết vì cạn tiền mặt
+    {d: 309, bar: 'teal', pose: 'present', ahCorner: 'right', ahH: 540,
+      head: ['DN nhỏ chết vì ', {t: 'cạn tiền mặt', c: 'red'}], size: 54, htop: 170,
+      icon: '💸', iconTop: 500, iconSize: 140,
+      label: ['Lãi kẹt trong hàng tồn & công nợ'], labelTop: 820, labelC: 'navy'},
+    // S9 BÀI HỌC-b — quỹ dự phòng
+    {d: 298, bar: 'teal', pose: 'cool', ahCorner: 'left', ahH: 560,
+      head: ['Quy tắc sống còn'], size: 62, htop: 175,
+      value: 3, suffix: '–6 tháng', staticNum: true, numColor: 'teal', numTop: 500, numSize: 118,
+      label: ['Quỹ dự phòng — phao lúc chợ vắng'], labelTop: 820, labelC: 'teal'},
+    // S10 CÂU HỎI — chia phe
+    {d: 260, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 640,
+      head: ['Bạn thấy sao?'], size: 78,
+      q: ['Thanh lọc tự nhiên, hay ', {t: 'sức khỏe DN đáng lo?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_DNRUT, SHORT_SODO, SHORT_N01, SHORT_N02, SHORT_N03, SHORT_N04, SHORT_N05, SHORT_N06, SHORT_N07, SHORT_N08, SHORT_N09, SHORT_N10, SHORT_N11, SHORT_N12, SHORT_N13, SHORT_N14, SHORT_N15, SHORT_N16, SHORT_N17, SHORT_N18, SHORT_N19, SHORT_N20, SHORT_N21, SHORT_N22, SHORT_N23, SHORT_N24, SHORT_N25, SHORT_N26, SHORT_N27, SHORT_N28, SHORT_N29, SHORT_N30, SHORT_DT1, SHORT_DT2, SHORT_DT3, SHORT_DT4, SHORT_DT5, SHORT_COVER, SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
