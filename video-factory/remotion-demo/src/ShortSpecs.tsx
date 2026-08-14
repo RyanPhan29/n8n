@@ -3744,4 +3744,78 @@ export const SHORT_DNRUT: ShortSpec = {
   ],
 };
 
-export const ALL_SHORTS: ShortSpec[] = [SHORT_DNRUT, SHORT_SODO, SHORT_N01, SHORT_N02, SHORT_N03, SHORT_N04, SHORT_N05, SHORT_N06, SHORT_N07, SHORT_N08, SHORT_N09, SHORT_N10, SHORT_N11, SHORT_N12, SHORT_N13, SHORT_N14, SHORT_N15, SHORT_N16, SHORT_N17, SHORT_N18, SHORT_N19, SHORT_N20, SHORT_N21, SHORT_N22, SHORT_N23, SHORT_N24, SHORT_N25, SHORT_N26, SHORT_N27, SHORT_N28, SHORT_N29, SHORT_N30, SHORT_DT1, SHORT_DT2, SHORT_DT3, SHORT_DT4, SHORT_DT5, SHORT_COVER, SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
+// ĐIỂM TIN — "Cả nền kinh tế đang THÈM TIỀN". Audio themtien.mp3 = 106.344s = 3190 frame.
+// Neo khoảng lặng lớn (~1.42s): 13.13 / 23.35 / 36.24 / 54.22 / 71.77 / 88.25. Trung lập, không tên/ảnh cá nhân.
+export const SHORT_THEMTIEN: ShortSpec = {
+  slug: 'ShortThemTien',
+  scenes: [
+    cover('CẢ NƯỚC', 'THÈM TIỀN', 'CỠ NÀO?', 'Đào đâu ra 1.500 tỷ đô?', 'greedy', 45),
+    // S1 HOOK-a — cái tít nóng
+    {d: 220, bar: 'red', pose: 'think', ahCorner: 'right', ahH: 540,
+      head: ['Sáng nay, một cái tít', {t: ' rất nóng', c: 'red'}], size: 58, htop: 175,
+      icon: '📰', iconTop: 480, iconSize: 150,
+      label: ['"Giảm thực chất lãi suất cho vay"'], labelTop: 820, labelC: 'navy'},
+    // S2 HOOK-b — thèm tiền
+    {d: 129, bar: 'red', pose: 'greedy', ahCorner: 'left', ahH: 560,
+      head: ['Cả nền kinh tế đang'], size: 60, htop: 190,
+      icon: '🤑💸', iconTop: 480, iconSize: 160,
+      label: ['khát vốn — thèm tiền ghê gớm'], labelTop: 820, labelC: 'red'},
+    // S3 THẺ BẰNG CHỨNG
+    {d: 307, bar: 'red', pose: 'present', ahCorner: 'right', ahH: 500,
+      source: {name: 'VnExpress', date: '13/8/2026'},
+      evidence: {headline: ['Thủ tướng yêu cầu ngân hàng\ngiảm thực chất lãi suất cho vay'],
+        quote: ['Tiền rẻ thì DN mới dám vay,\nmở nhà máy, tạo việc làm'], src: 'VnExpress · 13/8/2026'},
+      evidenceTop: 360},
+    // S4 SỐ 1-a — dư nợ 20,3 triệu tỷ
+    {d: 261, bar: 'red', pose: 'shock', ahCorner: 'left', ahH: 540,
+      head: ['Dư nợ cả nền kinh tế'], size: 58, htop: 175,
+      value: 20, suffix: ',3 triệu tỷ', staticNum: true, numColor: 'red', numTop: 500, numSize: 120,
+      label: ['Tính đến cuối tháng 7'], labelTop: 820, labelC: 'navy'},
+    // S5 SỐ 1-b — huy động +5,75%
+    {d: 125, bar: 'blue', pose: 'worried', ahCorner: 'right', ahH: 540,
+      head: ['Mà tiền gửi chỉ tăng'], size: 58, htop: 175,
+      value: 5, suffix: ',75%', staticNum: true, numColor: 'blue', numTop: 500, numSize: 155,
+      label: ['Cho vay chạy nhanh hơn gửi'], labelTop: 820, labelC: 'red'},
+    // S6 SỐ 2-a — 38,5 triệu tỷ (ngôi sao)
+    {d: 332, bar: 'red', pose: 'shock', ahCorner: 'right', ahH: 520,
+      head: ['Nhưng con số này mới', {t: ' choáng', c: 'red'}], size: 54, htop: 170,
+      value: 38, suffix: ',5 triệu tỷ', staticNum: true, numColor: 'red', numTop: 480, numSize: 118,
+      label: ['≈ 1.500 tỷ đô · vốn đầu tư 26–30'], labelTop: 800, labelC: 'navy'},
+    // S7 SỐ 2-b — 80% ngoài ngân sách
+    {d: 207, bar: 'amber', pose: 'point', ahCorner: 'left', ahH: 540,
+      head: ['Và 80% phải tự huy động'], size: 56, htop: 175,
+      value: 80, suffix: '%', staticNum: true, numColor: 'amber', numTop: 500, numSize: 160,
+      label: ['Từ ngoài ngân sách nhà nước'], labelTop: 820, labelC: 'amber'},
+    // S8a ĐỌC VỊ 1 — danh sách chờ tiền
+    {d: 279, bar: 'navy', pose: 'present', ahCorner: 'right', ahH: 500,
+      head: ['Cả hàng dài ', {t: 'chờ tiền', c: 'red'}], size: 58, htop: 175,
+      icon: '🚄✈️⚡', iconTop: 480, iconSize: 140,
+      label: ['Đường sắt cao tốc, metro, sân bay, điện'], labelTop: 800, labelC: 'navy'},
+    // S8b ĐỌC VỊ 1 — ai cũng thèm
+    {d: 248, bar: 'navy', pose: 'worried', ahCorner: 'left', ahH: 540,
+      head: ['Ai cũng ', {t: 'thèm tiền', c: 'red'}], size: 62, htop: 175,
+      icon: '🏭🏠', iconTop: 480, iconSize: 160,
+      label: ['DN thèm vốn · dân thèm khoản vay'], labelTop: 820, labelC: 'red'},
+    // S9a ĐỌC VỊ 2 — bài toán
+    {d: 267, bar: 'blue', pose: 'point', ahCorner: 'right', ahH: 500,
+      head: ['Anh Hai ', {t: 'đọc vị', c: 'gold'}, ' nè'], size: 60, htop: 175,
+      icon: '💰⏳', iconTop: 480, iconSize: 140,
+      label: ['Cần tiền: nhiều · dài hạn · không đắt'], labelTop: 800, labelC: 'blue'},
+    // S9b ĐỌC VỊ 2 — khó hơn Nobel
+    {d: 227, bar: 'amber', pose: 'think', ahCorner: 'left', ahH: 540,
+      head: ['Khó hơn ẵm ', {t: 'Nobel', c: 'gold'}], size: 60, htop: 175,
+      icon: '🏆🤯', iconTop: 480, iconSize: 150,
+      label: ['Tiền rẻ mà không thổi giá & lạm phát'], labelTop: 820, labelC: 'amber'},
+    // S10 BÀI HỌC
+    {d: 274, bar: 'teal', pose: 'present', ahCorner: 'right', ahH: 520,
+      head: ['Với túi tiền của mình'], size: 60, htop: 175,
+      icon: '⚖️', iconTop: 480, iconSize: 140,
+      label: ['Lãi giảm → dễ vay; rẻ quá → thổi giá'], labelTop: 800, labelC: 'navy'},
+    // S11 CÂU HỎI — chia phe
+    {d: 269, bar: 'navy', pose: 'think', ahCorner: 'right', ahH: 640,
+      head: ['Bạn thấy sao?'], size: 78,
+      q: ['Mong lãi giảm mạnh, hay ', {t: 'lo tiền rẻ thổi giá nhà?', c: 'gold'}]},
+  ],
+};
+
+export const ALL_SHORTS: ShortSpec[] = [SHORT_THEMTIEN, SHORT_DNRUT, SHORT_SODO, SHORT_N01, SHORT_N02, SHORT_N03, SHORT_N04, SHORT_N05, SHORT_N06, SHORT_N07, SHORT_N08, SHORT_N09, SHORT_N10, SHORT_N11, SHORT_N12, SHORT_N13, SHORT_N14, SHORT_N15, SHORT_N16, SHORT_N17, SHORT_N18, SHORT_N19, SHORT_N20, SHORT_N21, SHORT_N22, SHORT_N23, SHORT_N24, SHORT_N25, SHORT_N26, SHORT_N27, SHORT_N28, SHORT_N29, SHORT_N30, SHORT_DT1, SHORT_DT2, SHORT_DT3, SHORT_DT4, SHORT_DT5, SHORT_COVER, SHORT_G01, SHORT_G02, SHORT_G03, SHORT_G04, SHORT_G05, SHORT_E01, SHORT_E02, SHORT_E03, SHORT_E04, SHORT_E05, SHORT_E06, SHORT_E07, SHORT_E08, SHORT_E09, SHORT_E10, SHORT_MRPIPS, SHORT_D01, SHORT_D02, SHORT_D03, SHORT_D04, SHORT_D05, SHORT_D06, SHORT_D07, SHORT_D08, SHORT_D09, SHORT_D10, SHORT_SR1, SHORT_TT01, SHORT_TT02, SHORT_TT03, SHORT_TT04, SHORT_TT05, SHORT_TT06, SHORT_TT07, SHORT_TT08, SHORT_TT09, SHORT_TT10, SHORT_PNJ, SHORT_LONGTHANH936, SHORT_KIMCUONG_GIA, SHORT_THUEDAT_P2, SHORT_THUEDAT, SHORT_LIENNH, SHORT_TAIKHOAN, SHORT_BAYPHI, SHORT_VANG2, SHORT_LAISUAT_A, SHORT_LAISUAT_B, SHORT_SJC, SHORT_ANHTUAN, SHORT_OMDAT, SHORT_PRODEMO, SHORT_DATDAI_PRO, SHORT_LK1, SHORT_KIMCUONG, SHORT_VANG, SHORT_RE13, SHORT_BDS_S1, SHORT_BDS_S2, SHORT_BDS_S4, SHORT_TK80, SHORT_DIEMTIN, SHORT_DIEMTIN23, SHORT_SS01, SHORT_SS02, SHORT_SS03, SHORT_SS04, SHORT_SS05, SHORT_SS06, SHORT_SS07, SHORT_SS08, SHORT_SS09, SHORT_SS10, SHORT_SS11, SHORT_SS12, SHORT_SS13, SHORT_SS14, SHORT_SS15, SHORT_SS16, SHORT_SS17, SHORT_SS18, SHORT_SS19, SHORT_SS20, SHORT_SS21, SHORT_SS22, SHORT_SS23, SHORT_SS24, SHORT_SS25, SHORT_SS26, SHORT_SS27, SHORT_SS28, SHORT_SS29, SHORT_SS30, SHORT_DATDAI];
