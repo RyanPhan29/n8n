@@ -82,37 +82,38 @@ const S4: React.FC = () => (
 // S5 — cơ chế: tiêu trước = 0
 const S5: React.FC = () => {
   const f = useCurrentFrame();
-  const step = (label: string, sub: string, color: string, delay: number, top: number) => { const o = interpolate(f, [delay, delay + 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); const x = interpolate(f, [delay, delay + 10], [-30, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); return <div style={{position: 'absolute', top, left: 150, right: 620, opacity: o, transform: `translateX(${x}px)`}}><div style={{display: 'inline-flex', alignItems: 'center', gap: 20, border: `5px solid ${color}`, background: 'rgba(255,255,255,0.9)', borderRadius: 22, padding: '18px 34px', fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: INK}}><span style={{color}}>{label}</span><span style={{color: '#6b7280', fontSize: 34}}>{sub}</span></div></div>; };
+  const step = (label: string, sub: string, color: string, delay: number, top: number) => { const o = interpolate(f, [delay, delay + 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); const x = interpolate(f, [delay, delay + 10], [-30, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); return <div style={{position: 'absolute', top, left: 120, right: 500, opacity: o, transform: `translateX(${x}px)`}}><div style={{display: 'inline-flex', alignItems: 'center', gap: 26, border: `6px solid ${color}`, background: 'rgba(255,255,255,0.92)', borderRadius: 26, padding: '22px 44px', fontFamily: 'BVP', fontWeight: 800, fontSize: 54, color: INK}}><span style={{color}}>{label}</span><span style={{color: '#6b7280', fontSize: 42}}>{sub}</span></div></div>; };
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={1} />
-    <Kin top={140} size={52} delay={2} toks={[{w: 'Lương'}, {w: 'về'}, {w: 'cái'}, {w: 'là'}, {w: 'TIÊU', c: RED, hl: true}, {w: 'trước'}, {w: 'đã…'}]} />
-    {step('Lương về', 'ăn, cà phê, mua sắm', NAVY, 12, 340)}
-    {step('Cuối tháng', 'dư đồng nào mới cất', AMBER, 26, 460)}
-    {step('Kết quả', 'chả còn đồng nào mà cất', RED, 42, 580)}
-    <HandDraw delay={58} dur={14} color={RED} sw={8} left={250} top={700} w={430} h={70} vb="0 0 430 70" d="M10 40 C 120 10 320 10 420 40" />
-    <div style={{position: 'absolute', top: 720, left: 260, fontFamily: 'Mont', fontWeight: 900, fontSize: 40, color: RED, opacity: interpolate(f, [64, 72], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Sai từ gốc!</div>
-    <AnhHai pose="facepalm" x={1440} y={520} delay={14} h={480} />
+    <Kin top={135} size={56} delay={2} toks={[{w: 'Lương'}, {w: 'về'}, {w: 'cái'}, {w: 'là'}, {w: 'TIÊU', c: RED, hl: true}, {w: 'trước'}, {w: 'đã…'}]} />
+    {step('Lương về', 'ăn, cà phê, mua sắm', NAVY, 12, 320)}
+    {step('Cuối tháng', 'dư đồng nào mới cất', AMBER, 26, 470)}
+    {step('Kết quả', 'chả còn đồng nào mà cất', RED, 42, 620)}
+    <HandDraw delay={58} dur={14} color={RED} sw={9} left={260} top={760} w={520} h={80} vb="0 0 430 70" d="M10 40 C 120 10 320 10 420 40" />
+    <div style={{position: 'absolute', top: 786, left: 300, fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: RED, opacity: interpolate(f, [64, 72], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Sai từ gốc!</div>
+    <AnhHai pose="facepalm" x={1600} y={560} delay={14} h={420} />
   </AbsoluteFill>;
 };
 // buffet card — dùng ẢNH THẬT (Pexels free) thay emoji
-const Photo: React.FC<{src: string; delay: number}> = ({src, delay}) => {
+const Photo: React.FC<{src: string; delay: number; h?: number}> = ({src, delay, h = 340}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, delay);
-  return <div style={{height: 210, borderRadius: 16, overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 10px 22px rgba(15,25,45,0.22)', transform: `scale(${0.9 + s * 0.1})`}}><Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></div>;
+  return <div style={{height: h, borderRadius: 18, overflow: 'hidden', border: '4px solid #fff', boxShadow: '0 14px 28px rgba(15,25,45,0.24)', transform: `scale(${0.9 + s * 0.1})`}}><Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></div>;
 };
+// THẺ TO chiếm khung — Anh Hai che mép cũng được (thứ yếu)
 const BuffetCard: React.FC<{showNon: boolean}> = ({showNon}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 4);
-  return <div style={{position: 'absolute', top: 270, left: 110, right: 640, transform: `scale(${0.94 + s * 0.06})`, opacity: interpolate(f, [4, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
-    <div style={{border: `6px solid ${NAVY}`, borderRadius: 28, background: 'rgba(255,255,255,0.9)', padding: '24px 30px 28px'}}>
-      <div style={{display: 'inline-block', background: NAVY, color: '#fff', fontFamily: 'BVP', fontWeight: 800, fontSize: 30, padding: '8px 22px', borderRadius: 999, marginBottom: 18}}>🍽️ ẨN DỤ: ĐI ĂN BUFFET</div>
-      <div style={{display: 'flex', gap: 26}}>
-        <div style={{flex: 1, border: `4px solid ${TEAL}`, borderRadius: 20, padding: '14px 14px 18px', textAlign: 'center'}}>
-          <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 28, color: TEAL, marginBottom: 10}}>NGƯỜI KHÔN</div>
+  return <div style={{position: 'absolute', top: 190, left: 70, right: 70, transform: `scale(${0.96 + s * 0.04})`, opacity: interpolate(f, [4, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+    <div style={{border: `7px solid ${NAVY}`, borderRadius: 32, background: 'rgba(255,255,255,0.92)', padding: '30px 44px 38px'}}>
+      <div style={{display: 'inline-block', background: NAVY, color: '#fff', fontFamily: 'BVP', fontWeight: 800, fontSize: 40, padding: '12px 30px', borderRadius: 999, marginBottom: 26}}>🍽️ ẨN DỤ: ĐI ĂN BUFFET</div>
+      <div style={{display: 'flex', gap: 44}}>
+        <div style={{flex: 1, border: `5px solid ${TEAL}`, borderRadius: 24, padding: '20px 22px 26px', textAlign: 'center'}}>
+          <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 42, color: TEAL, marginBottom: 16}}>NGƯỜI KHÔN</div>
           <Photo src="food_main.jpg" delay={10} />
-          <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 28, color: '#20242b', marginTop: 10}}>gắp món chính TRƯỚC</div>
+          <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 40, color: '#20242b', marginTop: 16}}>gắp món chính TRƯỚC</div>
         </div>
-        <div style={{flex: 1, border: `4px solid ${RED}`, borderRadius: 20, padding: '14px 14px 18px', textAlign: 'center', opacity: showNon ? interpolate(f, [2, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 0.2}}>
-          <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 28, color: RED, marginBottom: 10}}>NGƯỜI NON</div>
-          {showNon ? <Photo src="food_junk.jpg" delay={4} /> : <div style={{height: 210, borderRadius: 16, background: '#f0ece4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80, color: '#c9c2b6'}}>?</div>}
-          <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 28, color: '#20242b', marginTop: 10}}>{showNon ? 'no vì món vặt, tiếc đứt ruột' : '…'}</div>
+        <div style={{flex: 1, border: `5px solid ${RED}`, borderRadius: 24, padding: '20px 22px 26px', textAlign: 'center', opacity: showNon ? interpolate(f, [2, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 0.22}}>
+          <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 42, color: RED, marginBottom: 16}}>NGƯỜI NON</div>
+          {showNon ? <Photo src="food_junk.jpg" delay={4} /> : <div style={{height: 340, borderRadius: 18, background: '#f0ece4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 130, color: '#c9c2b6'}}>?</div>}
+          <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 40, color: '#20242b', marginTop: 16}}>{showNon ? 'no vì món vặt, tiếc đứt ruột' : '…'}</div>
         </div>
       </div>
     </div>
@@ -122,17 +123,16 @@ const BuffetCard: React.FC<{showNon: boolean}> = ({showNon}) => {
 const S6: React.FC = () => (
   <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={1} />
     <BuffetCard showNon={false} />
-    <AnhHai pose="cool" x={1450} y={520} delay={12} h={470} />
-    <Cap delay={20}>Ăn buffet: người biết ăn thì <K c={TEAL}>chừa bụng cho món chính</K>, gắp tôm cua trước</Cap>
+    <AnhHai pose="cool" x={1600} y={560} delay={12} h={420} />
+    <Cap delay={20} ah={false}>Người biết ăn thì <K c={TEAL}>chừa bụng cho món chính</K>, gắp tôm cua trước</Cap>
   </AbsoluteFill>
 );
 // S7 — buffet: người non
 const S7: React.FC = () => (
   <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={1} />
     <BuffetCard showNon={true} />
-    <Doodle x={1180} y={330} color={GOLD} delay={20} s={0.8} />
-    <AnhHai pose="facepalm" x={1450} y={520} delay={12} h={470} />
-    <Cap delay={16}>Người non nhồi <K c={RED}>món vặt</K> cho đầy, món chính bê ra thì <K c={RED}>no căng</K> rồi</Cap>
+    <AnhHai pose="facepalm" x={1600} y={560} delay={12} h={420} />
+    <Cap delay={16} ah={false}>Người non nhồi <K c={RED}>món vặt</K> cho đầy, món chính bê ra thì <K c={RED}>no căng</K> rồi</Cap>
   </AbsoluteFill>
 );
 // S8 — bài học TRÍCH TRƯỚC
@@ -140,14 +140,14 @@ const S8: React.FC = () => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 8);
   return <AbsoluteFill><TopBar color={TEAL} /><Logo /><Prog n={1} />
     <div style={{position: 'absolute', top: 150, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: INK, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Người biết giữ tiền làm <span style={{color: TEAL}}>ngược lại</span></div>
-    <div style={{position: 'absolute', top: 340, left: 250, right: 620, transform: `scale(${0.95 + s * 0.05})`, opacity: interpolate(f, [8, 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
-      <div style={{border: `6px solid ${TEAL}`, borderRadius: 26, background: 'rgba(255,255,255,0.92)', padding: '30px 40px', display: 'flex', alignItems: 'center', gap: 26}}>
-        <Img src={staticFile('icons/piggy.svg')} style={{width: 96, height: 96}} />
-        <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 46, color: INK, lineHeight: 1.25}}>Lương về là <span style={{color: TEAL}}>TRÍCH cất trước</span>,<br/>còn lại mới đem tiêu</div>
+    <div style={{position: 'absolute', top: 320, left: 110, right: 110, transform: `scale(${0.96 + s * 0.04})`, opacity: interpolate(f, [8, 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+      <div style={{border: `7px solid ${TEAL}`, borderRadius: 30, background: 'rgba(255,255,255,0.94)', padding: '46px 56px', display: 'flex', alignItems: 'center', gap: 44}}>
+        <Img src={staticFile('icons/piggy.svg')} style={{width: 150, height: 150, flexShrink: 0}} />
+        <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 64, color: INK, lineHeight: 1.24}}>Lương về là <span style={{color: TEAL}}>TRÍCH cất trước</span>, còn lại mới đem tiêu</div>
       </div>
     </div>
-    <HandDraw delay={30} dur={14} color={TEAL} sw={8} left={470} top={580} w={330} h={50} vb="0 0 330 50" d="M8 28 q160 -22 320 -6" />
-    <AnhHai pose="present" x={1450} y={520} delay={14} h={470} />
+    <HandDraw delay={30} dur={14} color={TEAL} sw={9} left={330} top={620} w={430} h={54} vb="0 0 430 54" d="M8 30 q210 -24 420 -6" />
+    <AnhHai pose="present" x={1600} y={560} delay={14} h={420} />
     <Cap delay={26} ah={false}>Trích ít hay nhiều không quan trọng bằng <K c={TEAL}>trích TRƯỚC</K></Cap>
   </AbsoluteFill>;
 };
