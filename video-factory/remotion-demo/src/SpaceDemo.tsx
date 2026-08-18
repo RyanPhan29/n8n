@@ -128,4 +128,40 @@ export const SpacePhoto: React.FC = () => {
   );
 };
 
+// ---------- D) NEWS CUT — khi nhắc 1 vấn đề NỔI CỘM: headline + ảnh + nguồn ----------
+// Quy tắc an toàn: DẪN tin bằng chữ (nguồn báo) + ẢNH minh hoạ free (Unsplash). Ngắn ~3-5s.
+export const NewsCut: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig();
+  const s = pop(f, fps, 8);
+  const kb = interpolate(f, [0, 150], [1.05, 1.12], {extrapolateRight: 'clamp'});
+  return (
+    <AbsoluteFill style={{background: 'linear-gradient(180deg, #eef3fb 0%, #dde6f3 55%, #c3d1e6 100%)'}}>
+      <Floor line="rgba(22,48,92,0.14)" />
+      <TopBar color={RED} /><Logo />
+      <div style={{position: 'absolute', top: 145, left: 60, right: 60, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+        Mà đang <span style={{color: RED}}>nóng</span> đúng chuyện này…
+      </div>
+      {/* thẻ tin: ảnh minh hoạ + ribbon nguồn + headline */}
+      <div style={{position: 'absolute', top: 300, left: 120, right: 700, transform: `translateY(${(1 - s) * 30}px) scale(${0.96 + s * 0.04})`, opacity: interpolate(f, [8, 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+        <div style={{borderRadius: 24, overflow: 'hidden', background: '#fff', boxShadow: '0 30px 60px rgba(15,25,45,0.30), 0 8px 16px rgba(15,25,45,0.16)'}}>
+          <div style={{position: 'relative', height: 360, overflow: 'hidden'}}>
+            <Img src={staticFile('bg/hcmc.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${kb})`}} />
+            <div style={{position: 'absolute', top: 18, left: 18, display: 'flex', alignItems: 'center', gap: 10}}>
+              <span style={{background: RED, color: '#fff', fontFamily: 'BVP', fontWeight: 800, fontSize: 26, padding: '7px 18px', borderRadius: 8}}>📰 BÁO CHÍ</span>
+              <span style={{background: 'rgba(15,25,45,0.82)', color: '#fff', fontFamily: 'BVP', fontWeight: 700, fontSize: 24, padding: '7px 16px', borderRadius: 8}}>Nguồn: VietnamNet · 12/8/2026</span>
+            </div>
+          </div>
+          <div style={{padding: '24px 30px 28px', fontFamily: 'Mont', fontWeight: 900, fontSize: 44, color: INK, lineHeight: 1.2}}>
+            38.800 doanh nghiệp <span style={{color: RED}}>rời thị trường</span> TP.HCM
+          </div>
+        </div>
+        <div style={{fontFamily: 'BVP', fontWeight: 700, fontSize: 22, color: '#7a8390', marginTop: 10, textAlign: 'right'}}>Ảnh minh hoạ: Unsplash (free)</div>
+      </div>
+      <div style={{position: 'absolute', left: 1560, bottom: 46, width: 360, height: 60, transform: 'translateX(-50%)', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(15,25,45,0.28), rgba(15,25,45,0) 70%)'}} />
+      <AnhHai pose="point" x={1400} y={0} delay={12} h={560} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(15,25,45,0.14) 100%)', pointerEvents: 'none'}} />
+    </AbsoluteFill>
+  );
+};
+
 export const SPACE_DURATION = 150;
