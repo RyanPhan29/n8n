@@ -9,6 +9,7 @@ import {VayNhaMG, VAYNHA_DURATION} from './VayNhaMG';
 import {VayNhaLong, VAYNHALONG_DURATION} from './VayNhaLong';
 import {BayMGDemo, BAYMG_DURATION} from './BayMGDemo';
 import {SpaceLight, SpaceDark, SpacePhoto, NewsCut, SPACE_DURATION} from './SpaceDemo';
+import {PaperFx, PAPERFX_DURATION} from './PaperFxDemo';
 import {LongForm, specDuration} from './Blocks';
 import {ALL_SPECS} from './Specs';
 import {Short, shortDuration} from './Short';
@@ -85,6 +86,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="SpaceDark" component={SpaceDark} durationInFrames={SPACE_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="SpacePhoto" component={SpacePhoto} durationInFrames={SPACE_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="NewsCut" component={NewsCut} durationInFrames={SPACE_DURATION} fps={30} width={1920} height={1080} />
+      <Composition id="PaperFx" component={PaperFx} durationInFrames={PAPERFX_DURATION} fps={30} width={1920} height={1080} />
       {ALL_SPECS.map((spec) => (
         <Composition
           key={spec.slug}
