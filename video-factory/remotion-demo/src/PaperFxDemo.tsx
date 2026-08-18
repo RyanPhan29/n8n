@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, Easing} from 'remotion';
+import {AbsoluteFill, Img, staticFile, useCurrentFrame, useVideoConfig, interpolate, Easing} from 'remotion';
 import {Paper, TopBar, Logo, AnhHai, K, Sfx, pop, NAVY, RED, TEAL, BLUE, INK, GOLD, GRAY, AMBER} from './Kit';
 
 // =====================================================================
@@ -101,6 +101,42 @@ export const PaperFx: React.FC = () => {
       </div>
       <HandDraw delay={52} dur={14} color={RED} sw={7} left={258} top={956} w={250} h={40} vb="0 0 300 40"
         d="M6 22 q150 -20 300 -6" />
+    </AbsoluteFill>
+  );
+};
+
+// NEWS CUT trên NỀN GIẤY (element thẻ tin giữ nguyên, chỉ đổi nền + thêm nét tay)
+export const NewsCutPaper: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig();
+  const s = pop(f, fps, 6);
+  const kb = interpolate(f, [0, 150], [1.04, 1.11], {extrapolateRight: 'clamp'});
+  return (
+    <AbsoluteFill style={{backgroundColor: '#f4f1ec'}}>
+      <Paper />
+      <TopBar color={RED} /><Logo />
+      {/* thẻ tin: ảnh to + ribbon + chyron (y như bản trước) */}
+      <div style={{position: 'absolute', top: 150, left: 90, right: 470, transform: `translateY(${(1 - s) * 26}px) scale(${0.97 + s * 0.03})`, opacity: interpolate(f, [6, 14], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+        <div style={{position: 'relative', borderRadius: 22, overflow: 'hidden', boxShadow: '0 30px 56px rgba(15,25,45,0.28), 0 8px 16px rgba(15,25,45,0.16)', border: '5px solid #fff'}}>
+          <div style={{position: 'relative', height: 740, overflow: 'hidden'}}>
+            <Img src={staticFile('bg/vnn_dn.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${kb})`}} />
+            <div style={{position: 'absolute', top: 22, left: 22, display: 'flex', alignItems: 'center', gap: 10}}>
+              <span style={{background: RED, color: '#fff', fontFamily: 'BVP', fontWeight: 800, fontSize: 30, padding: '9px 22px', borderRadius: 10}}>📰 BÁO CHÍ</span>
+              <span style={{background: 'rgba(15,25,45,0.86)', color: '#fff', fontFamily: 'BVP', fontWeight: 700, fontSize: 28, padding: '9px 20px', borderRadius: 10}}>Nguồn: VietnamNet · 12/8/2026</span>
+            </div>
+            <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, padding: '80px 40px 34px', background: 'linear-gradient(to top, rgba(10,20,40,0.92) 0%, rgba(10,20,40,0.72) 55%, rgba(10,20,40,0) 100%)'}}>
+              <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 62, color: '#fff', lineHeight: 1.14, textShadow: '0 4px 20px rgba(0,0,0,0.5)'}}>
+                38.800 doanh nghiệp <span style={{color: '#ff6b74'}}>rời thị trường</span> TP.HCM
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* nét tay: mũi tên doodle từ Anh Hai chỉ vào thẻ tin + ngôi sao nhấn */}
+      <HandDraw delay={20} dur={16} color={NAVY} sw={9} left={1440} top={560} w={170} h={150} vb="0 0 170 150"
+        d="M158 20 C 96 26 40 58 16 120 M16 120 l 44 -2 M16 120 l 4 -40" />
+      <Doodle x={1500} y={470} color={GOLD} delay={26} s={1.1} />
+      <div style={{position: 'absolute', left: 1690, bottom: 40, width: 300, height: 50, transform: 'translateX(-50%)', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(15,25,45,0.22), rgba(15,25,45,0) 70%)'}} />
+      <AnhHai pose="point" x={1560} y={0} delay={14} h={470} />
     </AbsoluteFill>
   );
 };
