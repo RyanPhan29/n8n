@@ -93,22 +93,26 @@ const S5: React.FC = () => {
     <AnhHai pose="facepalm" x={1440} y={520} delay={14} h={480} />
   </AbsoluteFill>;
 };
-// buffet card (dùng chung S6/S7, show cột theo phe)
+// buffet card — dùng ẢNH THẬT (Pexels free) thay emoji
+const Photo: React.FC<{src: string; delay: number}> = ({src, delay}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, delay);
+  return <div style={{height: 210, borderRadius: 16, overflow: 'hidden', border: '3px solid #fff', boxShadow: '0 10px 22px rgba(15,25,45,0.22)', transform: `scale(${0.9 + s * 0.1})`}}><Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></div>;
+};
 const BuffetCard: React.FC<{showNon: boolean}> = ({showNon}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 4);
-  return <div style={{position: 'absolute', top: 300, left: 110, right: 640, transform: `scale(${0.94 + s * 0.06})`, opacity: interpolate(f, [4, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
-    <div style={{border: `6px solid ${NAVY}`, borderRadius: 28, background: 'rgba(255,255,255,0.9)', padding: '24px 34px 30px'}}>
-      <div style={{display: 'inline-block', background: NAVY, color: '#fff', fontFamily: 'BVP', fontWeight: 800, fontSize: 30, padding: '8px 22px', borderRadius: 999, marginBottom: 20}}>🍽️ ẨN DỤ: ĐI ĂN BUFFET</div>
+  return <div style={{position: 'absolute', top: 270, left: 110, right: 640, transform: `scale(${0.94 + s * 0.06})`, opacity: interpolate(f, [4, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+    <div style={{border: `6px solid ${NAVY}`, borderRadius: 28, background: 'rgba(255,255,255,0.9)', padding: '24px 30px 28px'}}>
+      <div style={{display: 'inline-block', background: NAVY, color: '#fff', fontFamily: 'BVP', fontWeight: 800, fontSize: 30, padding: '8px 22px', borderRadius: 999, marginBottom: 18}}>🍽️ ẨN DỤ: ĐI ĂN BUFFET</div>
       <div style={{display: 'flex', gap: 26}}>
-        <div style={{flex: 1, border: `4px solid ${TEAL}`, borderRadius: 20, padding: '16px 14px 20px', textAlign: 'center'}}>
-          <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 28, color: TEAL, marginBottom: 6}}>NGƯỜI KHÔN</div>
-          <div>{foodRow(['🦐', '🦀', '🥩'], 10, f, fps)}</div>
-          <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 28, color: '#20242b', marginTop: 6}}>gắp món chính TRƯỚC</div>
+        <div style={{flex: 1, border: `4px solid ${TEAL}`, borderRadius: 20, padding: '14px 14px 18px', textAlign: 'center'}}>
+          <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 28, color: TEAL, marginBottom: 10}}>NGƯỜI KHÔN</div>
+          <Photo src="food_main.jpg" delay={10} />
+          <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 28, color: '#20242b', marginTop: 10}}>gắp món chính TRƯỚC</div>
         </div>
-        <div style={{flex: 1, border: `4px solid ${RED}`, borderRadius: 20, padding: '16px 14px 20px', textAlign: 'center', opacity: showNon ? interpolate(f, [2, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 0.15}}>
-          <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 28, color: RED, marginBottom: 6}}>NGƯỜI NON</div>
-          <div>{showNon ? foodRow(['🍟', '🥤', '🍬'], 6, f, fps) : <span style={{fontSize: 64}}>❓</span>}</div>
-          <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 28, color: '#20242b', marginTop: 6}}>{showNon ? 'no vì món vặt, tiếc đứt ruột' : '…'}</div>
+        <div style={{flex: 1, border: `4px solid ${RED}`, borderRadius: 20, padding: '14px 14px 18px', textAlign: 'center', opacity: showNon ? interpolate(f, [2, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 0.2}}>
+          <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 28, color: RED, marginBottom: 10}}>NGƯỜI NON</div>
+          {showNon ? <Photo src="food_junk.jpg" delay={4} /> : <div style={{height: 210, borderRadius: 16, background: '#f0ece4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80, color: '#c9c2b6'}}>?</div>}
+          <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 28, color: '#20242b', marginTop: 10}}>{showNon ? 'no vì món vặt, tiếc đứt ruột' : '…'}</div>
         </div>
       </div>
     </div>
