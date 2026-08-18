@@ -7,6 +7,7 @@ import {LaiKep, LAIKEP_DURATION} from './LaiKep';
 import {LaiKepMG, LAIKEPMG_DURATION} from './LaiKepMG';
 import {VayNhaMG, VAYNHA_DURATION} from './VayNhaMG';
 import {VayNhaLong, VAYNHALONG_DURATION} from './VayNhaLong';
+import {BayMGDemo, BAYMG_DURATION} from './BayMGDemo';
 import {LongForm, specDuration} from './Blocks';
 import {ALL_SPECS} from './Specs';
 import {Short, shortDuration} from './Short';
@@ -67,6 +68,14 @@ export const RemotionRoot: React.FC = () => {
         id="VayNhaLong"
         component={VayNhaLong}
         durationInFrames={VAYNHALONG_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="BayMGDemo"
+        component={BayMGDemo}
+        durationInFrames={BAYMG_DURATION}
         fps={30}
         width={1920}
         height={1080}
