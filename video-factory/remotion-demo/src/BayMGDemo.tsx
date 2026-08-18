@@ -1,4 +1,5 @@
 import React from 'react';
+import {Img, staticFile} from 'remotion';
 import {
   AbsoluteFill, TopBar, Logo, Heading, Pill, Caption, K, AnhHai, Sfx,
   Timeline, totalFrames, Sc, useCurrentFrame, useVideoConfig, interpolate, Easing, pop,
@@ -135,11 +136,42 @@ const S3_Interrupt: React.FC = () => {
   );
 };
 
-// ================= TIMELINE (demo im tiếng ~20s) =================
+// (proof) ICON THẬT kéo từ Iconify (free) → đã nhuộm bảng màu kênh → thay emoji
+const IconTile: React.FC<{name: string; label: string; color: string; delay: number}> = ({name, label, color, delay}) => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, delay);
+  return (
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, transform: `scale(${s})`}}>
+      <Sfx name="pop" at={delay} vol={0.16} len={9} />
+      <div style={{width: 156, height: 156, borderRadius: 30, border: `5px solid ${color}`, background: 'rgba(255,255,255,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Img src={staticFile('icons/' + name + '.svg')} style={{width: 94, height: 94}} />
+      </div>
+      <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 32, color: '#20242b'}}>{label}</div>
+    </div>
+  );
+};
+const S4_Icons: React.FC = () => (
+  <AbsoluteFill><TopBar color={TEAL} /><Logo />
+    <Kinetic top={150} size={56} delay={4} step={4} toks={[
+      {w: 'Element'}, {w: 'THẬT'}, {w: '—'}, {w: 'nhuộm'}, {w: 'màu'}, {w: 'kênh', c: TEAL, hl: true},
+    ]} />
+    <div style={{position: 'absolute', top: 400, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 46}}>
+      <IconTile name="piggy" label="Tiết kiệm" color={NAVY} delay={10} />
+      <IconTile name="trend" label="Sinh lời" color={TEAL} delay={16} />
+      <IconTile name="calendar" label="Kỳ hạn" color={AMBER} delay={22} />
+      <IconTile name="coins" label="Lãi kép" color={'#c99700'} delay={28} />
+      <IconTile name="lock" label="Rủi ro" color={RED} delay={34} />
+      <IconTile name="home" label="An cư" color={BLUE} delay={40} />
+    </div>
+    <Caption delay={48}>Kéo từ <K c={TEAL}>Iconify</K> (free) → nhuộm bảng màu → thay emoji cho <K>đồng bộ &amp; premium</K></Caption>
+  </AbsoluteFill>
+);
+
+// ================= TIMELINE (demo im tiếng) =================
 const SCENES: Sc[] = [
   {c: S1_Hook, d: 185},
   {c: S2_Bay1, d: 275},
   {c: S3_Interrupt, d: 170},
+  {c: S4_Icons, d: 220},
 ];
 export const BAYMG_DURATION = totalFrames(SCENES);
 export const BayMGDemo: React.FC = () => <Timeline scenes={SCENES} />;
