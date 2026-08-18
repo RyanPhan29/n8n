@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate} from 'remotion';
+import {AbsoluteFill, Img, staticFile, useCurrentFrame, useVideoConfig, interpolate} from 'remotion';
 import {TopBar, Logo, AnhHai, K, pop, NAVY, RED, TEAL, BLUE, INK, GOLD, AMBER} from './Kit';
 
 // =====================================================================
@@ -94,6 +94,36 @@ export const SpaceDark: React.FC = () => {
         <AnhHai pose="think" x={1380} y={0} delay={10} h={620} />
       </PushIn>
       <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, transparent 48%, rgba(0,0,0,0.45) 100%)', pointerEvents: 'none'}} />
+    </AbsoluteFill>
+  );
+};
+
+// ---------- C) PHÔNG ẢNH THẬT (Unsplash free) — môi trường thật, hợp pháp ----------
+export const SpacePhoto: React.FC = () => {
+  const f = useCurrentFrame(); const {durationInFrames} = useVideoConfig();
+  const kb = interpolate(f, [0, durationInFrames], [1.08, 1.16], {extrapolateRight: 'clamp'}); // Ken Burns
+  return (
+    <AbsoluteFill style={{background: '#0a1526'}}>
+      {/* ảnh nền thật, hơi mờ + tối để chữ/nhân vật nổi */}
+      <AbsoluteFill style={{transform: `scale(${kb})`, transformOrigin: 'center 40%'}}>
+        <Img src={staticFile('bg/hcmc.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(2px) brightness(0.82) saturate(1.05)'}} />
+      </AbsoluteFill>
+      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(12,26,50,0.45) 0%, rgba(12,26,50,0.12) 38%, rgba(8,17,34,0.82) 100%)'}} />
+      <TopBar color={GOLD} />
+      <div style={{position: 'absolute', top: 44, left: 60, fontFamily: 'Mont', fontWeight: 900, fontSize: 30, color: '#fff'}}>CHUYỆN TIỀN <span style={{color: GOLD}}>· ANH HAI KỂ</span></div>
+      <div style={{position: 'absolute', top: 150, left: 60, right: 60, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 76, color: '#fff', textWrap: 'balance', textShadow: '0 6px 30px rgba(0,0,0,0.55)', opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+        Ai cũng mơ một mái nhà — sao giờ <span style={{color: GOLD}}>XA vời?</span>
+      </div>
+      <div style={{position: 'absolute', top: 400, left: 130, right: 760}}>
+        <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 150, color: '#fff', textShadow: '0 8px 40px rgba(0,0,0,0.6)', opacity: interpolate(f, [14, 26], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+          23,7<span style={{fontSize: 70, color: GOLD}}> lần</span>
+        </div>
+        <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 40, color: '#dfe7f4', marginTop: 4}}>thu nhập mới mua nổi 1 căn</div>
+      </div>
+      <div style={{position: 'absolute', left: 1560, bottom: 52, width: 380, height: 60, transform: 'translateX(-50%)', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(0,0,0,0.55), rgba(0,0,0,0) 70%)'}} />
+      <AnhHai pose="worried" x={1380} y={0} delay={10} h={620} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, transparent 50%, rgba(0,0,0,0.4) 100%)', pointerEvents: 'none'}} />
+      <div style={{position: 'absolute', bottom: 24, right: 30, fontFamily: 'BVP', fontWeight: 700, fontSize: 22, color: 'rgba(255,255,255,0.6)'}}>Ảnh nền: Unsplash (free)</div>
     </AbsoluteFill>
   );
 };
