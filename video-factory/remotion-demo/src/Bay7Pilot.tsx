@@ -31,7 +31,8 @@ const Prog: React.FC<{n: number; delay?: number}> = ({n, delay = 0}) => {
 type Tok = {w: string; c?: string; hl?: boolean};
 const Kin: React.FC<{toks: Tok[]; top?: number; size?: number; delay?: number; ah?: boolean; step?: number}> = ({toks, top = 165, size = 68, delay = 2, ah = false, step = 4}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig();
-  return <div style={{position: 'absolute', top, left: 70, right: ah ? 520 : 70, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: size, lineHeight: 1.16, color: INK, textWrap: 'balance'}}>{toks.map((t, i) => { const d = delay + i * step; const s = pop(f, fps, d); const o = interpolate(f, [d, d + 5], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); const sc = t.hl ? 0.6 + s * 0.55 : 0.78 + s * 0.22; return <span key={i} style={{display: 'inline-block', margin: '0 15px', color: t.c || INK, opacity: o, transform: `scale(${sc})`}}>{t.w}</span>; })}</div>;
+  return <><Sfx name="pop" at={delay} vol={0.18} len={8} />{toks.map((t, i) => t.hl ? <Sfx key={'s' + i} name="ding" at={delay + i * step} vol={0.26} len={14} /> : null)}
+    <div style={{position: 'absolute', top, left: 70, right: ah ? 520 : 70, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: size, lineHeight: 1.16, color: INK, textWrap: 'balance'}}>{toks.map((t, i) => { const d = delay + i * step; const s = pop(f, fps, d); const o = interpolate(f, [d, d + 5], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); const sc = t.hl ? 0.6 + s * 0.55 : 0.78 + s * 0.22; return <span key={i} style={{display: 'inline-block', margin: '0 15px', color: t.c || INK, opacity: o, transform: `scale(${sc})`}}>{t.w}</span>; })}</div></>;
 };
 const Cap: React.FC<{children: React.ReactNode; delay?: number; ah?: boolean}> = ({children, delay = 8, ah = true}) => {
   const f = useCurrentFrame();
@@ -62,7 +63,7 @@ const S2: React.FC = () => (
 // S3 — 1,5 tỷ hook
 const S3: React.FC = () => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 8);
-  return <AbsoluteFill><TopBar color={GOLD} /><Logo />
+  return <AbsoluteFill><TopBar color={GOLD} /><Logo /><Sfx name="ding" at={8} vol={0.34} len={20} /><Sfx name="coin" at={11} vol={0.3} len={16} />
     <div style={{position: 'absolute', top: 200, left: 90, right: 520, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Né được hết thì để ra được</div>
     <div style={{position: 'absolute', top: 320, left: 0, right: 520, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 190, color: GOLD, textShadow: '0 6px 0 rgba(0,0,0,0.08)', transform: `scale(${0.8 + s * 0.2})`}}>1,5 tỷ</div>
     <Doodle x={430} y={330} color={RED} delay={16} s={1.2} />
@@ -96,12 +97,13 @@ const S5: React.FC = () => {
 // buffet card — dùng ẢNH THẬT (Pexels free) thay emoji
 const Photo: React.FC<{src: string; delay: number; h?: number}> = ({src, delay, h = 340}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, delay);
-  return <div style={{height: h, borderRadius: 18, overflow: 'hidden', border: '4px solid #fff', boxShadow: '0 14px 28px rgba(15,25,45,0.24)', transform: `scale(${0.9 + s * 0.1})`}}><Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></div>;
+  return <><Sfx name="pop" at={delay} vol={0.2} len={9} /><div style={{height: h, borderRadius: 18, overflow: 'hidden', border: '4px solid #fff', boxShadow: '0 14px 28px rgba(15,25,45,0.24)', transform: `scale(${0.9 + s * 0.1})`}}><Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></div></>;
 };
 // THẺ TO chiếm khung — Anh Hai che mép cũng được (thứ yếu)
 const BuffetCard: React.FC<{showNon: boolean}> = ({showNon}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 4);
   return <div style={{position: 'absolute', top: 190, left: 70, right: 70, transform: `scale(${0.96 + s * 0.04})`, opacity: interpolate(f, [4, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+    <Sfx name="pop" at={4} vol={0.24} len={10} />
     <div style={{border: `7px solid ${NAVY}`, borderRadius: 32, background: 'rgba(255,255,255,0.92)', padding: '30px 44px 38px'}}>
       <div style={{display: 'inline-block', background: NAVY, color: '#fff', fontFamily: 'BVP', fontWeight: 800, fontSize: 40, padding: '12px 30px', borderRadius: 999, marginBottom: 26}}>🍽️ ẨN DỤ: ĐI ĂN BUFFET</div>
       <div style={{display: 'flex', gap: 44}}>
@@ -138,12 +140,12 @@ const S7: React.FC = () => (
 // S8 — bài học TRÍCH TRƯỚC
 const S8: React.FC = () => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 8);
-  return <AbsoluteFill><TopBar color={TEAL} /><Logo /><Prog n={1} />
+  return <AbsoluteFill><TopBar color={TEAL} /><Logo /><Prog n={1} /><Sfx name="coin" at={16} vol={0.28} len={16} />
     <div style={{position: 'absolute', top: 150, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: INK, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Người biết giữ tiền làm <span style={{color: TEAL}}>ngược lại</span></div>
     <div style={{position: 'absolute', top: 320, left: 110, right: 110, transform: `scale(${0.96 + s * 0.04})`, opacity: interpolate(f, [8, 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
-      <div style={{border: `7px solid ${TEAL}`, borderRadius: 30, background: 'rgba(255,255,255,0.94)', padding: '46px 56px', display: 'flex', alignItems: 'center', gap: 44}}>
-        <Img src={staticFile('icons/piggy.svg')} style={{width: 150, height: 150, flexShrink: 0}} />
-        <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 64, color: INK, lineHeight: 1.24}}>Lương về là <span style={{color: TEAL}}>TRÍCH cất trước</span>, còn lại mới đem tiêu</div>
+      <div style={{border: `7px solid ${TEAL}`, borderRadius: 30, background: 'rgba(255,255,255,0.94)', padding: '30px 44px', display: 'flex', alignItems: 'center', gap: 44}}>
+        <div style={{width: 300, height: 220, borderRadius: 20, overflow: 'hidden', flexShrink: 0, border: '4px solid #fff', boxShadow: '0 12px 24px rgba(15,25,45,0.22)'}}><Img src={staticFile('save_money.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></div>
+        <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: INK, lineHeight: 1.24}}>Lương về là <span style={{color: TEAL}}>TRÍCH cất trước</span>, còn lại mới đem tiêu</div>
       </div>
     </div>
     <HandDraw delay={30} dur={14} color={TEAL} sw={9} left={330} top={620} w={430} h={54} vb="0 0 430 54" d="M8 30 q210 -24 420 -6" />
