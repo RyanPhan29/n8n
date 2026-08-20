@@ -639,6 +639,258 @@ const S41: React.FC = () => {
   </AbsoluteFill>;
 };
 
+// ============ RE-HOOK (~55%) ============
+// S42 — khoan đã, bẫy 7 vẫn chờ
+const S42: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={AMBER} /><Logo />
+    <div style={{position: 'absolute', top: 180, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 84, color: RED, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Mà khoan đã!</div>
+    <div style={{position: 'absolute', top: 340, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [30, 42], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cái <span style={{color: RED}}>bẫy số 7</span> — đứa âm thầm nhất — vẫn đang chờ</div>
+    <div style={{position: 'absolute', top: 520, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: NAVY, opacity: interpolate(f, [80, 92], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ráng thêm tí — nó mới là đứa <K c={RED}>quyết định</K></div>
+    <AnhHai pose="point" x={1500} y={470} delay={12} h={540} />
+  </AbsoluteFill>;
+};
+// S43 — xây nhà quên lợp mái + quất bẫy 6
+const S43: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={AMBER} /><Logo />
+    <div style={{position: 'absolute', top: 220, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Gỡ 6 cái mà quên số 7…</div>
+    <div style={{position: 'absolute', top: 360, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 68, color: RED, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>= xây nhà mà quên lợp mái 🏠</div>
+    <div style={{position: 'absolute', top: 540, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: NAVY, opacity: interpolate(f, [72, 84], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Giờ quất cái <K c={AMBER}>bẫy 6</K> đã — đứa đông người nhất!</div>
+    <AnhHai pose="sly" x={1500} y={470} delay={12} h={540} />
+  </AbsoluteFill>;
+};
+// ============ BẪY 6 — ĐẦU TƯ PHONG TRÀO (đám đông một hướng) ============
+// S44 — title
+const S44: React.FC = () => (
+  <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={6} delay={4} />
+    <div style={{position: 'absolute', top: 300, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 72, color: INK, opacity: interpolate(useCurrentFrame(), [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 6: đầu tư theo <span style={{color: RED}}>phong trào</span></div>
+    <div style={{position: 'absolute', top: 470, left: 90, right: 90, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: '#2b2f36', opacity: interpolate(useCurrentFrame(), [18, 28], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Thời nào cũng có, thấy hoài à</div>
+    <AnhHai pose="warning" x={1440} y={520} delay={14} h={480} />
+  </AbsoluteFill>
+);
+// S45 — cả xóm hô mua đi
+const S45: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={6} />
+    <div style={{position: 'absolute', top: 150, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cả xóm rộ lên, ai cũng <span style={{color: RED}}>khoe lời</span></div>
+    <MoneyTag text="Hàng xóm: lời gấp đôi!" color={AMBER} x={150} y={340} delay={14} rot={-3} size={46} />
+    <MoneyTag text="Bạn cấp 3: trúng đậm!" color={BLUE} x={150} y={490} delay={30} rot={-3} size={46} />
+    <MoneyTag text="Mạng: mua đi, trễ là hết!" color={RED} x={150} y={640} delay={48} rot={-3} size={46} />
+    <AnhHai pose="greedy" x={1560} y={520} delay={14} h={460} />
+  </AbsoluteFill>;
+};
+// S46 — nhảy vào không hiểu gì
+const S46: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={6} />
+    <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Sợ bị bỏ lại → nhảy vào, <span style={{color: RED}}>chả hiểu mua gì</span></div>
+    <div style={{position: 'absolute', top: 420, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 66, color: RED, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chỗ nhiều người cháy túi nhất</div>
+    <AnhHai pose="worried" x={1560} y={520} delay={14} h={460} />
+  </AbsoluteFill>;
+};
+// S47 — metaphor đám đông chạy một hướng
+const S47: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 4);
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={6} />
+    <div style={{position: 'absolute', top: 130, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Như <span style={{color: RED}}>cả làng đổ xô</span> chạy về một hướng…</div>
+    <div style={{position: 'absolute', top: 290, left: 130, right: 130, transform: `scale(${0.96 + s * 0.04})`, opacity: interpolate(f, [4, 12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+      <Sfx name="pop" at={4} vol={0.22} len={10} />
+      <div style={{height: 440, borderRadius: 24, overflow: 'hidden', border: '6px solid #fff', boxShadow: '0 16px 30px rgba(15,25,45,0.28)'}}><Img src={staticFile('crowd.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></div>
+    </div>
+    <Cap delay={60} ah={false}>…vì nghe đồn hướng đó <K c={GOLD}>có vàng</K></Cap>
+  </AbsoluteFill>;
+};
+// S48 — vào sau ôm lỗ (beep)
+const S48: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={RED} /><Logo /><Prog n={6} />
+    <div style={{position: 'absolute', top: 140, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chạy tới nơi → giá đã <span style={{color: RED}}>thổi lên tận nóc</span></div>
+    <MoneyTag text="Vào ĐẦU → hốt được tí" color={TEAL} x={150} y={330} delay={16} rot={-3} size={46} />
+    <MoneyTag text="Vào SAU → đứng chỗ đắt nhất" color={AMBER} x={150} y={470} delay={40} rot={-3} size={46} />
+    <div style={{position: 'absolute', top: 640, left: 150, fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: RED, opacity: interpolate(f, [70, 82], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ôm nguyên cục lỗ — cay “BÍP”! 🤬</div>
+    <AnhHai pose="facepalm" x={1610} y={600} delay={14} h={380} />
+  </AbsoluteFill>;
+};
+// S49 — đầu tư vì hiểu
+const S49: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 8);
+  return <AbsoluteFill><TopBar color={TEAL} /><Logo /><Prog n={6} />
+    <div style={{position: 'absolute', top: 150, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Đầu tư vì mình <span style={{color: TEAL}}>HIỂU</span>, không phải vì người ta <span style={{color: RED}}>HÔ</span></div>
+    <div style={{position: 'absolute', top: 340, left: 130, right: 130, transform: `scale(${0.96 + s * 0.04})`, opacity: interpolate(f, [8, 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+      <Sfx name="ding" at={8} vol={0.26} len={16} />
+      <div style={{border: `7px solid ${RED}`, borderRadius: 30, background: 'rgba(255,255,255,0.94)', padding: '30px 44px', textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, lineHeight: 1.26}}>Bỏ tiền vào cái mình chả hiểu = <span style={{color: RED}}>cờ bạc đội lốt</span></div>
+    </div>
+    <AnhHai pose="present" x={1600} y={560} delay={14} h={420} />
+  </AbsoluteFill>;
+};
+// S50 — payoff bẫy 6
+const S50: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={6} />
+    <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Khi ai cũng <span style={{color: RED}}>chắc mẩm thắng</span>… thường là lúc gần thua nhất</div>
+    <div style={{position: 'absolute', top: 430, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Rồi… giờ tới cái mình chờ nãy giờ: <span style={{color: RED, fontFamily: 'Mont', fontWeight: 900}}>bẫy 7</span></div>
+    <AnhHai pose="sly" x={1500} y={470} delay={12} h={540} />
+  </AbsoluteFill>;
+};
+// ============ BẪY 7 — KHÔNG ĐO LẠI (phòng tối) — PAYOFF ~85% ============
+// -- phòng tối, bật đèn mới thấy mất đồ --
+const DarkRoom: React.FC<{delay: number; lightAt: number}> = ({delay, lightAt}) => {
+  const f = useCurrentFrame();
+  const lit = interpolate(f, [lightAt, lightAt + 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const leak = Math.max(0, (lit - 0.4) / 0.6);
+  return <div style={{position: 'absolute', top: 280, left: 0, right: 520, display: 'flex', justifyContent: 'center', opacity: interpolate(f, [delay, delay + 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+    <Sfx name="ding" at={lightAt} vol={0.3} len={16} />
+    <div style={{position: 'relative', width: 700, height: 400, borderRadius: 22, border: '7px solid #171c28', background: `rgb(${18 + lit * 222},${20 + lit * 218},${28 + lit * 208})`, overflow: 'hidden', boxShadow: '0 16px 30px rgba(0,0,0,0.3)'}}>
+      <div style={{position: 'absolute', top: 18, left: '50%', transform: 'translateX(-50%)', fontSize: 58, filter: lit < 0.5 ? 'grayscale(1) brightness(0.55)' : 'none'}}>💡</div>
+      <div style={{position: 'absolute', bottom: 46, left: 70, width: 230, height: 110, borderRadius: 16, border: `4px solid rgba(255,255,255,${0.18 + lit * 0.5})`, background: `rgba(255,255,255,${lit * 0.14})`}} />
+      <div style={{position: 'absolute', bottom: 64, right: 90, width: 150, height: 92, borderRadius: 12, border: `4px solid rgba(255,255,255,${0.18 + lit * 0.5})`, background: `rgba(255,255,255,${lit * 0.14})`}} />
+      <div style={{position: 'absolute', top: 150, left: 130, fontFamily: 'Mont', fontWeight: 900, fontSize: 44, color: RED, opacity: leak}}>−? đ</div>
+      <div style={{position: 'absolute', top: 220, right: 160, fontFamily: 'Mont', fontWeight: 900, fontSize: 44, color: RED, opacity: leak}}>−? đ</div>
+    </div>
+  </div>;
+};
+// S51 — title
+const S51: React.FC = () => (
+  <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} delay={4} />
+    <div style={{position: 'absolute', top: 300, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 70, color: INK, opacity: interpolate(useCurrentFrame(), [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 7: không bao giờ <span style={{color: RED}}>đo lại</span></div>
+    <div style={{position: 'absolute', top: 470, left: 90, right: 90, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: '#2b2f36', opacity: interpolate(useCurrentFrame(), [18, 28], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ít ai nói tới — nhưng nó quyết định tất cả</div>
+    <AnhHai pose="warning" x={1440} y={520} delay={14} h={480} />
+  </AbsoluteFill>
+);
+// S52 — cứ sống không nhìn lại
+const S52: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} />
+    <div style={{position: 'absolute', top: 180, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cứ sống, cứ kiếm, cứ tiêu — <span style={{color: RED}}>chả bao giờ nhìn lại</span></div>
+    <div style={{position: 'absolute', top: 400, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: '#2b2f36', opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tháng rồi tiền đi đâu? Dư hay thiếu? Đang tiến hay lùi?</div>
+    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: RED, opacity: interpolate(f, [80, 92], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chả biết — nhắm mắt đi tới 🙈</div>
+    <AnhHai pose="worried" x={1560} y={520} delay={14} h={460} />
+  </AbsoluteFill>;
+};
+// S53 — metaphor phòng tối
+const S53: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} />
+    <div style={{position: 'absolute', top: 130, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Như ở trong <span style={{color: RED}}>phòng tối</span> mà chả chịu bật đèn</div>
+    <DarkRoom delay={12} lightAt={300} />
+    <Cap delay={330} ah={false}>Bật đèn lên mới hoảng — <K c={RED}>ơ sao mất nhiều thế?</K></Cap>
+    <AnhHai pose="warning" x={1610} y={600} delay={14} h={380} />
+  </AbsoluteFill>;
+};
+// S54 — tiền rò rỉ
+const S54: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} />
+    <div style={{position: 'absolute', top: 140, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tiền cứ <span style={{color: RED}}>rò chỗ này, rỉ chỗ kia</span></div>
+    <MoneyTag text="Phí lặt vặt" color={GRAY} x={150} y={330} delay={16} rot={-3} size={46} />
+    <MoneyTag text="Gói đăng ký quên hủy" color={AMBER} x={150} y={470} delay={36} rot={-3} size={46} />
+    <MoneyTag text="Mua vô tội vạ" color={RED} x={150} y={610} delay={56} rot={-3} size={46} />
+    <div style={{position: 'absolute', top: 760, left: 150, fontFamily: 'Mont', fontWeight: 900, fontSize: 46, color: RED, opacity: interpolate(f, [90, 104], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Gộp cả năm → một mớ!</div>
+    <AnhHai pose="facepalm" x={1610} y={600} delay={14} h={380} />
+  </AbsoluteFill>;
+};
+// S55 — lý do 6 bẫy dính
+const S55: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={RED} /><Logo /><Prog n={7} />
+    <div style={{position: 'absolute', top: 220, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Đây là lý do sâu xa nhất vì sao <span style={{color: RED}}>6 bẫy kia dính hoài</span></div>
+    <div style={{position: 'absolute', top: 440, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 66, color: RED, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 7 nuôi sống cả 6 đứa — gốc rễ!</div>
+    <AnhHai pose="point" x={1560} y={520} delay={14} h={460} />
+  </AbsoluteFill>;
+};
+// S56 — cách gỡ 15 phút
+const S56: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 8);
+  return <AbsoluteFill><TopBar color={TEAL} /><Logo /><Prog n={7} />
+    <div style={{position: 'absolute', top: 140, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cách gỡ đơn giản đến bất ngờ 💡</div>
+    <div style={{position: 'absolute', top: 320, left: 130, right: 130, transform: `scale(${0.96 + s * 0.04})`, opacity: interpolate(f, [8, 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
+      <Sfx name="ding" at={8} vol={0.28} len={16} />
+      <div style={{border: `7px solid ${TEAL}`, borderRadius: 30, background: 'rgba(255,255,255,0.94)', padding: '34px 44px', textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, lineHeight: 1.28}}>Mỗi tháng ngồi <span style={{color: TEAL}}>15 phút</span> — soi lại tiền vào / ra / dư</div>
+    </div>
+    <Cap delay={40} ah={false}>Chả cần app xịn, chả cần giỏi tính — chỉ cần <K c={TEAL}>chịu nhìn</K></Cap>
+    <AnhHai pose="present" x={1600} y={560} delay={14} h={420} />
+  </AbsoluteFill>;
+};
+// S57 — payoff bẫy 7
+const S57: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} />
+    <div style={{position: 'absolute', top: 210, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Người giàu bền khác ở chỗ: họ <span style={{color: TEAL}}>chịu bật đèn soi</span>, đều đặn</div>
+    <div style={{position: 'absolute', top: 440, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 7: không đo lại thì đồ trong nhà cứ <K c={RED}>mất mà chả hay</K></div>
+    <AnhHai pose="present" x={1500} y={470} delay={12} h={540} />
+  </AbsoluteFill>;
+};
+// ============ CALLBACK + CHỐT ============
+const RECAP = [
+  {n: 1, t: 'Để dành phần thừa', fix: 'chừa bụng cho món chính', c: RED},
+  {n: 2, t: 'Lạm phát lối sống', fix: 'đừng cho áo phình theo người', c: AMBER},
+  {n: 3, t: 'Trả góp “0%”', fix: 'phô mai nằm trong bẫy', c: RED},
+  {n: 4, t: 'Không quỹ khẩn cấp', fix: 'đi xe phải có phanh', c: BLUE},
+  {n: 5, t: 'Giữ tiền sai chỗ', fix: 'đừng để đá ngoài nắng', c: TEAL},
+  {n: 6, t: 'Đầu tư phong trào', fix: 'vào sau = chỗ đắt nhất', c: AMBER},
+  {n: 7, t: 'Không đo lại', fix: 'bật đèn lên mà coi', c: RED},
+];
+// S58 — recap intro
+const S58: React.FC = () => (
+  <AbsoluteFill><TopBar color={NAVY} /><Logo />
+    <div style={{position: 'absolute', top: 300, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 76, color: INK, opacity: interpolate(useCurrentFrame(), [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>7 cái bẫy — <span style={{color: RED}}>nhắc nhanh 1 lượt</span></div>
+    <AnhHai pose="present" x={1460} y={520} delay={12} h={480} />
+  </AbsoluteFill>
+);
+// S59 — recap grid 7 bẫy
+const S59: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo />
+    {RECAP.map((r, i) => { const d = 8 + i * 68; const o = interpolate(f, [d, d + 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); const x = interpolate(f, [d, d + 12], [-40, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); return <div key={i} style={{position: 'absolute', top: 128 + i * 122, left: 90, right: 120, opacity: o, transform: `translateX(${x}px)`, display: 'flex', alignItems: 'center', gap: 24}}>
+      <div style={{width: 74, height: 74, flexShrink: 0, borderRadius: '50%', background: r.c, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 44, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{r.n}</div>
+      <div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 46, color: INK, minWidth: 520}}>{r.t}</div>
+      <div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 38, color: r.c}}>→ {r.fix}</div>
+    </div>; })}
+  </AbsoluteFill>;
+};
+// S60 — vì sao trắng tay
+const S60: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo />
+    <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Vì sao cày 10 năm vẫn <span style={{color: RED}}>trắng tay</span>?</div>
+    <div style={{position: 'absolute', top: 420, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: NAVY, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chả phải lười, chả phải kiếm ít — tại <span style={{color: RED}}>7 cái bẫy này</span></div>
+    <AnhHai pose="point" x={1560} y={520} delay={14} h={460} />
+  </AbsoluteFill>;
+};
+// S61 — 1,5 tỷ chả cần trúng số
+const S61: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 6);
+  return <AbsoluteFill><TopBar color={GOLD} /><Logo /><Sfx name="ding" at={6} vol={0.32} len={20} />
+    <div style={{position: 'absolute', top: 160, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Còn cái <span style={{color: '#c9962b'}}>1,5 tỷ</span> ấy…</div>
+    <div style={{position: 'absolute', top: 300, left: 0, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 88, color: GOLD, transform: `scale(${0.85 + s * 0.15})`}}>Chả cần trúng số</div>
+    <div style={{position: 'absolute', top: 520, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [50, 62], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chỉ cần <K c={TEAL}>né bẫy</K> rồi để tiền yên đó cho nó <K c={TEAL}>lăn</K></div>
+    <AnhHai pose="greedy" x={1500} y={470} delay={12} h={540} />
+  </AbsoluteFill>;
+};
+// S62 — CTA gõ số
+const S62: React.FC = () => {
+  const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 8);
+  return <AbsoluteFill><TopBar color={RED} /><Logo />
+    <div style={{position: 'absolute', top: 150, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bạn đang dính <span style={{color: RED}}>nặng nhất</span> cái nào?</div>
+    <div style={{position: 'absolute', top: 320, left: 0, right: 500, textAlign: 'center', transform: `scale(${0.85 + s * 0.15})`}}>
+      <Sfx name="pop" at={8} vol={0.3} len={12} />
+      <div style={{display: 'inline-block', background: NAVY, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 80, padding: '26px 60px', borderRadius: 26}}>Gõ số 1–7 👇</div>
+    </div>
+    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [50, 62], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>…dưới bình luận, Anh Hai đọc hết!</div>
+    <AnhHai pose="point" x={1500} y={470} delay={12} h={540} />
+  </AbsoluteFill>;
+};
+// S63 — gửi bạn + bật đèn đếm tiền + tạm biệt
+const S63: React.FC = () => {
+  const f = useCurrentFrame();
+  return <AbsoluteFill><TopBar color={NAVY} /><Logo />
+    <div style={{position: 'absolute', top: 190, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Thấy đứa bạn nào <span style={{color: RED}}>y chang</span> → gửi clip cho nó 📲</div>
+    <div style={{position: 'absolute', top: 400, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 62, color: TEAL, opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Nhớ bật đèn lên mà đếm tiền nghe! 💡</div>
+    <AnhHai pose="cool" x={1500} y={470} delay={12} h={540} />
+  </AbsoluteFill>;
+};
+
 const SCENES: Sc[] = [
   {c: S1, d: 255}, {c: S2, d: 171}, {c: S3, d: 210},
   {c: S4, d: 339}, {c: S5, d: 360}, {c: S6, d: 321}, {c: S7, d: 234}, {c: S8, d: 297}, {c: S9, d: 444},
@@ -647,6 +899,10 @@ const SCENES: Sc[] = [
   {c: S23, d: 376}, {c: S24, d: 336}, {c: S25, d: 400}, {c: S26, d: 388}, {c: S27, d: 252}, {c: S28, d: 215},
   {c: S29, d: 308}, {c: S30, d: 417}, {c: S31, d: 307}, {c: S32, d: 414}, {c: S33, d: 442}, {c: S34, d: 482}, {c: S35, d: 194},
   {c: S36, d: 405}, {c: S37, d: 407}, {c: S38, d: 358}, {c: S39, d: 508}, {c: S40, d: 400}, {c: S41, d: 493},
+  {c: S42, d: 379}, {c: S43, d: 377},
+  {c: S44, d: 175}, {c: S45, d: 297}, {c: S46, d: 309}, {c: S47, d: 435}, {c: S48, d: 513}, {c: S49, d: 354}, {c: S50, d: 357},
+  {c: S51, d: 243}, {c: S52, d: 420}, {c: S53, d: 447}, {c: S54, d: 579}, {c: S55, d: 276}, {c: S56, d: 372}, {c: S57, d: 391},
+  {c: S58, d: 185}, {c: S59, d: 552}, {c: S60, d: 336}, {c: S61, d: 471}, {c: S62, d: 357}, {c: S63, d: 367},
 ];
 export const BAY7PILOT_DURATION = totalFrames(SCENES);
 export const Bay7Pilot: React.FC = () => <Timeline scenes={SCENES} />;
