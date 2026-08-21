@@ -12,6 +12,7 @@ import {SpaceLight, SpaceDark, SpacePhoto, NewsCut, SPACE_DURATION} from './Spac
 import {PaperFx, NewsCutPaper, PAPERFX_DURATION} from './PaperFxDemo';
 import {Bay7Pilot, BAY7PILOT_DURATION} from './Bay7Pilot';
 import {StyleDemo, STYLEDEMO_DURATION} from './StyleDemo';
+import {MachineThumb, MACHINETHUMB_DURATION} from './MachineThumb';
 import {LongForm, specDuration} from './Blocks';
 import {ALL_SPECS} from './Specs';
 import {Short, shortDuration} from './Short';
@@ -90,6 +91,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="NewsCut" component={NewsCut} durationInFrames={SPACE_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="Bay7Pilot" component={Bay7Pilot} durationInFrames={BAY7PILOT_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="StyleDemo" component={StyleDemo} durationInFrames={STYLEDEMO_DURATION} fps={30} width={1920} height={1080} />
+      <Composition id="MachineThumb" component={MachineThumb} durationInFrames={MACHINETHUMB_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="PaperFx" component={PaperFx} durationInFrames={PAPERFX_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="NewsCutPaper" component={NewsCutPaper} durationInFrames={PAPERFX_DURATION} fps={30} width={1920} height={1080} />
       {ALL_SPECS.map((spec) => (
