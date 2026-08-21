@@ -430,8 +430,8 @@ const S23: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={GOLD} /><Logo />
     <div style={{position: 'absolute', top: 220, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 62, color: INK, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Giờ trả cái nợ đầu clip nhé…</div>
-    <div style={{position: 'absolute', top: 380, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 78, color: NAVY, opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Con số <span style={{color: '#c9962b'}}>1,5 tỷ</span> — còn nhớ chứ?</div>
-    <div style={{position: 'absolute', top: 540, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: '#2b2f36', opacity: interpolate(f, [80, 92], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ngồi cho vững rồi nghe này…</div>
+    <div style={{position: 'absolute', top: 380, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 78, color: NAVY, opacity: interpolate(f, [24, 36], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Con số <span style={{color: '#c9962b'}}>1,5 tỷ</span> — còn nhớ chứ?</div>
+    <div style={{position: 'absolute', top: 540, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: '#2b2f36', opacity: interpolate(f, [48, 60], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ngồi cho vững rồi nghe này…</div>
     <AnhHai pose="sly" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -444,7 +444,7 @@ const S24: React.FC = () => {
       <PhotoCard src="eat_out.jpg" label="1 bữa ăn ngoài" color={AMBER} delay={10} />
       <PhotoCard src="cafe.jpg" label="vài ly cà phê/tuần" color={BLUE} delay={22} />
     </div>
-    <div style={{position: 'absolute', bottom: 110, left: 90, right: 490, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: '#2b2f36', opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cỡ đó thôi — <K c={TEAL}>bớt lại một chút</K> mỗi tuần</div>
+    <div style={{position: 'absolute', bottom: 110, left: 90, right: 490, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: '#2b2f36', opacity: interpolate(f, [24, 36], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cỡ đó thôi — <K c={TEAL}>bớt lại một chút</K> mỗi tuần</div>
     <AnhHai pose="point" x={1610} y={620} delay={14} h={360} />
   </AbsoluteFill>;
 };
@@ -463,15 +463,15 @@ const S25: React.FC = () => {
 // S26 — REVEAL 1,5 tỷ = gốc 720 + lãi kép 780
 const S26: React.FC = () => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig(); const s = pop(f, fps, 6);
-  const goc = interpolate(f, [40, 60], [0, 300], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
-  const lai = interpolate(f, [64, 88], [0, 325], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
-  return <AbsoluteFill><TopBar color={GOLD} /><Logo /><Sfx name="ding" at={6} vol={0.34} len={20} /><Sfx name="coin" at={64} vol={0.3} len={16} />
+  const goc = interpolate(f, [24, 44], [0, 300], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
+  const lai = interpolate(f, [38, 62], [0, 325], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
+  return <AbsoluteFill><TopBar color={GOLD} /><Logo /><Sfx name="ding" at={6} vol={0.34} len={20} /><Sfx name="coin" at={40} vol={0.3} len={16} />
     <div style={{position: 'absolute', top: 110, left: 0, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 150, color: GOLD, textShadow: '0 6px 0 rgba(0,0,0,0.08)', transform: `scale(${0.8 + s * 0.2})`}}>≈ 1,5 tỷ</div>
     <div style={{position: 'absolute', top: 320, left: 150, right: 560, height: 360, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 80}}>
-      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 40, color: GRAY, marginBottom: 8, opacity: interpolate(f, [40, 50], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>720tr</div><div style={{width: 190, height: goc, background: GRAY, borderRadius: '14px 14px 0 0'}} /><div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 34, color: INK, marginTop: 12}}>Gốc mình bỏ</div></div>
-      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 40, color: '#c9962b', marginBottom: 8, opacity: interpolate(f, [64, 76], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>~780tr</div><div style={{width: 190, height: lai, background: GOLD, borderRadius: '14px 14px 0 0'}} /><div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 34, color: INK, marginTop: 12}}>Tiền tự đẻ</div></div>
+      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 40, color: GRAY, marginBottom: 8, opacity: interpolate(f, [24, 34], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>720tr</div><div style={{width: 190, height: goc, background: GRAY, borderRadius: '14px 14px 0 0'}} /><div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 34, color: INK, marginTop: 12}}>Gốc mình bỏ</div></div>
+      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><div style={{fontFamily: 'Mont', fontWeight: 900, fontSize: 40, color: '#c9962b', marginBottom: 8, opacity: interpolate(f, [38, 50], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>~780tr</div><div style={{width: 190, height: lai, background: GOLD, borderRadius: '14px 14px 0 0'}} /><div style={{fontFamily: 'BVP', fontWeight: 800, fontSize: 34, color: INK, marginTop: 12}}>Tiền tự đẻ</div></div>
     </div>
-    <MoneyTag text="= LÃI KÉP" color={NAVY} x={470} y={470} delay={94} rot={-6} size={52} />
+    <MoneyTag text="= LÃI KÉP" color={NAVY} x={470} y={470} delay={58} rot={-6} size={52} />
     <AnhHai pose="greedy" x={1610} y={600} delay={14} h={380} />
   </AbsoluteFill>;
 };
@@ -481,7 +481,7 @@ const S27: React.FC = () => {
   return <AbsoluteFill><TopBar color={GOLD} /><Logo />
     <div style={{position: 'absolute', top: 110, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Lãi kép = <span style={{color: '#c9962b'}}>quả cầu tuyết</span></div>
     <Snowball delay={12} />
-    <Cap delay={70} ah={false}>Càng lăn <K c={TEAL}>càng to</K> — miễn là cho nó <K c={TEAL}>thời gian</K> mà lăn</Cap>
+    <Cap delay={43} ah={false}>Càng lăn <K c={TEAL}>càng to</K> — miễn là cho nó <K c={TEAL}>thời gian</K> mà lăn</Cap>
     <AnhHai pose="cool" x={1610} y={620} delay={14} h={360} />
   </AbsoluteFill>;
 };
@@ -490,8 +490,8 @@ const S28: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={RED} /><Logo />
     <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>3 cái bẫy lúc nãy ăn mất…</div>
-    <div style={{position: 'absolute', top: 350, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 96, color: RED, opacity: interpolate(f, [30, 42], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>cả 1,5 tỷ của mình</div>
-    <div style={{position: 'absolute', top: 540, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 64, color: NAVY, opacity: interpolate(f, [72, 84], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cay chưa? 😤</div>
+    <div style={{position: 'absolute', top: 350, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 96, color: RED, opacity: interpolate(f, [18, 30], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>cả 1,5 tỷ của mình</div>
+    <div style={{position: 'absolute', top: 540, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 64, color: NAVY, opacity: interpolate(f, [43, 55], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cay chưa? 😤</div>
     <AnhHai pose="warning" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -510,9 +510,9 @@ const S30: React.FC = () => {
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={4} />
     <div style={{position: 'absolute', top: 130, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cục tiền để riêng — chỉ cho lúc <span style={{color: RED}}>bể chuyện</span></div>
     <Framed src="emergency.jpg" left={130} top={310} w={640} h={400} delay={12} rot={-2} />
-    <MoneyTag text="Mất việc" color={NAVY} x={840} y={340} delay={30} rot={-3} size={46} />
-    <MoneyTag text="Nằm viện" color={AMBER} x={840} y={470} delay={44} rot={-3} size={46} />
-    <MoneyTag text="Xe hư, nhà dột" color={RED} x={840} y={600} delay={58} rot={-3} size={46} />
+    <MoneyTag text="Mất việc" color={NAVY} x={840} y={340} delay={19} rot={-3} size={46} />
+    <MoneyTag text="Nằm viện" color={AMBER} x={840} y={470} delay={27} rot={-3} size={46} />
+    <MoneyTag text="Xe hư, nhà dột" color={RED} x={840} y={600} delay={36} rot={-3} size={46} />
     <AnhHai pose="point" x={1620} y={620} delay={14} h={360} />
   </AbsoluteFill>;
 };
@@ -521,8 +521,8 @@ const S31: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={4} />
     <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Mà đa số mình sống <span style={{color: RED}}>chả có quỹ ấy</span></div>
-    <div style={{position: 'absolute', top: 400, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 74, color: RED, opacity: interpolate(f, [30, 42], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tháng nào xài sạch tháng đó</div>
-    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: '#2b2f36', opacity: interpolate(f, [60, 72], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bình thường thì cũng phà phà, chả sao…</div>
+    <div style={{position: 'absolute', top: 400, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 74, color: RED, opacity: interpolate(f, [18, 30], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tháng nào xài sạch tháng đó</div>
+    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: '#2b2f36', opacity: interpolate(f, [36, 48], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bình thường thì cũng phà phà, chả sao…</div>
     <AnhHai pose="cool" x={1560} y={520} delay={14} h={460} />
   </AbsoluteFill>;
 };
@@ -545,7 +545,7 @@ const S33: React.FC = () => {
     <div style={{position: 'absolute', top: 120, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Túi rỗng → quẹt thẻ, vay app → <span style={{color: RED}}>dính nặng hơn</span></div>
     {row('Thẻ tín dụng', '20–38%/năm', AMBER, 12, 300)}
     {row('App vay (đủ phí ẩn)', '70–100%/năm', RED, 32, 450)}
-    <div style={{position: 'absolute', top: 620, left: 120, fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: RED, opacity: interpolate(f, [56, 66], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Đúng là quân “BÍP”! 🤬</div>
+    <div style={{position: 'absolute', top: 620, left: 120, fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: RED, opacity: interpolate(f, [34, 44], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Đúng là quân “BÍP”! 🤬</div>
     <AnhHai pose="warning" x={1610} y={600} delay={14} h={380} />
   </AbsoluteFill>;
 };
@@ -558,8 +558,8 @@ const S34: React.FC = () => {
       <Sfx name="ding" at={8} vol={0.28} len={16} />
       <div style={{border: `7px solid ${TEAL}`, borderRadius: 30, background: 'rgba(255,255,255,0.94)', padding: '34px 44px', textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: INK, lineHeight: 1.26}}>Để riêng <span style={{color: TEAL}}>3–6 tháng</span> chi phí sống</div>
     </div>
-    <HandDraw delay={30} dur={14} color={TEAL} sw={9} left={330} top={560} w={430} h={54} vb="0 0 430 54" d="M8 30 q210 -24 420 -6" />
-    <Cap delay={40} ah={false}>Đâu cần gom một phát — cứ bỏ vào <K c={TEAL}>từ từ mỗi tháng</K></Cap>
+    <HandDraw delay={19} dur={14} color={TEAL} sw={9} left={330} top={560} w={430} h={54} vb="0 0 430 54" d="M8 30 q210 -24 420 -6" />
+    <Cap delay={25} ah={false}>Đâu cần gom một phát — cứ bỏ vào <K c={TEAL}>từ từ mỗi tháng</K></Cap>
     <AnhHai pose="present" x={1600} y={560} delay={14} h={420} />
   </AbsoluteFill>;
 };
@@ -568,7 +568,7 @@ const S35: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={4} />
     <div style={{position: 'absolute', top: 230, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 62, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 4: <span style={{color: RED}}>không phanh thì đường bằng cũng thành vực</span></div>
-    <div style={{position: 'absolute', top: 470, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Mà bẫy 5 mới lạ — nó phạt cả người <span style={{color: RED, fontFamily: 'Mont', fontWeight: 900}}>chăm để dành</span> nhất</div>
+    <div style={{position: 'absolute', top: 470, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [24, 36], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Mà bẫy 5 mới lạ — nó phạt cả người <span style={{color: RED, fontFamily: 'Mont', fontWeight: 900}}>chăm để dành</span> nhất</div>
     <AnhHai pose="sly" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -586,8 +586,8 @@ const S37: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={5} />
     <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cất trong tài khoản <span style={{color: RED}}>không kỳ hạn</span></div>
-    <div style={{position: 'absolute', top: 380, left: 0, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 130, color: RED, opacity: interpolate(f, [30, 42], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>0,1–0,5%/năm</div>
-    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [56, 68], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Gần như bằng <K c={RED}>không</K></div>
+    <div style={{position: 'absolute', top: 380, left: 0, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 130, color: RED, opacity: interpolate(f, [18, 30], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>0,1–0,5%/năm</div>
+    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Gần như bằng <K c={RED}>không</K></div>
     <AnhHai pose="facepalm" x={1560} y={520} delay={14} h={460} />
   </AbsoluteFill>;
 };
@@ -600,7 +600,7 @@ const S38: React.FC = () => {
       {label: 'Lãi của bạn', value: 4, color: BLUE, tag: '~0,3%'},
       {label: 'Lạm phát', value: 40, color: RED, tag: '3–4%'},
     ]} />
-    <div style={{position: 'absolute', bottom: 96, left: 90, right: 560, fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: '#2b2f36', opacity: interpolate(f, [80, 94], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Để càng lâu thì <K c={RED}>mua được càng ít đi</K></div>
+    <div style={{position: 'absolute', bottom: 96, left: 90, right: 560, fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: '#2b2f36', opacity: interpolate(f, [48, 62], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Để càng lâu thì <K c={RED}>mua được càng ít đi</K></div>
     <AnhHai pose="warning" x={1600} y={560} delay={14} h={420} />
   </AbsoluteFill>;
 };
@@ -610,7 +610,7 @@ const S39: React.FC = () => {
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={5} />
     <div style={{position: 'absolute', top: 120, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Như <span style={{color: BLUE}}>cục đá lạnh</span> để ngoài nắng</div>
     <MeltIce delay={14} />
-    <Cap delay={100} ah={false}>Nhìn vẫn thấy đó, mà cứ <K c={RED}>teo dần</K> — ngoảnh lại còn mỗi vũng nước</Cap>
+    <Cap delay={62} ah={false}>Nhìn vẫn thấy đó, mà cứ <K c={RED}>teo dần</K> — ngoảnh lại còn mỗi vũng nước</Cap>
     <AnhHai pose="worried" x={1610} y={620} delay={14} h={360} />
   </AbsoluteFill>;
 };
@@ -620,8 +620,8 @@ const S40: React.FC = () => {
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={5} />
     <div style={{position: 'absolute', top: 150, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Con số nhìn nguyên, <span style={{color: RED}}>sức mua thì tan</span></div>
     <MoneyTag text="Năm ngoái: mua chừng NÀY 🛒" color={NAVY} x={150} y={360} delay={20} rot={-3} size={46} />
-    <MoneyTag text="Năm nay: cùng tiền, ít hơn 🛒" color={RED} x={150} y={520} delay={44} rot={-3} size={46} />
-    <div style={{position: 'absolute', top: 690, left: 150, fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: '#2b2f36', opacity: interpolate(f, [70, 82], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tan mà mắt thường chẳng nhìn thấy</div>
+    <MoneyTag text="Năm nay: cùng tiền, ít hơn 🛒" color={RED} x={150} y={520} delay={27} rot={-3} size={46} />
+    <div style={{position: 'absolute', top: 690, left: 150, fontFamily: 'BVP', fontWeight: 800, fontSize: 42, color: '#2b2f36', opacity: interpolate(f, [42, 54], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tan mà mắt thường chẳng nhìn thấy</div>
     <AnhHai pose="point" x={1600} y={560} delay={14} h={420} />
   </AbsoluteFill>;
 };
@@ -645,8 +645,8 @@ const S42: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={AMBER} /><Logo />
     <div style={{position: 'absolute', top: 180, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 84, color: RED, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Mà khoan đã!</div>
-    <div style={{position: 'absolute', top: 340, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [30, 42], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cái <span style={{color: RED}}>bẫy số 7</span> — đứa âm thầm nhất — vẫn đang chờ</div>
-    <div style={{position: 'absolute', top: 520, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: NAVY, opacity: interpolate(f, [80, 92], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ráng thêm tí — nó mới là đứa <K c={RED}>quyết định</K></div>
+    <div style={{position: 'absolute', top: 340, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [18, 30], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cái <span style={{color: RED}}>bẫy số 7</span> — đứa âm thầm nhất — vẫn đang chờ</div>
+    <div style={{position: 'absolute', top: 520, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: NAVY, opacity: interpolate(f, [48, 60], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ráng thêm tí — nó mới là đứa <K c={RED}>quyết định</K></div>
     <AnhHai pose="point" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -655,8 +655,8 @@ const S43: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={AMBER} /><Logo />
     <div style={{position: 'absolute', top: 220, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Gỡ 6 cái mà quên số 7…</div>
-    <div style={{position: 'absolute', top: 360, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 68, color: RED, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>= xây nhà mà quên lợp mái 🏠</div>
-    <div style={{position: 'absolute', top: 540, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: NAVY, opacity: interpolate(f, [72, 84], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Giờ quất cái <K c={AMBER}>bẫy 6</K> đã — đứa đông người nhất!</div>
+    <div style={{position: 'absolute', top: 360, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 68, color: RED, opacity: interpolate(f, [20, 32], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>= xây nhà mà quên lợp mái 🏠</div>
+    <div style={{position: 'absolute', top: 540, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 44, color: NAVY, opacity: interpolate(f, [43, 55], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Giờ quất cái <K c={AMBER}>bẫy 6</K> đã — đứa đông người nhất!</div>
     <AnhHai pose="sly" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -675,8 +675,8 @@ const S45: React.FC = () => {
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={6} />
     <div style={{position: 'absolute', top: 150, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cả xóm rộ lên, ai cũng <span style={{color: RED}}>khoe lời</span></div>
     <MoneyTag text="Hàng xóm: lời gấp đôi!" color={AMBER} x={150} y={340} delay={14} rot={-3} size={46} />
-    <MoneyTag text="Bạn cấp 3: trúng đậm!" color={BLUE} x={150} y={490} delay={30} rot={-3} size={46} />
-    <MoneyTag text="Mạng: mua đi, trễ là hết!" color={RED} x={150} y={640} delay={48} rot={-3} size={46} />
+    <MoneyTag text="Bạn cấp 3: trúng đậm!" color={BLUE} x={150} y={490} delay={19} rot={-3} size={46} />
+    <MoneyTag text="Mạng: mua đi, trễ là hết!" color={RED} x={150} y={640} delay={30} rot={-3} size={46} />
     <AnhHai pose="greedy" x={1560} y={520} delay={14} h={460} />
   </AbsoluteFill>;
 };
@@ -685,7 +685,7 @@ const S46: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={6} />
     <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Sợ bị bỏ lại → nhảy vào, <span style={{color: RED}}>chả hiểu mua gì</span></div>
-    <div style={{position: 'absolute', top: 420, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 66, color: RED, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chỗ nhiều người cháy túi nhất</div>
+    <div style={{position: 'absolute', top: 420, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 66, color: RED, opacity: interpolate(f, [20, 32], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chỗ nhiều người cháy túi nhất</div>
     <AnhHai pose="worried" x={1560} y={520} delay={14} h={460} />
   </AbsoluteFill>;
 };
@@ -698,7 +698,7 @@ const S47: React.FC = () => {
       <Sfx name="pop" at={4} vol={0.22} len={10} />
       <div style={{height: 440, borderRadius: 24, overflow: 'hidden', border: '6px solid #fff', boxShadow: '0 16px 30px rgba(15,25,45,0.28)'}}><Img src={staticFile('crowd.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></div>
     </div>
-    <Cap delay={60} ah={false}>…vì nghe đồn hướng đó <K c={GOLD}>có vàng</K></Cap>
+    <Cap delay={37} ah={false}>…vì nghe đồn hướng đó <K c={GOLD}>có vàng</K></Cap>
   </AbsoluteFill>;
 };
 // S48 — vào sau ôm lỗ (beep)
@@ -707,8 +707,8 @@ const S48: React.FC = () => {
   return <AbsoluteFill><TopBar color={RED} /><Logo /><Prog n={6} />
     <div style={{position: 'absolute', top: 140, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chạy tới nơi → giá đã <span style={{color: RED}}>thổi lên tận nóc</span></div>
     <MoneyTag text="Vào ĐẦU → hốt được tí" color={TEAL} x={150} y={330} delay={16} rot={-3} size={46} />
-    <MoneyTag text="Vào SAU → đứng chỗ đắt nhất" color={AMBER} x={150} y={470} delay={40} rot={-3} size={46} />
-    <div style={{position: 'absolute', top: 640, left: 150, fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: RED, opacity: interpolate(f, [70, 82], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ôm nguyên cục lỗ — cay “BÍP”! 🤬</div>
+    <MoneyTag text="Vào SAU → đứng chỗ đắt nhất" color={AMBER} x={150} y={470} delay={25} rot={-3} size={46} />
+    <div style={{position: 'absolute', top: 640, left: 150, fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: RED, opacity: interpolate(f, [42, 54], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Ôm nguyên cục lỗ — cay “BÍP”! 🤬</div>
     <AnhHai pose="facepalm" x={1610} y={600} delay={14} h={380} />
   </AbsoluteFill>;
 };
@@ -729,7 +729,7 @@ const S50: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={6} />
     <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Khi ai cũng <span style={{color: RED}}>chắc mẩm thắng</span>… thường là lúc gần thua nhất</div>
-    <div style={{position: 'absolute', top: 430, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Rồi… giờ tới cái mình chờ nãy giờ: <span style={{color: RED, fontFamily: 'Mont', fontWeight: 900}}>bẫy 7</span></div>
+    <div style={{position: 'absolute', top: 430, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [24, 36], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Rồi… giờ tới cái mình chờ nãy giờ: <span style={{color: RED, fontFamily: 'Mont', fontWeight: 900}}>bẫy 7</span></div>
     <AnhHai pose="sly" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -763,8 +763,8 @@ const S52: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} />
     <div style={{position: 'absolute', top: 180, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Cứ sống, cứ kiếm, cứ tiêu — <span style={{color: RED}}>chả bao giờ nhìn lại</span></div>
-    <div style={{position: 'absolute', top: 400, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: '#2b2f36', opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tháng rồi tiền đi đâu? Dư hay thiếu? Đang tiến hay lùi?</div>
-    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: RED, opacity: interpolate(f, [80, 92], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chả biết — nhắm mắt đi tới 🙈</div>
+    <div style={{position: 'absolute', top: 400, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: '#2b2f36', opacity: interpolate(f, [24, 36], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tháng rồi tiền đi đâu? Dư hay thiếu? Đang tiến hay lùi?</div>
+    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 60, color: RED, opacity: interpolate(f, [48, 60], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chả biết — nhắm mắt đi tới 🙈</div>
     <AnhHai pose="worried" x={1560} y={520} delay={14} h={460} />
   </AbsoluteFill>;
 };
@@ -773,8 +773,8 @@ const S53: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} />
     <div style={{position: 'absolute', top: 130, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Như ở trong <span style={{color: RED}}>phòng tối</span> mà chả chịu bật đèn</div>
-    <DarkRoom delay={12} lightAt={300} />
-    <Cap delay={330} ah={false}>Bật đèn lên mới hoảng — <K c={RED}>ơ sao mất nhiều thế?</K></Cap>
+    <DarkRoom delay={12} lightAt={215} />
+    <Cap delay={248} ah={false}>Bật đèn lên mới hoảng — <K c={RED}>ơ sao mất nhiều thế?</K></Cap>
     <AnhHai pose="warning" x={1610} y={600} delay={14} h={380} />
   </AbsoluteFill>;
 };
@@ -784,9 +784,9 @@ const S54: React.FC = () => {
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} />
     <div style={{position: 'absolute', top: 140, left: 90, right: 90, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Tiền cứ <span style={{color: RED}}>rò chỗ này, rỉ chỗ kia</span></div>
     <MoneyTag text="Phí lặt vặt" color={GRAY} x={150} y={330} delay={16} rot={-3} size={46} />
-    <MoneyTag text="Gói đăng ký quên hủy" color={AMBER} x={150} y={470} delay={36} rot={-3} size={46} />
-    <MoneyTag text="Mua vô tội vạ" color={RED} x={150} y={610} delay={56} rot={-3} size={46} />
-    <div style={{position: 'absolute', top: 760, left: 150, fontFamily: 'Mont', fontWeight: 900, fontSize: 46, color: RED, opacity: interpolate(f, [90, 104], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Gộp cả năm → một mớ!</div>
+    <MoneyTag text="Gói đăng ký quên hủy" color={AMBER} x={150} y={470} delay={22} rot={-3} size={46} />
+    <MoneyTag text="Mua vô tội vạ" color={RED} x={150} y={610} delay={35} rot={-3} size={46} />
+    <div style={{position: 'absolute', top: 760, left: 150, fontFamily: 'Mont', fontWeight: 900, fontSize: 46, color: RED, opacity: interpolate(f, [54, 68], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Gộp cả năm → một mớ!</div>
     <AnhHai pose="facepalm" x={1610} y={600} delay={14} h={380} />
   </AbsoluteFill>;
 };
@@ -795,7 +795,7 @@ const S55: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={RED} /><Logo /><Prog n={7} />
     <div style={{position: 'absolute', top: 220, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Đây là lý do sâu xa nhất vì sao <span style={{color: RED}}>6 bẫy kia dính hoài</span></div>
-    <div style={{position: 'absolute', top: 440, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 66, color: RED, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 7 nuôi sống cả 6 đứa — gốc rễ!</div>
+    <div style={{position: 'absolute', top: 440, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 66, color: RED, opacity: interpolate(f, [20, 32], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 7 nuôi sống cả 6 đứa — gốc rễ!</div>
     <AnhHai pose="point" x={1560} y={520} delay={14} h={460} />
   </AbsoluteFill>;
 };
@@ -808,7 +808,7 @@ const S56: React.FC = () => {
       <Sfx name="ding" at={8} vol={0.28} len={16} />
       <div style={{border: `7px solid ${TEAL}`, borderRadius: 30, background: 'rgba(255,255,255,0.94)', padding: '34px 44px', textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, lineHeight: 1.28}}>Mỗi tháng ngồi <span style={{color: TEAL}}>15 phút</span> — soi lại tiền vào / ra / dư</div>
     </div>
-    <Cap delay={40} ah={false}>Chả cần app xịn, chả cần giỏi tính — chỉ cần <K c={TEAL}>chịu nhìn</K></Cap>
+    <Cap delay={25} ah={false}>Chả cần app xịn, chả cần giỏi tính — chỉ cần <K c={TEAL}>chịu nhìn</K></Cap>
     <AnhHai pose="present" x={1600} y={560} delay={14} h={420} />
   </AbsoluteFill>;
 };
@@ -817,7 +817,7 @@ const S57: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo /><Prog n={7} />
     <div style={{position: 'absolute', top: 210, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 56, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Người giàu bền khác ở chỗ: họ <span style={{color: TEAL}}>chịu bật đèn soi</span>, đều đặn</div>
-    <div style={{position: 'absolute', top: 440, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 7: không đo lại thì đồ trong nhà cứ <K c={RED}>mất mà chả hay</K></div>
+    <div style={{position: 'absolute', top: 440, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [24, 36], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Bẫy 7: không đo lại thì đồ trong nhà cứ <K c={RED}>mất mà chả hay</K></div>
     <AnhHai pose="present" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -854,7 +854,7 @@ const S60: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo />
     <div style={{position: 'absolute', top: 200, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 58, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Vì sao cày 10 năm vẫn <span style={{color: RED}}>trắng tay</span>?</div>
-    <div style={{position: 'absolute', top: 420, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: NAVY, opacity: interpolate(f, [34, 46], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chả phải lười, chả phải kiếm ít — tại <span style={{color: RED}}>7 cái bẫy này</span></div>
+    <div style={{position: 'absolute', top: 420, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 52, color: NAVY, opacity: interpolate(f, [20, 32], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chả phải lười, chả phải kiếm ít — tại <span style={{color: RED}}>7 cái bẫy này</span></div>
     <AnhHai pose="point" x={1560} y={520} delay={14} h={460} />
   </AbsoluteFill>;
 };
@@ -864,7 +864,7 @@ const S61: React.FC = () => {
   return <AbsoluteFill><TopBar color={GOLD} /><Logo /><Sfx name="ding" at={6} vol={0.32} len={20} />
     <div style={{position: 'absolute', top: 160, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Còn cái <span style={{color: '#c9962b'}}>1,5 tỷ</span> ấy…</div>
     <div style={{position: 'absolute', top: 300, left: 0, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 88, color: GOLD, transform: `scale(${0.85 + s * 0.15})`}}>Chả cần trúng số</div>
-    <div style={{position: 'absolute', top: 520, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [50, 62], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chỉ cần <K c={TEAL}>né bẫy</K> rồi để tiền yên đó cho nó <K c={TEAL}>lăn</K></div>
+    <div style={{position: 'absolute', top: 520, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [30, 42], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Chỉ cần <K c={TEAL}>né bẫy</K> rồi để tiền yên đó cho nó <K c={TEAL}>lăn</K></div>
     <AnhHai pose="greedy" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -877,7 +877,7 @@ const S62: React.FC = () => {
       <Sfx name="pop" at={8} vol={0.3} len={12} />
       <div style={{display: 'inline-block', background: NAVY, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 80, padding: '26px 60px', borderRadius: 26}}>Gõ số 1–7 👇</div>
     </div>
-    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [50, 62], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>…dưới bình luận, Anh Hai đọc hết!</div>
+    <div style={{position: 'absolute', top: 560, left: 90, right: 500, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: NAVY, opacity: interpolate(f, [30, 42], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>…dưới bình luận, Anh Hai đọc hết!</div>
     <AnhHai pose="point" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
@@ -886,7 +886,7 @@ const S63: React.FC = () => {
   const f = useCurrentFrame();
   return <AbsoluteFill><TopBar color={NAVY} /><Logo />
     <div style={{position: 'absolute', top: 190, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 54, color: INK, opacity: interpolate(f, [1, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Thấy đứa bạn nào <span style={{color: RED}}>y chang</span> → gửi clip cho nó 📲</div>
-    <div style={{position: 'absolute', top: 400, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 62, color: TEAL, opacity: interpolate(f, [40, 52], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Nhớ bật đèn lên mà đếm tiền nghe! 💡</div>
+    <div style={{position: 'absolute', top: 400, left: 90, right: 500, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 62, color: TEAL, opacity: interpolate(f, [24, 36], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Nhớ bật đèn lên mà đếm tiền nghe! 💡</div>
     <AnhHai pose="cool" x={1500} y={470} delay={12} h={540} />
   </AbsoluteFill>;
 };
