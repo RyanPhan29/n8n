@@ -34,3 +34,26 @@
 2. Tạo 2–3 tấm, chọn tấm **thoáng bên trái + góc phải-dưới** (dễ ghép).
 3. Ảnh xong gửi em → em ghép Anh Hai (pose lố) + chữ khối viền dày + ribbon + căn khung chuẩn kênh.
 4. Muốn "over" hơn nữa: thêm `even more explosive, exaggerated, dramatic, 200% energy` vào cuối prompt.
+
+---
+## TƯ DUY PROMPT ANH HAI CẢM XÚC (ghép mascot)
+> Anh Hai là nhân vật CỐ ĐỊNH (23 pose PNG sẵn). Để giữ đúng mặt/nét, có 2 đường:
+
+### Cách 1 — Ghép PNG có sẵn (KHUYÊN DÙNG, chắc ăn 100%)
+Chọn pose theo cảm xúc video, ghép vào góc phải-dưới hướng về ẩn dụ. Pose đang có:
+`greedy` ($ mắt, xoa tay — tiền/tham) · `excited` (phấn khích) · `shock` (sốc/hoảng) · `worried` (lo) · `warning` (cảnh báo) · `facepalm` (chán/sai lầm) · `cry` (khổ/nợ) · `sly` (ranh mãnh) · `cool` (tự tin) · `present` (giới thiệu) · `secret` (bí mật) · `thumbsdown` (chê) · `celebrate` (ăn mừng) · `angry` (bực) · `point`/`pointup` (chỉ).
+→ Cỗ máy in tiền = **greedy** · Cú vỡ nợ = **worried/cry** · Kẻ trộm = **shock** · Giàu phông = **sly**.
+
+### Cách 2 — Prompt ChatGPT tạo biểu cảm MỚI (khi 23 pose chưa đủ)
+**Bắt buộc: đính kèm 1 ảnh Anh Hai làm reference** rồi dán prompt (điền [CẢM XÚC]):
+> Using the attached cartoon character as an EXACT reference — keep his face shape, messy hand-drawn black hair, thick black outline art style, navy V-neck T-shirt and light-blue jeans — redraw him FULL BODY with an EXAGGERATED [CẢM XÚC] expression: [mô tả chi tiết]. Dynamic energetic pose, slight lean forward, comic motion lines. Plain solid white background, no shadow, no text, no letters, no watermark. Same clean cartoon style as the reference.
+
+**Điền [CẢM XÚC] + mô tả:**
+- Tham tiền: `greedy — huge dollar-sign eyes, wide open-mouth grin, rubbing both hands together`
+- Sốc: `shocked — huge bulging eyes, both hands on cheeks, jaw dropped`
+- Phấn khích: `super excited — both arms thrown up, giant smile, sparkles`
+- Hoảng/chạy: `panicking — running, looking back, sweat drops`
+- Chán/sai: `facepalming — one hand on forehead, eyes closed, frustrated`
+
+**Sau khi tạo:** yêu cầu ChatGPT xuất **nền trắng trơn** → tách nền (remove.bg) → gửi em ghép.
+⚠️ ChatGPT redraw **không chuẩn tuyệt đối** mặt Anh Hai (có thể lệch nét). Muốn chắc → dùng Cách 1. Cách 2 chỉ khi cần biểu cảm đặc biệt chưa có trong 23 pose.
