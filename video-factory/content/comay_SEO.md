@@ -1,5 +1,5 @@
 # SEO — Video dài "CỖ MÁY IN TIỀN CÁ NHÂN"
-Kênh: **Chuyện Tiền · Anh Hai Kể** · Dạng: video dài ~7–8 phút · 16:9
+Kênh: **Chuyện Tiền · Anh Hai Kể** · Dạng: video ~4 phút (3:59) · 16:9 · style hybrid (b-roll thật + Anh Hai)
 > Gắn khớp với thumbnail (chữ CỖ MÁY / IN TIỀN + ribbon) và kịch bản `comay_thu.txt`.
 
 ---
@@ -18,16 +18,16 @@ Trong video này, Anh Hai đưa bạn bản vẽ cỗ máy in tiền cá nhân g
 
 #chuyentien #anhhaike #taichinhcanhan #dongtienthudong #dautu #laikep
 
-## CHAPTERS (điền lại timestamp sau khi render)
+## CHAPTERS (khớp bản render hybrid 3:59)
 ```
-00:00  Người giàu để tiền tự kiếm hộ — bản vẽ cỗ máy
-00:xx  Bộ phận 1 · VAN AN TOÀN (quỹ khẩn cấp) — bỏ là cháy máy
-00:xx  Bộ phận 2 · NHIÊN LIỆU (trích trước, tự động hoá)
-00:xx  Bộ phận 3 · ĐỘNG CƠ (đầu tư đều — "chán là tính năng")
-00:xx  Bộ phận 4 · BÁNH ĐÀ (tái đầu tư, đừng rút giữa chừng)
-00:xx  Bộ phận 5 · ỐNG XẢ (dòng tiền thụ động)
-00:xx  Bộ phận bị bỏ qua nhiều nhất + 3 kẻ thù của cỗ máy
-00:xx  Chốt: bạn đang lắp tới bộ phận thứ mấy?
+0:00  Người giàu để tiền tự kiếm hộ — bản vẽ cỗ máy
+0:25  Bộ phận 1 · VAN AN TOÀN (quỹ khẩn cấp) — bỏ là cháy máy
+0:57  Bộ phận 2 · NHIÊN LIỆU (trích trước, tự động hoá)
+1:25  Bộ phận 3 · ĐỘNG CƠ (đầu tư đều — "chán là tính năng")
+2:05  Bộ phận 4 · BÁNH ĐÀ (tái đầu tư, đừng rút giữa chừng)
+2:37  Bộ phận 5 · ỐNG XẢ (dòng tiền thụ động)
+3:03  Bộ phận bị bỏ qua nhiều nhất + 3 kẻ thù của cỗ máy
+3:35  Chốt: bạn đang lắp tới bộ phận thứ mấy?
 ```
 
 ## HASHTAG (thêm khi đăng)
