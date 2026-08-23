@@ -16,10 +16,22 @@
 `[cảnh/ẩn dụ bùng nổ] + explosive radial burst background, motion, flying debris + hyper-saturated, extreme contrast, bold comic-book energy, glossy 3D illustration + [màu chủ đề] + leave lower-right & left third clear for overlays + no text/letters/words/numbers/watermark, 16:9 + chaotic exciting high-energy mood`
 
 ---
-## PROMPT SẴN — "Cỗ máy in tiền" (bản OVER, dán vào ChatGPT)
-> Explosive, over-the-top YouTube thumbnail background, 16:9. A glowing money-printing machine ERUPTING with money: crisp banknotes and shiny gold coins bursting and flying in all directions, dynamic motion trails, a dramatic radial burst of golden light rays exploding outward behind it. Hyper-saturated colors, extreme contrast, bold comic-book energy, glossy cinematic 3D-illustration style, glowing highlights. Deep navy background with explosive gold and green light rays and punchy red accents. Keep the LEFT third and the LOWER-RIGHT corner clearer for overlays. Absolutely no text, no letters, no words, no numbers, no logo, no watermark. Chaotic, thrilling, jaw-dropping "money explosion" mood.
+## ⭐ CÔNG THỨC ALL-IN-ONE (kèm Anh Hai luôn — dùng cái này)
+> Đính kèm 1 ảnh Anh Hai làm reference, rồi dán prompt theo khung:
 
-**Ghép sau:** Anh Hai pose **greedy/excited** (mắt $ , há mồm) góc phải-dưới · chữ khối `CỖ MÁY / IN TIỀN / CÁ NHÂN` (vàng+trắng, viền đen+trắng dày, đổ bóng) bên trái · ribbon nhỏ "TỪ 0 ĐẾN TỰ ĐỘNG".
+`Using the attached cartoon character as an EXACT reference (keep his face, messy hand-drawn black hair, thick black outline cartoon style, navy V-neck T-shirt, light-blue jeans), create an over-the-top 16:9 YouTube thumbnail. Place him in the [VỊ TRÍ] with an EXAGGERATED [CẢM XÚC + mô tả] reacting to [ẨN DỤ/CẢNH bùng nổ]. Explosive radial burst, flying debris, hyper-saturated, extreme contrast, glossy cinematic comic-book energy, [màu chủ đề]. Keep the LEFT THIRD dark and EMPTY as clean negative space for a title added later. Absolutely no text, no letters, no words, no numbers, no watermark. High-energy, jaw-dropping mood.`
+
+**Điền vào:** [VỊ TRÍ] = lower-right area · [CẢM XÚC] xem thư viện cuối file · [ẨN DỤ] = ẩn dụ trung tâm của video · [màu] = deep navy + gold/green/red.
+⚠️ ChatGPT vẽ Anh Hai theo reference nên **có thể lệch nét mặt đôi chút** — chấp nhận đánh đổi để ra 1 tấm liền. Muốn mặt chuẩn tuyệt đối thì tách 2 bước (prompt cảnh riêng + Anh Hai riêng).
+
+---
+## PROMPT SẴN — "Cỗ máy in tiền" (ALL-IN-ONE, đính kèm ảnh Anh Hai)
+> Using the attached cartoon character as an EXACT reference (keep his face, messy hand-drawn black hair, thick black outline cartoon style, navy V-neck T-shirt, light-blue jeans), create an over-the-top 16:9 YouTube thumbnail. Place him in the LOWER-RIGHT area with an EXAGGERATED greedy expression — huge dollar-sign eyes, wide open-mouth grin, rubbing both hands together — reacting to a glowing money-printing machine on the right that is ERUPTING with flying banknotes and a cascade of gold coins, dramatic radial burst of golden light rays, hyper-saturated colors, extreme contrast, glossy cinematic comic-book energy. Deep navy background with gold/green rays and red accents. Keep the LEFT THIRD dark and EMPTY as clean negative space for a title added later. Absolutely no text, no letters, no words, no numbers, no watermark. High-energy, jaw-dropping money-explosion mood.
+
+**Nếu chỉ muốn nền (không Anh Hai)** — bỏ đoạn nhân vật, giữ phần cảnh:
+> Explosive over-the-top 16:9 YouTube thumbnail background. A glowing money-printing machine ERUPTING with flying banknotes and a cascade of gold coins, dramatic radial burst of golden light rays, hyper-saturated, extreme contrast, glossy cinematic comic-book energy. Deep navy background with gold/green rays and red accents. Keep the LEFT third and LOWER-RIGHT clear. No text, no letters, no words, no numbers, no watermark.
+
+**Chữ anh tự thêm (Canva/editor):** `CỖ MÁY / IN TIỀN / CÁ NHÂN` (vàng+trắng, viền đen+trắng dày) bên trái · ribbon đỏ "TỪ 0 → TỰ ĐỘNG".
 
 ---
 ## PROMPT SẴN — các video khác (bản OVER)
@@ -30,10 +42,11 @@
 > Over-the-top YouTube thumbnail background, 16:9. A glowing open wallet/safe with a mysterious dark shadowy hand sneaking in and pulling out banknotes and gold coins, spotlight beam, film-noir drama with a radial burst of light. Hyper-saturated, extreme contrast, glossy 3D-illustration, comic energy. Deep navy + gold glow + red accents. Keep left third and lower-right clear. No text, no letters, no words, no numbers, no watermark. Mysterious, tense, "caught red-handed" mood.
 
 ## MẸO bấm tạo
-1. Nhắc ChatGPT **2 lần**: "16:9, tuyệt đối KHÔNG chèn chữ".
-2. Tạo 2–3 tấm, chọn tấm **thoáng bên trái + góc phải-dưới** (dễ ghép).
-3. Ảnh xong gửi em → em ghép Anh Hai (pose lố) + chữ khối viền dày + ribbon + căn khung chuẩn kênh.
+1. **Đính kèm ảnh Anh Hai** làm reference (dùng all-in-one) + nhắc **2 lần**: "16:9, tuyệt đối KHÔNG chèn chữ".
+2. Tạo 2–3 tấm, chọn tấm **thoáng bên trái** (chừa chỗ thêm tiêu đề) + mặt Anh Hai giống nhất.
+3. Anh **tự thêm chữ** (Canva/CapCut/Photoshop): tiêu đề khối viền dày bên trái + ribbon. Nhớ chữ viền đen+trắng dày cho nổi.
 4. Muốn "over" hơn nữa: thêm `even more explosive, exaggerated, dramatic, 200% energy` vào cuối prompt.
+5. Mặt Anh Hai bị lệch nhiều → tạo lại, hoặc tách 2 bước (nền riêng + Anh Hai riêng nền trắng → tự ghép).
 
 ---
 ## TƯ DUY PROMPT ANH HAI CẢM XÚC (ghép mascot)
