@@ -1,5 +1,5 @@
 import React from 'react';
-import {OffthreadVideo, Img, staticFile, Sequence} from 'remotion';
+import {OffthreadVideo, staticFile, Sequence, Loop} from 'remotion';
 import {
   AbsoluteFill, AnhHai, Sfx, K, pop,
   useCurrentFrame, useVideoConfig, interpolate,
@@ -9,40 +9,39 @@ import {
 export const COMAY_DURATION = 7182; // 3:59 @30fps — khớp comay.mp3
 
 type Beat = {
-  dur: number; src: string; video?: boolean; pose: string; ahH?: number;
+  dur: number; src: string; clip: number; pose: string; ahH?: number;
   label?: string; keyword?: string; kwColor?: string; sub?: string; bubble?: React.ReactNode;
 };
 
-// 12 nhịp b-roll, tổng = 7182 (9 khối auto-time, tách 3 khối dài thành 2)
+// 12 nhịp — TOÀN BỘ b-roll VIDEO thật (Mixkit) khớp nghĩa lời thoại; clip = độ dài clip (giây)
 const BEATS: Beat[] = [
-  {dur: 456, src: 'broll/people.mp4', video: true, pose: 'sly', keyword: 'NGƯỜI GIÀU\nKHÔNG BÁN SỨC', kwColor: '#fff',
+  {dur: 456, src: 'broll/people.mp4', clip: 24, pose: 'sly', keyword: 'NGƯỜI GIÀU\nKHÔNG BÁN SỨC', kwColor: '#fff',
     bubble: <>Họ xây một <K c={GOLD}>cỗ máy</K>… rồi để nó kiếm hộ, cả lúc <K c={GOLD}>đang ngủ</K>.</>},
-  {dur: 296, src: 'comay_bg.png', pose: 'present', label: 'CỖ MÁY 5 BỘ PHẬN', keyword: 'LẮP SAI 1 CÁI\n= CHÁY MÁY', kwColor: RED},
-  {dur: 486, src: 'emergency.jpg', pose: 'warning', label: 'BỘ PHẬN 1 · VAN AN TOÀN', keyword: 'QUỸ KHẨN CẤP', kwColor: GOLD, sub: '3–6 tháng chi phí để riêng'},
-  {dur: 487, src: 'emo_stress.jpg', pose: 'worried', keyword: 'Thiếu van =\ncháy cả máy', kwColor: RED, sub: 'phải bán lỗ · vay nóng'},
-  {dur: 830, src: 'phone_new.jpg', pose: 'point', label: 'BỘ PHẬN 2 · NHIÊN LIỆU', keyword: 'TRÍCH TRƯỚC', kwColor: TEAL, sub: 'Lương về là tự động chuyển vào máy'},
-  {dur: 598, src: 'money_calc.jpg', pose: 'point', label: 'BỘ PHẬN 3 · ĐỘNG CƠ', keyword: 'ĐẦU TƯ ĐỀU', kwColor: TEAL, sub: '“Chán” chính là tính năng, không phải lỗi'},
-  {dur: 598, src: 'broll_coins.jpg', pose: 'cash', keyword: '3TR/THÁNG →\n≈ 1,5 TỶ', kwColor: GOLD, sub: '20 năm · ~7%/năm · gốc chỉ ~720tr'},
-  {dur: 476, src: 'save_money.jpg', pose: 'point', label: 'BỘ PHẬN 4 · BÁNH ĐÀ', keyword: 'TÁI ĐẦU TƯ', kwColor: TEAL, sub: 'Lời đẻ ra lời — quả cầu tuyết'},
-  {dur: 477, src: 'broll_coins.jpg', pose: 'excited', keyword: 'ĐỪNG RÚT\nGIỮA CHỪNG', kwColor: RED, sub: 'rút 1 lần = ghì bánh đà đứng lại'},
-  {dur: 800, src: 'cash.jpg', pose: 'cool', label: 'BỘ PHẬN 5 · ỐNG XẢ', keyword: 'DÒNG TIỀN\nTHỤ ĐỘNG', kwColor: GOLD, sub: 'Tiền làm việc thay bạn — cả lúc ngủ'},
-  {dur: 936, src: 'crowd.jpg', pose: 'warning', keyword: '3 KẺ THÙ\nCỦA CỖ MÁY', kwColor: RED, sub: 'bỏ van · rút bánh đà · đầu tư phong trào'},
-  {dur: 742, src: 'comay_bg.png', pose: 'present', keyword: 'BẠN ĐANG Ở\nBỘ PHẬN MẤY?', kwColor: '#fff', sub: 'Gõ 1 → 5 cho anh Hai',
+  {dur: 296, src: 'broll/machine.mp4', clip: 21, pose: 'present', label: 'CỖ MÁY 5 BỘ PHẬN', keyword: 'LẮP SAI 1 CÁI\n= CHÁY MÁY', kwColor: RED},
+  {dur: 486, src: 'broll/piggy.mp4', clip: 15, pose: 'warning', label: 'BỘ PHẬN 1 · VAN AN TOÀN', keyword: 'QUỸ KHẨN CẤP', kwColor: GOLD, sub: '3–6 tháng chi phí để riêng'},
+  {dur: 487, src: 'broll/handsbill.mp4', clip: 11, pose: 'worried', keyword: 'Thiếu van =\ncháy cả máy', kwColor: RED, sub: 'phải bán lỗ · vay nóng'},
+  {dur: 830, src: 'broll/budget.mp4', clip: 17, pose: 'point', label: 'BỘ PHẬN 2 · NHIÊN LIỆU', keyword: 'TRÍCH TRƯỚC', kwColor: TEAL, sub: 'Lương về là tự động chuyển vào máy'},
+  {dur: 598, src: 'broll/stocks.mp4', clip: 18, pose: 'point', label: 'BỘ PHẬN 3 · ĐỘNG CƠ', keyword: 'ĐẦU TƯ ĐỀU', kwColor: TEAL, sub: '“Chán” chính là tính năng, không phải lỗi'},
+  {dur: 598, src: 'broll/coinstack.mp4', clip: 30, pose: 'cash', keyword: '3TR/THÁNG →\n≈ 1,5 TỶ', kwColor: GOLD, sub: '20 năm · ~7%/năm · gốc chỉ ~720tr'},
+  {dur: 476, src: 'broll/coinfigs.mp4', clip: 20, pose: 'point', label: 'BỘ PHẬN 4 · BÁNH ĐÀ', keyword: 'TÁI ĐẦU TƯ', kwColor: TEAL, sub: 'Lời đẻ ra lời — quả cầu tuyết'},
+  {dur: 477, src: 'broll/handsbill.mp4', clip: 11, pose: 'excited', keyword: 'ĐỪNG RÚT\nGIỮA CHỪNG', kwColor: RED, sub: 'rút 1 lần = ghì bánh đà đứng lại'},
+  {dur: 800, src: 'broll/richwave.mp4', clip: 17, pose: 'cool', label: 'BỘ PHẬN 5 · ỐNG XẢ', keyword: 'DÒNG TIỀN\nTHỤ ĐỘNG', kwColor: GOLD, sub: 'Tiền làm việc thay bạn — cả lúc ngủ'},
+  {dur: 936, src: 'broll/crowd.mp4', clip: 37, pose: 'warning', keyword: '3 KẺ THÙ\nCỦA CỖ MÁY', kwColor: RED, sub: 'bỏ van · rút bánh đà · đầu tư phong trào'},
+  {dur: 742, src: 'broll/machine.mp4', clip: 21, pose: 'present', keyword: 'BẠN ĐANG Ở\nBỘ PHẬN MẤY?', kwColor: '#fff', sub: 'Gõ 1 → 5 cho anh Hai',
     bubble: <>Ở <K c={GOLD}>số 0</K>? Lắp cái <K c={GOLD}>van</K> đầu tiên hôm nay là máy đã khởi động.</>},
 ];
 
 const Broll: React.FC<{b: Beat}> = ({b}) => {
   const f = useCurrentFrame();
-  const sc = interpolate(f, [0, b.dur], [1.08, 1.2], {extrapolateRight: 'clamp'});
-  const style: React.CSSProperties = {width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(0.6) contrast(1.06) brightness(0.66) saturate(0.9)', transform: `scale(${sc})`};
+  const sc = interpolate(f, [0, b.dur], [1.06, 1.18], {extrapolateRight: 'clamp'});
+  const style: React.CSSProperties = {width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(0.5) contrast(1.07) brightness(0.66) saturate(1.05)', transform: `scale(${sc})`};
+  const loopLen = Math.max(30, Math.round(b.clip * 30) - 5);
   return <div style={{position: 'absolute', inset: 0, overflow: 'hidden'}}>
-    {b.video ? <OffthreadVideo src={staticFile(b.src)} muted style={style} /> : <Img src={staticFile(b.src)} style={style} />}
+    <Loop durationInFrames={loopLen}><OffthreadVideo src={staticFile(b.src)} muted style={style} /></Loop>
   </div>;
 };
 
-const kinLines = (text: string, color: string, delay: number) => {
-  return text.split('\n').map((ln, i) => <div key={i}>{ln === '' ? ' ' : <span style={{color}}>{ln}</span>}</div>);
-};
+const kinLines = (text: string, color: string) => text.split('\n').map((ln, i) => <div key={i}>{ln === '' ? ' ' : <span style={{color}}>{ln}</span>}</div>);
 
 const Scene: React.FC<{b: Beat}> = ({b}) => {
   const f = useCurrentFrame();
@@ -52,29 +51,22 @@ const Scene: React.FC<{b: Beat}> = ({b}) => {
   const subO = interpolate(f, [26, 38], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return <AbsoluteFill>
     <Broll b={b} />
-    {/* gradient nền cho chữ nổi */}
-    <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(8,12,25,0.62) 0%, rgba(8,12,25,0.05) 30%, rgba(8,12,25,0.2) 62%, rgba(8,12,25,0.8) 100%)'}} />
-    {/* logo */}
+    <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(8,12,25,0.6) 0%, rgba(8,12,25,0.05) 30%, rgba(8,12,25,0.2) 62%, rgba(8,12,25,0.82) 100%)'}} />
     <div style={{position: 'absolute', top: 40, left: 54, fontFamily: 'Mont', fontWeight: 900, fontSize: 34, color: '#fff', letterSpacing: 1, textShadow: '0 2px 8px rgba(0,0,0,0.7)'}}>CHUYỆN TIỀN <span style={{color: GOLD}}>· ANH HAI KỂ</span></div>
 
-    {/* label pill (bộ phận) */}
     {b.label && <div style={{position: 'absolute', top: 130, left: 0, right: 0, textAlign: 'center', opacity: lab}}>
       <span style={{display: 'inline-block', background: RED, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 46, padding: '12px 34px', borderRadius: 12, letterSpacing: 1, boxShadow: '0 10px 24px rgba(0,0,0,0.5)'}}>{b.label}</span>
     </div>}
 
-    {/* keyword giữa */}
-    {b.keyword && <div style={{position: 'absolute', top: b.label ? 250 : 210, left: 60, right: 60, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 132, lineHeight: 1.02, letterSpacing: 1, opacity: kw, transform: `translateY(${kwY}px)`, textShadow: '4px 5px 0 #0a0f1c, 0 16px 30px rgba(0,0,0,0.6)'}}>
-      {kinLines(b.keyword, b.kwColor || '#fff', 12)}
+    {b.keyword && <div style={{position: 'absolute', top: b.label ? 250 : 210, left: 60, right: 60, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 132, lineHeight: 1.02, letterSpacing: 1, opacity: kw, transform: `translateY(${kwY}px)`, textShadow: '4px 5px 0 #0a0f1c, 0 16px 30px rgba(0,0,0,0.7)'}}>
+      {kinLines(b.keyword, b.kwColor || '#fff')}
     </div>}
 
-    {/* sub */}
-    {b.sub && <div style={{position: 'absolute', top: 620, left: 60, right: 60, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: '#e9eefb', opacity: subO, textShadow: '0 3px 12px rgba(0,0,0,0.8)'}}>{b.sub}</div>}
+    {b.sub && <div style={{position: 'absolute', top: 620, left: 60, right: 60, textAlign: 'center', fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: '#eef2fc', opacity: subO, textShadow: '0 3px 12px rgba(0,0,0,0.9)'}}>{b.sub}</div>}
 
-    {/* bóng nền + Anh Hai cutout */}
-    <div style={{position: 'absolute', left: 40, bottom: 0, width: 720, height: 280, background: 'radial-gradient(ellipse at 42% 92%, rgba(0,0,0,0.6), rgba(0,0,0,0) 70%)'}} />
+    <div style={{position: 'absolute', left: 40, bottom: 0, width: 720, height: 280, background: 'radial-gradient(ellipse at 42% 92%, rgba(0,0,0,0.62), rgba(0,0,0,0) 70%)'}} />
     <AnhHai pose={b.pose} x={70} y={330} delay={6} h={b.ahH || 620} />
 
-    {/* bubble thoại (nếu có) */}
     {b.bubble && <Bubble delay={20} x={760} y={720} w={1080}>{b.bubble}</Bubble>}
   </AbsoluteFill>;
 };
