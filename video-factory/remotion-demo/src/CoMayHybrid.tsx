@@ -8,25 +8,26 @@ import {
 
 export const COMAY_DURATION = 7182; // 3:59 @30fps — khớp comay.mp3
 
+type Fx = 'stamp' | 'punch' | 'sparkle';
 type Beat = {
   dur: number; src: string; clip: number; pose: string; ahH?: number;
-  label?: string; icon?: string; keyword?: string; kwColor?: string; hi?: boolean;
+  label?: string; icon?: string; chips?: boolean; keyword?: string; kwColor?: string; hi?: boolean; fx?: Fx;
   count?: {to: number; pre?: string; suf?: string}; sub?: string; bubble?: React.ReactNode;
 };
 
 const BEATS: Beat[] = [
-  {dur: 456, src: 'broll/people.mp4', clip: 24, pose: 'sly', keyword: 'NGƯỜI GIÀU\nKHÔNG BÁN SỨC', kwColor: '#fff', hi: true,
+  {dur: 456, src: 'broll/people.mp4', clip: 24, pose: 'sly', keyword: 'NGƯỜI GIÀU\nKHÔNG BÁN SỨC', kwColor: '#fff', hi: true, fx: 'punch',
     bubble: <>Họ xây một <K c={GOLD}>cỗ máy</K>… rồi để nó kiếm hộ, cả lúc <K c={GOLD}>đang ngủ</K>.</>},
-  {dur: 296, src: 'broll/machine.mp4', clip: 21, pose: 'present', label: 'CỖ MÁY 5 BỘ PHẬN', icon: '⚙️', keyword: 'LẮP SAI 1 CÁI\n= CHÁY MÁY', kwColor: RED, hi: true},
+  {dur: 296, src: 'broll/machine.mp4', clip: 21, pose: 'present', label: 'CỖ MÁY 5 BỘ PHẬN', icon: '⚙️', chips: true, keyword: 'LẮP SAI 1 CÁI\n= CHÁY MÁY', kwColor: RED, hi: true, fx: 'stamp'},
   {dur: 486, src: 'broll/piggy.mp4', clip: 15, pose: 'warning', label: 'BỘ PHẬN 1 · VAN AN TOÀN', icon: '🛟', keyword: 'QUỸ KHẨN CẤP', kwColor: GOLD, hi: true, sub: '3–6 tháng chi phí để riêng'},
-  {dur: 487, src: 'broll/handsbill.mp4', clip: 11, pose: 'worried', keyword: 'Thiếu van =\ncháy cả máy', kwColor: RED, hi: true, sub: 'phải bán lỗ · vay nóng'},
+  {dur: 487, src: 'broll/handsbill.mp4', clip: 11, pose: 'worried', keyword: 'Thiếu van =\ncháy cả máy', kwColor: RED, hi: true, fx: 'stamp', sub: 'phải bán lỗ · vay nóng'},
   {dur: 830, src: 'broll/budget.mp4', clip: 17, pose: 'point', label: 'BỘ PHẬN 2 · NHIÊN LIỆU', icon: '⛽', keyword: 'TRÍCH TRƯỚC', kwColor: TEAL, hi: true, sub: 'Lương về là tự động chuyển vào máy'},
   {dur: 598, src: 'broll/stocks.mp4', clip: 18, pose: 'point', label: 'BỘ PHẬN 3 · ĐỘNG CƠ', icon: '📈', keyword: 'ĐẦU TƯ ĐỀU', kwColor: TEAL, hi: true, sub: '“Chán” chính là tính năng, không phải lỗi'},
-  {dur: 598, src: 'broll/coinstack.mp4', clip: 30, pose: 'cash', keyword: '3TR/THÁNG →', kwColor: '#fff', count: {to: 1.5, pre: '≈ ', suf: ' TỶ'}, sub: '20 năm · ~7%/năm · gốc chỉ ~720tr'},
+  {dur: 598, src: 'broll/coinstack.mp4', clip: 30, pose: 'cash', keyword: '3TR/THÁNG →', kwColor: '#fff', count: {to: 1.5, pre: '≈ ', suf: ' TỶ'}, fx: 'sparkle', sub: '20 năm · ~7%/năm · gốc chỉ ~720tr'},
   {dur: 476, src: 'broll/coinfigs.mp4', clip: 20, pose: 'point', label: 'BỘ PHẬN 4 · BÁNH ĐÀ', icon: '❄️', keyword: 'TÁI ĐẦU TƯ', kwColor: TEAL, hi: true, sub: 'Lời đẻ ra lời — quả cầu tuyết'},
-  {dur: 477, src: 'broll/handsbill.mp4', clip: 11, pose: 'excited', keyword: 'ĐỪNG RÚT\nGIỮA CHỪNG', kwColor: RED, hi: true, sub: 'rút 1 lần = ghì bánh đà đứng lại'},
-  {dur: 800, src: 'broll/richwave.mp4', clip: 17, pose: 'cool', label: 'BỘ PHẬN 5 · ỐNG XẢ', icon: '💸', keyword: 'DÒNG TIỀN\nTHỤ ĐỘNG', kwColor: GOLD, hi: true, sub: 'Tiền làm việc thay bạn — cả lúc ngủ'},
-  {dur: 936, src: 'broll/crowd.mp4', clip: 37, pose: 'warning', keyword: '3 KẺ THÙ\nCỦA CỖ MÁY', kwColor: RED, hi: true, sub: 'bỏ van · rút bánh đà · đầu tư phong trào'},
+  {dur: 477, src: 'broll/handsbill.mp4', clip: 11, pose: 'excited', keyword: 'ĐỪNG RÚT\nGIỮA CHỪNG', kwColor: RED, hi: true, fx: 'stamp', sub: 'rút 1 lần = ghì bánh đà đứng lại'},
+  {dur: 800, src: 'broll/richwave.mp4', clip: 17, pose: 'cool', label: 'BỘ PHẬN 5 · ỐNG XẢ', icon: '💸', keyword: 'DÒNG TIỀN\nTHỤ ĐỘNG', kwColor: GOLD, hi: true, fx: 'sparkle', sub: 'Tiền làm việc thay bạn — cả lúc ngủ'},
+  {dur: 936, src: 'broll/crowd.mp4', clip: 37, pose: 'warning', keyword: '3 KẺ THÙ\nCỦA CỖ MÁY', kwColor: RED, hi: true, fx: 'stamp', sub: 'bỏ van · rút bánh đà · đầu tư phong trào'},
   {dur: 742, src: 'broll/machine.mp4', clip: 21, pose: 'present', keyword: 'BẠN ĐANG Ở\nBỘ PHẬN MẤY?', kwColor: '#fff', hi: true, sub: 'Gõ 1 → 5 cho anh Hai',
     bubble: <>Ở <K c={GOLD}>số 0</K>? Lắp cái <K c={GOLD}>van</K> đầu tiên hôm nay là máy đã khởi động.</>},
 ];
@@ -44,7 +45,6 @@ const Broll: React.FC<{b: Beat}> = ({b}) => {
   </div>;
 };
 
-// từng chữ nảy vào (spring + trượt lên)
 const AWord: React.FC<{delay: number; color: string; children: React.ReactNode}> = ({delay, color, children}) => {
   const f = useCurrentFrame(); const {fps} = useVideoConfig();
   const s = pop(f, fps, delay);
@@ -60,29 +60,59 @@ const CountUp: React.FC<{to: number; delay: number; color: string; pre?: string;
   return <span style={{display: 'inline-block', color, transform: `scale(${s})`, textShadow: `0 0 30px ${GLOW[color] || GLOW[GOLD]}, 4px 5px 0 #0a0f1c`}}>{pre}{v.toFixed(1).replace('.', ',')}{suf}</span>;
 };
 
+// gạch chân nguệch ngoạc vẽ tay (SVG)
+const Scribble: React.FC<{color: string; start: number}> = ({color, start}) => {
+  const f = useCurrentFrame();
+  const off = interpolate(f, [start + 10, start + 30], [640, 0], {easing: Easing.out(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  return <svg viewBox="0 0 620 42" width="60%" height="34" style={{overflow: 'visible', margin: '8px auto 0', display: 'block'}}>
+    <path d="M6,24 Q70,6 140,22 T280,22 Q360,30 430,18 T610,20" fill="none" stroke={color} strokeWidth="10" strokeLinecap="round"
+      strokeDasharray="640" strokeDashoffset={off} style={{filter: `drop-shadow(0 0 10px ${GLOW[color] || GLOW[GOLD]})`}} />
+  </svg>;
+};
+
+// lấp lánh quanh con số payoff
+const Sparkles: React.FC<{start: number}> = ({start}) => {
+  const f = useCurrentFrame();
+  const spots = [['14%', 6, 60], ['82%', 20, 74], ['26%', 150, 52], ['72%', 158, 66], ['48%', -20, 44], ['62%', 176, 50]];
+  return <>{spots.map((sp, i) => {
+    const d = start + 8 + i * 3;
+    const s = pop(f, useVideoConfig().fps, d);
+    const o = interpolate(f, [d, d + 6, d + 40, d + 52], [0, 1, 1, 0.5], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+    const fl = Math.sin((f - d) / 6) * 4;
+    return <span key={i} style={{position: 'absolute', left: sp[0] as string, top: sp[1] as number, fontSize: sp[2] as number, opacity: o, transform: `scale(${s}) translateY(${fl}px)`, filter: 'drop-shadow(0 0 12px rgba(242,194,48,0.8))'}}>✨</span>;
+  })}</>;
+};
+
 const KeywordBlock: React.FC<{b: Beat; start: number}> = ({b, start}) => {
   const f = useCurrentFrame();
   const kwColor = b.kwColor || '#fff';
   const pulse = 1 + 0.012 * Math.sin((f - start) / 9);
+  // biến thể chuyển động theo fx
+  let tf = `scale(${pulse})`;
+  if (b.fx === 'stamp') {
+    const slam = interpolate(f, [start, start + 7], [1.7, 1], {easing: Easing.out(Easing.back(2)), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+    const shk = interpolate(f, [start + 2, start + 20], [8, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+    tf = `rotate(-5deg) translateX(${Math.sin((f - start) * 1.7) * shk}px) scale(${pulse * slam})`;
+  } else if (b.fx === 'punch') {
+    const slam = interpolate(f, [start, start + 8], [1.5, 1], {easing: Easing.out(Easing.back(1.8)), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+    tf = `scale(${pulse * slam})`;
+  }
   const lines = (b.keyword || '').split('\n');
   let wi = 0;
-  return <div style={{position: 'absolute', top: b.label ? 244 : 200, left: 40, right: 40, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 128, lineHeight: 1.08, letterSpacing: 1, transform: `scale(${pulse})`}}>
+  return <div style={{position: 'absolute', top: b.label ? 250 : 200, left: 40, right: 40, textAlign: 'center', fontFamily: 'Mont', fontWeight: 900, fontSize: 128, lineHeight: 1.08, letterSpacing: 1, transform: tf}}>
+    {b.fx === 'sparkle' && <Sparkles start={start} />}
     {lines.map((line, li) => {
       const isLast = li === lines.length - 1;
       const lineDelay = start + wi * 2.5;
       const hiW = interpolate(f, [lineDelay + 3, lineDelay + 13], [0, 1], {easing: Easing.out(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
       const words = line.split(' ');
-      const block = (
-        <div key={li} style={{position: 'relative', display: 'inline-block', padding: '0 10px'}}>
-          {b.hi && isLast && <div style={{position: 'absolute', left: 0, right: 0, top: '14%', bottom: '14%', background: HL[kwColor] || HL['#fff'], borderRadius: 14, transform: `scaleX(${hiW})`, transformOrigin: 'left center', zIndex: -1}} />}
-          {words.map((w, k) => { const d = start + (wi++) * 2.5; return <AWord key={k} delay={d} color={kwColor}>{w}</AWord>; })}
-        </div>
-      );
-      return <div key={li}>{block}</div>;
+      return <div key={li}><div style={{position: 'relative', display: 'inline-block', padding: '0 10px'}}>
+        {b.hi && isLast && <div style={{position: 'absolute', left: 0, right: 0, top: '14%', bottom: '14%', background: HL[kwColor] || HL['#fff'], borderRadius: 14, transform: `scaleX(${hiW})`, transformOrigin: 'left center', zIndex: -1}} />}
+        {words.map((w, k) => { const d = start + (wi++) * 2.5; return <AWord key={k} delay={d} color={kwColor}>{w}</AWord>; })}
+      </div></div>;
     })}
     {b.count && <div style={{fontSize: 150}}><CountUp to={b.count.to} delay={start + wi * 2.5 + 4} color={GOLD} pre={b.count.pre} suf={b.count.suf} /></div>}
-    {/* gạch chân vẽ ra */}
-    <div style={{margin: '10px auto 0', height: 9, width: `${interpolate(f, [start + 10, start + 26], [0, 62], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}%`, background: kwColor, borderRadius: 6, boxShadow: `0 0 20px ${GLOW[kwColor] || GLOW[GOLD]}`}} />
+    <Scribble color={kwColor} start={start} />
   </div>;
 };
 
@@ -101,9 +131,13 @@ const Scene: React.FC<{b: Beat}> = ({b}) => {
       <span style={{display: 'inline-flex', alignItems: 'center', gap: 14, background: RED, color: '#fff', fontFamily: 'Mont', fontWeight: 900, fontSize: 46, padding: '12px 34px', borderRadius: 12, letterSpacing: 1, boxShadow: '0 10px 24px rgba(0,0,0,0.5)'}}>{b.icon && <span style={{fontSize: 50}}>{b.icon}</span>}{b.label}</span>
     </div>}
 
+    {b.chips && <div style={{position: 'absolute', top: 206, left: 0, right: 0, textAlign: 'center'}}>
+      {[0, 1, 2, 3, 4].map((i) => { const d = 6 + i * 4; const on = interpolate(f, [d, d + 6], [0.22, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); const s = pop(f, fps, d); return <span key={i} style={{display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: '50%', margin: '0 9px', background: GOLD, color: INK, fontFamily: 'Mont', fontWeight: 900, fontSize: 26, opacity: on, transform: `scale(${s})`, boxShadow: `0 0 16px ${GLOW[GOLD]}`}}>{i + 1}</span>; })}
+    </div>}
+
     {b.keyword && <KeywordBlock b={b} start={12} />}
 
-    {b.sub && <div style={{position: 'absolute', top: 632, left: 0, right: 0, textAlign: 'center'}}>
+    {b.sub && <div style={{position: 'absolute', top: 640, left: 0, right: 0, textAlign: 'center'}}>
       <span style={{display: 'inline-flex', alignItems: 'center', gap: 16, fontFamily: 'BVP', fontWeight: 800, fontSize: 46, color: '#eef2fc', textShadow: '0 3px 12px rgba(0,0,0,0.9)'}}>
         <span style={{width: 8, height: 40, background: GOLD, borderRadius: 4, transform: `scaleY(${subBar})`, boxShadow: `0 0 14px ${GLOW[GOLD]}`}} />
         <span>{subWords.map((w, i) => { const d = 32 + i * 1.6; const o = interpolate(f, [d, d + 6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}); return <span key={i} style={{opacity: o, margin: '0 0.12em', display: 'inline-block'}}>{w}</span>; })}</span>
