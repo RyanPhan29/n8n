@@ -16,6 +16,7 @@ import {MachineThumb, MACHINETHUMB_DURATION} from './MachineThumb';
 import {CoMayHybrid, COMAY_DURATION} from './CoMayHybrid';
 import {MedianDemo, MEDIANDEMO_DURATION} from './MedianDemo';
 import {MuaThue, MUATHUE_DURATION} from './MuaThue';
+import {MuaThueThumb, MTTHUMB_DURATION} from './MuaThueThumb';
 import {LongForm, specDuration} from './Blocks';
 import {ALL_SPECS} from './Specs';
 import {Short, shortDuration} from './Short';
@@ -98,6 +99,9 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="CoMayHybrid" component={CoMayHybrid} durationInFrames={COMAY_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="MedianDemo" component={MedianDemo} durationInFrames={MEDIANDEMO_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="MuaThue" component={MuaThue} durationInFrames={MUATHUE_DURATION} fps={30} width={1920} height={1080} />
+      <Composition id="MTThumb1" component={MuaThueThumb} defaultProps={{v: 1}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
+      <Composition id="MTThumb2" component={MuaThueThumb} defaultProps={{v: 2}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
+      <Composition id="MTThumb3" component={MuaThueThumb} defaultProps={{v: 3}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
       <Composition id="PaperFx" component={PaperFx} durationInFrames={PAPERFX_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="NewsCutPaper" component={NewsCutPaper} durationInFrames={PAPERFX_DURATION} fps={30} width={1920} height={1080} />
       {ALL_SPECS.map((spec) => (
