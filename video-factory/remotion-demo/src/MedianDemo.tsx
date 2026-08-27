@@ -16,7 +16,7 @@ const IR = 0.07, INV_Y = 0.27;
 const rent = (t: number) => DOWN * Math.pow(1 + IR, t) + INV_Y * ((Math.pow(1 + IR, t) - 1) / IR);
 
 // khung biểu đồ
-const X0 = 300, X1 = 1600, YB = 820, YT = 230, MAXV = 19;
+const X0 = 300, X1 = 1440, YB = 820, YT = 230, MAXV = 19;
 const sx = (t: number) => X0 + (t / 20) * (X1 - X0);
 const sy = (v: number) => YB - (v / MAXV) * (YB - YT);
 const PTS = Array.from({length: 201}, (_, i) => i * 0.1); // t = 0..20
@@ -71,12 +71,12 @@ export const MedianDemo: React.FC = () => {
       </g>
     </svg>
 
-    {/* nhãn cuối 2 đường */}
-    <div style={{position: 'absolute', left: sx(20) - 470, top: sy(rent(20)) - 122, width: 470, textAlign: 'right', opacity: endO}}>
+    {/* nhãn cuối 2 đường — đặt BÊN PHẢI điểm cuối, không đè đường */}
+    <div style={{position: 'absolute', left: sx(20) + 30, top: sy(rent(20)) - 62, width: 420, textAlign: 'left', opacity: endO}}>
       <div style={{fontFamily: F, fontWeight: 700, fontSize: 32, color: GOLD, letterSpacing: 2, whiteSpace: 'nowrap'}}>THUÊ + ĐẦU TƯ</div>
       <div style={{fontFamily: F, fontWeight: 800, fontSize: 54, color: GOLD}}>≈ 18 tỷ</div>
     </div>
-    <div style={{position: 'absolute', left: sx(20) - 400, top: sy(buy(20)) - 6, width: 400, textAlign: 'right', opacity: endO}}>
+    <div style={{position: 'absolute', left: sx(20) + 30, top: sy(buy(20)) - 62, width: 420, textAlign: 'left', opacity: endO}}>
       <div style={{fontFamily: F, fontWeight: 700, fontSize: 32, color: WHITE, letterSpacing: 2, whiteSpace: 'nowrap'}}>MUA NHÀ</div>
       <div style={{fontFamily: F, fontWeight: 800, fontSize: 54, color: WHITE}}>≈ 10,8 tỷ</div>
     </div>
