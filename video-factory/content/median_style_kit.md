@@ -18,14 +18,20 @@
 6. **Nhịp chậm, sang, trí tuệ.** Chuyển cảnh mượt (fade / vẽ dần), không giật.
 7. **Outro** = logo chữ "median" (ở kênh mình đổi thành **"Chuyện Tiền"** tối giản, hoặc logo Anh Hai phiên bản 1 nét trắng) căn giữa trên nền đen.
 
-## Bộ khối dựng (mỗi khối 1 component)
+## Bộ khối dựng (mỗi khối 1 component) — decode từ 10 video median
 - **Title card**: tựa trắng giữa + gạch vàng mảnh + phụ đề xám letter-spaced → dời lên đỉnh khi vào nội dung.
 - **Biểu đồ đường**: trục xám mảnh, 2 đường vẽ dần + chấm chạy, 1 đường vàng (kết luận), nhãn giá trị **bên phải điểm cuối** (KHÔNG đè đường).
-- **Chú thích công thức/số**: trắng, căn giữa trên, có thể phân số.
+- **List "từ chính + phụ"** (kiểu video PEMDAS): canh TRÁI, mỗi mục = từ lớn trắng + dòng nhỏ xám ngay dưới (VD "Lãi vay / phần đắt nhất"). Không bullet, không box, giãn dòng rộng, hiện lần lượt.
+- **Counter góc** (kiểu "N = 6"): giá trị chạy ở góc phải-trên (VD "Năm 12", "N = …") — trắng, đậm vừa, đồng bộ animation.
+- **Timeline mốc chạy** (kiểu "sau 30000 năm"): trục ngang dưới + điểm sáng chạy; mốc **active sáng trắng**, mốc cũ **mờ xám**. → dùng kể "20 năm".
+- **Chú thích công thức/số**: trắng, căn giữa trên, dùng phân số + `≈` (VD "2 × thả / cắt ≈ π"). Không box, không màu.
 - **Thanh so sánh**: 2 thanh chạy ngang (chi phí thật) — trắng vs vàng.
 - **Mô phỏng "tiền chênh"**: mỗi tháng 1 chấm rơi vào giỏ đầu tư → giỏ đầy dần.
+- **Ảnh tư liệu**: đen-trắng, khung viền mảnh, **quầng sáng radial nhẹ phía sau** + caption trắng dưới.
+- **Nền sao** (star field) — chỉ khi cần cảm giác "không gian/vĩ mô".
 - **Card nguồn**: dòng xám nhỏ góc/đáy "Nguồn: … (2026)".
-- **Outro logo.**
+- **Outro logo** ("median" → mình đổi thành logo Chuyện Tiền 1 nét trắng, giữa màn).
+- **Font**: geometric sans bo tròn (Google/Product Sans-ish) → dùng `Mont`/Montserrat weight 400/500/700 là sát.
 
 ## Số liệu (LUÔN 2026, gắn nguồn — anh dặn)
 Mỗi con số trên hình phải kèm nguồn ở card/đáy. Ví dụ Mua vs Thuê: lãi vay ~8–11%, lợi suất cho thuê ~3–4%, lãi gửi ~7%, giá chung cư HN ~85–123tr/m².
