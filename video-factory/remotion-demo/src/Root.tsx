@@ -102,6 +102,8 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="MTThumb1" component={MuaThueThumb} defaultProps={{v: 1}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
       <Composition id="MTThumb2" component={MuaThueThumb} defaultProps={{v: 2}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
       <Composition id="MTThumb3" component={MuaThueThumb} defaultProps={{v: 3}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
+      <Composition id="MTThumb4" component={MuaThueThumb} defaultProps={{v: 4}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
+      <Composition id="MTThumb5" component={MuaThueThumb} defaultProps={{v: 5}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
       <Composition id="PaperFx" component={PaperFx} durationInFrames={PAPERFX_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="NewsCutPaper" component={NewsCutPaper} durationInFrames={PAPERFX_DURATION} fps={30} width={1920} height={1080} />
       {ALL_SPECS.map((spec) => (

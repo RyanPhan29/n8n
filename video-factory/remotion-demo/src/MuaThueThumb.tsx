@@ -74,5 +74,36 @@ const V3: React.FC = () => <>
   <div style={{position: 'absolute', left: 70, bottom: 46, fontFamily: FN, fontWeight: 500, fontSize: 27, color: GRAY, letterSpacing: 6}}>CHUYỆN TIỀN · 2026</div>
 </>;
 
+// nền ảnh AI + đắp chữ Việt median
+const AiBg: React.FC<{src: string}> = ({src}) => <>
+  <AbsoluteFill><Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} /></AbsoluteFill>
+  <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(4,4,6,0.72) 0%, rgba(4,4,6,0.25) 34%, transparent 55%)'}} />
+  <AbsoluteFill style={{background: 'radial-gradient(70% 55% at 50% 46%, transparent 60%, rgba(0,0,0,0.42) 100%)'}} />
+</>;
+const tShadow = '0 3px 18px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,1)';
+
+// V4 — ảnh "ngã ba đường": nhà trái vs đường vàng phải
+const V4: React.FC = () => <>
+  <AiBg src="thumb/ai_cross.png" />
+  <div style={{position: 'absolute', left: 0, right: 0, top: 48, textAlign: 'center'}}>
+    <div style={{fontFamily: FH, fontWeight: 800, fontSize: 104, color: '#f4f4f6', letterSpacing: 1, textShadow: `${tShadow}, ${glowW}`}}>MUA <span style={{color: GRAY, fontFamily: FN, fontWeight: 300}}>hay</span> THUÊ?</div>
+    <div style={{marginTop: 14, fontFamily: FN, fontWeight: 400, fontSize: 40, color: '#dcdce0', textShadow: tShadow}}>Tuổi 30 — bạn đi đường nào?</div>
+  </div>
+  <div style={{position: 'absolute', left: 150, top: 452, fontFamily: FN, fontWeight: 700, fontSize: 40, color: '#f4f4f6', letterSpacing: 2, textShadow: tShadow}}>AN CƯ</div>
+  <div style={{position: 'absolute', right: 150, top: 300, textAlign: 'right', fontFamily: FN, fontWeight: 700, fontSize: 40, color: GOLD, letterSpacing: 1, textShadow: `${tShadow}, ${glowGold}`}}>THUÊ + ĐẦU TƯ</div>
+  <div style={{position: 'absolute', left: 66, bottom: 40, fontFamily: FN, fontWeight: 500, fontSize: 26, color: '#c8c9cd', letterSpacing: 6, textShadow: tShadow}}>CHUYỆN TIỀN · 2026</div>
+</>;
+
+// V5 — ảnh "chìa khoá vs vàng tăng trưởng"
+const V5: React.FC = () => <>
+  <AiBg src="thumb/ai_keycoin.png" />
+  <div style={{position: 'absolute', left: 0, right: 0, top: 60, textAlign: 'center'}}>
+    <div style={{fontFamily: FH, fontWeight: 800, fontSize: 108, color: '#f4f4f6', letterSpacing: 1, textShadow: `${tShadow}, ${glowW}`, lineHeight: 1.0}}>THUÊ NHÀ</div>
+    <div style={{fontFamily: FH, fontWeight: 800, fontSize: 108, color: GOLD, letterSpacing: 1, textShadow: `${tShadow}, ${glowGold}`, lineHeight: 1.08}}>GIÀU HƠN MUA?</div>
+  </div>
+  <div style={{position: 'absolute', left: 0, right: 0, top: 328, textAlign: 'center', fontFamily: FN, fontWeight: 400, fontSize: 40, color: '#dcdce0', textShadow: tShadow}}>Sau 20 năm, ai cầm nhiều tiền hơn?</div>
+  <div style={{position: 'absolute', left: 66, bottom: 40, fontFamily: FN, fontWeight: 500, fontSize: 26, color: '#c8c9cd', letterSpacing: 6, textShadow: tShadow}}>SỰ THẬT CON SỐ · 2026</div>
+</>;
+
 export const MuaThueThumb: React.FC<{v?: number}> = ({v = 1}) =>
-  <AbsoluteFill style={{backgroundColor: '#060607'}}>{v === 2 ? <V2 /> : v === 3 ? <V3 /> : <V1 />}</AbsoluteFill>;
+  <AbsoluteFill style={{backgroundColor: '#060607'}}>{v === 2 ? <V2 /> : v === 3 ? <V3 /> : v === 4 ? <V4 /> : v === 5 ? <V5 /> : <V1 />}</AbsoluteFill>;
