@@ -70,56 +70,75 @@ const Kicker: React.FC<{lf: number; text: string; outAt?: number}> = ({lf, text,
 
 // ---- annotation vẽ tay (ellipse + mũi tên + ghi chú vàng) ----
 const Annot: React.FC<{lf: number; at: number; cx: number; cy: number; rx: number; ry: number; rot?: number;
-  ax1: number; ay1: number; ax2: number; ay2: number; note: string; nx: number; ny: number; nAnchor?: string}> =
-  ({lf, at, cx, cy, rx, ry, rot = -7, ax1, ay1, ax2, ay2, note, nx, ny, nAnchor = 'start'}) => {
+  ax1?: number; ay1?: number; ax2?: number; ay2?: number; note?: string; nx?: number; ny?: number; nAnchor?: string; noArrow?: boolean; arcOff?: number}> =
+  ({lf, at, cx, cy, rx, ry, rot = -7, ax1 = 0, ay1 = 0, ax2 = 0, ay2 = 0, note = '', nx = 0, ny = 0, nAnchor = 'start', noArrow, arcOff = 40}) => {
     const C = 2 * Math.PI * Math.sqrt((rx * rx + ry * ry) / 2);
-    const p = fIn(lf, at, 18);
-    const pa = fIn(lf, at + 14, 10);
-    const pn = fIn(lf, at + 22, 10);
+    // vẽ hơi quá 1 vòng (1.06) cho cảm giác vẽ tay
+    const p = fIn(lf, at, 20);
+    const pa = fIn(lf, at + 18, 10);
+    const pn = fIn(lf, at + 26, 10);
     return <svg width="1920" height="1080" style={{position: 'absolute', inset: 0, pointerEvents: 'none'}}>
       <ellipse cx={cx} cy={cy} rx={rx} ry={ry} transform={`rotate(${rot} ${cx} ${cy})`} fill="none" stroke={GOLD}
-        strokeWidth={4} strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C * (1 - p)} opacity={0.95} />
-      <path d={`M${ax1} ${ay1} Q ${(ax1 + ax2) / 2 + 40} ${(ay1 + ay2) / 2} ${ax2} ${ay2}`} fill="none" stroke={GOLD} strokeWidth={3.5}
-        strokeLinecap="round" opacity={pa} />
-      <polygon points={`${ax2},${ay2} ${ax2 - 14},${ay2 - 5} ${ax2 - 9},${ay2 + 11}`} fill={GOLD} opacity={pa} />
-      <text x={nx} y={ny} fill={GOLD} fontFamily={FN} fontWeight={600} fontSize={30} textAnchor={nAnchor as any} opacity={pn}>{note}</text>
+        strokeWidth={4} strokeLinecap="round" strokeDasharray={`${C} ${C}`} strokeDashoffset={C * (1 - p * 1.04)} opacity={0.95}
+        style={{filter: 'drop-shadow(0 0 6px rgba(233,196,106,0.5))'}} />
+      {!noArrow && <>
+        <path d={`M${ax1} ${ay1} Q ${(ax1 + ax2) / 2 + arcOff} ${(ay1 + ay2) / 2} ${ax2} ${ay2}`} fill="none" stroke={GOLD} strokeWidth={3.5} strokeLinecap="round" opacity={pa} />
+        <polygon points={`${ax2},${ay2} ${ax2 - 13},${ay2 - 6} ${ax2 - 6},${ay2 + 12}`} fill={GOLD} opacity={pa} transform={`rotate(${Math.atan2(ay2 - ay1, ax2 - ax1) * 57.3} ${ax2} ${ay2})`} />
+      </>}
+      {note && <text x={nx} y={ny} fill={GOLD} fontFamily={FN} fontWeight={600} fontSize={30} textAnchor={nAnchor as any} opacity={pn} style={{filter: 'drop-shadow(0 0 8px rgba(233,196,106,0.4))'}}>{note}</text>}
     </svg>;
   };
 
-// ---- list "từ chính + phụ" canh trái ----
-const ItemList: React.FC<{lf: number; header: string; items: [string, string][]; ats: number[]; numbered?: boolean; left?: number; hAt?: number}> =
-  ({lf, header, items, ats, numbered, left = 150, hAt = 0}) =>
-    <div style={{position: 'absolute', left, top: 268, right: 120}}>
+// ---- list "từ chính + phụ" — có spine vẽ dần + gạch chân vẽ tay, canh trái hoặc phải ----
+const ItemList: React.FC<{lf: number; header: string; items: [string, string][]; ats: number[]; numbered?: boolean; left?: number; hAt?: number; right?: boolean; width?: number; accent?: string}> =
+  ({lf, header, items, ats, numbered, left = 150, hAt = 0, right, width = 900, accent = GOLD}) => {
+    const align = right ? 'right' : 'left';
+    const lastAt = ats[items.length - 1] ?? hAt + 60;
+    const spineH = interpolate(lf, [hAt + 6, lastAt + 30], [0, items.length * 168], {easing: eOut, ...clamp});
+    return <div style={{position: 'absolute', [right ? 'right' : 'left']: left, top: 268, width, textAlign: align as any}}>
       <div style={{fontFamily: FN, fontWeight: 500, fontSize: 27, color: GRAY, letterSpacing: 7, opacity: fIn(lf, hAt), marginBottom: 44}}>{header}</div>
+      {/* spine dọc vẽ dần */}
+      <div style={{position: 'absolute', [right ? 'right' : 'left']: -26, top: 66, width: 2, height: spineH, background: `linear-gradient(${accent}, rgba(233,196,106,0))`, opacity: 0.5}} />
       {items.map((it, i) => {
         const at = ats[i] ?? (hAt + 20 + i * 22);
-        // grey-demotion nhẹ: mục trước hạ xuống ~0.82 khi mục sau hiện
         const nextAt = ats[i + 1] ?? at + 40;
-        const demote = interpolate(lf, [nextAt, nextAt + 14], [1, 0.8], {...clamp});
+        const demote = interpolate(lf, [nextAt, nextAt + 14], [1, 0.82], {...clamp});
+        const und = interpolate(lf, [at + 6, at + 26], [0, 1], {easing: eOut, ...clamp}); // gạch chân vẽ tay
+        const hot = interpolate(lf, [at, at + 10, nextAt, nextAt + 12], [0.4, 1, 1, 0], {...clamp}); // chấm nhấn đang active
         return <div key={i} style={{...appear(lf, at), opacity: fIn(lf, at) * (i < items.length - 1 ? demote : 1),
-          marginBottom: 40, display: 'flex', alignItems: 'baseline', gap: 26}}>
-          {numbered && <span style={{fontFamily: FH, fontWeight: 800, fontSize: 44, color: GOLD, minWidth: 44, textShadow: glowGold}}>{i + 1}</span>}
-          <div>
-            <div style={{fontFamily: FN, fontWeight: 600, fontSize: 62, color: INK, lineHeight: 1.08}}>{it[0]}</div>
-            <div style={{fontFamily: FN, fontWeight: 300, fontSize: 33, color: GRAY, marginTop: 6}}>{it[1]}</div>
+          marginBottom: 38, display: 'flex', flexDirection: right ? 'row-reverse' : 'row', alignItems: 'baseline', gap: 26, justifyContent: right ? 'flex-start' : 'flex-start'}}>
+          {numbered
+            ? <span style={{fontFamily: FH, fontWeight: 800, fontSize: 44, color: accent, minWidth: 44, textShadow: glowGold}}>{i + 1}</span>
+            : <span style={{width: 12, height: 12, borderRadius: 6, background: accent, alignSelf: 'center', opacity: hot, boxShadow: glowGold, flex: '0 0 auto'}} />}
+          <div style={{textAlign: align as any}}>
+            <div style={{position: 'relative', display: 'inline-block'}}>
+              <div style={{fontFamily: FN, fontWeight: 600, fontSize: 60, color: INK, lineHeight: 1.08}}>{it[0]}</div>
+              <div style={{position: 'absolute', left: 0, bottom: -6, height: 2, width: `${und * 100}%`, background: accent, opacity: 0.55, transformOrigin: right ? 'right' : 'left'}} />
+            </div>
+            <div style={{fontFamily: FN, fontWeight: 300, fontSize: 32, color: GRAY, marginTop: 8}}>{it[1]}</div>
           </div>
         </div>;
       })}
     </div>;
+  };
 
 // ---- ảnh/video THẬT đóng khung median: desat + viền trắng mảnh + quầng sáng sau + caption ----
 const FramedMedia: React.FC<{lf: number; at: number; src: string; video?: boolean; x: number; y: number; w: number; h: number; caption?: string; sat?: number; bright?: number; outAt?: number}> =
   ({lf, at, src, video, x, y, w, h, caption, sat = 0.5, bright = 0.72, outAt = 1e9}) => {
-    const o = win(lf, at, outAt, 14, 12);
-    const s = interpolate(lf, [at, at + 20], [0.965, 1], {easing: eOut, ...clamp});
+    const o = win(lf, at, outAt, 16, 14);
+    const s = interpolate(lf, [at, at + 22], [0.955, 1], {easing: eOut, ...clamp});
     if (o <= 0.001) return null;
-    const filt = `grayscale(${1 - sat}) contrast(1.06) brightness(${bright}) saturate(1.1)`;
+    const filt = `grayscale(${1 - sat}) contrast(1.06) brightness(${bright}) saturate(1.12)`;
+    // Ken Burns: media tự zoom + trôi chậm trong khung (khung đứng yên) → luôn có chuyển động, che seam loop
+    const t = Math.max(0, lf - at);
+    const kb = 1.08 + t * 0.00013;
+    const panx = Math.sin(t / 220) * 1.4, pany = Math.cos(t / 260) * 1.0;
     return <div style={{position: 'absolute', left: x, top: y, width: w, height: h, opacity: o, transform: `scale(${s})`, transformOrigin: 'center'}}>
       <div style={{position: 'absolute', inset: -70, background: 'radial-gradient(circle at 50% 45%, rgba(255,255,255,0.07), rgba(233,196,106,0.02) 40%, transparent 72%)'}} />
       <div style={{position: 'absolute', inset: 0, border: '2px solid rgba(232,232,234,0.82)', boxShadow: '0 0 46px rgba(0,0,0,0.65)', overflow: 'hidden', borderRadius: 2}}>
         {video
-          ? <OffthreadVideo src={staticFile(src)} muted loop playbackRate={0.85} style={{width: '100%', height: '100%', objectFit: 'cover', filter: filt}} />
-          : <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', filter: filt}} />}
+          ? <OffthreadVideo src={staticFile(src)} muted loop playbackRate={0.55} style={{width: '100%', height: '100%', objectFit: 'cover', filter: filt, transform: `scale(${kb}) translate(${panx}%, ${pany}%)`}} />
+          : <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', filter: filt, transform: `scale(${kb}) translate(${panx}%, ${pany}%)`}} />}
         <div style={{position: 'absolute', inset: 0, boxShadow: 'inset 0 0 100px rgba(8,8,10,0.85)'}} />
         <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 55%, rgba(8,8,10,0.55) 100%)'}} />
       </div>
@@ -203,15 +222,16 @@ const S1: React.FC<{lf: number}> = ({lf}) => {
 
 const S2: React.FC<{lf: number}> = ({lf}) => <>
   <Kicker lf={lf} text="PHE MUA NHÀ" />
-  <FramedMedia lf={lf} at={A[1][1]} src="realfx/keys.mp4" video x={1088} y={380} w={720} h={440} caption="CẦM CHÌA KHOÁ NHÀ MÌNH" sat={0.55} bright={0.9} />
-  <ItemList lf={lf} header="NHỮNG CÁI LỢI BẢNG TÍNH KHÔNG GHI" hAt={A[1][0]} ats={[A[1][1], A[1][4], A[1][8]]}
+  <FramedMedia lf={lf} at={A[1][1]} src="realfx/keys.mp4" video x={1096} y={356} w={720} h={452} caption="CẦM CHÌA KHOÁ NHÀ MÌNH" sat={0.55} bright={0.9} outAt={A[1][12] + 30} />
+  <ItemList lf={lf} header="NHỮNG CÁI LỢI BẢNG TÍNH KHÔNG GHI" hAt={A[1][0]} ats={[A[1][1], A[1][4], A[1][8]]} width={860}
     items={[['An cư', 'một nơi thực sự là của bạn'], ['Không ai đuổi', 'không lo tăng giá thuê'], ['Cỗ máy ép tiết kiệm', 'tháng nào cũng phải bỏ tiền vào']]} />
 </>;
 
 const S3: React.FC<{lf: number}> = ({lf}) => <>
   <Kicker lf={lf} text="PHE THUÊ NHÀ" />
-  <FramedMedia lf={lf} at={A[2][1]} src="realfx/viewing.mp4" video x={1088} y={380} w={720} h={440} caption="ĐỔI CHỖ Ở — NHẸ NHÀNG" />
-  <ItemList lf={lf} header="THUÊ CŨNG CÓ LÝ" hAt={A[2][0]} ats={[A[2][1], A[2][5], A[2][9]]}
+  {/* MIRROR: footage TRÁI, list PHẢI — phá đơn điệu, tạo cảm giác 2 phe đối nhau */}
+  <FramedMedia lf={lf} at={A[2][1]} src="realfx/viewing.mp4" video x={104} y={356} w={720} h={452} caption="ĐỔI CHỖ Ở — NHẸ NHÀNG" outAt={A[2][13] + 30} />
+  <ItemList lf={lf} header="THUÊ CŨNG CÓ LÝ" hAt={A[2][0]} ats={[A[2][1], A[2][5], A[2][9]]} right left={150} width={860}
     items={[['Nhẹ gánh', 'không ôm khoản nợ 20 năm'], ['Linh hoạt', 'đổi việc, đổi thành phố — dọn đồ là đi'], ['Đầu tư phần chênh', 'tiền được đầu tư đều cũng biết tự lớn']]} />
 </>;
 
@@ -240,10 +260,10 @@ const S4: React.FC<{lf: number}> = ({lf}) => {
         {cd.val}<span style={{fontSize: 56, color: GRAY, textShadow: 'none'}}>{cd.unit}</span>
       </div>
     </div>)}
-    {/* annotation vàng: cho thuê thấp hơn cả gửi */}
-    <Annot lf={lf} at={a[7]} cx={cx[1]} cy={560} rx={165} ry={120} rot={-6}
-      ax1={cx[1] + 150} ay1={470} ax2={cx[1] + 330} ay2={430}
-      note="thấp hơn cả gửi tiết kiệm!" nx={cx[1] + 344} ny={438} />
+    {/* annotation vàng: khoanh đúng số "3–4%" (card giữa), ghi chú ngay dưới */}
+    <Annot lf={lf} at={a[7]} cx={cx[1]} cy={628} rx={158} ry={70} rot={-4}
+      ax1={cx[1]} ay1={702} ax2={cx[1]} ay2={742} arcOff={0}
+      note="thấp hơn cả GỬI TIẾT KIỆM" nx={cx[1]} ny={772} nAnchor="middle" />
     <div style={{position: 'absolute', bottom: 60, left: 0, right: 0, textAlign: 'center', fontFamily: FN, fontWeight: 300, fontSize: 23, color: GRAY, opacity: fIn(lf, a[8])}}>Nguồn: NHNN · Techcombank · Dân trí · Tuổi Trẻ — 2026</div>
   </>;
 };
@@ -273,9 +293,8 @@ const S5: React.FC<{lf: number}> = ({lf}) => {
         </div>;
       })}
     </div>
-    {/* annotation vàng khoanh thanh cho thuê */}
-    <Annot lf={lf} at={a[9]} cx={430} cy={735} rx={330} ry={58} rot={-2}
-      ax1={430} ay1={800} ax2={430} ay2={890} note="" nx={0} ny={0} />
+    {/* annotation vàng khoanh đúng thanh + số CHO THUÊ (thanh thứ 3) */}
+    <Annot lf={lf} at={a[9]} cx={430} cy={688} rx={338} ry={48} rot={-2} noArrow />
     <div style={{position: 'absolute', bottom: 96, left: 0, right: 0, textAlign: 'center', fontFamily: FN, fontWeight: 500, fontSize: 38, color: GOLD, opacity: fIn(lf, a[9] + 6), textShadow: glowGold}}>
       Vay 10% để ôm tài sản chỉ sinh 3–4%.
     </div>
@@ -289,8 +308,8 @@ const S7: React.FC<{lf: number}> = ({lf}) => {
     <div style={{position: 'absolute', top: 150, left: 0, right: 0, textAlign: 'center', opacity: win(lf, 4, a[7] - 20), fontFamily: FN, fontWeight: 400, fontSize: 50, color: INK}}>
       Khoan. <span style={{color: GRAY}}>Con số không phải tất cả.</span>
     </div>
-    <FramedMedia lf={lf} at={a[8]} src="realfx/cozy.jpg" x={1130} y={306} w={660} h={430} caption="MỘT TỔ ẤM — SỰ AN TÂM" sat={0.62} bright={0.78} />
-    <ItemList lf={lf} header="CÁI NGƯỜI MUA NHÀ CÓ" hAt={a[7]} ats={[a[8], a[9], a[11]]}
+    <FramedMedia lf={lf} at={a[8]} src="realfx/cozy.jpg" x={1140} y={318} w={648} h={420} caption="MỘT TỔ ẤM — SỰ AN TÂM" sat={0.62} bright={0.78} />
+    <ItemList lf={lf} header="CÁI NGƯỜI MUA NHÀ CÓ" hAt={a[7]} ats={[a[8], a[9], a[11]]} width={860}
       items={[['Sự an tâm', 'không phải chuyển nhà mỗi vài năm'], ['Toàn quyền', 'đóng cái đinh mà không phải xin ai'], ['Vẫn còn căn nhà', 'nếu lỡ tiêu mất phần chênh, bạn trắng tay']]} />
     <div style={{position: 'absolute', bottom: 104, left: 150, right: 150, textAlign: 'center', fontFamily: FN, fontWeight: 500, fontSize: 38, color: GOLD, opacity: fIn(lf, a[17]), textShadow: glowGold, lineHeight: 1.35}}>
       Thuê chỉ thắng NẾU bạn thật sự đầu tư phần chênh — đều đặn, suốt 20 năm.
@@ -306,7 +325,7 @@ const S8: React.FC<{lf: number}> = ({lf}) => {
     <div style={{position: 'absolute', top: 168, left: 150, right: 150, fontFamily: FN, fontWeight: 400, fontSize: 44, color: INK, opacity: win(lf, 4, a[3] - 16)}}>
       Câu hỏi đúng không phải <span style={{color: GRAY}}>mua hay thuê</span> — mà là ba câu này.
     </div>
-    <ItemList lf={lf} header="" hAt={a[3]} numbered ats={[a[3], a[7], a[11]]}
+    <ItemList lf={lf} header="" hAt={a[3]} numbered ats={[a[3], a[7], a[11]]} width={1560}
       items={[['Giá nhà bằng bao nhiêu NĂM tiền thuê?', 'trên 25 năm → cán cân nghiêng về THUÊ'], ['Bạn có chắc ở đó ít nhất 5–7 năm?', 'không → thuê nhẹ gánh, đỡ chi phí mua bán'], ['Có đủ kỷ luật đầu tư phần chênh?', 'nếu không → MUA nhà sẽ ép bạn giàu']]} />
   </>;
 };
