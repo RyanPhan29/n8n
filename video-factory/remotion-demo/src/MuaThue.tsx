@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Sequence, useCurrentFrame, interpolate, Easing} from 'remotion';
+import {AbsoluteFill, Sequence, useCurrentFrame, interpolate, Easing, OffthreadVideo, Img, staticFile} from 'remotion';
 import './median-fonts.css';
 
 /* ===================================================================
@@ -107,20 +107,25 @@ const ItemList: React.FC<{lf: number; header: string; items: [string, string][];
       })}
     </div>;
 
-// ---- line-art nhà / vali (vật thể phụ, không glow) ----
-const House: React.FC<{x: number; y: number; op: number}> = ({x, y, op}) =>
-  <svg width={360} height={320} viewBox="0 0 360 320" style={{position: 'absolute', left: x, top: y, opacity: op * 0.9}}>
-    <g fill="none" stroke={INK} strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
-      <path d="M40 150 L180 40 L320 150" /><path d="M70 140 L70 280 L290 280 L290 140" />
-      <rect x={150} y={200} width={60} height={80} /><rect x={95} y={165} width={45} height={45} /><rect x={220} y={165} width={45} height={45} />
-    </g>
-  </svg>;
-const Suitcase: React.FC<{x: number; y: number; op: number}> = ({x, y, op}) =>
-  <svg width={340} height={320} viewBox="0 0 340 320" style={{position: 'absolute', left: x, top: y, opacity: op * 0.9}}>
-    <g fill="none" stroke={INK} strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
-      <rect x={60} y={110} width={220} height={170} rx={16} /><path d="M130 110 L130 70 L210 70 L210 110" /><line x1={170} y1={110} x2={170} y2={280} />
-    </g>
-  </svg>;
+// ---- ảnh/video THẬT đóng khung median: desat + viền trắng mảnh + quầng sáng sau + caption ----
+const FramedMedia: React.FC<{lf: number; at: number; src: string; video?: boolean; x: number; y: number; w: number; h: number; caption?: string; sat?: number; bright?: number; outAt?: number}> =
+  ({lf, at, src, video, x, y, w, h, caption, sat = 0.5, bright = 0.72, outAt = 1e9}) => {
+    const o = win(lf, at, outAt, 14, 12);
+    const s = interpolate(lf, [at, at + 20], [0.965, 1], {easing: eOut, ...clamp});
+    if (o <= 0.001) return null;
+    const filt = `grayscale(${1 - sat}) contrast(1.06) brightness(${bright}) saturate(1.1)`;
+    return <div style={{position: 'absolute', left: x, top: y, width: w, height: h, opacity: o, transform: `scale(${s})`, transformOrigin: 'center'}}>
+      <div style={{position: 'absolute', inset: -70, background: 'radial-gradient(circle at 50% 45%, rgba(255,255,255,0.07), rgba(233,196,106,0.02) 40%, transparent 72%)'}} />
+      <div style={{position: 'absolute', inset: 0, border: '2px solid rgba(232,232,234,0.82)', boxShadow: '0 0 46px rgba(0,0,0,0.65)', overflow: 'hidden', borderRadius: 2}}>
+        {video
+          ? <OffthreadVideo src={staticFile(src)} muted loop playbackRate={0.85} style={{width: '100%', height: '100%', objectFit: 'cover', filter: filt}} />
+          : <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', filter: filt}} />}
+        <div style={{position: 'absolute', inset: 0, boxShadow: 'inset 0 0 100px rgba(8,8,10,0.85)'}} />
+        <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 55%, rgba(8,8,10,0.55) 100%)'}} />
+      </div>
+      {caption && <div style={{position: 'absolute', left: 0, right: 0, top: h + 20, textAlign: 'center', fontFamily: FN, fontWeight: 500, fontSize: 22, color: GRAY, letterSpacing: 5, opacity: fIn(lf, at + 12)}}>{caption}</div>}
+    </div>;
+  };
 
 /* ===================== S6 toán biểu đồ 2 đường ===================== */
 const H0 = 6, APP = 0.03, DOWN = 1.8, LOAN = 4.2, MR = 0.10 / 12, N = 240;
@@ -179,10 +184,11 @@ const S1: React.FC<{lf: number}> = ({lf}) => {
   const a = A[0];
   const vs = [['Vì sao một căn nhà lại sinh lời thấp bất ngờ?'], ['Vì sao thuê đôi khi là nước đi khôn hơn?'], ['Và vì sao đáp án không giống nhau với mỗi người?']];
   return <>
-    <div style={{position: 'absolute', top: 288, left: 0, right: 0, textAlign: 'center', opacity: win(lf, 8, 540)}}>
+    {/* footage thật: chung cư nhìn từ trên cao (an cư) */}
+    <FramedMedia lf={lf} at={a[2] + 10} outAt={a[6] - 6} src="realfx/aerial.mp4" video x={510} y={452} w={900} h={370} caption="AN CƯ — ĐÍCH ĐẾN CỦA CẢ ĐỜI?" />
+    <div style={{position: 'absolute', top: 208, left: 0, right: 0, textAlign: 'center', opacity: win(lf, 8, 540)}}>
       <div style={{fontFamily: FH, fontWeight: 800, fontSize: 96, color: INK, letterSpacing: 2, textShadow: glowW}}>MUA NHÀ <span style={{color: GRAY, fontFamily: FN, fontWeight: 400}}>vs</span> THUÊ NHÀ</div>
       <div style={{margin: '26px auto 0', height: 3, width: ul, background: GOLD, boxShadow: glowGold}} />
-      <div style={{marginTop: 26, fontFamily: FN, fontWeight: 300, fontSize: 32, color: GRAY, letterSpacing: 5, opacity: fIn(lf, a[2])}}>AN CƯ RỒI MỚI LẠC NGHIỆP — NGHE RẤT ĐÚNG</div>
     </div>
     {/* dòng chuyển ý (cross-fade đơn) */}
     <div style={{position: 'absolute', top: 560, left: 0, right: 0, textAlign: 'center', opacity: win(lf, a[6], a[10] - 14), fontFamily: FN, fontWeight: 400, fontSize: 44, color: INK, padding: '0 200px', lineHeight: 1.4}}>
@@ -197,14 +203,14 @@ const S1: React.FC<{lf: number}> = ({lf}) => {
 
 const S2: React.FC<{lf: number}> = ({lf}) => <>
   <Kicker lf={lf} text="PHE MUA NHÀ" />
-  <House x={1360} y={372} op={fIn(lf, 10, 16)} />
+  <FramedMedia lf={lf} at={A[1][1]} src="realfx/keys.mp4" video x={1088} y={380} w={720} h={440} caption="CẦM CHÌA KHOÁ NHÀ MÌNH" sat={0.55} bright={0.9} />
   <ItemList lf={lf} header="NHỮNG CÁI LỢI BẢNG TÍNH KHÔNG GHI" hAt={A[1][0]} ats={[A[1][1], A[1][4], A[1][8]]}
     items={[['An cư', 'một nơi thực sự là của bạn'], ['Không ai đuổi', 'không lo tăng giá thuê'], ['Cỗ máy ép tiết kiệm', 'tháng nào cũng phải bỏ tiền vào']]} />
 </>;
 
 const S3: React.FC<{lf: number}> = ({lf}) => <>
   <Kicker lf={lf} text="PHE THUÊ NHÀ" />
-  <Suitcase x={1380} y={392} op={fIn(lf, 8, 16)} />
+  <FramedMedia lf={lf} at={A[2][1]} src="realfx/viewing.mp4" video x={1088} y={380} w={720} h={440} caption="ĐỔI CHỖ Ở — NHẸ NHÀNG" />
   <ItemList lf={lf} header="THUÊ CŨNG CÓ LÝ" hAt={A[2][0]} ats={[A[2][1], A[2][5], A[2][9]]}
     items={[['Nhẹ gánh', 'không ôm khoản nợ 20 năm'], ['Linh hoạt', 'đổi việc, đổi thành phố — dọn đồ là đi'], ['Đầu tư phần chênh', 'tiền được đầu tư đều cũng biết tự lớn']]} />
 </>;
@@ -283,6 +289,7 @@ const S7: React.FC<{lf: number}> = ({lf}) => {
     <div style={{position: 'absolute', top: 150, left: 0, right: 0, textAlign: 'center', opacity: win(lf, 4, a[7] - 20), fontFamily: FN, fontWeight: 400, fontSize: 50, color: INK}}>
       Khoan. <span style={{color: GRAY}}>Con số không phải tất cả.</span>
     </div>
+    <FramedMedia lf={lf} at={a[8]} src="realfx/cozy.jpg" x={1130} y={306} w={660} h={430} caption="MỘT TỔ ẤM — SỰ AN TÂM" sat={0.62} bright={0.78} />
     <ItemList lf={lf} header="CÁI NGƯỜI MUA NHÀ CÓ" hAt={a[7]} ats={[a[8], a[9], a[11]]}
       items={[['Sự an tâm', 'không phải chuyển nhà mỗi vài năm'], ['Toàn quyền', 'đóng cái đinh mà không phải xin ai'], ['Vẫn còn căn nhà', 'nếu lỡ tiêu mất phần chênh, bạn trắng tay']]} />
     <div style={{position: 'absolute', bottom: 104, left: 150, right: 150, textAlign: 'center', fontFamily: FN, fontWeight: 500, fontSize: 38, color: GOLD, opacity: fIn(lf, a[17]), textShadow: glowGold, lineHeight: 1.35}}>
