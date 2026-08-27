@@ -222,7 +222,7 @@ const S1: React.FC<{lf: number}> = ({lf}) => {
 
 const S2: React.FC<{lf: number}> = ({lf}) => <>
   <Kicker lf={lf} text="PHE MUA NHÀ" />
-  <FramedMedia lf={lf} at={A[1][1]} src="realfx/keys.mp4" video x={1096} y={356} w={720} h={452} caption="CẦM CHÌA KHOÁ NHÀ MÌNH" sat={0.55} bright={0.9} outAt={A[1][12] + 30} />
+  <FramedMedia lf={lf} at={A[1][1]} src="realfx/keys.mp4" video x={1096} y={356} w={720} h={452} caption="CẦM CHÌA KHOÁ NHÀ MÌNH" sat={0.55} bright={0.9} />
   <ItemList lf={lf} header="NHỮNG CÁI LỢI BẢNG TÍNH KHÔNG GHI" hAt={A[1][0]} ats={[A[1][1], A[1][4], A[1][8]]} width={860}
     items={[['An cư', 'một nơi thực sự là của bạn'], ['Không ai đuổi', 'không lo tăng giá thuê'], ['Cỗ máy ép tiết kiệm', 'tháng nào cũng phải bỏ tiền vào']]} />
 </>;
@@ -230,7 +230,7 @@ const S2: React.FC<{lf: number}> = ({lf}) => <>
 const S3: React.FC<{lf: number}> = ({lf}) => <>
   <Kicker lf={lf} text="PHE THUÊ NHÀ" />
   {/* MIRROR: footage TRÁI, list PHẢI — phá đơn điệu, tạo cảm giác 2 phe đối nhau */}
-  <FramedMedia lf={lf} at={A[2][1]} src="realfx/viewing.mp4" video x={104} y={356} w={720} h={452} caption="ĐỔI CHỖ Ở — NHẸ NHÀNG" outAt={A[2][13] + 30} />
+  <FramedMedia lf={lf} at={A[2][1]} src="realfx/viewing.mp4" video x={104} y={356} w={720} h={452} caption="ĐỔI CHỖ Ở — NHẸ NHÀNG" />
   <ItemList lf={lf} header="THUÊ CŨNG CÓ LÝ" hAt={A[2][0]} ats={[A[2][1], A[2][5], A[2][9]]} right left={150} width={860}
     items={[['Nhẹ gánh', 'không ôm khoản nợ 20 năm'], ['Linh hoạt', 'đổi việc, đổi thành phố — dọn đồ là đi'], ['Đầu tư phần chênh', 'tiền được đầu tư đều cũng biết tự lớn']]} />
 </>;
