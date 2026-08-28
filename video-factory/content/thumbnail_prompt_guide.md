@@ -1,72 +1,58 @@
-# TƯ DUY PROMPT THUMBNAIL "OVER" (gu Me xừ Đức) cho ChatGPT
+# THẺ CÔNG THỨC PROMPT THUMBNAIL — Chuyện Tiền (bám 2 kênh mẫu: Me xừ Đức + kênh truyện)
 
-## Giải mã vì sao thumb Me xừ Đức "over" (bắt mắt)
-1. **Nền bùng nổ**: tia sáng toả tròn (radial speed lines), khói, mảnh vỡ, chuyển động → cảm giác drama.
-2. **Nhân vật phản ứng cực đại**: mắt lồi, há hốc mồm, chỉ tay, pose động, có motion lines.
-3. **Chữ khối 2 màu** (vàng+trắng / đỏ+trắng), **viền đen dày + viền trắng**, đổ bóng, hơi nghiêng.
-4. **Ribbon/tag nhỏ**: "TỪ A ĐẾN Á", "XEM RẤT ĐƯA CƠM" — mồi thêm.
-5. **Ghép mascot lên cảnh thật/hoành tráng**, màu **bão hoà cao, tương phản mạnh**.
+> Chốt sau khi phân tích kênh tham khảo + số liệu thật (video 7 Bẫy được đề xuất nhưng CTR 2,3% → thumbnail là nút thắt).
 
-## Nguyên tắc phối hợp (giữ Anh Hai chuẩn + vẫn "over")
-- ⛔ **ChatGPT KHÔNG vẽ chữ Việt** (hỏng dấu) và **KHÔNG cần vẽ nhân vật** → chỉ vẽ **CẢNH bùng nổ**.
-- Ghép sau (code/editor): **Anh Hai pose lố** (shock/greedy/excited/facepalm) + **chữ khối viền dày** + **ribbon tag**.
-- Chừa **góc phải-dưới** cho Anh Hai đứng, chừa **1/3 trái** cho chữ. Nói rõ trong prompt.
+## Nguyên tắc VÀNG
+1. **Style CARTOON PHẲNG** (flat 2D, viền đậm, màu sáng bão hoà) — KHÔNG ảnh thật/điện ảnh.
+2. **Nhân vật cố định, mặt CỰC biểu cảm** (sốc/hoảng/tham/smug) — đây là "mặt người" kéo click #1. (Anh Hai = mascot của kênh.)
+3. **Thumbnail KỂ TRỌN câu chuyện bằng cảnh** — nhân vật đang *diễn* chủ đề (nhìn ảnh là hiểu nội dung).
+4. **Title NGẮN + TO + ĐẬM, nhét TRONG ảnh** (2–4 chữ) — vì ảnh đã gánh nghĩa. **Title video ≠ chữ trên thumb** (bổ nhau, không lặp).
+5. **Tương phản gắt + độ "over"** (phóng đại phi thực), 2–3 màu đập nhau, viền/glow.
 
-## CÔNG THỨC PROMPT "OVER"
-`[cảnh/ẩn dụ bùng nổ] + explosive radial burst background, motion, flying debris + hyper-saturated, extreme contrast, bold comic-book energy, glossy 3D illustration + [màu chủ đề] + leave lower-right & left third clear for overlays + no text/letters/words/numbers/watermark, 16:9 + chaotic exciting high-energy mood`
+## Chữ tiếng Việt: LUÔN cho vào prompt (theo yêu cầu user)
+- AI hay hỏng dấu (ê/ẫ/ề/ơ/đ). Cách xử lý:
+  - Ghi **chính xác** chữ trong prompt + câu chốt: *"Render the Vietnamese title EXACTLY with correct diacritics; thick black outline; keep every accent mark precise."*
+  - **Gen 3–4 lần, chọn bản đúng dấu.**
+  - Hỏng chữ nào → gửi Claude **vá đúng ô đó** cho khớp style (vẫn nhìn như baked-in, dấu chuẩn 100%).
 
----
-## ⭐ CÔNG THỨC ALL-IN-ONE (kèm Anh Hai luôn — dùng cái này)
-> Đính kèm 1 ảnh Anh Hai làm reference, rồi dán prompt theo khung:
-
-`Using the attached cartoon character as an EXACT reference (keep his face, messy hand-drawn black hair, thick black outline cartoon style, navy V-neck T-shirt, light-blue jeans), create an over-the-top 16:9 YouTube thumbnail. Place him in the [VỊ TRÍ] with an EXAGGERATED [CẢM XÚC + mô tả] reacting to [ẨN DỤ/CẢNH bùng nổ]. Explosive radial burst, flying debris, hyper-saturated, extreme contrast, glossy cinematic comic-book energy, [màu chủ đề]. Keep the LEFT THIRD dark and EMPTY as clean negative space for a title added later. Absolutely no text, no letters, no words, no numbers, no watermark. High-energy, jaw-dropping mood.`
-
-**Điền vào:** [VỊ TRÍ] = lower-right area · [CẢM XÚC] xem thư viện cuối file · [ẨN DỤ] = ẩn dụ trung tâm của video · [màu] = deep navy + gold/green/red.
-⚠️ ChatGPT vẽ Anh Hai theo reference nên **có thể lệch nét mặt đôi chút** — chấp nhận đánh đổi để ra 1 tấm liền. Muốn mặt chuẩn tuyệt đối thì tách 2 bước (prompt cảnh riêng + Anh Hai riêng).
+## Khung prompt chuẩn (điền vào [...])
+```
+Flat 2D cartoon YouTube thumbnail, 16:9, bold clean outlines, bright saturated colors, funny exaggerated comic style. [NHÂN VẬT + BIỂU CẢM mạnh] [đang diễn chủ đề bằng CẢNH + vật xung đột phóng đại]. Big bold Vietnamese cartoon title [vị trí] reading exactly "[CHỮ]" in thick [màu] letters with black outline [+ drop shadow]. High contrast [nền], punchy clickbait. Render the Vietnamese title EXACTLY with correct diacritics ([liệt kê chữ khó]); thick black outline, keep every accent precise. No watermark.
+```
 
 ---
-## PROMPT SẴN — "Cỗ máy in tiền" (ALL-IN-ONE, đính kèm ảnh Anh Hai)
-> Using the attached cartoon character as an EXACT reference (keep his face, messy hand-drawn black hair, thick black outline cartoon style, navy V-neck T-shirt, light-blue jeans), create an over-the-top 16:9 YouTube thumbnail. Place him in the LOWER-RIGHT area with an EXAGGERATED greedy expression — huge dollar-sign eyes, wide open-mouth grin, rubbing both hands together — reacting to a glowing money-printing machine on the right that is ERUPTING with flying banknotes and a cascade of gold coins, dramatic radial burst of golden light rays, hyper-saturated colors, extreme contrast, glossy cinematic comic-book energy. Deep navy background with gold/green rays and red accents. Keep the LEFT THIRD dark and EMPTY as clean negative space for a title added later. Absolutely no text, no letters, no words, no numbers, no watermark. High-energy, jaw-dropping money-explosion mood.
 
-**Nếu chỉ muốn nền (không Anh Hai)** — bỏ đoạn nhân vật, giữ phần cảnh:
-> Explosive over-the-top 16:9 YouTube thumbnail background. A glowing money-printing machine ERUPTING with flying banknotes and a cascade of gold coins, dramatic radial burst of golden light rays, hyper-saturated, extreme contrast, glossy cinematic comic-book energy. Deep navy background with gold/green rays and red accents. Keep the LEFT third and LOWER-RIGHT clear. No text, no letters, no words, no numbers, no watermark.
+## Kho prompt sẵn (nhân bản)
 
-**Chữ anh tự thêm (Canva/editor):** `CỖ MÁY / IN TIỀN / CÁ NHÂN` (vàng+trắng, viền đen+trắng dày) bên trái · ribbon đỏ "TỪ 0 → TỰ ĐỘNG".
+### 7 BẪY TIỀN  · title video: "Đi Làm 10 Năm Vẫn Trắng Tay?"
+```
+Flat 2D cartoon YouTube thumbnail, 16:9, bold clean outlines, bright saturated colors, funny exaggerated comic style. RIGHT side: a shocked cartoon Vietnamese man wearing a red cap, wide bulging eyes, hands on his cheeks, panicking, looking at a GIANT golden bear-trap snapping shut over an empty wallet, gold coins flying out, red alarm glow. LEFT side: huge bold cartoon Vietnamese title text reading exactly "7 BẪY TIỀN" in thick yellow letters, black outline, red drop shadow. High-contrast dark background, punchy clickbait energy. Render the Vietnamese title EXACTLY with correct diacritics (BẪY, TIỀN); thick black outline, keep every accent precise. No watermark.
+```
 
----
-## PROMPT SẴN — các video khác (bản OVER)
-**Cú vỡ nợ:**
-> Over-the-top YouTube thumbnail background, 16:9. A wealthy-looking businessman scene turning into disaster: luxury car and cash crumbling, dark storm clouds and red warning glow, cracks and falling debris, dramatic radial burst. Hyper-saturated, extreme contrast, glossy cinematic 3D-illustration, comic-book energy. Deep navy + intense red danger lighting. Keep left third and lower-right clear. No text, no letters, no words, no numbers, no watermark. Shocking, dramatic, "downfall" mood.
+### MUA hay THUÊ?  · title video: "Đi Làm Mãi Vẫn Không Mua Nổi Nhà?" / "Mua Nhà hay Thuê ở Tuổi 30?"
+```
+Flat 2D cartoon YouTube thumbnail, 16:9, bold outlines, bright colors, comic style. CENTER: a cartoon Vietnamese man ~30 scratching his head, confused, standing between TWO choices. LEFT: a small house with a heavy chain and a "loan" weight. RIGHT: a glowing golden upward arrow with stacks of coins. Big bold cartoon Vietnamese title at the TOP reading exactly "MUA hay THUÊ?" in thick white-and-yellow letters with black outline; smaller below "SAU 20 NĂM?". High contrast, punchy. Render the Vietnamese text EXACTLY with correct diacritics (THUÊ, NĂM); thick black outline, keep every accent precise. No watermark.
+```
+Biến thể hook mạnh — "THUÊ GIÀU HƠN MUA?":
+```
+Flat 2D cartoon YouTube thumbnail, 16:9, bold outlines, bright saturated colors, comic style. LEFT: a cartoon man proudly holding a house key next to a small apartment. RIGHT: another cartoon man riding a soaring golden money-arrow with coins, laughing, richer. Big bold Vietnamese cartoon title across the top reading exactly "THUÊ GIÀU HƠN MUA?" in thick yellow letters with black outline and red shadow. Shocked vs smug expressions, high contrast, clickbait. Render the Vietnamese title EXACTLY with correct diacritics (THUÊ, HƠN); thick black outline, keep every accent precise. No watermark.
+```
 
-**Kẻ trộm vô hình:**
-> Over-the-top YouTube thumbnail background, 16:9. A glowing open wallet/safe with a mysterious dark shadowy hand sneaking in and pulling out banknotes and gold coins, spotlight beam, film-noir drama with a radial burst of light. Hyper-saturated, extreme contrast, glossy 3D-illustration, comic energy. Deep navy + gold glow + red accents. Keep left third and lower-right clear. No text, no letters, no words, no numbers, no watermark. Mysterious, tense, "caught red-handed" mood.
+### CỖ MÁY IN TIỀN  · title video: "Người Giàu Không Đổi Sức Lấy Tiền Cả Đời"
+① Ẩn dụ cỗ máy:
+```
+Flat 2D cartoon YouTube thumbnail, 16:9, bold clean outlines, bright saturated colors, funny comic style. A happy smug cartoon Vietnamese man dropping ONE gold coin into a big funny money-printing machine (pipes, gears, glowing), and a fountain of paper money + coins shoots out the other side. His eyes are dollar signs, grinning. Big bold Vietnamese cartoon title across the TOP reading exactly "CỖ MÁY IN TIỀN" in thick gold letters with black outline and red drop shadow; small subtitle "CÁ NHÂN" below. High contrast dark teal background, punchy. Render the Vietnamese title EXACTLY with correct diacritics (CỖ, MÁY, TIỀN, CÁ NHÂN); thick black outline, keep every accent precise. No watermark.
+```
+② In tiền khi ngủ:
+```
+Flat 2D cartoon YouTube thumbnail, 16:9, bold outlines, bright colors, comic style. A relaxed cartoon Vietnamese man sleeping peacefully in a hammock, hands behind head, smiling; beside him a funny machine automatically prints money that piles into a golden mountain of coins and bills. Zzz above his head. Big bold Vietnamese cartoon title reading exactly "IN TIỀN KHI NGỦ" in thick yellow letters, black outline, at the top. High contrast, cozy night background with warm glow, clickbait. Render the Vietnamese title EXACTLY with correct diacritics (TIỀN, NGỦ); thick black outline, keep every accent precise. No watermark.
+```
+③ Đổi sức vs xây máy:
+```
+Flat 2D cartoon YouTube thumbnail, 16:9, split composition, bold outlines, bright colors, comic style. LEFT: an exhausted sweaty cartoon Vietnamese man pushing a huge heavy cart of coins uphill, tired face, grey tone. RIGHT: a relaxed rich cartoon man sitting back while a money-printing machine works for him, gold glow, coins flying. Big bold Vietnamese cartoon title across the top reading exactly "ĐỔI SỨC hay XÂY MÁY?" in thick white and gold letters with black outline. Strong contrast between tired-grey and rich-gold sides, punchy. Render the Vietnamese title EXACTLY with correct diacritics (ĐỔI SỨC, XÂY MÁY); thick black outline, keep every accent precise. No watermark.
+```
 
-## MẸO bấm tạo
-1. **Đính kèm ảnh Anh Hai** làm reference (dùng all-in-one) + nhắc **2 lần**: "16:9, tuyệt đối KHÔNG chèn chữ".
-2. Tạo 2–3 tấm, chọn tấm **thoáng bên trái** (chừa chỗ thêm tiêu đề) + mặt Anh Hai giống nhất.
-3. Anh **tự thêm chữ** (Canva/CapCut/Photoshop): tiêu đề khối viền dày bên trái + ribbon. Nhớ chữ viền đen+trắng dày cho nổi.
-4. Muốn "over" hơn nữa: thêm `even more explosive, exaggerated, dramatic, 200% energy` vào cuối prompt.
-5. Mặt Anh Hai bị lệch nhiều → tạo lại, hoặc tách 2 bước (nền riêng + Anh Hai riêng nền trắng → tự ghép).
-
----
-## TƯ DUY PROMPT ANH HAI CẢM XÚC (ghép mascot)
-> Anh Hai là nhân vật CỐ ĐỊNH (23 pose PNG sẵn). Để giữ đúng mặt/nét, có 2 đường:
-
-### Cách 1 — Ghép PNG có sẵn (KHUYÊN DÙNG, chắc ăn 100%)
-Chọn pose theo cảm xúc video, ghép vào góc phải-dưới hướng về ẩn dụ. Pose đang có:
-`greedy` ($ mắt, xoa tay — tiền/tham) · `excited` (phấn khích) · `shock` (sốc/hoảng) · `worried` (lo) · `warning` (cảnh báo) · `facepalm` (chán/sai lầm) · `cry` (khổ/nợ) · `sly` (ranh mãnh) · `cool` (tự tin) · `present` (giới thiệu) · `secret` (bí mật) · `thumbsdown` (chê) · `celebrate` (ăn mừng) · `angry` (bực) · `point`/`pointup` (chỉ).
-→ Cỗ máy in tiền = **greedy** · Cú vỡ nợ = **worried/cry** · Kẻ trộm = **shock** · Giàu phông = **sly**.
-
-### Cách 2 — Prompt ChatGPT tạo biểu cảm MỚI (khi 23 pose chưa đủ)
-**Bắt buộc: đính kèm 1 ảnh Anh Hai làm reference** rồi dán prompt (điền [CẢM XÚC]):
-> Using the attached cartoon character as an EXACT reference — keep his face shape, messy hand-drawn black hair, thick black outline art style, navy V-neck T-shirt and light-blue jeans — redraw him FULL BODY with an EXAGGERATED [CẢM XÚC] expression: [mô tả chi tiết]. Dynamic energetic pose, slight lean forward, comic motion lines. Plain solid white background, no shadow, no text, no letters, no watermark. Same clean cartoon style as the reference.
-
-**Điền [CẢM XÚC] + mô tả:**
-- Tham tiền: `greedy — huge dollar-sign eyes, wide open-mouth grin, rubbing both hands together`
-- Sốc: `shocked — huge bulging eyes, both hands on cheeks, jaw dropped`
-- Phấn khích: `super excited — both arms thrown up, giant smile, sparkles`
-- Hoảng/chạy: `panicking — running, looking back, sweat drops`
-- Chán/sai: `facepalming — one hand on forehead, eyes closed, frustrated`
-
-**Sau khi tạo:** yêu cầu ChatGPT xuất **nền trắng trơn** → tách nền (remove.bg) → gửi em ghép.
-⚠️ ChatGPT redraw **không chuẩn tuyệt đối** mặt Anh Hai (có thể lệch nét). Muốn chắc → dùng Cách 1. Cách 2 chỉ khi cần biểu cảm đặc biệt chưa có trong 23 pose.
+## Quy tắc TITLE (video)
+- Ngắn, đánh nỗi đau/câu hỏi. **Không lặp chữ trên thumbnail** (bổ sung nghĩa).
+- Đổi title video đang chạy → theo dõi 48h (YouTube không A/B title, chỉ A/B thumbnail).
+- Thumbnail thì bật **"Thử nghiệm & so sánh"** (Test & compare) up 2–3 mẫu để YT tự chọn CTR cao nhất.
