@@ -1,10 +1,12 @@
 import React from 'react';
-import {AbsoluteFill, useCurrentFrame, interpolate, Easing} from 'remotion';
+import {AbsoluteFill, Sequence, useCurrentFrame, interpolate, Easing, OffthreadVideo, staticFile} from 'remotion';
 import './median-fonts.css';
 
 /* PROOF median-sim: LÃI KÉP — mô phỏng cơ chế bằng code (không phải chữ trên nền).
-   Vốn góp (xám, tuyến tính) vs Lãi đẻ lãi (vàng, phồng lên) — đường cong vẽ dần, số đếm glow. */
-export const LAIKEPSIM_DURATION = 480; // 16s
+   Vốn góp (xám, tuyến tính) vs Lãi đẻ lãi (vàng, phồng lên) — đường cong vẽ dần, số đếm glow.
+   MỞ ĐẦU: khung footage THẬT B&W + chú thích vẽ tay (kiểu median) → cross-dissolve vào biểu đồ. */
+const INTRO_LEN = 100, CROSS = 20;
+export const LAIKEPSIM_DURATION = INTRO_LEN - CROSS + 480; // intro + chart(16s)
 
 const INK = '#e8e8ea', GRAY = '#7d7f83', DIM = '#4a4c50', GOLD = '#e9c46a';
 const FN = "'BVPm','BVP',sans-serif", FH = "'Mont','BVP',sans-serif";
@@ -34,8 +36,9 @@ const Bg: React.FC = () => {
 
 const arr = (n: number) => Array.from({length: n}, (_, i) => i);
 
-export const LaiKepSim: React.FC = () => {
+const Chart: React.FC = () => {
   const f = useCurrentFrame();
+  const introFade = interpolate(f, [0, CROSS], [0, 1], clamp); // cross-dissolve từ intro
   // năm chạy 0→20 trong [70,390]
   const yr = interpolate(f, [70, 390], [0, YEARS], clamp);
   const axisO = interpolate(f, [40, 70], [0, 1], clamp);
@@ -54,9 +57,24 @@ export const LaiKepSim: React.FC = () => {
   const totNow = total(tNow), conNow = contrib(tNow);
   const endO = interpolate(f, [396, 420], [0, 1], clamp);
   const glowPulse = 0.5 + 0.5 * Math.abs(Math.sin(f / 20));
+  // snowball to dần + vòng xung mỗi năm + số nảy
+  const snowR = 9 + Math.sqrt(Math.min(1, totNow / 1560)) * 18;
+  const yrFrac = yr - Math.floor(yr);
+  const ringR = snowR + yrFrac * 58;
+  const ringO = axisO * (1 - yrFrac) * 0.45;
+  const numPop = 1 + Math.max(0, 1 - yrFrac / 0.16) * 0.12;
+  // hạt vàng bay lên từ đầu đường (lãi tự sinh)
+  const parts: {px: number; py: number; o: number; r: number}[] = [];
+  for (let i = 0; i < 42; i++) {
+    const sp = 82 + i * 7; if (f < sp) continue; const age = f - sp; if (age > 58) continue;
+    const t = interpolate(sp, [70, 390], [0, YEARS], clamp);
+    parts.push({
+      px: sx(t) + Math.sin((age + i) / 7) * 16, py: sy(total(t)) - age * 3.4,
+      o: interpolate(age, [0, 6, 46, 58], [0, 0.9, 0.65, 0], clamp), r: interpolate(age, [0, 58], [6, 2], clamp),
+    });
+  }
 
-  return <AbsoluteFill style={{backgroundColor: '#08080a'}}>
-    <Bg />
+  return <AbsoluteFill style={{opacity: introFade}}>
     {/* tiêu đề nhỏ */}
     <div style={{position: 'absolute', top: 70, left: 0, right: 0, textAlign: 'center', opacity: interpolate(f, [6, 26], [0, 1], clamp)}}>
       <div style={{fontFamily: FN, fontWeight: 500, fontSize: 26, color: GRAY, letterSpacing: 8}}>SỨC MẠNH LÃI KÉP</div>
@@ -85,8 +103,13 @@ export const LaiKepSim: React.FC = () => {
       {/* đường tổng — vàng glow + đường gốc — xám */}
       <polyline points={contribPts} fill="none" stroke={GRAY} strokeWidth={3} opacity={axisO * 0.9} />
       <polyline points={totalPts} fill="none" stroke={GOLD} strokeWidth={5} strokeLinecap="round" opacity={axisO} filter="url(#glow)" />
-      {/* chấm dẫn glow ở đầu đường */}
-      <circle cx={sx(tNow)} cy={sy(totNow)} r={11} fill={GOLD} style={{filter: `drop-shadow(0 0 ${8 + glowPulse * 10}px rgba(233,196,106,1))`}} />
+      {/* hạt vàng bay lên — lãi tự sinh */}
+      {parts.map((p, i) => <circle key={i} cx={p.px} cy={p.py} r={p.r} fill={GOLD} opacity={p.o} style={{filter: 'drop-shadow(0 0 6px rgba(233,196,106,.9))'}} />)}
+      {/* vòng xung mỗi năm */}
+      <circle cx={sx(tNow)} cy={sy(totNow)} r={ringR} fill="none" stroke={GOLD} strokeWidth={2.5} opacity={ringO} />
+      {/* quả cầu tuyết to dần + glow */}
+      <circle cx={sx(tNow)} cy={sy(totNow)} r={snowR} fill={GOLD} style={{filter: `drop-shadow(0 0 ${10 + glowPulse * 14}px rgba(233,196,106,1))`}} />
+      <circle cx={sx(tNow)} cy={sy(totNow)} r={snowR * 0.45} fill="#fff6df" opacity={0.9} />
     </svg>
 
     {/* số đếm — tổng (glow) */}
@@ -112,5 +135,62 @@ export const LaiKepSim: React.FC = () => {
         Lãi tự đẻ ra: <span style={{color: GOLD, fontWeight: 700, textShadow: glowGold}}>{fmt(totNow - conNow)}</span>
       </span>
     </div>
+  </AbsoluteFill>;
+};
+
+/* ===== MỞ ĐẦU: footage THẬT trong khung archival B&W + chú thích vẽ tay (median) ===== */
+const FramedIntro: React.FC = () => {
+  const f = useCurrentFrame();
+  const o = interpolate(f, [0, 16, INTRO_LEN - CROSS, INTRO_LEN], [0, 1, 1, 0], clamp);
+  const s = interpolate(f, [0, 24], [0.955, 1], {easing: Easing.out(Easing.cubic), ...clamp});
+  // khung + footage
+  const FX = 660, FY = 250, FW = 600, FH = 470;
+  const kb = 1.1 + f * 0.0006;                                   // Ken Burns zoom nhẹ (che seam)
+  const filt = 'grayscale(0.72) contrast(1.08) brightness(0.66) saturate(1.1)';
+  // vòng tròn vẽ tay quanh cọc tiền (draw-on)
+  const cx = FX + FW / 2, cy = FY + FH / 2 + 8, rx = 232, ry = 176;
+  const PER = 1290;
+  const drawn = interpolate(f, [30, 58], [PER, 0], {easing: Easing.out(Easing.cubic), ...clamp});
+  const circO = interpolate(f, [30, 40], [0, 1], clamp);
+  // nhãn + mũi tên
+  const labO = interpolate(f, [50, 66], [0, 1], clamp);
+  const arrowLen = interpolate(f, [46, 60], [0, 1], {easing: Easing.out(Easing.cubic), ...clamp});
+  const capO = interpolate(f, [64, 80], [0, 1], clamp);
+  return <AbsoluteFill style={{opacity: o}}>
+    <div style={{position: 'absolute', left: FX, top: FY, width: FW, height: FH, transform: `scale(${s})`, transformOrigin: 'center'}}>
+      <div style={{position: 'absolute', inset: -70, background: 'radial-gradient(circle at 50% 45%, rgba(233,196,106,0.10), rgba(233,196,106,0.02) 42%, transparent 72%)'}} />
+      <div style={{position: 'absolute', inset: 0, border: '2px solid rgba(232,232,234,0.82)', boxShadow: '0 0 46px rgba(0,0,0,0.7)', overflow: 'hidden', borderRadius: 2}}>
+        <OffthreadVideo src={staticFile('broll/coinstack.mp4')} muted playbackRate={0.5} style={{width: '100%', height: '100%', objectFit: 'cover', filter: filt, transform: `scale(${kb})`}} />
+        <div style={{position: 'absolute', inset: 0, boxShadow: 'inset 0 0 100px rgba(8,8,10,0.85)'}} />
+        <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 52%, rgba(8,8,10,0.6) 100%)'}} />
+      </div>
+      {/* 4 góc khung archival */}
+      {[[0, 0], [1, 0], [0, 1], [1, 1]].map(([gx, gy], i) => <div key={i} style={{position: 'absolute', [gx ? 'right' : 'left']: -1, [gy ? 'bottom' : 'top']: -1, width: 22, height: 22, borderTop: gy ? 'none' : '2px solid rgba(233,196,106,.9)', borderBottom: gy ? '2px solid rgba(233,196,106,.9)' : 'none', borderLeft: gx ? 'none' : '2px solid rgba(233,196,106,.9)', borderRight: gx ? '2px solid rgba(233,196,106,.9)' : 'none'}} />)}
+    </div>
+    <svg width="1920" height="1080" style={{position: 'absolute', inset: 0, pointerEvents: 'none'}}>
+      {/* vòng khoanh vẽ tay */}
+      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke={GOLD} strokeWidth={4} strokeLinecap="round"
+        opacity={circO} strokeDasharray={PER} strokeDashoffset={drawn} transform={`rotate(-6 ${cx} ${cy})`}
+        style={{filter: 'drop-shadow(0 0 8px rgba(233,196,106,.7))'}} />
+      {/* mũi tên từ nhãn xuống vòng */}
+      <line x1={520} y1={330} x2={520 + arrowLen * (cx - rx - 520)} y2={330 + arrowLen * (cy - ry - 330)} stroke={GOLD} strokeWidth={3.5} strokeLinecap="round" opacity={arrowLen} />
+      {arrowLen > 0.9 && <polygon points={`${cx - rx - 6},${cy - ry - 6} ${cx - rx - 30},${cy - ry - 2} ${cx - rx - 8},${cy - ry - 30}`} fill={GOLD} opacity={labO} />}
+    </svg>
+    {/* nhãn chú thích */}
+    <div style={{position: 'absolute', left: 150, top: 250, width: 380, opacity: labO}}>
+      <div style={{fontFamily: FN, fontWeight: 500, fontSize: 26, color: GRAY, letterSpacing: 6}}>MỖI THÁNG</div>
+      <div style={{fontFamily: FH, fontWeight: 800, fontSize: 82, color: GOLD, textShadow: glowGold, lineHeight: 0.98, marginTop: 4}}>3 TRIỆU</div>
+      <div style={{fontFamily: FN, fontWeight: 400, fontSize: 26, color: INK, marginTop: 10}}>Không cần giỏi — chỉ cần <b style={{color: INK, fontWeight: 600}}>ĐỀU</b>.</div>
+    </div>
+    {/* caption dưới khung */}
+    <div style={{position: 'absolute', left: FX, top: FY + FH + 22, width: FW, textAlign: 'center', opacity: capO, fontFamily: FN, fontWeight: 500, fontSize: 22, color: GRAY, letterSpacing: 5}}>GỬI ĐỀU · ĐỂ MÁY LÀM VIỆC</div>
+  </AbsoluteFill>;
+};
+
+export const LaiKepSim: React.FC = () => {
+  return <AbsoluteFill style={{backgroundColor: '#08080a'}}>
+    <Bg />
+    <Sequence durationInFrames={INTRO_LEN} name="intro"><FramedIntro /></Sequence>
+    <Sequence from={INTRO_LEN - CROSS} name="chart"><Chart /></Sequence>
   </AbsoluteFill>;
 };
