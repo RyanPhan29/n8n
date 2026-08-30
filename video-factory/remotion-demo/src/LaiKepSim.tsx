@@ -6,8 +6,11 @@ import './median-fonts.css';
 /* PROOF median-sim: LÃI KÉP — mô phỏng cơ chế bằng code (không phải chữ trên nền).
    Vốn góp (xám, tuyến tính) vs Lãi đẻ lãi (vàng, phồng lên) — đường cong vẽ dần, số đếm glow.
    MỞ ĐẦU: khung footage THẬT B&W + chú thích vẽ tay (kiểu median) → cross-dissolve vào biểu đồ. */
-const INTRO_LEN = 150, CROSS = 24;
-export const LAIKEPSIM_DURATION = INTRO_LEN - CROSS + 480; // intro(5s) + chart(16s)
+const INTRO_LEN = 285, CROSS = 30;            // intro ~9,5s khớp đoạn 1 giọng
+const CHART_LEN = 688;                          // chart tới ~31,4s
+export const LAIKEPSIM_DURATION = INTRO_LEN - CROSS + CHART_LEN; // = 943 (31,4s) khớp giọng
+// mốc chart-local (chart bắt đầu ở frame INTRO_LEN-CROSS = 255 = 8,5s)
+const GA = 205, GB = 467;                       // cửa sổ MỌC đường cong (15,3s → 24s)
 
 const INK = '#e8e8ea', GRAY = '#7d7f83', DIM = '#4a4c50', GOLD = '#e9c46a';
 const FN = "'BVPm','BVP',sans-serif", FH = "'Mont','BVP',sans-serif";
@@ -30,9 +33,9 @@ const arr = (n: number) => Array.from({length: n}, (_, i) => i);
 const Chart: React.FC = () => {
   const f = useCurrentFrame();
   const introFade = interpolate(f, [0, CROSS], [0, 1], clamp); // cross-dissolve từ intro
-  // năm chạy 0→20 trong [70,390]
-  const yr = interpolate(f, [70, 390], [0, YEARS], clamp);
-  const axisO = interpolate(f, [40, 70], [0, 1], clamp);
+  // năm chạy 0→20 khớp đoạn "bỏ vào… 1,5 tỷ"
+  const yr = interpolate(f, [GA, GB], [0, YEARS], clamp);
+  const axisO = interpolate(f, [120, 175], [0, 1], clamp);
   const N = 120; // độ mịn
   const upto = Math.max(1, Math.round((yr / YEARS) * N));
   const ts = arr(upto + 1).map((i) => (i / N) * YEARS);
@@ -46,7 +49,7 @@ const Chart: React.FC = () => {
 
   const tNow = ts[ts.length - 1];
   const totNow = total(tNow), conNow = contrib(tNow);
-  const endO = interpolate(f, [396, 420], [0, 1], clamp);
+  const endO = interpolate(f, [GB + 40, GB + 80], [0, 1], clamp); // chốt đoạn "không giàu vì giỏi"
   const glowPulse = 0.5 + 0.5 * Math.abs(Math.sin(f / 20));
   // snowball to dần + vòng xung mỗi năm + số nảy
   const snowR = 9 + Math.sqrt(Math.min(1, totNow / 1560)) * 18;
@@ -57,8 +60,8 @@ const Chart: React.FC = () => {
   // hạt vàng bay lên từ đầu đường (lãi tự sinh)
   const parts: {px: number; py: number; o: number; r: number}[] = [];
   for (let i = 0; i < 42; i++) {
-    const sp = 82 + i * 7; if (f < sp) continue; const age = f - sp; if (age > 58) continue;
-    const t = interpolate(sp, [70, 390], [0, YEARS], clamp);
+    const sp = GA + i * 6.2; if (f < sp) continue; const age = f - sp; if (age > 58) continue;
+    const t = interpolate(sp, [GA, GB], [0, YEARS], clamp);
     parts.push({
       px: sx(t) + Math.sin((age + i) / 7) * 16, py: sy(total(t)) - age * 3.4,
       o: interpolate(age, [0, 6, 46, 58], [0, 0.9, 0.65, 0], clamp), r: interpolate(age, [0, 58], [6, 2], clamp),
@@ -67,7 +70,7 @@ const Chart: React.FC = () => {
 
   return <AbsoluteFill style={{opacity: introFade}}>
     {/* tiêu đề nhỏ */}
-    <div style={{position: 'absolute', top: 70, left: 0, right: 0, textAlign: 'center', opacity: interpolate(f, [6, 26], [0, 1], clamp)}}>
+    <div style={{position: 'absolute', top: 70, left: 0, right: 0, textAlign: 'center', opacity: interpolate(f, [40, 92], [0, 1], clamp)}}>
       <div style={{fontFamily: FN, fontWeight: 500, fontSize: 26, color: GRAY, letterSpacing: 8}}>SỨC MẠNH LÃI KÉP</div>
       <div style={{marginTop: 12, fontFamily: FN, fontWeight: 400, fontSize: 40, color: INK}}>Vì sao <span style={{color: GOLD}}>3 triệu/tháng</span> thành <span style={{color: GOLD}}>1,5 tỷ?</span></div>
     </div>
@@ -110,11 +113,11 @@ const Chart: React.FC = () => {
     </div>
 
     {/* nhãn 2 vùng (hiện dần) */}
-    <div style={{position: 'absolute', left: sx(11), top: sy(total(15)) - 20, opacity: interpolate(f, [200, 230], [0, 1], clamp)}}>
+    <div style={{position: 'absolute', left: sx(11), top: sy(total(15)) - 20, opacity: interpolate(f, [368, 408], [0, 1], clamp)}}>
       <div style={{fontFamily: FN, fontWeight: 600, fontSize: 32, color: GOLD, textShadow: glowGold}}>LÃI ĐẺ LÃI</div>
       <div style={{fontFamily: FN, fontWeight: 300, fontSize: 24, color: GRAY}}>phần máy tự sinh</div>
     </div>
-    <div style={{position: 'absolute', left: sx(12), top: sy(contrib(12)) + 8, opacity: interpolate(f, [150, 180], [0, 1], clamp)}}>
+    <div style={{position: 'absolute', left: sx(12), top: sy(contrib(12)) + 8, opacity: interpolate(f, [288, 320], [0, 1], clamp)}}>
       <div style={{fontFamily: FN, fontWeight: 500, fontSize: 28, color: GRAY}}>VỐN GÓP</div>
     </div>
 
@@ -133,41 +136,41 @@ const Chart: React.FC = () => {
    Câu chuyện 1 khung: khoản NHỎ (3tr) · nhân LẶP LẠI (×240 tháng) → thành cỗ máy. */
 const FramedIntro: React.FC = () => {
   const f = useCurrentFrame();
-  const o = interpolate(f, [0, 18, INTRO_LEN - CROSS, INTRO_LEN], [0, 1, 1, 0], clamp);
+  const o = interpolate(f, [0, 20, INTRO_LEN - CROSS, INTRO_LEN], [0, 1, 1, 0], clamp);
   const FX = 660, FY = 250, FW = 600, FH = 470;   // khung: x 660..1260 · y 250..720
-  // focus 1 cọc tiền cụ thể (trái-dưới khung) rồi mở rộng — chậm, giữ lâu
+  // focus 1 cọc tiền cụ thể (trái-dưới khung) rồi mở rộng — khớp "mỗi tháng 3 triệu"
   const FCX = 820, FCY = 560;
-  const spotR = interpolate(f, [20, 50, 116, 144], [520, 150, 150, 660], {easing: Easing.inOut(Easing.cubic), ...clamp});
-  const spotO = interpolate(f, [16, 40, 122, 146], [0, 1, 1, 0], clamp);
-  // ② mũi tên đi TỪ cọc được khoanh → RA nhãn "×240" (ngoài khung, không đè hình)
-  const AX1 = FCX + 96, AY1 = FCY - 24;           // sát cạnh phải vòng khoanh
-  const AX2 = 1330, AY2 = 372;                    // neo cạnh nhãn ×240 (ngoài khung phải)
-  const arr2 = interpolate(f, [86, 108], [0, 1], {easing: eOut, ...clamp});
-  const capO = interpolate(f, [116, 134], [0, 1], clamp);
+  const spotR = interpolate(f, [24, 60, 210, 255], [520, 150, 150, 660], {easing: Easing.inOut(Easing.cubic), ...clamp});
+  const spotO = interpolate(f, [20, 48, 220, 258], [0, 1, 1, 0], clamp);
+  // ② mũi tên đi TỪ cọc khoanh → RA nhãn "×240" (khớp "gửi đều 20 năm", ~5–8s)
+  const AX1 = FCX + 96, AY1 = FCY - 24;
+  const AX2 = 1330, AY2 = 372;
+  const arr2 = interpolate(f, [150, 178], [0, 1], {easing: eOut, ...clamp});
+  const capO = interpolate(f, [206, 230], [0, 1], clamp);
   return <AbsoluteFill style={{opacity: o}}>
     <FramedShot src="broll/coinstack.mp4" x={FX} y={FY} w={FW} h={FH} bright={0.66} grayscale={0.72} />
     <Spotlight fx={FCX} fy={FCY} r={spotR} o={spotO} dark={0.66} />
 
     <svg width="1920" height="1080" style={{position: 'absolute', inset: 0, pointerEvents: 'none'}}>
       {/* ① khoanh 1 cọc + bracket "1 tháng" */}
-      <HandCircle cx={FCX} cy={FCY} rx={86} ry={118} start={38} dur={26} rot={-8} />
-      <Bracket x1={FCX - 92} x2={FCX + 92} y={FY + FH - 6} start={58} tick={14} />
+      <HandCircle cx={FCX} cy={FCY} rx={86} ry={118} start={48} dur={32} rot={-8} />
+      <Bracket x1={FCX - 92} x2={FCX + 92} y={FY + FH - 6} start={82} tick={14} />
       {/* connector nhãn-trái → cọc */}
-      <line x1={520} y1={452} x2={520 + fIn(f, 50, 16) * (FCX - 96 - 520)} y2={452 + fIn(f, 50, 16) * (FCY - 452)}
-        stroke={GOLD} strokeWidth={3} strokeLinecap="round" opacity={fIn(f, 50, 16)} />
+      <line x1={520} y1={452} x2={520 + fIn(f, 66, 18) * (FCX - 96 - 520)} y2={452 + fIn(f, 66, 18) * (FCY - 452)}
+        stroke={GOLD} strokeWidth={3} strokeLinecap="round" opacity={fIn(f, 66, 18)} />
       {/* ② mũi tên rõ ràng: cọc → ×240 */}
       <line x1={AX1} y1={AY1} x2={AX1 + arr2 * (AX2 - AX1)} y2={AY1 + arr2 * (AY2 - AY1)} stroke={GOLD} strokeWidth={3.5} strokeLinecap="round" opacity={arr2} style={{filter: 'drop-shadow(0 0 6px rgba(233,196,106,.6))'}} />
       {arr2 > 0.92 && <polygon points={`${AX2},${AY2} ${AX2 - 20},${AY2 - 11} ${AX2 - 14},${AY2 + 12}`} fill={GOLD} />}
     </svg>
 
     {/* ① nhãn ĐƠN VỊ (trái) */}
-    <div style={{position: 'absolute', left: 140, top: 392, width: 340, opacity: fIn(f, 44, 16)}}>
+    <div style={{position: 'absolute', left: 140, top: 392, width: 340, opacity: fIn(f, 52, 18)}}>
       <div style={{fontFamily: FN, fontWeight: 500, fontSize: 24, color: GRAY, letterSpacing: 6}}>MỖI THÁNG · CHỈ</div>
       <div style={{fontFamily: FH, fontWeight: 800, fontSize: 84, color: GOLD, textShadow: glowGold, lineHeight: 0.96, marginTop: 2}}>3 TRIỆU</div>
       <div style={{fontFamily: FN, fontWeight: 400, fontSize: 25, color: INK, marginTop: 8}}>Một khoản nhỏ. <b style={{fontWeight: 600}}>Không cần giỏi.</b></div>
     </div>
     {/* ② nhãn LẶP LẠI — ĐẶT HẲN NGOÀI khung phải (x≥1330) */}
-    <div style={{position: 'absolute', left: 1330, top: 320, width: 380, opacity: interpolate(f, [102, 120], [0, 1], clamp)}}>
+    <div style={{position: 'absolute', left: 1330, top: 320, width: 380, opacity: interpolate(f, [176, 200], [0, 1], clamp)}}>
       <div style={{fontFamily: FH, fontWeight: 800, fontSize: 76, color: INK, textShadow: glowW, lineHeight: 1}}>× 240</div>
       <div style={{fontFamily: FN, fontWeight: 500, fontSize: 26, color: GRAY, letterSpacing: 1, marginTop: 4}}>tháng — gửi <b style={{color: INK, fontWeight: 600}}>ĐỀU 20 năm</b></div>
     </div>
