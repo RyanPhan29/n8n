@@ -44,7 +44,7 @@ const Chart: React.FC = () => {
   const axisO = fIn(f, 40, 28);
   const eqTop = sy(asset), debtTop = sy(DEBT);
   const barGlow = a > 0.2 ? 'drop-shadow(0 0 14px rgba(233,196,106,.55))' : a < -0.2 ? 'drop-shadow(0 0 14px rgba(224,96,58,.55))' : 'none';
-  const shake = wiped ? Math.sin(f * 1.7) * interpolate(f, [760, 782, 1047], [0, 3, 0], clamp) : 0;
+  const shake = 0; // bỏ rung cột (trước bị kéo dài ~9,5s trông như giật)
   const chotO = fIn(f, 915, 24);
 
   return <AbsoluteFill style={{opacity: introFade}}>
