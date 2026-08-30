@@ -1,0 +1,84 @@
+{
+  "name": "Chuyện Tiền — RADAR TIN (đa nguồn → bản tin gọn)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-manual",
+      "name": "▶ Chạy thử (Manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-900, 200]
+    },
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "cronExpression", "expression": "0 7 * * *" } ] }
+      },
+      "id": "trigger-cron",
+      "name": "⏰ Mỗi sáng 7h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-900, 380]
+    },
+    {
+      "parameters": {
+        "jsCode": "// CHÙM NGUỒN RSS — thêm/bớt tuỳ ý.\nconst FEEDS = [\n  ['VnExpress · KD','https://vnexpress.net/rss/kinh-doanh.rss'],\n  ['VnExpress · BĐS','https://vnexpress.net/rss/bat-dong-san.rss'],\n  ['Tuổi Trẻ · KD','https://tuoitre.vn/rss/kinh-doanh.rss'],\n  ['Thanh Niên · KT','https://thanhnien.vn/rss/kinh-te.rss'],\n  ['CafeF · TC-NH','https://cafef.vn/tai-chinh-ngan-hang.rss'],\n  ['CafeF · BĐS','https://cafef.vn/bat-dong-san.rss'],\n  ['CafeF · Vĩ mô','https://cafef.vn/vi-mo-dau-tu.rss'],\n  ['Dân Trí · KD','https://dantri.com.vn/rss/kinh-doanh.rss'],\n  ['VietnamNet · KD','https://vietnamnet.vn/rss/kinh-doanh.rss'],\n  ['NLĐ · KT','https://nld.com.vn/kinh-te.rss'],\n  ['Vietnambiz · TC','https://vietnambiz.vn/tai-chinh.rss'],\n  ['Báo Đầu tư · TC-CK','https://baodautu.vn/tai-chinh-chung-khoan-d6.rss']\n];\nreturn FEEDS.map(([source,url]) => ({ json: { source, url } }));"
+      },
+      "id": "feed-list",
+      "name": "Nguồn tin (RSS)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-680, 300]
+    },
+    {
+      "parameters": { "url": "={{ $json.url }}", "options": { "ignoreSSL": true } },
+      "id": "rss-read",
+      "name": "Đọc RSS (mọi nguồn)",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [-460, 300],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Gộp → khử trùng → lọc hợp kênh → xếp mới nhất → soạn BẢN TIN GỌN top 10.\nconst KW = ['lãi suất','vay','mua nhà','giá nhà','vàng','kim cương','thuế','tiết kiệm','đầu cơ','ngân hàng','bất động sản','tạm ứng','tỷ giá','usd','trái phiếu','lừa đảo','phí','tài khoản','đất','chung cư','bảo hiểm','trả góp'];\nconst HOURS = 30; const now = Date.now(); const seen = new Set();\nlet items = $input.all().map(i=>i.json).filter(it => {\n  const link = it.link||it.guid||it.title; if(!link||seen.has(link)) return false; seen.add(link);\n  const t = ((it.title||'')+' '+(it.contentSnippet||it.content||'')).toLowerCase();\n  if(!KW.some(k=>t.includes(k))) return false;\n  const ts = Date.parse(it.isoDate||it.pubDate||0); return !ts || (now-ts) < HOURS*3600*1000;\n});\nitems.sort((a,b)=>Date.parse(b.isoDate||b.pubDate||0)-Date.parse(a.isoDate||a.pubDate||0));\nitems = items.slice(0,10);\nconst lines = items.map((it,i)=>{\n  const sum = (it.contentSnippet||'').replace(/\\s+/g,' ').slice(0,140);\n  return `*${i+1}. ${it.title}*\\n_${sum}_\\n🔗 ${it.link}`;\n});\nconst digest = `🗞 *RADAR TIN — Chuyện Tiền*  (${items.length} tin hợp kênh)\\n\\n` + lines.join('\\n\\n') + `\\n\\n👉 Anh chọn số nào thì nhắn Claude làm short.`;\nreturn [{ json: { digest, count: items.length } }];"
+      },
+      "id": "merge-digest",
+      "name": "Gộp + lọc + soạn bản tin",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-240, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "={{ $json.digest }}",
+        "additionalFields": { "parse_mode": "Markdown", "disable_web_page_preview": true }
+      },
+      "id": "tg-send",
+      "name": "Telegram · gửi bản tin",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [-20, 300]
+    },
+    {
+      "parameters": {
+        "content": "## RADAR TIN (bản gọn)\n\nn8n CHỈ làm 1 việc: mỗi sáng quét 12 báo → lọc hợp kênh → gửi anh **bản tin gọn** (Telegram). Anh liếc → chọn bài → nhắn Claude làm short.\n\nKHÔNG Vbee/render/gate — luồng làm video giữ nguyên (nhanh + kiểm soát chất lượng).\n\nĐổi kênh nhận: thay node Telegram bằng Gmail/Slack. Đổi giờ: node ⏰.",
+        "height": 240, "width": 440
+      },
+      "id": "note",
+      "name": "Ghi chú",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-900, -40]
+    }
+  ],
+  "connections": {
+    "▶ Chạy thử (Manual)": { "main": [[{ "node": "Nguồn tin (RSS)", "type": "main", "index": 0 }]] },
+    "⏰ Mỗi sáng 7h": { "main": [[{ "node": "Nguồn tin (RSS)", "type": "main", "index": 0 }]] },
+    "Nguồn tin (RSS)": { "main": [[{ "node": "Đọc RSS (mọi nguồn)", "type": "main", "index": 0 }]] },
+    "Đọc RSS (mọi nguồn)": { "main": [[{ "node": "Gộp + lọc + soạn bản tin", "type": "main", "index": 0 }]] },
+    "Gộp + lọc + soạn bản tin": { "main": [[{ "node": "Telegram · gửi bản tin", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

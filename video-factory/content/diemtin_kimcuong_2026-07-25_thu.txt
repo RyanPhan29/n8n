@@ -1,0 +1,32 @@
+ĐIỂM TIN / BÓC BẪY "KHỦNG HOẢNG KIM CƯƠNG — CAM KẾT MUA LẠI" — kịch bản thu Vbee (~60–70s)
+Nguồn: Znews / Tạp chí Tri Thức (znews.vn) "Cửa hàng kim cương đột ngột đóng cửa, khách có được khởi kiện?" 24/7/2026 (An Hà).
+LƯU Ý PHÁP LÝ: KHÔNG nêu tên thương hiệu cụ thể; chỉ dẫn nguồn báo + luật sư/chuyên gia; trung lập; có disclaimer.
+
+Điểm tin tiền bạc hôm nay cùng Anh Hai. Có một vụ đang khiến nhiều người ôm kim cương mất ăn mất ngủ.
+
+Theo Tạp chí Tri Thức Znews, từ cuối tháng Năm tới nay, thị trường kim cương ở thành phố Hồ Chí Minh và các tỉnh phía Nam rơi vào khủng hoảng chưa từng có. Hàng loạt cửa hàng đột ngột đóng cửa, có nơi tuyên bố phá sản, có nơi tạm dừng chính sách thu mua lại. Làn sóng lan cả sang Đồng Tháp, Cần Thơ. Có khách ôm mấy món trị giá hơn một tỷ rưỡi, gọi hotline mà không ai bắt máy.
+
+Vì sao ra nông nỗi này? Đây mới là chỗ Anh Hai muốn bạn để ý. Nhiều cửa hàng bán kim cương kèm lời hứa mua lại sau vài tháng, nghe như một khoản đầu tư chắc ăn. Nhưng luật sư chỉ rõ: về bản chất, đó gần như một hình thức huy động vốn. Khách bỏ tiền mua, rồi tin vào lời hứa thu hồi trong tương lai.
+
+Thế nên khi cả loạt khách cùng đòi bán lại một lúc, nó chẳng khác gì một cuộc rút tiền ồ ạt khỏi ngân hàng không có dự trữ. Chỉ khác một điều rất quan trọng: mô hình này không hề có bảo hiểm hay cơ chế bảo vệ như tiền gửi ngân hàng.
+
+Anh Hai đọc vị: hễ nghe cam kết mua lại, cam kết lợi nhuận, mà không có ai bảo chứng, thì hãy dè chừng. Còn nếu lỡ đang ôm, chuyên gia khuyên giữ bình tĩnh, đừng bán tháo lúc hoảng loạn, vì giá thu mua sẽ bị ép xuống rất thấp.
+
+Bạn nghĩ sao về vụ này? Kể Anh Hai nghe. Thông tin theo Znews, chia sẻ góc nhìn, không phải lời khuyên đầu tư.
+
+---
+KIỂM SỐ (theo Znews): khủng hoảng từ cuối tháng 5; hàng loạt tiệm TP.HCM đóng cửa/tạm ngừng thu mua lại; lan Đồng Tháp, Cần Thơ; giá bán lại giảm 15–25%; khách ôm >1,5 tỷ bơ vơ; PNJ chuyển thanh toán trong ngày sang chi trả theo lộ trình nhưng vẫn cam kết mua lại. Chuyên gia SJA khuyên đừng bán tháo. Luật sư: cam kết "mua lại sau x tháng" ~ huy động vốn, khách là chủ nợ, KHÔNG có bảo hiểm như tiền gửi NH.
+BẤT BIẾN: không nêu tên tiệm cụ thể; đưa tin trung lập; disclaimer.
+
+SHOTLIST (PRO — ribbon nguồn + thẻ bằng chứng):
+0. INTRO (source Znews · 24/7): head "ĐIỂM TIN TIỀN BẠC"
+1. HOOK: head "Hàng loạt tiệm kim cương ĐÓNG CỬA" icon 💎🔒 · label "TP.HCM & tỉnh phía Nam · khủng hoảng chưa từng có"
+2. THẺ BẰNG CHỨNG: headline "Cửa hàng kim cương đột ngột đóng cửa, khách có được khởi kiện?" quote "Bản chất gần như huy động vốn" src "Znews · Tạp chí Tri Thức · 24/7"
+3. Giá bán lại giảm: value 25 "%" (static) label "Bán lại giảm 15–25% · có nơi phá sản"
+4. Khách bơ vơ: value 1.5 " tỷ" (decimals 1, static) label "Ôm hàng tỷ · gọi hotline không ai bắt máy" (red)
+5. VÌ SAO — cam kết mua lại: head "Cam kết 'mua lại sau x tháng'" icon 🤝❓ · label "nghe như đầu tư chắc ăn…"
+6. BẢN CHẤT: head "…thực chất gần như ", {t:'HUY ĐỘNG VỐN', c:'red'} · label "Khách = chủ nợ, tin vào lời hứa"
+7. BANK RUN: head "Cả loạt đòi bán lại = rút tiền ồ ạt" icon 🏦💥 · label "KHÔNG có bảo hiểm như tiền gửi ngân hàng" (red)
+8. ĐỌC VỊ: head "👁 Anh Hai đọc vị" label "Cam kết mua lại/lợi nhuận mà không ai bảo chứng → DÈ CHỪNG"
+9. KHUYÊN: head "Lỡ đang ôm?" label "Chuyên gia: giữ bình tĩnh, đừng bán tháo (giá bị ép thấp)" (teal)
+10. CTA: head "Bạn nghĩ sao về vụ này?" q "Từng nghe 'cam kết mua lại' chưa?"

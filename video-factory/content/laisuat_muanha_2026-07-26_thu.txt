@@ -1,0 +1,38 @@
+CHÙM 2 SHORT — LÃI SUẤT MUA NHÀ 2026 (nguồn VnExpress 26/7/2026)
+Ghi chú thu Vbee: CHỈ đọc phần trong ngoặc « … ». Header + shotlist KHÔNG đọc.
+Giọng: nam Bắc, kể chuyện, thân mật. Số nói dạng khoảng.
+
+════════════════════════════════════════════
+SHORT A — "KỲ VỌNG vs THỰC TẾ" (So sánh 9% vs 12–14%) · ~32s
+════════════════════════════════════════════
+
+VBEE (đọc liền mạch):
+«Vì sao nhà thì nhiều mà người cần vẫn chưa mua? Anh Hai kể nhà mình nghe. Báo VnExpress vừa dẫn một khảo sát: hơn tám trên mười người chỉ chịu vay mua nhà khi lãi dưới chín phần trăm một năm. Mà lãi vay ngoài kia đang phổ biến mười hai tới mười bốn phần trăm, có khoản thả nổi còn vọt lên mười lăm, mười sáu. Nghĩa là cái mức người ta chịu được, với cái giá thật của đồng tiền vay, đang lệch nhau một quãng rất xa. Thế nên gần như ai cũng nói giống nhau: lãi từ mười một phần trăm trở lên là dừng, không vay nữa. Thị trường đâu có thiếu nhà, nó kẹt ở chỗ tiền vay quá đắt. Còn nhà mình, lãi phải xuống bao nhiêu thì bạn mới dám vay mua nhà? Kể Anh Hai nghe.»
+
+SHOTLIST (dựng sau khi có giọng):
+- Hook: Anh Hai chỉ tay, card "Nhà nhiều — người cần vẫn không mua?" (đỏ).
+- Thẻ bằng chứng: logo/nguồn "VnExpress · 26/7/2026" + dòng "Khảo sát PropertyGuru".
+- So sánh 2 cột: TRÁI "Dân chịu vay: < 9%" (teal) · PHẢI "Thực tế: 12–14%" (đỏ), badge VS ở giữa.
+- Nhấn số: "≥ 11% → NGỪNG vay" (amber, bung to).
+- Chốt: card câu hỏi "Lãi bao nhiêu bạn mới dám vay?" + Anh Hai pose hỏi.
+
+════════════════════════════════════════════
+SHORT B — "BÓC BÀI TOÁN 30 TRIỆU" (Bóc bẫy) · ~42s
+════════════════════════════════════════════
+
+VBEE (đọc liền mạch):
+«Nhà mình lương ba mươi triệu một tháng, nghĩ chắc mua được nhà rồi chứ gì? Khoan đã. Một chuyên gia trên báo VnExpress vừa bấm máy tính thế này. Nếu bạn chỉ muốn trả nợ ở mức an toàn, chừng hai mươi tới bốn mươi phần trăm thu nhập, thì với lãi tám tới mười phần trăm, bạn chỉ vay nổi cỡ một tỷ tới một tỷ hai trong hai mươi năm. Tức là muốn mua, bạn phải có sẵn khoảng sáu mươi phần trăm giá trị căn nhà trong túi. Còn nếu liều vay tới một nửa, thì mỗi tháng phải trả mười hai tới mười bốn triệu, gần nửa tháng lương. Lỡ lãi nhảy lên mười hai, mười bốn phần trăm, khoản trả nợ ngốn tới năm mươi, sáu mươi phần trăm thu nhập, coi như đi làm chỉ để trả nợ. À, hóa ra rào cản lớn nhất không phải giá nhà, mà là tiền lãi. Nhà mình định vay bao nhiêu phần trăm giá căn nhà? Kể Anh Hai nghe.»
+
+SHOTLIST (dựng sau khi có giọng):
+- Hook: card "Lương 30 triệu = mua được nhà?" + Anh Hai nghi ngờ.
+- Thẻ bằng chứng: "VnExpress · chuyên gia Lê Quốc Kiên".
+- Bậc 1: "Trả an toàn 20–40% lương → vay ~1–1,2 tỷ / 20 năm @ 8–10%".
+- Bậc 2 (cú twist): "⇒ Phải có sẵn ~60% giá nhà" (đỏ, bung to).
+- Bậc 3: "Vay 50% → trả 12–14tr/tháng" → "lãi 12–14% → trả nợ 50–60% lương" (đỏ đậm dần).
+- Chốt ý: "Rào cản = tiền LÃI, không phải giá nhà" (teal).
+- CTA: card "Bạn dám vay bao nhiêu % giá nhà?" + Anh Hai pose hỏi.
+
+════════════════════════════════════════════
+GỢI Ý MỒI COMMENT (pin sau khi đăng — fix engagement)
+- Short A: "Mình chốt luôn: lãi mơ ước của nhà mình là ___%. Anh Hai hóng!"
+- Short B: "Team 'thuê cho khỏe' hay team 'gồng mua nhà'? Điểm danh dưới đây 👇"

@@ -1,0 +1,284 @@
+<title>Soi số đối thủ · Chuyện Tiền · Anh Hai Kể</title>
+<style>
+  :root{
+    --bg:#eef1f6; --panel:#ffffff; --ink:#16223a; --muted:#5a6b84;
+    --line:#dbe1ec; --navy:#16305c; --gold:#f2c230; --teal:#159a86;
+    --red:#e11d2a; --amber:#f59e0b;
+    --good:#159a86; --warn:#f59e0b; --bad:#e11d2a;
+    --mine:#16305c; --mine-soft:#e7ecf6; --track:#e3e8f1;
+    --good-bg:#e2f2ee; --warn-bg:#fdefd9; --stop-bg:#e6e9ef;
+    --radius:12px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0b1220; --panel:#121c2e; --ink:#e8edf6; --muted:#93a2bd;
+      --line:#22314b; --navy:#a9c2f0; --gold:#f2c230; --teal:#3fc9b0;
+      --red:#ff5d68; --amber:#ffb454;
+      --good:#3fc9b0; --warn:#ffb454; --bad:#ff5d68;
+      --mine:#f2c230; --mine-soft:#1c2942; --track:#1e2c45;
+      --good-bg:#123027; --warn-bg:#33270f; --stop-bg:#1c2436;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#eef1f6; --panel:#ffffff; --ink:#16223a; --muted:#5a6b84;
+    --line:#dbe1ec; --navy:#16305c; --teal:#159a86; --red:#e11d2a; --amber:#f59e0b;
+    --good:#159a86; --warn:#f59e0b; --bad:#e11d2a; --mine:#16305c; --mine-soft:#e7ecf6; --track:#e3e8f1;
+    --good-bg:#e2f2ee; --warn-bg:#fdefd9; --stop-bg:#e6e9ef;
+  }
+  :root[data-theme="dark"]{
+    --bg:#0b1220; --panel:#121c2e; --ink:#e8edf6; --muted:#93a2bd;
+    --line:#22314b; --navy:#a9c2f0; --teal:#3fc9b0; --red:#ff5d68; --amber:#ffb454;
+    --good:#3fc9b0; --warn:#ffb454; --bad:#ff5d68; --mine:#f2c230; --mine-soft:#1c2942; --track:#1e2c45;
+    --good-bg:#123027; --warn-bg:#33270f; --stop-bg:#1c2436;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 15px 56px}
+  .num{font-variant-numeric:tabular-nums}
+
+  header.top{padding-bottom:10px;border-bottom:2px solid var(--navy);margin-bottom:20px}
+  .eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  h1{font-size:clamp(23px,6vw,32px);margin:4px 0;line-height:1.1;letter-spacing:-.02em;text-wrap:balance}
+  .sub{color:var(--muted);font-size:13px;margin:0}
+  .sub b{color:var(--ink)}
+
+  section{margin:24px 0}
+  h2{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+    font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+  h2::before{content:"";width:16px;height:2px;background:var(--gold);display:inline-block}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+
+  /* Hero */
+  .hero{padding:18px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gold)}
+  .hero .kicker{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.03em}
+  .hero .line{font-size:clamp(18px,4.6vw,24px);font-weight:800;letter-spacing:-.015em;margin:6px 0 4px;text-wrap:balance}
+  .hero .line .bad{color:var(--bad)}
+  .hero p{margin:8px 0 0;color:var(--muted);font-size:13.5px}
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}
+  .stat{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 6px;text-align:center}
+  .stat .v{font-size:clamp(15px,4.3vw,21px);font-weight:800;letter-spacing:-.02em}
+  .stat .l{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.25}
+  .stat.flag .v{color:var(--bad)}
+  @media(max-width:480px){.stat-row{grid-template-columns:repeat(2,1fr)}}
+
+  /* Channel cards (no horizontal scroll) */
+  .chans{display:flex;flex-direction:column;gap:8px}
+  .ch{padding:12px 14px;display:flex;flex-direction:column;gap:9px}
+  .ch.mine{background:var(--mine-soft);border-color:var(--mine)}
+  .ch-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .ch-name{font-weight:800;font-size:14.5px;letter-spacing:-.01em}
+  .ch.mine .ch-name{color:var(--mine)}
+  .pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap}
+  .pill.up{color:var(--good);background:var(--good-bg)}
+  .pill.stop{color:var(--muted);background:var(--stop-bg)}
+  .pill.warn{color:var(--warn);background:var(--warn-bg)}
+  .pill.me{color:#16223a;background:var(--gold)}
+  :root[data-theme="dark"] .pill.me{color:#16223a}
+  .ch-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center}
+  .ch-stats .c .n{font-weight:800;font-size:14px;letter-spacing:-.02em}
+  .ch-stats .c .k{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:1px}
+  .ch-stats .c .n.bad{color:var(--bad)}
+  @media(max-width:420px){.ch-stats{grid-template-columns:repeat(3,1fr);gap:8px 6px}}
+
+  /* Bars */
+  .card{padding:15px}
+  .card h3{margin:0 0 2px;font-size:14px;letter-spacing:-.01em}
+  .card .cap{color:var(--muted);font-size:12px;margin:0 0 13px}
+  .bars{display:flex;flex-direction:column;gap:8px}
+  .bar{display:grid;grid-template-columns:92px 1fr 38px;align-items:center;gap:8px;font-size:12px}
+  .bar .bn{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar.me .bn{color:var(--mine);font-weight:700}
+  .track{height:8px;background:var(--track);border-radius:999px;overflow:hidden}
+  .fill{height:100%;border-radius:999px;background:var(--navy)}
+  .bar.me .fill{background:var(--gold)}
+  .bar .val{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+  .bar.me .val{color:var(--mine)}
+  .stack{display:flex;flex-direction:column;gap:14px}
+
+  /* Findings */
+  .finds{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.finds{grid-template-columns:1fr}}
+  .find{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--navy);
+    border-radius:11px;padding:13px 15px}
+  .find.good{border-left-color:var(--good)} .find.warn{border-left-color:var(--amber)} .find.bad{border-left-color:var(--bad)}
+  .find .ft{font-weight:800;font-size:13.5px;margin:0 0 4px;letter-spacing:-.01em}
+  .find p{margin:0;font-size:12.5px;color:var(--muted)}
+  .find .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+  .find b{color:var(--ink)}
+
+  /* Action */
+  .action{background:var(--navy);color:#fff;border-radius:var(--radius);padding:18px}
+  :root[data-theme="dark"] .action{background:#16233c;border:1px solid var(--line)}
+  @media(prefers-color-scheme:dark){.action{background:#16233c;border:1px solid var(--line)}}
+  .action h2{color:#fff;opacity:.9} .action h2::before{background:var(--gold)}
+  .action ol{margin:0;padding:0;list-style:none;counter-reset:a;display:flex;flex-direction:column;gap:11px}
+  .action li{counter-increment:a;display:grid;grid-template-columns:24px 1fr;gap:11px;align-items:start}
+  .action li::before{content:counter(a);background:var(--gold);color:#16223a;font-weight:800;
+    width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:13px}
+  .action .d{color:#cfd8ea;font-size:13px} .action .d b{color:var(--gold)} .action .d strong{color:#fff}
+
+  footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);
+    color:var(--muted);font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Audit định lượng · YouTube Data API</span>
+    <h1>Đăng nhiều nhất cụm, tương tác thấp nhất cụm</h1>
+    <p class="sub">Số thật kéo <b>25/7/2026</b> · <b>6 kênh ngành TC cá nhân VN</b> vs <b>Chuyện Tiền · Anh Hai Kể</b></p>
+  </header>
+
+  <section>
+    <div class="panel hero">
+      <div class="kicker">KÊNH MÌNH · 17 NGÀY TUỔI</div>
+      <div class="line">View về đều, nhưng <span class="bad">0.56% engagement</span> đang chặn thuật toán đẩy tiếp</div>
+      <p>Median 886 view cho kênh mới là khá. Nhưng tương tác thấp nhất cả cụm — người xem lướt qua, không like/comment/sub — nên video không được đẩy vòng hai. Sửa tương tác quan trọng hơn đổi chủ đề.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="v num">564</div><div class="l">Subscriber</div></div>
+        <div class="stat"><div class="v num">41</div><div class="l">Video (37 short)</div></div>
+        <div class="stat"><div class="v num">886</div><div class="l">Median view</div></div>
+        <div class="stat flag"><div class="v num">0.56%</div><div class="l">Engage · thấp nhất</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>6 kênh ngành — số thật</h2>
+    <div class="chans">
+      <div class="panel ch mine">
+        <div class="ch-head"><span class="ch-name">Chuyện Tiền · Anh Hai Kể</span><span class="pill me">CỦA MÌNH</span></div>
+        <div class="ch-stats num">
+          <div class="c"><div class="n">564</div><div class="k">Sub</div></div>
+          <div class="c"><div class="n">41</div><div class="k">Video</div></div>
+          <div class="c"><div class="n">886</div><div class="k">Median</div></div>
+          <div class="c"><div class="n">17.9</div><div class="k">/tuần</div></div>
+          <div class="c"><div class="n bad">0.56%</div><div class="k">Engage</div></div>
+        </div>
+      </div>
+      <div class="panel ch">
+        <div class="ch-head"><span class="ch-name">Một Phút Đầu Tư</span><span class="pill up">ĐANG LÊN · ĐIỂM TIN</span></div>
+        <div class="ch-stats num">
+          <div class="c"><div class="n">31.8K</div><div class="k">Sub</div></div>
+          <div class="c"><div class="n">314</div><div class="k">Video</div></div>
+          <div class="c"><div class="n">3,926</div><div class="k">Median</div></div>
+          <div class="c"><div class="n">15.6</div><div class="k">/tuần</div></div>
+          <div class="c"><div class="n">3.61%</div><div class="k">Engage</div></div>
+        </div>
+      </div>
+      <div class="panel ch">
+        <div class="ch-head"><span class="ch-name">Hieu.tv</span><span class="pill stop">NGƯNG 7/2024</span></div>
+        <div class="ch-stats num">
+          <div class="c"><div class="n">846K</div><div class="k">Sub</div></div>
+          <div class="c"><div class="n">184</div><div class="k">Video</div></div>
+          <div class="c"><div class="n">220K</div><div class="k">Median</div></div>
+          <div class="c"><div class="n">1.1</div><div class="k">/tuần</div></div>
+          <div class="c"><div class="n">4.08%</div><div class="k">Engage</div></div>
+        </div>
+      </div>
+      <div class="panel ch">
+        <div class="ch-head"><span class="ch-name">Thành Công Tài Chính</span><span class="pill stop">EVERGREEN · GẦN NGƯNG</span></div>
+        <div class="ch-stats num">
+          <div class="c"><div class="n">402K</div><div class="k">Sub</div></div>
+          <div class="c"><div class="n">233</div><div class="k">Video</div></div>
+          <div class="c"><div class="n">40K</div><div class="k">Median</div></div>
+          <div class="c"><div class="n">0.2</div><div class="k">/tuần</div></div>
+          <div class="c"><div class="n">4.08%</div><div class="k">Engage</div></div>
+        </div>
+      </div>
+      <div class="panel ch">
+        <div class="ch-head"><span class="ch-name">Cú Thông Thái</span><span class="pill warn">VOLUME · HOOK YẾU</span></div>
+        <div class="ch-stats num">
+          <div class="c"><div class="n">409K</div><div class="k">Sub</div></div>
+          <div class="c"><div class="n">1,288</div><div class="k">Video</div></div>
+          <div class="c"><div class="n">1,234</div><div class="k">Median</div></div>
+          <div class="c"><div class="n">7.8</div><div class="k">/tuần</div></div>
+          <div class="c"><div class="n">1.18%</div><div class="k">Engage</div></div>
+        </div>
+      </div>
+      <div class="panel ch">
+        <div class="ch-head"><span class="ch-name">Việt Hoàng Stock</span><span class="pill stop">CHỨNG KHOÁN · NHỎ</span></div>
+        <div class="ch-stats num">
+          <div class="c"><div class="n">2,170</div><div class="k">Sub</div></div>
+          <div class="c"><div class="n">181</div><div class="k">Video</div></div>
+          <div class="c"><div class="n">457</div><div class="k">Median</div></div>
+          <div class="c"><div class="n">0.2</div><div class="k">/tuần</div></div>
+          <div class="c"><div class="n">1.8%</div><div class="k">Engage</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Hai biểu đồ nói hết câu chuyện</h2>
+    <div class="stack">
+      <div class="panel card">
+        <h3>Engagement (%)</h3>
+        <p class="cap">Tương tác trên view · càng cao thuật toán càng đẩy</p>
+        <div class="bars">
+          <div class="bar"><span class="bn">Hieu.tv</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">4.08</span></div>
+          <div class="bar"><span class="bn">Thành Công</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">4.08</span></div>
+          <div class="bar"><span class="bn">Một Phút ĐT</span><span class="track"><span class="fill" style="width:88%"></span></span><span class="val">3.61</span></div>
+          <div class="bar"><span class="bn">Việt Hoàng</span><span class="track"><span class="fill" style="width:44%"></span></span><span class="val">1.80</span></div>
+          <div class="bar"><span class="bn">Cú Thông Thái</span><span class="track"><span class="fill" style="width:29%"></span></span><span class="val">1.18</span></div>
+          <div class="bar me"><span class="bn">Anh Hai (mình)</span><span class="track"><span class="fill" style="width:14%"></span></span><span class="val">0.56</span></div>
+        </div>
+      </div>
+      <div class="panel card">
+        <h3>Nhịp đăng (video/tuần)</h3>
+        <p class="cap">Mình đang đăng nhiều nhất — sức sản xuất không thiếu</p>
+        <div class="bars">
+          <div class="bar me"><span class="bn">Anh Hai (mình)</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">17.9</span></div>
+          <div class="bar"><span class="bn">Một Phút ĐT</span><span class="track"><span class="fill" style="width:87%"></span></span><span class="val">15.6</span></div>
+          <div class="bar"><span class="bn">Cú Thông Thái</span><span class="track"><span class="fill" style="width:44%"></span></span><span class="val">7.8</span></div>
+          <div class="bar"><span class="bn">Hieu.tv</span><span class="track"><span class="fill" style="width:6%"></span></span><span class="val">1.1</span></div>
+          <div class="bar"><span class="bn">Thành Công</span><span class="track"><span class="fill" style="width:2%"></span></span><span class="val">0.2</span></div>
+          <div class="bar"><span class="bn">Việt Hoàng</span><span class="track"><span class="fill" style="width:2%"></span></span><span class="val">0.2</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Kênh mình — thắng gì, thua gì</h2>
+    <div class="finds">
+      <div class="find good">
+        <p class="ft">🏆 Thắng: So sánh + Bóc bẫy</p>
+        <p>Ly cà phê 10tr/năm <span class="n">1,899</span> · Tài sản vs Tiêu sản <span class="n">1,793</span> · Thẻ TD vs ghi nợ <span class="n">1,716</span> · Bẫy cashback <span class="n">1,711</span>.</p>
+      </div>
+      <div class="find bad">
+        <p class="ft">📉 Thua: khái niệm trừu tượng</p>
+        <p>Quy tắc 50/30/20 <span class="n">235</span> · Ôm đô hay tiền Việt <span class="n">254</span> · Đầu tư vs đầu cơ <span class="n">382</span>.</p>
+      </div>
+      <div class="find">
+        <p class="ft">📰 Điểm tin — chưa chứng minh ở MÌNH</p>
+        <p>Bài điểm tin đầu (ôm đô) chỉ <span class="n">254</span> view. Đối thủ thắng nhờ <b>hook thời sự mạnh + volume</b> — mình mới thử 1 bài.</p>
+      </div>
+      <div class="find warn">
+        <p class="ft">💎 Long-form evergreen đang bỏ trống</p>
+        <p>Thành Công đăng 0.2/tuần mà median <span class="n">40K</span>, top lãi kép <span class="n">111K</span>. Sân Phase 2 đang mở.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="action">
+      <h2>Việc nên làm (đề xuất — chờ anh chốt)</h2>
+      <ol>
+        <li><span class="d"><b>Fix engagement TRƯỚC.</b> <strong>1 CTA sắc + 1 câu hỏi chốt + pin comment mồi</strong> mỗi short. Kéo 0.56% lên ≥2%.</span></li>
+        <li><span class="d"><b>Nền hằng ngày = So sánh + Bóc bẫy.</b> Đã chứng minh ăn view cho <strong>chính kênh mình</strong>.</span></li>
+        <li><span class="d"><b>Điểm tin = mũi test có kỷ luật.</b> Mỗi bài phải có <strong>hook thời sự + evidence card nổi</strong>, không rải đại.</span></li>
+        <li><span class="d"><b>Phase 2 = long-form evergreen.</b> Lãi kép, BĐS — lực kéo bền, sân trống.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <span>Nguồn: YouTube Data API v3 · 25/7/2026</span>
+    <span>Phương án B.1 · Anh Hai Kể</span>
+  </footer>
+</div>

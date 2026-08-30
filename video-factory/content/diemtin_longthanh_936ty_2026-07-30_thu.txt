@@ -1,0 +1,20 @@
+SHORT ĐIỂM TIN + ĐỌC VỊ — "Ứng gần nghìn tỷ làm sân bay, đem gửi tiết kiệm ăn lãi" · ~45s
+Nguồn: VnExpress "Tám nhà thầu sân bay Long Thành dùng 936 tỷ đồng tạm ứng để gửi tiết kiệm lấy lãi" (Phạm Dự, 30/7/2026)
+https://vnexpress.net/tam-nha-thau-san-bay-long-thanh-dung-936-ty-dong-tam-ung-de-gui-tiet-kiem-lay-lai-5103212.html
+Số liệu: 8/10 nhà thầu liên danh Vietur dùng 936 tỷ tiền tạm ứng gửi tiết kiệm kỳ hạn → lãi 10,6 tỷ. Thanh tra Chính phủ: dùng SAI mục đích tiền tạm ứng, sai thỏa thuận HĐ 5.10 + trái pháp luật. Gói 5.10 (nhà ga hành khách) Vietur trúng thầu tổng ~35.900 tỷ.
+⚠️ NHẠY CẢM (đại án/pháp luật): CHỈ đưa tin trung lập, DẪN NGUỒN "theo kết luận Thanh tra Chính phủ", KHÔNG nêu tên cá nhân, KHÔNG quy kết. Đánh giá của Anh Hai chỉ ở GÓC TÀI CHÍNH (dòng tiền/mục đích sử dụng vốn), không bình luận chính trị.
+
+════════════════════════════════════════════
+VBEE (đọc liền mạch):
+════════════════════════════════════════════
+«Được ứng trước gần nghìn tỷ đồng để làm sân bay, mà có nơi lại đem tiền đó gửi tiết kiệm ăn lãi. Nghe hơi khó tin đúng không? Anh Hai kể nhà mình nghe. Theo kết luận Thanh tra Chính phủ vừa công bố về dự án sân bay Long Thành, có tám nhà thầu trong một liên danh đã lấy chín trăm ba mươi sáu tỷ đồng tiền tạm ứng đem gửi tiết kiệm có kỳ hạn, thu về hơn mười tỷ tiền lãi. Thanh tra đánh giá đây là dùng sai mục đích tiền tạm ứng, sai thỏa thuận hợp đồng và trái quy định. Giờ Anh Hai đọc vị góc tiền cho nhà mình nghe. Tiền tạm ứng là tiền được đưa trước để mua vật tư, trả nhân công, cho dự án chạy, chứ đâu phải để mang đi kiếm lời. Mà ngộ ở chỗ: đúng lúc dân mình đang gồng lãi vay mua nhà mười mấy phần trăm, thì gần nghìn tỷ tiền dự án lại nằm im ăn lãi. Bài học rút ra là: đồng tiền nào cũng có mục đích của nó, xài sai chỗ thì cái lãi nhỏ chẳng bõ với cái giá phải trả. Còn nhà mình, thấy chuyện này là khôn lỏi hay là sai rõ ràng? Kể Anh Hai nghe.»
+
+════════════════════════════════════════════
+SHOTLIST (9:16, Anh Hai giữa đáy):
+════════════════════════════════════════════
+1. HOOK 0–6s: "Ứng gần NGHÌN TỶ làm sân bay" 🏗️ ➡️ 🏦 + nhỏ "…đem gửi tiết kiệm?!". — pose shock 😱
+2. THẺ BẰNG CHỨNG: nguồn "VnExpress · 30/7/2026"; headline "8 nhà thầu dùng 936 tỷ tạm ứng\ngửi tiết kiệm lấy lãi"; src "Kết luận Thanh tra Chính phủ". — pose think
+3. CON SỐ: "936 tỷ → lãi 10,6 tỷ" (số bung) + label đỏ "Thanh tra: sai mục đích · trái quy định". — pose present→worried
+4. ĐỌC VỊ (góc nhìn 1): teal "Tiền tạm ứng = để LÀM VIỆC" 💡 + "mua vật tư, trả công — không phải kiếm lời". — pose point
+5. NGHỊCH LÝ (góc nhìn 2): amber "Dân gồng lãi vay 12–14%" ⚖️ "…tiền dự án nằm ăn lãi" + chốt "Lãi nhỏ, giá phải trả lớn". — pose think
+6. CÂU HỎI: navy "Khôn lỏi hay sai rõ ràng?" + q "Nhà mình nghĩ sao?" (gold). — pose point 👇

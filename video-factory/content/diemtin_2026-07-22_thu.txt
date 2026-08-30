@@ -1,0 +1,22 @@
+ĐIỂM TIN TIỀN BẠC — 22/7/2026 — kịch bản thu Vbee (bản CHỐT của anh Hai, đọc như bản tin ~1 phút, nghỉ nhịp giữa mỗi tin)
+
+Điểm tin tiền bạc hôm nay cùng Anh Hai — một phút nắm hết chuyện tiền.
+
+Thứ nhất, vàng. Vàng miếng SJC vừa hạ về khoảng một trăm bốn mươi sáu triệu một lượng, sau mấy phiên tăng nóng, còn vàng thế giới thì đang chững lại. Ai đang ôm vàng thì để ý: giá đang giằng co, đừng mua đuổi theo cơn sốt.
+
+Thứ hai, lãi suất gửi tiết kiệm đang nhích lên. Một vài ngân hàng đã đẩy lãi kỳ hạn sáu tháng lên gần tám phần trăm một năm. Tin vui cho người gửi tiền — và nhớ, gửi online thường được lãi cao hơn gửi tại quầy.
+
+Thứ ba, Ngân hàng Nhà nước giảm nhẹ tỷ giá trung tâm, đồng đô la hạ nhiệt một chút. Ai cần mua ngoại tệ thì canh thời điểm.
+
+Thứ tư, căn hộ ở Hà Nội và thành phố Hồ Chí Minh quý này người mua chững lại, vì giá cao và lãi vay tăng. Nói cách khác, bên bán đang khó — còn người mua thì có thêm thời gian để cân nhắc và mặc cả.
+
+Tóm lại: gửi tiết kiệm đang lợi hơn, còn vàng với nhà thì nên bình tĩnh. Giữ ví cho chặt, mai Anh Hai điểm tin tiếp nhé.
+
+---
+SHOTLIST DỰ KIẾN (template "Điểm tin" dọc 9:16) — 6 nhịp:
+0. INTRO  — khung "ĐIỂM TIN TIỀN BẠC" + ngày 22/7 + Anh Hai vẫy tay ("một phút nắm hết chuyện tiền")
+1. VÀNG   🥇 — value 146 " triệu/lượng", label "SJC hạ nhiệt sau tăng nóng", bar gold, pose think
+2. LÃI SUẤT 🏦 — value ~8 "%/năm (6 tháng)", label "gửi tiết kiệm nhích lên · online > quầy", bar teal, pose cool → TIN VUI
+3. TỶ GIÁ  💵 — icon USD, label "NHNN giảm nhẹ tỷ giá trung tâm · đô hạ nhiệt", bar blue, pose present
+4. NHÀ ĐẤT 🏠 — label "Căn hộ HN/HCM: người mua chững lại · bên bán khó · dễ mặc cả hơn", bar red→navy, pose point
+5. CHỐT   ✅ — "Gửi tiết kiệm đang lợi · Vàng & nhà: bình tĩnh" + q "Giữ ví cho chặt — mai điểm tin tiếp!"

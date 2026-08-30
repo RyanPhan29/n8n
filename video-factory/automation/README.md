@@ -1,0 +1,103 @@
+# Xưởng Chuyện Tiền — Tự động hoá (n8n + GitHub + Vbee + Claude)
+
+> POC bán tự động **2 cửa duyệt**. Anh đi từ *"thu giọng + build + chờ"* → chỉ còn *"gật kịch bản → liếc thành phẩm → đăng"*.
+> ⚠️ Đây là **khung POC** — cần import vào n8n, cắm credential, và chạy thử 1 vòng. Chưa test end-to-end (em không chạy được n8n trong sandbox).
+
+## Luồng tổng thể
+
+```
+[n8n] Lịch/thủ công
+   └─► RSS VnExpress KD  ─► lọc tin mới, chưa làm
+        └─► Claude API: viết KỊCH BẢN Vbee (prose sạch, số khoảng, có nguồn)
+             └─► Telegram  🚪 CỬA 1: anh /approve hay /edit
+                  └─► Vbee API: kịch bản → file .mp3 (giọng nam Bắc)   ⭐
+                       └─► GitHub: commit .mp3 + kích Action "render-short"
+                            └─► [GitHub Action] Claude Code: viết Spec → render →
+                                 subgen → export_master (-14 LUFS) → commit master
+                                 └─► gọi webhook n8n báo "xong"
+                                      └─► Telegram  🚪 CỬA 2: gửi master + SEO
+                                           └─► anh ĐĂNG
+```
+
+## Nguồn tin (đa nguồn, thêm/bớt trong node "Nguồn tin (RSS)")
+Gom nhiều báo chính thống + chuyên tài chính; 1 feed lỗi vẫn chạy tiếp các feed còn lại, rồi **khử trùng + lọc từ khoá + xếp mới nhất**:
+
+| Báo | Feed |
+|---|---|
+| VnExpress · Kinh doanh | `https://vnexpress.net/rss/kinh-doanh.rss` |
+| VnExpress · Bất động sản | `https://vnexpress.net/rss/bat-dong-san.rss` |
+| Tuổi Trẻ · Kinh doanh | `https://tuoitre.vn/rss/kinh-doanh.rss` |
+| Thanh Niên · Kinh tế | `https://thanhnien.vn/rss/kinh-te.rss` |
+| CafeF · Tài chính–Ngân hàng | `https://cafef.vn/tai-chinh-ngan-hang.rss` |
+| CafeF · Bất động sản | `https://cafef.vn/bat-dong-san.rss` |
+| CafeF · Vĩ mô–Đầu tư | `https://cafef.vn/vi-mo-dau-tu.rss` |
+| Dân Trí · Kinh doanh | `https://dantri.com.vn/rss/kinh-doanh.rss` |
+| VietnamNet · Kinh doanh | `https://vietnamnet.vn/rss/kinh-doanh.rss` |
+| Người Lao Động · Kinh tế | `https://nld.com.vn/kinh-te.rss` |
+| Vietnambiz · Tài chính | `https://vietnambiz.vn/tai-chinh.rss` |
+| Báo Đầu tư · TC–Chứng khoán | `https://baodautu.vn/tai-chinh-chung-khoan-d6.rss` |
+
+> ⚠️ Sandbox chặn mạng nên em chưa curl-test được; trên server anh (mạng thật) chạy bình thường. Feed nào 404 thì bỏ khỏi mảng `FEEDS` — không ảnh hưởng cái khác. Muốn thêm nguồn (Znews, Tinnhanhchungkhoan, VTC…): chèn 1 dòng `{ source, url }` vào node đầu.
+
+## Chọn bản nào?
+- ⭐ **`chuyentien_radar.n8n.json` — KHUYÊN DÙNG (bản gọn).** n8n chỉ quét 12 báo → lọc hợp kênh → **gửi bản tin gọn** mỗi sáng. Anh liếc → chọn bài → nhắn Claude làm short. Không Vbee/render/gate → **chắc, ít lỗi**. Luồng làm video giữ nguyên (nhanh + kiểm soát chất lượng).
+- `chuyentien_poc.n8n.json` — **bản đầy đủ (tùy chọn, phức tạp hơn):** thêm Vbee API + render Action + 2 cửa duyệt. Chỉ dùng khi muốn tự động hoá sâu; đánh đổi bằng nhiều điểm gãy (token, môi trường render, poll).
+
+## File trong folder này
+- `chuyentien_radar.n8n.json` — ⭐ RADAR TIN (bản gọn, khuyên dùng).
+- `chuyentien_poc.n8n.json` — bản đầy đủ (tùy chọn).
+- `../../.github/workflows/render-short.yml` — Action render khi n8n kích (repository_dispatch).
+- `env.example` — danh sách biến/credential cần khai.
+
+## Credential cần cắm (một lần)
+| Tên | Dùng ở | Lấy ở đâu |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | Node Claude (viết kịch bản) | console.anthropic.com |
+| `VBEE_APP_ID` + `VBEE_TOKEN` | Node Vbee TTS | Dashboard Vbee của anh (mục API) |
+| `VBEE_VOICE_CODE` | Node Vbee | Mã giọng **nam Bắc** anh đang dùng (vd `hn_male_...`) |
+| `GITHUB_TOKEN` (repo scope) | Node commit + dispatch | github.com → Settings → Developer → Tokens |
+| `TELEGRAM_BOT_TOKEN` + `CHAT_ID` | 2 cửa duyệt | @BotFather tạo bot |
+
+## Cách 2 cửa duyệt hoạt động
+- n8n dùng node **Wait (resume on webhook)**: gửi Telegram kèm 2 nút *Approve / Edit* → n8n **dừng chờ** đến khi anh bấm → chạy tiếp.
+- Cửa 1 = duyệt **kịch bản** (quan trọng nhất — chốt trung lập/số liệu).
+- Cửa 2 = liếc **thành phẩm** trước khi đăng (bắt lỗi layout/nhạy cảm).
+
+## Vbee API — chỗ cần anh xác nhận theo doc của anh
+Node `Vbee TTS` đang để **mẫu** (endpoint + field theo pattern Vbee AI Voice). Anh mở doc API trong dashboard Vbee, đối chiếu và sửa cho khớp:
+```jsonc
+POST https://vbee.vn/api/v1/tts            // TODO: đúng endpoint của gói anh
+Headers: Authorization: Bearer {{VBEE_TOKEN}}
+Body: {
+  "app_id":     "{{VBEE_APP_ID}}",
+  "input_text": "{{ $json.script }}",       // kịch bản đã duyệt
+  "voice_code": "{{VBEE_VOICE_CODE}}",      // giọng nam Bắc
+  "audio_type": "mp3",
+  "bitrate":    128,
+  "speed_rate": "1.0"
+}
+// Trả về: link .mp3 (sync) hoặc request_id để poll (indirect) — tuỳ gói.
+```
+
+## 🔒 Cắm secret ở ĐÂU (KHÔNG commit vào repo!)
+- **n8n**: Settings → *Variables* (hoặc tạo Credential) → khai `VBEE_TOKEN`, `VBEE_APP_ID`, `VBEE_VOICE_CODE`, `ANTHROPIC_API_KEY`, `GITHUB_TOKEN`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `N8N_RENDER_CALLBACK`.
+- **GitHub**: repo → Settings → *Secrets and variables* → Actions → thêm `ANTHROPIC_API_KEY`.
+- ⚠️ Token/app_id **không bao giờ** nằm trong file `.json`/`.yml` được commit — workflow chỉ đọc qua `{{ $env.* }}`.
+
+### Vbee — 3 điều cần anh xác nhận trong dashboard
+1. **Endpoint** đúng của gói anh (node đang để `https://vbee.vn/api/v1/tts`).
+2. **Kiểu trả về**: `response_type: "direct"` (nhận thẳng `result.audio_link`) hay `indirect` (trả `request_id` → phải poll `GET .../tts/{request_id}`). Node đang set **direct**; nếu gói anh chỉ có indirect, báo em thêm node poll.
+3. **voice_code** giọng nam Bắc anh dùng (điền vào biến `VBEE_VOICE_CODE`).
+
+> 🔁 **Bảo mật:** token anh vừa gửi qua chat coi như đã lộ — cắm xong nên **tạo token mới** trong dashboard Vbee rồi cập nhật lại biến trong n8n.
+
+## Ranh giới thật (đừng kỳ vọng full-auto)
+1. **Still-check layout khó auto 100%** → giữ Cửa 2.
+2. **Chủ đề nhạy cảm** (đại án, chính trị) → người gác ở Cửa 1, không auto đăng.
+3. **Render cần môi trường** (chromium + node_modules). Trên GitHub Action (internet thật) tải chromium OK; trong sandbox này thì bị 403 nên phải dùng chromium cài sẵn.
+
+## Bước tiếp
+1. Anh import `chuyentien_poc.n8n.json` vào n8n.
+2. Cắm credential ở bảng trên.
+3. Sửa node `Vbee TTS` cho khớp doc Vbee.
+4. Chạy thử Manual 1 vòng với 1 tin → báo em lỗi ở đâu, em chỉnh workflow.

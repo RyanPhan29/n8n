@@ -1,0 +1,26 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:03.25,Sub,,0,0,0,,Cuối tháng chị Lan mở điện\Nthoại xem sao kê thẻ tín
+Dialogue: 0,0:00:03.25,0:00:05.36,Sub,,0,0,0,,dụng, con số hiện ra\Nlà nợ hai mươi triệu
+Dialogue: 0,0:00:05.36,0:00:08.23,Sub,,0,0,0,,Chị hơi hoảng, nhưng ngay dưới\Ncó một dòng chữ nhỏ dịu
+Dialogue: 0,0:00:08.23,0:00:10.55,Sub,,0,0,0,,dàng: số tiền thanh\Ntoán tối thiểu một triệu
+Dialogue: 0,0:00:10.55,0:00:12.30,Sub,,0,0,0,,Ừ thì trả\Nmột triệu cho nhẹ đầu
+Dialogue: 0,0:00:12.30,0:00:13.52,Sub,,0,0,0,,tháng sau tính tiếp
+Dialogue: 0,0:00:13.52,0:00:16.14,Sub,,0,0,0,,Chị đâu để ý là\Nmười chín triệu còn lại bị tính
+Dialogue: 0,0:00:16.14,0:00:17.54,Sub,,0,0,0,,lãi tới\Nba mươi phần trăm một năm
+Dialogue: 0,0:00:17.54,0:00:18.94,Sub,,0,0,0,,cao hơn cả vay nóng
+Dialogue: 0,0:00:18.94,0:00:20.67,Sub,,0,0,0,,Cứ trả tối thiểu\Nđều đều như thế
+Dialogue: 0,0:00:20.67,0:00:23.50,Sub,,0,0,0,,món nợ hai mươi triệu có\Nkhi kéo dài mấy năm chưa dứt
+Dialogue: 0,0:00:23.50,0:00:25.86,Sub,,0,0,0,,Cái dòng chữ tối thiểu\Nnghe như đang giúp mình
+Dialogue: 0,0:00:25.86,0:00:28.82,Sub,,0,0,0,,thật ra nó là cái móc giữ\Nmình mắc nợ càng lâu càng tốt

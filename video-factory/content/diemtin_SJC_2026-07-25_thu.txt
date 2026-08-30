@@ -1,0 +1,26 @@
+ĐIỂM TIN "SJC MỖI NGÀY LÃI HƠN 1 TỶ" — 25/7/2026 — kịch bản thu Vbee (~55–65s)
+Nguồn: Znews / Tạp chí Tri Thức (znews.vn) "SJC kinh doanh ra sao trong hơn một thập kỷ qua?" 25/7/2026 · số liệu theo BCTC đã kiểm toán.
+
+Điểm tin tiền bạc hôm nay cùng Anh Hai. Có một con số khiến nhiều người bất ngờ: hãng vàng SJC, trong năm hai nghìn không trăm hai mươi lăm, trung bình mỗi ngày lãi hơn một tỷ đồng.
+
+Nghe thì to, nhưng lạ ở chỗ: suốt cả một thập kỷ trước đó, chưa năm nào SJC lãi trước thuế quá một trăm tỷ. Riêng năm hai ba, doanh thu tới hơn hai mươi tám nghìn tỷ, mà lãi trước thuế chỉ tám mươi tám tỷ. Vì sao? Vì giá vốn hàng bán ngốn tới chín mươi chín phần trăm doanh thu. Bán nhiều, mà lời mỏng dính.
+
+Rồi bước ngoặt đến. Năm hai tư, giữa lúc giá vàng biến động mạnh nhất lịch sử, hai mươi mốt lần lập đỉnh, SJC lãi sau thuế hai trăm tám mươi ba tỷ, gấp hơn bốn lần năm trước. Sang năm hai lăm, dù doanh thu giảm hơn một nửa, lãi ròng vẫn đạt bốn trăm hai mươi sáu tỷ, cao kỷ lục. Tính ra, mỗi ngày hơn một tỷ.
+
+Anh Hai đọc vị nhé: vàng càng nhảy múa, chênh lệch mua vào bán ra càng giãn rộng. Người lướt sóng thì thấp thỏm, còn bên bán vàng lại lãi đậm. Nên lần tới mua bán vàng, bạn nhớ nhìn kỹ khoảng chênh đó, vì đó chính là chi phí của mình.
+
+Bạn nghĩ sao về chuyện này? Kể Anh Hai nghe. Thông tin theo Tạp chí Tri Thức Znews, chia sẻ góc nhìn, không phải lời khuyên đầu tư.
+
+---
+KIỂM SỐ (theo Znews/BCTC): 2025 lãi ròng 426 tỷ ≈ hơn 1 tỷ/ngày (lãi trước thuế 534 tỷ). 2024 lãi sau thuế 283 tỷ (gấp >4 lần 2023), doanh thu 32.193 tỷ, vàng 21 lần lập đỉnh. 2023 doanh thu 28.408 tỷ, lãi trước thuế 88 tỷ, giá vốn ~99% doanh thu. Cả 2014–2023 chưa năm nào lãi trước thuế quá 100 tỷ. SJC 100% vốn Nhà nước (UBND TP.HCM).
+BẤT BIẾN: đưa tin trung lập theo báo, KHÔNG chê/kết luận doanh nghiệp, có disclaimer; số nói dạng khoảng/tròn.
+
+SHOTLIST (PRO — có ribbon nguồn + thẻ bằng chứng):
+0. HOOK (source: Znews · 25/7): head "SJC — mỗi ngày lãi" value 1 " TỶ/NGÀY" (staticNum) · label "Năm 2025, kỷ lục"
+1. THẺ BẰNG CHỨNG: headline "SJC kinh doanh ra sao trong hơn một thập kỷ qua?" quote "Mỗi ngày lãi hơn 1 tỷ đồng" src "Znews · Tạp chí Tri Thức · 25/7"
+2. Thập kỷ lãi mỏng: value 88 " tỷ" (static) · label "2023: doanh thu >28.000 tỷ mà lãi chỉ 88 tỷ" (bar amber)
+3. Vì sao: head "Giá vốn ăn tới" value 99 "%" (static) · label "…doanh thu · bán nhiều, lời mỏng" (red)
+4. Bước ngoặt 2024: value 283 " tỷ" (static) · label "gấp 4 lần · giữa cơn vàng 21 lần lập đỉnh" (teal)
+5. 2025 kỷ lục: value 1 " TỶ/ngày" (đếm-chạy hero) · label "Lãi ròng 426 tỷ, dù doanh thu giảm hơn nửa"
+6. ĐỌC VỊ: head "👁 Anh Hai đọc vị" · label "Vàng càng nhảy múa → chênh mua–bán càng giãn" (blue)
+7. CTA: head "Lần tới mua vàng, nhìn kỹ khoảng chênh" q "Ai đang hưởng khoản chênh đó?"

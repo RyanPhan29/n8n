@@ -1,0 +1,66 @@
+# POC — Render 1 short khi n8n kích (repository_dispatch: render-short)
+# ⚠️ Khung khởi đầu — cần chỉnh secret + thử 1 vòng. Bước "viết Spec + still-check"
+# do Claude Code chạy headless (phần dễ lỗi layout nhất → vẫn để Cửa 2 duyệt).
+name: render-short
+on:
+  repository_dispatch:
+    types: [render-short]
+  workflow_dispatch:
+    inputs:
+      title:    { description: "Tựa tin", required: true }
+      script:   { description: "Kịch bản Vbee", required: true }
+      voice_url:{ description: "Link .mp3 từ Vbee", required: true }
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: claude/video-analysis-channel-research-hnevyn }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+
+      - name: Ghi payload ra file
+        run: |
+          cat > /tmp/job.json <<'EOF'
+          ${{ toJSON(github.event.client_payload) }}
+          EOF
+          # workflow_dispatch fallback
+          if [ ! -s /tmp/job.json ] || [ "$(jq -r '.script//empty' /tmp/job.json)" = "" ]; then
+            jq -n --arg t "${{ inputs.title }}" --arg s "${{ inputs.script }}" --arg v "${{ inputs.voice_url }}" \
+              '{title:$t,script:$s,voice_url:$v}' > /tmp/job.json
+          fi
+          jq -r '.voice_url' /tmp/job.json | xargs -I{} curl -sL "{}" -o video-factory/content/auto_voice.mp3
+          echo "voice: $(ls -la video-factory/content/auto_voice.mp3)"
+
+      - name: Cài Remotion + chromium
+        working-directory: video-factory/remotion-demo
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium   # internet thật -> tải OK (khác sandbox 403)
+
+      - name: Claude viết Spec + still-check (headless)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          npm i -g @anthropic-ai/claude-code
+          claude -p "Đọc /tmp/job.json (script + title). Theo skill chuyen-tien-short-*, verify auto_voice.mp3, viết ShortSpec mới vào video-factory/remotion-demo/src/ShortSpecs.tsx (thêm vào ALL_SHORTS), still-check vài khung sửa tràn/đè, rồi render + export_master (-14 LUFS). In ra SLUG cuối cùng ở dòng cuối." \
+            --allowedTools "Bash Read Edit Write" > /tmp/claude.log 2>&1 || true
+          tail -40 /tmp/claude.log
+          SLUG=$(grep -oE 'SLUG=[A-Za-z0-9_]+' /tmp/claude.log | tail -1 | cut -d= -f2)
+          echo "SLUG=$SLUG" >> $GITHUB_ENV
+
+      - name: Commit master
+        run: |
+          git config user.email noreply@anthropic.com
+          git config user.name Claude
+          git add video-factory/delivery/*.mp4 video-factory/remotion-demo/src/ShortSpecs.tsx video-factory/content/*.md || true
+          git commit -m "auto(render): ${{ github.event.client_payload.title }}" || echo "nothing to commit"
+          git push || true
+
+      - name: Báo n8n (Cửa 2)
+        run: |
+          CB=$(jq -r '.callback // empty' /tmp/job.json)
+          [ -n "$CB" ] && curl -sX POST "$CB" -H 'content-type: application/json' \
+            -d "{\"master_url\":\"https://github.com/RyanPhan29/n8n/tree/claude/video-analysis-channel-research-hnevyn/video-factory/delivery\",\"seo_url\":\"video-factory/content\"}" || echo "no callback"
