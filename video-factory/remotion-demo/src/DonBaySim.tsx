@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Sequence, useCurrentFrame, interpolate, Easing, OffthreadVideo, staticFile} from 'remotion';
+import {AbsoluteFill, Sequence, useCurrentFrame, interpolate, Easing} from 'remotion';
+import {Bg as MedianBg, FramedShot, HandCircle, Spotlight, fIn as kfIn} from './MedianKit';
 import './median-fonts.css';
 
 /* median-sim #2: ĐÒN BẨY — CON DAO 2 LƯỠI.
@@ -21,16 +22,6 @@ const fmt = (v: number) => Math.abs(v) >= 1000 ? (v / 1000).toFixed(2).replace('
 // toán: tài sản 1 tỷ = vốn 300tr + vay 700tr (cố định)
 const DEBT = 700, EQ0 = 300, ASSET0 = 1000;
 const H = 560, YB = 880, BX = 690, BW = 210;
-
-const Bg: React.FC = () => {
-  const f = useCurrentFrame();
-  const dx = Math.sin(f / 150) * 1.3, dy = Math.cos(f / 190) * 1.0;
-  const NOISE = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
-  return <>
-    <AbsoluteFill style={{background: `radial-gradient(120% 92% at ${50 + dx}% ${44 + dy}%, #0d0d0e 0%, #0b0b0c 46%, #080809 100%)`}} />
-    <AbsoluteFill style={{backgroundImage: NOISE, backgroundSize: '300px 300px', opacity: 0.05, mixBlendMode: 'overlay'}} />
-  </>;
-};
 
 const sy = (v: number) => YB - (v / ASSET0) * H;
 
@@ -126,41 +117,32 @@ const Chart: React.FC = () => {
   </AbsoluteFill>;
 };
 
-/* MỞ ĐẦU: footage máy móc trong khung archival + chú thích vẽ tay */
+/* MỞ ĐẦU: footage máy móc + chú thích median (spotlight → khoanh tay → 2 nhãn: sức mạnh & rủi ro) */
 const FramedIntro: React.FC = () => {
   const f = useCurrentFrame();
   const o = interpolate(f, [0, 16, INTRO_LEN - CROSS, INTRO_LEN], [0, 1, 1, 0], clamp);
-  const s = interpolate(f, [0, 24], [0.955, 1], {easing: eOut, ...clamp});
   const FX = 660, FY = 250, FW = 600, FH2 = 470;
-  const kb = 1.1 + f * 0.0006;
-  const filt = 'grayscale(0.72) contrast(1.08) brightness(0.6) saturate(1.05)';
-  const cx = FX + FW / 2, cy = FY + FH2 / 2 + 8, rx = 232, ry = 176, PER = 1290;
-  const drawn = interpolate(f, [30, 58], [PER, 0], {easing: eOut, ...clamp});
-  const circO = interpolate(f, [30, 40], [0, 1], clamp);
-  const labO = interpolate(f, [50, 66], [0, 1], clamp);
-  const arrowLen = interpolate(f, [46, 60], [0, 1], {easing: eOut, ...clamp});
-  const capO = interpolate(f, [64, 80], [0, 1], clamp);
+  const FCX = FX + FW / 2, FCY = FY + FH2 / 2 + 4;
+  const spotR = interpolate(f, [16, 40, 66, 82], [520, 210, 210, 620], {easing: Easing.inOut(Easing.cubic), ...clamp});
+  const spotO = interpolate(f, [14, 32, 74, 88], [0, 1, 1, 0], clamp);
+  const arrowLen = interpolate(f, [44, 60], [0, 1], {easing: eOut, ...clamp});
+  const capO = interpolate(f, [70, 86], [0, 1], clamp);
   return <AbsoluteFill style={{opacity: o}}>
-    <div style={{position: 'absolute', left: FX, top: FY, width: FW, height: FH2, transform: `scale(${s})`, transformOrigin: 'center'}}>
-      <div style={{position: 'absolute', inset: -70, background: 'radial-gradient(circle at 50% 45%, rgba(233,196,106,0.10), rgba(233,196,106,0.02) 42%, transparent 72%)'}} />
-      <div style={{position: 'absolute', inset: 0, border: '2px solid rgba(232,232,234,0.82)', boxShadow: '0 0 46px rgba(0,0,0,0.7)', overflow: 'hidden', borderRadius: 2}}>
-        <OffthreadVideo src={staticFile('broll/machine.mp4')} muted playbackRate={0.5} style={{width: '100%', height: '100%', objectFit: 'cover', filter: filt, transform: `scale(${kb})`}} />
-        <div style={{position: 'absolute', inset: 0, boxShadow: 'inset 0 0 100px rgba(8,8,10,0.85)'}} />
-        <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 52%, rgba(8,8,10,0.6) 100%)'}} />
-      </div>
-      {[[0, 0], [1, 0], [0, 1], [1, 1]].map(([gx, gy], i) => <div key={i} style={{position: 'absolute', [gx ? 'right' : 'left']: -1, [gy ? 'bottom' : 'top']: -1, width: 22, height: 22, borderTop: gy ? 'none' : '2px solid rgba(233,196,106,.9)', borderBottom: gy ? '2px solid rgba(233,196,106,.9)' : 'none', borderLeft: gx ? 'none' : '2px solid rgba(233,196,106,.9)', borderRight: gx ? '2px solid rgba(233,196,106,.9)' : 'none'}} />)}
-    </div>
+    <FramedShot src="broll/machine.mp4" x={FX} y={FY} w={FW} h={FH2} bright={0.6} grayscale={0.72} />
+    <Spotlight fx={FCX} fy={FCY} r={spotR} o={spotO} dark={0.66} />
     <svg width="1920" height="1080" style={{position: 'absolute', inset: 0, pointerEvents: 'none'}}>
-      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke={GOLD} strokeWidth={4} strokeLinecap="round"
-        opacity={circO} strokeDasharray={PER} strokeDashoffset={drawn} transform={`rotate(-6 ${cx} ${cy})`}
-        style={{filter: 'drop-shadow(0 0 8px rgba(233,196,106,.7))'}} />
-      <line x1={520} y1={330} x2={520 + arrowLen * (cx - rx - 520)} y2={330 + arrowLen * (cy - ry - 330)} stroke={GOLD} strokeWidth={3.5} strokeLinecap="round" opacity={arrowLen} />
-      {arrowLen > 0.9 && <polygon points={`${cx - rx - 6},${cy - ry - 6} ${cx - rx - 30},${cy - ry - 2} ${cx - rx - 8},${cy - ry - 30}`} fill={GOLD} opacity={labO} />}
+      <HandCircle cx={FCX} cy={FCY} rx={200} ry={158} start={30} dur={24} rot={-5} />
+      <line x1={520} y1={370} x2={520 + arrowLen * (FCX - 200 - 520)} y2={370 + arrowLen * (FCY - 158 - 370)} stroke={GOLD} strokeWidth={3.2} strokeLinecap="round" opacity={arrowLen} style={{filter: 'drop-shadow(0 0 5px rgba(233,196,106,.5))'}} />
     </svg>
-    <div style={{position: 'absolute', left: 150, top: 250, width: 380, opacity: labO}}>
-      <div style={{fontFamily: FN, fontWeight: 500, fontSize: 26, color: GRAY, letterSpacing: 6}}>DÙNG TIỀN NGÂN HÀNG</div>
-      <div style={{fontFamily: FH, fontWeight: 800, fontSize: 74, color: GOLD, textShadow: glowGold, lineHeight: 0.98, marginTop: 4}}>ĐÒN BẨY</div>
-      <div style={{fontFamily: FN, fontWeight: 400, fontSize: 26, color: INK, marginTop: 10}}>Vốn nhỏ, điều khiển tài sản <b style={{color: INK, fontWeight: 600}}>lớn gấp mấy lần</b>.</div>
+    <div style={{position: 'absolute', left: 150, top: 300, width: 360, opacity: kfIn(f, 40, 14)}}>
+      <div style={{fontFamily: FN, fontWeight: 500, fontSize: 24, color: GRAY, letterSpacing: 6}}>DÙNG TIỀN NGÂN HÀNG</div>
+      <div style={{fontFamily: FH, fontWeight: 800, fontSize: 78, color: GOLD, textShadow: glowGold, lineHeight: 0.96, marginTop: 4}}>ĐÒN BẨY</div>
+      <div style={{fontFamily: FN, fontWeight: 400, fontSize: 25, color: INK, marginTop: 8}}>Vốn nhỏ, điều khiển tài sản <b style={{fontWeight: 600}}>lớn gấp mấy lần</b>.</div>
+    </div>
+    {/* 2 nhãn con dao 2 lưỡi */}
+    <div style={{position: 'absolute', left: FX + FW + 30, top: FY + 40, width: 300, opacity: interpolate(f, [58, 72], [0, 1], clamp)}}>
+      <div style={{fontFamily: FN, fontWeight: 600, fontSize: 30, color: GOLD, textShadow: glowGold}}>↑ Lời to hơn</div>
+      <div style={{marginTop: 14, fontFamily: FN, fontWeight: 600, fontSize: 30, color: RED, textShadow: glowRed}}>↓ Lỗ cũng to hơn</div>
     </div>
     <div style={{position: 'absolute', left: FX, top: FY + FH2 + 22, width: FW, textAlign: 'center', opacity: capO, fontFamily: FN, fontWeight: 500, fontSize: 22, color: GRAY, letterSpacing: 5}}>SỨC MẠNH · VÀ RỦI RO</div>
   </AbsoluteFill>;
@@ -168,7 +150,7 @@ const FramedIntro: React.FC = () => {
 
 export const DonBaySim: React.FC = () => {
   return <AbsoluteFill style={{backgroundColor: '#08080a'}}>
-    <Bg />
+    <MedianBg grain={0.15} />
     <Sequence durationInFrames={INTRO_LEN} name="intro"><FramedIntro /></Sequence>
     <Sequence from={INTRO_LEN - CROSS} name="chart"><Chart /></Sequence>
   </AbsoluteFill>;
