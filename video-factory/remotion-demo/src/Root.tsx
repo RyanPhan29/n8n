@@ -16,6 +16,7 @@ import {MachineThumb, MACHINETHUMB_DURATION} from './MachineThumb';
 import {CoMayHybrid, COMAY_DURATION} from './CoMayHybrid';
 import {NoTot, NOTOT_DURATION} from './NoTot';
 import {LaiKepSim, LAIKEPSIM_DURATION} from './LaiKepSim';
+import {DonBaySim, DONBAY_DURATION} from './DonBaySim';
 import {MedianDemo, MEDIANDEMO_DURATION} from './MedianDemo';
 import {MuaThue, MUATHUE_DURATION} from './MuaThue';
 import {MuaThueThumb, MTTHUMB_DURATION} from './MuaThueThumb';
@@ -101,6 +102,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="CoMayHybrid" component={CoMayHybrid} durationInFrames={COMAY_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="NoTot" component={NoTot} durationInFrames={NOTOT_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="LaiKepSim" component={LaiKepSim} durationInFrames={LAIKEPSIM_DURATION} fps={30} width={1920} height={1080} />
+      <Composition id="DonBaySim" component={DonBaySim} durationInFrames={DONBAY_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="MedianDemo" component={MedianDemo} durationInFrames={MEDIANDEMO_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="MuaThue" component={MuaThue} durationInFrames={MUATHUE_DURATION} fps={30} width={1920} height={1080} />
       <Composition id="MTThumb1" component={MuaThueThumb} defaultProps={{v: 1}} durationInFrames={MTTHUMB_DURATION} fps={30} width={1280} height={720} />
