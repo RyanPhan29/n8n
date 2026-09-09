@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /preview.html
+Disallow: /preview-dat-lich.html
+Disallow: /chien-luoc-website.html
+Disallow: /audit-website.html
+
+# Thay domain thật khi go-live
+Sitemap: https://drlehieu.com/sitemap.xml
