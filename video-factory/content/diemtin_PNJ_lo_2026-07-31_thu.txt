@@ -1,0 +1,22 @@
+SHORT ĐIỂM TIN + ĐỌC VỊ (châm biếm nhẹ) — "Bán vàng chạy phà phà mà lỗ kỷ lục" · ~45s
+Nguồn: VnExpress "PNJ lỗ kỷ lục vì dự phòng mua lại kim cương, vàng" (Tất Đạt)
+Số liệu: Quý II/2026 PNJ lỗ sau thuế gần 283 tỷ (cùng kỳ lãi ~437 tỷ) — lỗ đậm nhất từ quý III/2008. Doanh thu vẫn TĂNG 12% (~8.484 tỷ, vàng 24K chủ lực). Lỗ do trích lập dự phòng 865 tỷ liên quan mua lại sản phẩm. Từ đầu tháng 7 nhu cầu bán lại trang sức kim cương tăng mạnh; đến 27/7 đã mua lại hơn 7.000 tỷ. Bối cảnh: khủng hoảng niềm tin kim cương (nối các short KIMCUONG/GIA đã làm). Tài chính vẫn khoẻ (tổng tài sản ~21.018 tỷ).
+⚠️ NHẠY CẢM: KHÔNG nêu tên cá nhân/không quy kết vụ án; chỉ đưa tin doanh nghiệp + góc dòng tiền. Châm biếm chỉ ở mức HÀI NHẸ về nghịch lý kinh doanh, không mỉa mai công ty/người.
+
+════════════════════════════════════════════
+VBEE (đọc liền mạch, giọng tưng tửng vui):
+════════════════════════════════════════════
+«Nhà mình thử đoán: một ông lớn ngành vàng, quý vừa rồi bán hàng doanh thu vẫn tăng, mà cuối kỳ lại báo lỗ kỷ lục gần ba trăm tỷ. Nghe vô lý chưa? Anh Hai kể nghe. Đó là PNJ. Ba tháng vừa rồi doanh thu vẫn tăng mười hai phần trăm, vàng bán chạy phà phà. Vậy mà lợi nhuận đang từ dương hơn bốn trăm tỷ hồi cùng kỳ, lộn nhào một phát xuống âm gần hai trăm tám ba tỷ. Lỗ đậm nhất kể từ năm hai nghìn lẻ tám lận. Lý do thì nghe hơi mắc cười: khách bây giờ không ùn ùn đi mua kim cương nữa, mà ùn ùn mang tới bán lại. Chỉ trong mấy tuần, công ty đã chi hơn bảy nghìn tỷ để mua lại hàng, rồi phải trích lập dự phòng tám trăm sáu lăm tỷ cho cái đống mua lại đó. Cái cam kết mua lại ngày xưa quảng cáo nghe sang xịn, giờ hóa cục nợ. Anh Hai đọc vị một câu thôi: bán ra thì dễ, cam kết mua lại mới là chỗ đau. Còn nhà mình, có món gì mua xong rồi mới thấm câu mua dễ bán khó chưa? Kể Anh Hai nghe.»
+
+════════════════════════════════════════════
+SHOTLIST (9:16, Anh Hai giữa đáy):
+════════════════════════════════════════════
+1. HOOK 0–6s: "Bán hàng vẫn TĂNG mà LỖ KỶ LỤC?" 💰 ❓ + nhỏ "Nghe vô lý chưa?". — pose sly 😏
+2. THẺ BẰNG CHỨNG: nguồn "VnExpress"; headline "PNJ lỗ kỷ lục vì dự phòng\nmua lại kim cương, vàng". — pose think
+3. BIỂU ĐỒ (điểm nhấn, ~7s): FULL màn hình ảnh **delivery/PNJ_bieudo.png** — cột lỗ -283 đỏ + "LỖ KỶ LỤC". (Chèn ảnh khi dựng.) — Anh Hai nép/ẩn.
+4. NGHỊCH LÝ: "Doanh thu +12%" (teal) ⟂ "Lợi nhuận: +437 → −283 tỷ" (đỏ, bung số). — pose shock
+5. LÝ DO (châm biếm): "Khách không đi MUA — mà đi BÁN LẠI" 🔄 + "Mua lại hơn 7.000 tỷ · dự phòng 865 tỷ". — pose sly
+6. ĐỌC VỊ: teal "Cam kết mua lại nghe sang…" 💡 + "…giờ là CHỖ ĐAU". — pose point
+7. CÂU HỎI: navy "Bán ra dễ, mua lại mới đau" + q "Món gì khiến bạn thấm 'mua dễ bán khó'?" (gold). — pose point 👇
+
+GHI CHÚ DỰNG: cảnh 3 dùng ảnh biểu đồ (PNJ_bieudo.png). Nếu engine short chưa có slot ảnh, ghép overlay bằng ffmpeg cho đoạn 3 sau khi render, hoặc để biểu đồ thành 1 hình đăng kèm (carousel) / thumbnail.

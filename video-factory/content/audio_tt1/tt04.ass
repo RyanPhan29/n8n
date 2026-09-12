@@ -1,0 +1,29 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.50,Sub,,0,0,0,,Thằng cháu hỏi ông Bảy
+Dialogue: 0,0:00:01.50,0:00:04.46,Sub,,0,0,0,,ông ơi con gửi tiết kiệm thì\Nbao lâu tiền gấp đôi hả ông?
+Dialogue: 0,0:00:04.46,0:00:05.84,Sub,,0,0,0,,Ông Bảy không cần máy tính
+Dialogue: 0,0:00:05.84,0:00:06.82,Sub,,0,0,0,,không cần điện thoại
+Dialogue: 0,0:00:06.82,0:00:08.77,Sub,,0,0,0,,nhẩm trong đầu ba\Ngiây rồi trả lời
+Dialogue: 0,0:00:08.77,0:00:10.90,Sub,,0,0,0,,Bí quyết của ông là\Ncon số bảy mươi hai
+Dialogue: 0,0:00:10.90,0:00:13.10,Sub,,0,0,0,,Cứ lấy bảy mươi hai\Nchia cho lãi suất mỗi năm
+Dialogue: 0,0:00:13.10,0:00:15.39,Sub,,0,0,0,,ra bao nhiêu là bấy\Nnhiêu năm tiền gấp đôi
+Dialogue: 0,0:00:15.39,0:00:16.51,Sub,,0,0,0,,Gửi sáu phần trăm
+Dialogue: 0,0:00:16.51,0:00:17.71,Sub,,0,0,0,,bảy hai chia sáu
+Dialogue: 0,0:00:17.71,0:00:18.69,Sub,,0,0,0,,mười hai năm
+Dialogue: 0,0:00:18.69,0:00:19.65,Sub,,0,0,0,,Gửi chín phần trăm
+Dialogue: 0,0:00:19.65,0:00:20.71,Sub,,0,0,0,,bảy hai chia chín tám năm
+Dialogue: 0,0:00:20.71,0:00:23.76,Sub,,0,0,0,,Một phép chia nhẩm cho biết\Nđồng tiền của mình chạy nhanh
+Dialogue: 0,0:00:23.76,0:00:25.02,Sub,,0,0,0,,hay chạy chậm
+Dialogue: 0,0:00:25.02,0:00:28.08,Sub,,0,0,0,,Dân tài chính người ta nhẩm cái\Nnày còn nhanh hơn bấm điện thoại

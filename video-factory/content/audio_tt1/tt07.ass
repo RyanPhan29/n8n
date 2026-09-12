@@ -1,0 +1,27 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:02.60,Sub,,0,0,0,,Chị Mai được tư vấn\Nmua gói bảo hiểm nhân thọ
+Dialogue: 0,0:00:02.60,0:00:03.97,Sub,,0,0,0,,mỗi năm đóng mấy chục triệu
+Dialogue: 0,0:00:03.97,0:00:07.18,Sub,,0,0,0,,chị yên tâm nghĩ mình vừa được\Nbảo vệ vừa đầu tư sinh lời
+Dialogue: 0,0:00:07.18,0:00:08.96,Sub,,0,0,0,,Nhưng thật ra đó\Nlà hai việc khác nhau
+Dialogue: 0,0:00:08.96,0:00:10.15,Sub,,0,0,0,,bị gộp làm một
+Dialogue: 0,0:00:10.15,0:00:11.68,Sub,,0,0,0,,Bảo hiểm là\Nmua sự an tâm
+Dialogue: 0,0:00:11.68,0:00:13.84,Sub,,0,0,0,,chẳng may có chuyện thì\Ngia đình được một khoản đền
+Dialogue: 0,0:00:13.84,0:00:15.39,Sub,,0,0,0,,đó là tấm chắn rủi ro
+Dialogue: 0,0:00:15.39,0:00:17.62,Sub,,0,0,0,,Còn đầu tư là mang\Ntiền đi đẻ ra tiền
+Dialogue: 0,0:00:17.62,0:00:20.20,Sub,,0,0,0,,Cái gói vừa bảo vệ vừa\Ntích lũy nghe thì trọn vẹn
+Dialogue: 0,0:00:20.20,0:00:23.04,Sub,,0,0,0,,nhưng phần sinh lời của nó\Nthường thấp hơn nhiều so với
+Dialogue: 0,0:00:23.04,0:00:25.44,Sub,,0,0,0,,chị tưởng, vì một phần tiền\Nđã đi nuôi tấm chắn kia rồi
+Dialogue: 0,0:00:25.44,0:00:28.13,Sub,,0,0,0,,Biết rõ mình đang mua tấm\Nchắn hay mua cái máy đẻ
+Dialogue: 0,0:00:28.13,0:00:29.64,Sub,,0,0,0,,tiền, thì sau này\Nmới không vỡ mộng

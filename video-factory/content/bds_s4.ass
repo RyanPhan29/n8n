@@ -1,0 +1,31 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:03.32,Sub,,0,0,0,,Ba dấu hiệu cho thấy một dự\Nán bất động sản sắp đứng bánh
+Dialogue: 0,0:00:03.32,0:00:05.52,Sub,,0,0,0,,Biết sớm, đỡ mất tiền oan
+Dialogue: 0,0:00:05.52,0:00:07.71,Sub,,0,0,0,,Thứ nhất, tiến độ\Nthi công cứ chậm dần
+Dialogue: 0,0:00:07.71,0:00:09.18,Sub,,0,0,0,,hết hứa quý\Nnày tới quý khác
+Dialogue: 0,0:00:09.18,0:00:11.07,Sub,,0,0,0,,mà công trường thì im lìm
+Dialogue: 0,0:00:11.07,0:00:13.24,Sub,,0,0,0,,Thứ hai, chủ đầu\Ntư bỗng nhiên bán tháo
+Dialogue: 0,0:00:13.24,0:00:16.47,Sub,,0,0,0,,giảm giá sâu, tặng đủ thứ\Nđể gom tiền mặt cho thật nhanh
+Dialogue: 0,0:00:16.47,0:00:18.82,Sub,,0,0,0,,Đó là dấu hiệu\Nhọ đang khát dòng tiền
+Dialogue: 0,0:00:18.82,0:00:21.62,Sub,,0,0,0,,Thứ ba, một chủ đầu tư\Nôm cùng lúc quá nhiều dự
+Dialogue: 0,0:00:21.62,0:00:22.84,Sub,,0,0,0,,án, vay nợ chồng chất
+Dialogue: 0,0:00:22.84,0:00:23.95,Sub,,0,0,0,,Chỉ cần một mắt xích kẹt
+Dialogue: 0,0:00:23.95,0:00:25.78,Sub,,0,0,0,,là kéo cả dây đứng lại
+Dialogue: 0,0:00:25.78,0:00:28.30,Sub,,0,0,0,,Gộp lại, cái bạn bỏ tiền\Nra mua không phải căn nhà
+Dialogue: 0,0:00:28.30,0:00:29.87,Sub,,0,0,0,,mà là một\Nlời hứa bàn giao
+Dialogue: 0,0:00:29.87,0:00:31.28,Sub,,0,0,0,,Và lời hứa đó chỉ vững
+Dialogue: 0,0:00:31.28,0:00:33.28,Sub,,0,0,0,,khi chủ đầu\Ntư còn dòng tiền
+Dialogue: 0,0:00:33.28,0:00:35.58,Sub,,0,0,0,,Bạn từng gặp dự án\Nnào chậm bàn giao chưa?
+Dialogue: 0,0:00:35.58,0:00:36.91,Sub,,0,0,0,,Kể Anh Hai nghe với

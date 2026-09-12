@@ -1,0 +1,176 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:02.94,Sub,,0,0,0,,Mấy hôm nay, đi ngang mấy\Ncon phố vàng bạc lớn ở
+Dialogue: 0,0:00:02.94,0:00:04.34,Sub,,0,0,0,,Sài Gòn, người ta\Nthấy một cảnh lạ
+Dialogue: 0,0:00:04.34,0:00:05.90,Sub,,0,0,0,,Những cửa tiệm\Nkim cương đình đám
+Dialogue: 0,0:00:05.90,0:00:07.42,Sub,,0,0,0,,biển hiệu sáng\Nchoang bao nhiêu năm
+Dialogue: 0,0:00:07.42,0:00:08.78,Sub,,0,0,0,,bỗng cửa đóng then cài
+Dialogue: 0,0:00:08.78,0:00:10.45,Sub,,0,0,0,,Chủ của mấy tiệm\Nlớn như Kim Lý
+Dialogue: 0,0:00:10.45,0:00:13.25,Sub,,0,0,0,,Ngọc Tâm, Ngọc Châu Âu lần\Nlượt bị công an khởi tố
+Dialogue: 0,0:00:13.25,0:00:16.29,Sub,,0,0,0,,Họ nằm trong một đường dây\Nbị cáo buộc buôn lậu kim
+Dialogue: 0,0:00:16.29,0:00:17.64,Sub,,0,0,0,,cương xuyên quốc gia
+Dialogue: 0,0:00:17.64,0:00:19.20,Sub,,0,0,0,,với hơn\Nba mươi nghìn viên đá
+Dialogue: 0,0:00:19.20,0:00:20.95,Sub,,0,0,0,,trị giá lên tới cả\Nnghìn năm trăm tỷ đồng
+Dialogue: 0,0:00:20.95,0:00:22.64,Sub,,0,0,0,,Và ngay lập tức
+Dialogue: 0,0:00:22.64,0:00:24.71,Sub,,0,0,0,,trên mạng nổ\Nra hai câu hỏi
+Dialogue: 0,0:00:24.71,0:00:27.52,Sub,,0,0,0,,Người thì lo: viên kim\Ncương mình mua mấy chục
+Dialogue: 0,0:00:27.52,0:00:28.80,Sub,,0,0,0,,mấy trăm triệu\Nở những tiệm đó
+Dialogue: 0,0:00:28.80,0:00:29.89,Sub,,0,0,0,,giờ có còn giá trị không
+Dialogue: 0,0:00:29.89,0:00:31.50,Sub,,0,0,0,,biết bán lại cho ai?
+Dialogue: 0,0:00:31.50,0:00:32.60,Sub,,0,0,0,,Người khác hoang mang hơn
+Dialogue: 0,0:00:32.60,0:00:33.97,Sub,,0,0,0,,chủ tiệm vàng mà\Nbị bắt như vậy
+Dialogue: 0,0:00:33.97,0:00:36.96,Sub,,0,0,0,,chẳng lẽ vàng để dành\Ntrong nhà cũng có vấn đề?
+Dialogue: 0,0:00:36.96,0:00:39.56,Sub,,0,0,0,,Hôm nay Anh Hai\Nsẽ bóc vụ này ra
+Dialogue: 0,0:00:39.56,0:00:41.04,Sub,,0,0,0,,không phải để kể chuyện án
+Dialogue: 0,0:00:41.04,0:00:42.97,Sub,,0,0,0,,mà để rút ra bài\Nhọc tiền bạc cho chính bạn
+Dialogue: 0,0:00:42.97,0:00:45.57,Sub,,0,0,0,,Trước hết, phải hiểu vì sao\Nbao nhiêu người sẵn sàng bỏ
+Dialogue: 0,0:00:45.57,0:00:48.76,Sub,,0,0,0,,ra vài chục, thậm chí vài\Ntrăm triệu cho một viên đá nhỏ xíu
+Dialogue: 0,0:00:48.76,0:00:50.48,Sub,,0,0,0,,Suốt gần một thế kỷ
+Dialogue: 0,0:00:50.48,0:00:52.49,Sub,,0,0,0,,kim cương được gắn\Nvới hai chữ vĩnh cửu
+Dialogue: 0,0:00:52.49,0:00:55.19,Sub,,0,0,0,,Nó là biểu tượng\Ncủa tình yêu bền chặt
+Dialogue: 0,0:00:55.19,0:00:56.05,Sub,,0,0,0,,của sự giàu sang
+Dialogue: 0,0:00:56.05,0:00:57.56,Sub,,0,0,0,,của đẳng cấp
+Dialogue: 0,0:00:57.56,0:01:00.46,Sub,,0,0,0,,Quảng cáo dạy chúng ta rằng\Nmột viên kim cương là mãi mãi
+Dialogue: 0,0:01:00.46,0:01:01.69,Sub,,0,0,0,,Từ niềm tin đó
+Dialogue: 0,0:01:01.69,0:01:03.80,Sub,,0,0,0,,rất nhiều người\Nmặc định trong đầu
+Dialogue: 0,0:01:03.80,0:01:05.37,Sub,,0,0,0,,kim cương chắc chắn giữ giá
+Dialogue: 0,0:01:05.37,0:01:07.54,Sub,,0,0,0,,thậm chí càng\Nđể lâu càng lên
+Dialogue: 0,0:01:07.54,0:01:08.90,Sub,,0,0,0,,y như vàng
+Dialogue: 0,0:01:08.90,0:01:12.16,Sub,,0,0,0,,Thế là họ mua kim cương\Nkhông chỉ để đeo cho đẹp
+Dialogue: 0,0:01:12.16,0:01:13.42,Sub,,0,0,0,,mà còn coi đó là\Nmột khoản của để dành
+Dialogue: 0,0:01:13.42,0:01:15.39,Sub,,0,0,0,,một tài sản phòng thân
+Dialogue: 0,0:01:15.39,0:01:16.88,Sub,,0,0,0,,Cứ tưởng mua xong cất đó
+Dialogue: 0,0:01:16.88,0:01:17.88,Sub,,0,0,0,,khi cần là bán ra
+Dialogue: 0,0:01:17.88,0:01:19.62,Sub,,0,0,0,,thu về bằng hoặc\Nhơn số tiền đã bỏ
+Dialogue: 0,0:01:19.62,0:01:20.40,Sub,,0,0,0,,Nghe rất hợp lý
+Dialogue: 0,0:01:20.40,0:01:22.71,Sub,,0,0,0,,Nhưng đời không\Nđơn giản như vậy
+Dialogue: 0,0:01:22.71,0:01:24.55,Sub,,0,0,0,,Bởi vì đây là\Nsự thật đầu tiên
+Dialogue: 0,0:01:24.55,0:01:25.91,Sub,,0,0,0,,và cũng phũ phàng nhất
+Dialogue: 0,0:01:25.91,0:01:26.98,Sub,,0,0,0,,kim cương cực\Nkỳ khó bán lại
+Dialogue: 0,0:01:26.98,0:01:30.40,Sub,,0,0,0,,Khác với vàng, kim cương gần\Nnhư không có một mức giá
+Dialogue: 0,0:01:30.40,0:01:31.18,Sub,,0,0,0,,chung nào cả
+Dialogue: 0,0:01:31.18,0:01:32.59,Sub,,0,0,0,,Vàng thì cả thế\Ngiới nhìn chung một giá
+Dialogue: 0,0:01:32.59,0:01:34.52,Sub,,0,0,0,,trong nước nhìn giá niêm yết
+Dialogue: 0,0:01:34.52,0:01:36.05,Sub,,0,0,0,,ai cũng tra được
+Dialogue: 0,0:01:36.05,0:01:37.41,Sub,,0,0,0,,Còn kim cương thì\Nmỗi viên một kiểu
+Dialogue: 0,0:01:37.41,0:01:38.68,Sub,,0,0,0,,định giá dựa\Ntrên bốn tiêu chí
+Dialogue: 0,0:01:38.68,0:01:40.76,Sub,,0,0,0,,mà mấy tiêu chí đó\Nphần nhiều mang tính cảm tính
+Dialogue: 0,0:01:40.76,0:01:42.25,Sub,,0,0,0,,cửa tiệm nói\Nsao thì biết vậy
+Dialogue: 0,0:01:42.25,0:01:43.22,Sub,,0,0,0,,Hậu quả là khi\Nbạn muốn bán lại
+Dialogue: 0,0:01:43.22,0:01:45.02,Sub,,0,0,0,,bạn thường phải chịu lỗ
+Dialogue: 0,0:01:45.02,0:01:46.69,Sub,,0,0,0,,Có trường hợp lỗ hai mươi
+Dialogue: 0,0:01:46.69,0:01:47.80,Sub,,0,0,0,,ba mươi phần trăm
+Dialogue: 0,0:01:47.80,0:01:48.95,Sub,,0,0,0,,cá biệt lên tới sáu
+Dialogue: 0,0:01:48.95,0:01:51.28,Sub,,0,0,0,,bảy chục phần trăm nếu\Nkhông có giấy tờ uy tín
+Dialogue: 0,0:01:51.28,0:01:53.22,Sub,,0,0,0,,Ngay cả khi cửa\Ntiệm chịu thu mua lại
+Dialogue: 0,0:01:53.22,0:01:55.60,Sub,,0,0,0,,họ cũng chỉ trả\Ncho bạn tầm sáu
+Dialogue: 0,0:01:55.60,0:01:57.50,Sub,,0,0,0,,bảy phần mười số\Ntiền bạn từng bỏ ra
+Dialogue: 0,0:01:57.50,0:01:59.11,Sub,,0,0,0,,Cái viên đá\Nlấp lánh trong tủ
+Dialogue: 0,0:01:59.11,0:02:01.97,Sub,,0,0,0,,hoá ra vừa mua đã\Nmất giá một khúc rồi
+Dialogue: 0,0:02:01.97,0:02:05.29,Sub,,0,0,0,,Chưa hết, vụ án lần này\Ncòn phơi bày thêm hai cú sốc
+Dialogue: 0,0:02:05.29,0:02:07.87,Sub,,0,0,0,,Thứ nhất, hàng lậu được bán\Nrẻ hơn thị trường tới cả
+Dialogue: 0,0:02:07.87,0:02:08.90,Sub,,0,0,0,,một phần ba
+Dialogue: 0,0:02:08.90,0:02:09.68,Sub,,0,0,0,,Nhiều người tưởng đó là hời
+Dialogue: 0,0:02:09.68,0:02:11.60,Sub,,0,0,0,,là mua được giá hữu nghị
+Dialogue: 0,0:02:11.60,0:02:13.42,Sub,,0,0,0,,Nhưng thật ra, một món giá\Nthấp bất thường luôn là một
+Dialogue: 0,0:02:13.42,0:02:14.20,Sub,,0,0,0,,lá cờ đỏ
+Dialogue: 0,0:02:14.20,0:02:15.86,Sub,,0,0,0,,Không ai tự nhiên\Nbán lỗ cho bạn
+Dialogue: 0,0:02:15.86,0:02:16.76,Sub,,0,0,0,,Rẻ như vậy, thường\Nlà vì hàng lậu
+Dialogue: 0,0:02:16.76,0:02:18.86,Sub,,0,0,0,,trốn thuế, phía sau có\Ngì đó không minh bạch
+Dialogue: 0,0:02:18.86,0:02:19.70,Sub,,0,0,0,,Cú sốc thứ hai
+Dialogue: 0,0:02:19.70,0:02:20.68,Sub,,0,0,0,,và đáng sợ hơn
+Dialogue: 0,0:02:20.68,0:02:22.87,Sub,,0,0,0,,là niềm tin vào tờ\Ngiấy kiểm định bị lung lay
+Dialogue: 0,0:02:22.87,0:02:24.27,Sub,,0,0,0,,Trong đường dây này
+Dialogue: 0,0:02:24.27,0:02:26.60,Sub,,0,0,0,,người ta cáo buộc có cả\Nmột giám định viên đã mài
+Dialogue: 0,0:02:26.60,0:02:27.97,Sub,,0,0,0,,đi mã số quốc\Ntế khắc trên viên đá
+Dialogue: 0,0:02:27.97,0:02:30.50,Sub,,0,0,0,,rồi khắc lại bằng mã\Ncủa phòng kiểm định trong nước
+Dialogue: 0,0:02:30.50,0:02:31.55,Sub,,0,0,0,,cấp một tờ giấy mới
+Dialogue: 0,0:02:31.55,0:02:34.06,Sub,,0,0,0,,Nghĩa là cái tờ giấy mà\Nbạn tin tưởng để xuống tiền
+Dialogue: 0,0:02:34.06,0:02:36.05,Sub,,0,0,0,,cũng có thể bị can thiệp
+Dialogue: 0,0:02:36.05,0:02:36.83,Sub,,0,0,0,,Tài sản thì khó bán
+Dialogue: 0,0:02:36.83,0:02:38.03,Sub,,0,0,0,,giấy tờ thì khó tin
+Dialogue: 0,0:02:38.03,0:02:40.42,Sub,,0,0,0,,Đó là lúc giấc\Nmộng kim cương vỡ ra
+Dialogue: 0,0:02:40.42,0:02:43.34,Sub,,0,0,0,,Vậy nếu lỡ đã mua kim\Ncương ở những nơi này rồi
+Dialogue: 0,0:02:43.34,0:02:44.12,Sub,,0,0,0,,thì phải làm sao?
+Dialogue: 0,0:02:44.12,0:02:44.99,Sub,,0,0,0,,Bình tĩnh, đừng hoảng
+Dialogue: 0,0:02:44.99,0:02:47.47,Sub,,0,0,0,,Thứ nhất, giữ kỹ hoá đơn\Nvà mọi giấy tờ liên quan
+Dialogue: 0,0:02:47.47,0:02:49.86,Sub,,0,0,0,,Thứ hai, mang viên đá đi\Nkiểm định lại ở một đơn
+Dialogue: 0,0:02:49.86,0:02:51.73,Sub,,0,0,0,,vị độc lập, uy tín
+Dialogue: 0,0:02:51.73,0:02:52.64,Sub,,0,0,0,,với những viên lớn
+Dialogue: 0,0:02:52.64,0:02:55.42,Sub,,0,0,0,,giá trị cao, hãy ưu tiên\Ngiấy chứng nhận quốc tế thay
+Dialogue: 0,0:02:55.42,0:02:57.64,Sub,,0,0,0,,vì chỉ tin một\Ntờ giấy nội bộ
+Dialogue: 0,0:02:57.64,0:03:00.16,Sub,,0,0,0,,Và thứ ba, tuyệt đối đừng\Nbán tháo trong lúc hoang mang
+Dialogue: 0,0:03:00.16,0:03:00.94,Sub,,0,0,0,,vì càng bán vội
+Dialogue: 0,0:03:00.94,0:03:02.43,Sub,,0,0,0,,bạn càng bị ép giá
+Dialogue: 0,0:03:02.43,0:03:03.28,Sub,,0,0,0,,Nhưng bài học lớn hơn
+Dialogue: 0,0:03:03.28,0:03:04.09,Sub,,0,0,0,,cho tất cả chúng ta
+Dialogue: 0,0:03:04.09,0:03:05.33,Sub,,0,0,0,,nằm ở cách nghĩ
+Dialogue: 0,0:03:05.33,0:03:06.74,Sub,,0,0,0,,Hãy tách bạch\Nrõ ràng hai thứ
+Dialogue: 0,0:03:06.74,0:03:08.21,Sub,,0,0,0,,Kim cương, nữ trang
+Dialogue: 0,0:03:08.21,0:03:09.54,Sub,,0,0,0,,về bản chất là\Nđồ để làm đẹp
+Dialogue: 0,0:03:09.54,0:03:10.37,Sub,,0,0,0,,để đeo cho vui cho sang
+Dialogue: 0,0:03:10.37,0:03:11.29,Sub,,0,0,0,,Nó là một món tiêu dùng
+Dialogue: 0,0:03:11.29,0:03:13.93,Sub,,0,0,0,,chứ chưa bao giờ là kênh\Nđầu tư hay giữ tiền dành
+Dialogue: 0,0:03:13.93,0:03:14.71,Sub,,0,0,0,,cho số đông
+Dialogue: 0,0:03:14.71,0:03:15.75,Sub,,0,0,0,,Nếu bạn thích\Nvà có điều kiện
+Dialogue: 0,0:03:15.75,0:03:16.56,Sub,,0,0,0,,cứ mua để đeo
+Dialogue: 0,0:03:16.56,0:03:17.91,Sub,,0,0,0,,chẳng sao cả
+Dialogue: 0,0:03:17.91,0:03:20.52,Sub,,0,0,0,,Nhưng đừng tự nhủ rằng đó\Nlà của để dành sinh lời
+Dialogue: 0,0:03:20.52,0:03:22.24,Sub,,0,0,0,,Còn nếu mục tiêu\Nlà cất giữ giá trị
+Dialogue: 0,0:03:22.24,0:03:24.60,Sub,,0,0,0,,thì phải chọn thứ nào\Nminh bạch và dễ bán
+Dialogue: 0,0:03:24.60,0:03:26.20,Sub,,0,0,0,,Và ghi nhớ hai\Nnguyên tắc chống bẫy
+Dialogue: 0,0:03:26.20,0:03:28.25,Sub,,0,0,0,,một, thấy gì rẻ bất thường\Nthì dừng lại hỏi vì sao
+Dialogue: 0,0:03:28.25,0:03:30.94,Sub,,0,0,0,,hai, mua tài sản lớn thì\Nluôn đòi giấy tờ độc lập
+Dialogue: 0,0:03:30.94,0:03:33.15,Sub,,0,0,0,,và phải hiểu khoảng chênh giữa\Ngiá mua và giá bán trước
+Dialogue: 0,0:03:33.15,0:03:33.93,Sub,,0,0,0,,khi xuống tiền
+Dialogue: 0,0:03:33.93,0:03:36.35,Sub,,0,0,0,,Giờ quay lại câu hỏi\Nlàm nhiều người lo nhất
+Dialogue: 0,0:03:36.35,0:03:38.52,Sub,,0,0,0,,thế còn vàng,\Nvàng có sao không?
+Dialogue: 0,0:03:38.52,0:03:39.30,Sub,,0,0,0,,Bạn cứ yên tâm
+Dialogue: 0,0:03:39.30,0:03:40.59,Sub,,0,0,0,,Đây là một vụ\Nbuôn lậu kim cương
+Dialogue: 0,0:03:40.59,0:03:41.96,Sub,,0,0,0,,của một vài\Ncửa tiệm cụ thể
+Dialogue: 0,0:03:41.96,0:03:43.56,Sub,,0,0,0,,chứ không phải cả thị\Ntrường vàng có vấn đề
+Dialogue: 0,0:03:43.56,0:03:46.37,Sub,,0,0,0,,Vàng khác kim cương ở đúng\Ncái điểm cốt lõi mà cả
+Dialogue: 0,0:03:46.37,0:03:47.16,Sub,,0,0,0,,video này đang nói
+Dialogue: 0,0:03:47.16,0:03:48.34,Sub,,0,0,0,,vàng minh bạch và dễ bán
+Dialogue: 0,0:03:48.34,0:03:49.91,Sub,,0,0,0,,Vàng miếng có giá\Ncông khai mỗi ngày
+Dialogue: 0,0:03:49.91,0:03:51.00,Sub,,0,0,0,,gắn với giá thế giới
+Dialogue: 0,0:03:51.00,0:03:53.55,Sub,,0,0,0,,mua bán ở nơi được\Ncấp phép là chắc chắn
+Dialogue: 0,0:03:53.55,0:03:56.06,Sub,,0,0,0,,không phụ thuộc vào uy tín\Nriêng của một ông chủ tiệm nào
+Dialogue: 0,0:03:56.06,0:03:58.38,Sub,,0,0,0,,Nên nếu bạn đang giữ vàng\Nđể dành một cách đàng hoàng
+Dialogue: 0,0:03:58.38,0:03:59.72,Sub,,0,0,0,,thì không việc gì phải\Nbán tháo theo đám đông
+Dialogue: 0,0:03:59.72,0:04:02.74,Sub,,0,0,0,,Nói cho cùng, vụ kim cương\Nnày dạy chúng ta một điều
+Dialogue: 0,0:04:02.74,0:04:04.52,Sub,,0,0,0,,rất sâu về tiền bạc
+Dialogue: 0,0:04:04.52,0:04:07.52,Sub,,0,0,0,,Giá trị thật của một tài\Nsản không nằm ở chỗ nó
+Dialogue: 0,0:04:07.52,0:04:08.85,Sub,,0,0,0,,lấp lánh cỡ nào
+Dialogue: 0,0:04:08.85,0:04:10.35,Sub,,0,0,0,,hay được quảng cáo\Nhào nhoáng ra sao
+Dialogue: 0,0:04:10.35,0:04:12.14,Sub,,0,0,0,,Giá trị thật\Nnằm ở hai chỗ
+Dialogue: 0,0:04:12.14,0:04:14.26,Sub,,0,0,0,,bạn có bán lại\Nđược dễ dàng không
+Dialogue: 0,0:04:14.26,0:04:15.53,Sub,,0,0,0,,và cái giá\Nđó có minh bạch
+Dialogue: 0,0:04:15.53,0:04:16.53,Sub,,0,0,0,,ai cũng kiểm chứng được không
+Dialogue: 0,0:04:16.53,0:04:17.78,Sub,,0,0,0,,Lấp lánh không có\Nnghĩa là có giá
+Dialogue: 0,0:04:17.78,0:04:19.15,Sub,,0,0,0,,Đắt tiền không có\Nnghĩa là giữ được tiền
+Dialogue: 0,0:04:19.15,0:04:20.34,Sub,,0,0,0,,Vậy nên, lần tới
+Dialogue: 0,0:04:20.34,0:04:22.69,Sub,,0,0,0,,trước khi bỏ một số tiền\Nlớn cho bất cứ thứ gì
+Dialogue: 0,0:04:22.69,0:04:23.69,Sub,,0,0,0,,hãy tự hỏi\Nmình đúng một câu
+Dialogue: 0,0:04:23.69,0:04:24.49,Sub,,0,0,0,,nếu ngày mai cần tiền
+Dialogue: 0,0:04:24.49,0:04:26.05,Sub,,0,0,0,,mình bán lại\Ncái này cho ai
+Dialogue: 0,0:04:26.05,0:04:26.83,Sub,,0,0,0,,và được bao nhiêu?
+Dialogue: 0,0:04:26.83,0:04:27.89,Sub,,0,0,0,,Trả lời được câu đó
+Dialogue: 0,0:04:27.89,0:04:28.94,Sub,,0,0,0,,bạn đã tránh được phần\Nlớn những cái bẫy trong đời
+Dialogue: 0,0:04:28.94,0:04:30.19,Sub,,0,0,0,,Nếu clip này giúp\Nbạn nhìn rõ hơn
+Dialogue: 0,0:04:30.19,0:04:30.98,Sub,,0,0,0,,hãy theo dõi Anh Hai
+Dialogue: 0,0:04:30.98,0:04:32.80,Sub,,0,0,0,,để mình cùng nhau nhìn thẳng\Nvào những bài toán tiền bạc
+Dialogue: 0,0:04:32.80,0:04:33.84,Sub,,0,0,0,,của đời người
+Dialogue: 0,0:04:33.84,0:04:35.02,Sub,,0,0,0,,Và nhớ, giữ vững tinh thần
+Dialogue: 0,0:04:35.02,0:04:35.80,Sub,,0,0,0,,giữ ví cho chặt nhé

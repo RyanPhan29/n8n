@@ -1,0 +1,31 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:02.99,Sub,,0,0,0,,Anh Nam với anh Hùng cùng\Nvay ngân hàng năm trăm triệu
+Dialogue: 0,0:00:02.99,0:00:04.66,Sub,,0,0,0,,Anh Nam mua con\Nxe hơi mới cứng
+Dialogue: 0,0:00:04.66,0:00:05.79,Sub,,0,0,0,,đi làm cho oách
+Dialogue: 0,0:00:05.79,0:00:07.31,Sub,,0,0,0,,Từ đó tháng nào\Ncũng gồng trả góp
+Dialogue: 0,0:00:07.31,0:00:08.83,Sub,,0,0,0,,xe thì mỗi\Nnăm mỗi mất giá
+Dialogue: 0,0:00:08.83,0:00:10.11,Sub,,0,0,0,,tiền chỉ có đi ra
+Dialogue: 0,0:00:10.11,0:00:11.89,Sub,,0,0,0,,Anh Hùng cũng vay\Nđúng năm trăm triệu
+Dialogue: 0,0:00:11.89,0:00:14.18,Sub,,0,0,0,,nhưng mua cái ki-ốt\Nnhỏ ngoài chợ cho thuê
+Dialogue: 0,0:00:14.18,0:00:15.59,Sub,,0,0,0,,Tiền thuê hàng\Ntháng người ta trả
+Dialogue: 0,0:00:15.59,0:00:17.74,Sub,,0,0,0,,anh lấy đúng số\Nđó đắp vào khoản vay
+Dialogue: 0,0:00:17.74,0:00:19.08,Sub,,0,0,0,,Vài năm sau nợ trả xong
+Dialogue: 0,0:00:19.08,0:00:20.20,Sub,,0,0,0,,cái ki-ốt vẫn còn
+Dialogue: 0,0:00:20.20,0:00:21.28,Sub,,0,0,0,,vẫn đẻ tiền
+Dialogue: 0,0:00:21.28,0:00:22.27,Sub,,0,0,0,,Cùng vay một số
+Dialogue: 0,0:00:22.27,0:00:24.48,Sub,,0,0,0,,nhưng nợ của anh Nam\Nmóc túi anh ấy mỗi tháng
+Dialogue: 0,0:00:24.48,0:00:26.73,Sub,,0,0,0,,còn nợ của anh Hùng\Nbắt người khác trả hộ
+Dialogue: 0,0:00:26.73,0:00:28.02,Sub,,0,0,0,,Người giàu không sợ nợ
+Dialogue: 0,0:00:28.02,0:00:29.47,Sub,,0,0,0,,họ chỉ chọn đúng loại nợ

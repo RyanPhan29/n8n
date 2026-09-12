@@ -1,0 +1,47 @@
+KỊCH BẢN VIDEO DÀI #1 — "Sinh trắc học rồi, vì sao tiền vẫn BỐC HƠI?"
+Format 16:9, ~8-9 phút. Trụ: Bóc bẫy. Giọng: đời (Anh Hai). Bản Vbee đọc sạch (không dấu thừa).
+Số liệu: xem SINHTRACHOC_SOLIEU.md (nguồn Gemini/báo chính thống). Áp bộ quy chuẩn giữ chân.
+
+=== PACKAGING ===
+TITLE (chọn): Quét mặt xong tiền VẪN MẤT — 3 chiêu lừa êm nhất 2026
+A/B: Sinh trắc học rồi, vì sao tiền vẫn "bốc hơi"? | 3 cách kẻ gian rút sạch tài khoản dù bạn đã quét mặt
+THUMBNAIL: Anh Hai mặt cảnh giác/hoảng · điện thoại có logo ngân hàng, một bàn tay "ma" chạm vào · số "5.200 TỶ" (đỏ) · chữ "QUÉT MẶT VẪN MẤT?" (vàng trên nền tối). Palette cảnh báo: đỏ/đen + vàng. ≤5 chữ.
+
+=== LỜI VBEE (đọc thẳng) ===
+
+[MỞ ĐẦU / HOOK 0-30s]
+Chỉ trong thời gian gần đây, hệ thống của Ngân hàng Nhà nước đã chặn được hơn năm nghìn tỷ đồng giao dịch nghi lừa đảo. Năm nghìn tỷ. Mà đó mới là phần chặn được thôi nhé. Có người mất vài trăm triệu, có người mất tới cả tỷ, chỉ sau vài phút. Và đây mới là chỗ rợn người. Nhiều nạn nhân đã quét khuôn mặt, đã xác thực sinh trắc học đầy đủ, thế mà tiền vẫn bốc hơi. Nghe vô lý đúng không. Rõ ràng ngân hàng bắt quét mặt là để an toàn hơn cơ mà. Trong video này Anh Hai bóc cho anh em ba chiêu mà kẻ gian đang dùng để lách qua cả sinh trắc học, và quan trọng hơn, hai lớp khóa đơn giản anh em set ngay trên điện thoại tối nay là gần như miễn nhiễm. Cái chiêu thứ ba là êm nhất, nhiều người tỉnh táo vẫn dính. Nghe hết nhé.
+
+[REFRAME]
+Trước hết phải hiểu một chuyện. Sinh trắc học không phải áo giáp thần thánh. Kẻ gian bây giờ khôn lắm, chúng không tốn công đi phá cái khuôn mặt của anh em làm gì. Chúng làm điều dễ hơn nhiều, là lách. Nghĩa là để anh em tự tay quét mặt, tự tay bấm đồng ý, nhưng cho một mục đích mà anh em không hề hay biết. Ba chiêu sau đây đều đi theo đúng logic đó.
+
+[CHIÊU 1 — Chạm ma / access token]
+Chiêu thứ nhất, dân trong nghề gọi là chạm ma. Nghe rùng rợn mà đúng nghĩa luôn. Nó bắt đầu từ một cái app lạ, thường giả danh Dịch vụ công, cơ quan thuế, hay một cổng nào đó nghe rất chính thống, dụ anh em tải về và bật cái quyền tên là Trợ năng. Cái quyền này vốn để hỗ trợ người khiếm thị điều khiển điện thoại. Nhưng khi anh em lỡ cấp nó cho app độc, thì con mã độc đó nhìn được màn hình, bấm được nút thay anh em, chạy ngầm phía sau. Rồi nó bẫy anh em xác thực sinh trắc học đúng một lần, tưởng là để đăng nhập thôi, nhưng thực ra một lần quét mặt đó nó cho hàng loạt lệnh chuyển tiền chạy luôn một lượt. Anh em quét một lần, nó rút mấy lần. Đó, sinh trắc học vẫn chạy, chỉ là nó phục vụ nhầm chủ. Mà nếu chiêu thứ nhất đã ngầm vậy, thì chiêu thứ hai còn đánh vào chỗ đau hơn, là người thân của anh em.
+
+[CHIÊU 2 — Voice phishing / deepfake]
+Chiêu thứ hai, giả giọng nói bằng AI. Bây giờ chỉ cần vài giây giọng của một người, lấy từ mấy cái video, cái story đăng công khai trên mạng, là AI nhái lại được y hệt. Kẻ gian gọi cho anh em, giọng đúng là giọng đứa em, thằng bạn, hay bố mẹ, hối thúc chuyển tiền gấp vì có việc. Chúng còn cố tình để tiếng đứt quãng, rè rè, lấy cớ mạng yếu, để anh em không nghi. Đang lo cho người thân, ai còn tỉnh táo mà soi. Nhưng đây, quy tắc vàng ở chiêu này, giọng nói không còn là bằng chứng nữa. Người thật hay AI giả, tai anh em không phân biệt được đâu. Cách chống thì lát nữa Anh Hai chỉ, đơn giản mà ăn chắc. Còn chiêu thứ ba, cái êm nhất, đánh thẳng vào thứ anh em tin tưởng nhất, là số điện thoại của chính ngân hàng.
+
+[CHIÊU 3 — Fake caller ID]
+Chiêu thứ ba, giả số tổng đài. Anh em nghĩ mà xem, khi màn hình hiện đúng cái số một chín trăm của ngân hàng, hoặc số của cơ quan công an, thì mấy ai còn nghi. Vậy mà kẻ gian làm giả được cái số hiện lên đó, bằng trạm phát sóng giả hoặc gọi qua mạng. Chúng gọi tới, đọc vanh vách tên tuổi thông tin của anh em cho thêm phần đáng tin, rồi báo tài khoản đang bị khóa, đang bị điều tra, yêu cầu đọc mã O T P hoặc tải một cái app, nghe buồn cười, để bảo vệ tài khoản. Anh em đọc mã ra là xong. Vì sao chiêu này êm nhất, vì nó không cần anh em ngu, nó chỉ cần anh em tin vào cái màn hình. Mà cái màn hình thì nói dối được.
+
+[WOW / RE-HOOK — điểm chung]
+Đến đây anh em thấy điểm chung chưa. Cả ba chiêu, không cái nào đi hack ngân hàng cả. Ngân hàng phòng thủ kỹ lắm. Cái chúng hack là lòng tin và sự vội vàng của anh em. Sinh trắc học chỉ khóa được cánh cửa, nhưng nếu anh em tự mở cửa mời khách vào, thì cái khóa xịn tới đâu cũng vô nghĩa. Cho nên hai lớp bảo vệ Anh Hai sắp nói không nằm ở công nghệ, mà nằm ở thói quen. Và nó dễ tới mức tối nay làm được luôn.
+
+[PAYOFF — 2 lớp bảo vệ]
+Lớp thứ nhất, quy tắc cúp máy và gọi lại. Bất kể ai gọi tới, người thân nhờ chuyển tiền gấp, hay tổng đài báo tài khoản lỗi, anh em làm đúng một việc, là cúp máy. Rồi tự mình bấm lại số của người thân, hoặc số hotline in trên thẻ ngân hàng, gọi kiểm tra. Kẻ gian sợ nhất là anh em gọi qua một kênh khác, vì lúc đó màn kịch của chúng sập ngay. Chỉ một thao tác cúp máy gọi lại thôi, chặn được gần hết chiêu giả giọng và giả tổng đài.
+Lớp thứ hai, chia ví. Đừng để hết tiền trong cái app anh em cầm ra đường mỗi ngày. Trên điện thoại chỉ để một khoản vừa đủ tiêu, năm tới hai chục triệu chẳng hạn. Còn tiền lớn, tiền tiết kiệm, đẩy sang một tài khoản hoặc sổ tiết kiệm online có khóa, và đặt hạn mức chuyển tiền mỗi ngày thấp xuống. Như vậy lỡ có dính, cái mất cũng chỉ là phần nhỏ, chứ không phải cả gia tài.
+Và tuyệt đối không bật cái quyền Trợ năng cho app tải ngoài, không cài file lạ gửi qua tin nhắn. Nhớ đúng câu này thôi, ngân hàng, thuế, công an, không bao giờ bắt anh em tải app qua đường link.
+
+[EMERGENCY — 1 điều để nhớ]
+Còn lỡ, lỡ anh em nghi mình vừa bấm nhầm, vừa cài nhầm cái gì đó, thì đây là điều quan trọng nhất cả video, làm ngay hai bước. Bước một, bật chế độ máy bay liền, cắt hết mạng, để con mã độc mất đường điều khiển. Bước hai, mượn máy khác gọi hotline ngân hàng khóa khẩn cấp tài khoản. Nhanh một phút là giữ được tiền, chậm một phút là mất. Nhớ nhé, nghi là ngắt mạng trước, hỏi sau.
+
+[CALLBACK + CHỐT]
+Quay lại câu đầu video, vì sao sinh trắc học rồi tiền vẫn bốc hơi. Giờ anh em rõ rồi đúng không, vì kẻ gian không phá khóa, chúng dụ mình tự mở. Mà cái này thì công nghệ nào cũng không cứu được, chỉ có thói quen của anh em cứu được thôi.
+Anh Hai hỏi thật, anh em, hoặc người nhà anh em, đã từng nhận cái cuộc gọi giả giọng hay giả tổng đài kiểu này chưa. Kể Anh Hai nghe ở bình luận, mỗi câu chuyện của anh em là một lời cảnh báo cứu được người khác đấy. Và nếu thấy hữu ích, gửi ngay video này cho bố mẹ, người thân, những người hay bị nhắm tới nhất. Đó mới là cách bảo vệ thật sự.
+
+=== GHI CHÚ SẢN XUẤT ===
+- Retention: macro-loop (chiêu 3 "êm nhất" ghim ở hook, trả ở giữa) · but/therefore mọi beat · open loop cuối mỗi chiêu · wow "điểm chung: hack lòng tin" · payoff phòng thủ ~70% · emergency = "1 điều để nhớ" · callback kết · câu hỏi chốt kéo comment.
+- Pattern interrupt 4-6s (đổi pose Anh Hai/đồ hoạ/SFX) — theo công thức đối thủ.
+- Ảnh AI cần (~6): app giả Dịch vụ công + tay ma chạm phone · sóng âm giọng nói giả · màn hình hiện số 1900 giả · 2 ví (ví nhỏ vs két khóa) · nút máy bay + khóa app.
+- CTA: soft giữa video (checklist an toàn tài khoản, để mô tả) + hard cuối (share cho bố mẹ + xem video bẫy tiếp theo). *Affiliate mảng này YẾU — đây là video TRUST + ENGAGEMENT (kéo comment/share), kiếm tiền qua ads + nuôi kênh, không ép bán.*
+- Anh Hai vẫn CODE; chữ Việt CODE; ảnh cảnh gen Higgsfield MCP.

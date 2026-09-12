@@ -1,0 +1,242 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.51,Sub,,0,0,0,,Nếu bạn đang\Nở tuổi hai mấy
+Dialogue: 0,0:00:01.51,0:00:03.59,Sub,,0,0,0,,ba mươi, ngày nào\Ncũng đi làm chăm chỉ
+Dialogue: 0,0:00:03.59,0:00:06.24,Sub,,0,0,0,,mà cứ nhìn giá nhà là\Nthấy giấc mơ an cư xa
+Dialogue: 0,0:00:06.24,0:00:07.72,Sub,,0,0,0,,dần, thì video\Nnày dành cho bạn
+Dialogue: 0,0:00:07.72,0:00:09.80,Sub,,0,0,0,,Trước hết, Anh Hai\Nđưa ra vài con số
+Dialogue: 0,0:00:09.80,0:00:11.36,Sub,,0,0,0,,để bạn biết mình\Nkhông hề đơn độc
+Dialogue: 0,0:00:11.36,0:00:13.13,Sub,,0,0,0,,và cũng không hề vô dụng
+Dialogue: 0,0:00:13.13,0:00:14.99,Sub,,0,0,0,,Ở các thành phố lớn\Ncủa nước ta hiện nay
+Dialogue: 0,0:00:14.99,0:00:17.75,Sub,,0,0,0,,giá một căn hộ đang cao\Ngấp khoảng ba mươi lần thu
+Dialogue: 0,0:00:17.75,0:00:19.67,Sub,,0,0,0,,nhập một năm\Ncủa một gia đình
+Dialogue: 0,0:00:19.67,0:00:20.45,Sub,,0,0,0,,Ba mươi lần
+Dialogue: 0,0:00:20.45,0:00:23.20,Sub,,0,0,0,,Con số này cao gần gấp\Nđôi mức trung bình của thế
+Dialogue: 0,0:00:23.20,0:00:25.70,Sub,,0,0,0,,giới, đưa nước ta vào nhóm\Nmười quốc gia mà người dân
+Dialogue: 0,0:00:25.70,0:00:26.95,Sub,,0,0,0,,khó mua nhà nhất
+Dialogue: 0,0:00:26.95,0:00:27.88,Sub,,0,0,0,,Nói cho dễ hình dung
+Dialogue: 0,0:00:27.88,0:00:28.66,Sub,,0,0,0,,Nếu bạn nhịn ăn
+Dialogue: 0,0:00:28.66,0:00:30.84,Sub,,0,0,0,,nhịn mặc, không\Ntiêu một đồng nào
+Dialogue: 0,0:00:30.84,0:00:32.21,Sub,,0,0,0,,dồn toàn bộ thu nhập lại
+Dialogue: 0,0:00:32.21,0:00:34.97,Sub,,0,0,0,,thì cũng phải mất khoảng\Nba mươi năm mới mua nổi một
+Dialogue: 0,0:00:34.97,0:00:35.89,Sub,,0,0,0,,căn hộ trung bình
+Dialogue: 0,0:00:35.89,0:00:37.44,Sub,,0,0,0,,Còn nếu thực tế hơn
+Dialogue: 0,0:00:37.44,0:00:40.41,Sub,,0,0,0,,mỗi tháng chỉ dành ra\Nmột phần ba lương để trả góp
+Dialogue: 0,0:00:40.41,0:00:42.08,Sub,,0,0,0,,thì theo tính toán
+Dialogue: 0,0:00:42.08,0:00:44.04,Sub,,0,0,0,,con số đó có thể\Nlên tới tám mươi năm
+Dialogue: 0,0:00:44.04,0:00:46.10,Sub,,0,0,0,,Vâng, bạn nghe không nhầm đâu
+Dialogue: 0,0:00:46.10,0:00:47.25,Sub,,0,0,0,,Tám mươi năm
+Dialogue: 0,0:00:47.25,0:00:49.46,Sub,,0,0,0,,Trong khi đó, lương trung bình\Ncả nước hiện chỉ khoảng tám
+Dialogue: 0,0:00:49.46,0:00:50.69,Sub,,0,0,0,,chín triệu đồng một tháng
+Dialogue: 0,0:00:50.69,0:00:53.37,Sub,,0,0,0,,còn một căn hộ nhỏ ở\Nthành phố lớn thì đã bốn
+Dialogue: 0,0:00:53.37,0:00:54.29,Sub,,0,0,0,,năm tỷ trở lên
+Dialogue: 0,0:00:54.29,0:00:55.48,Sub,,0,0,0,,Những căn giá bình dân
+Dialogue: 0,0:00:55.48,0:00:57.08,Sub,,0,0,0,,vừa túi tiền\Nngười mua lần đầu
+Dialogue: 0,0:00:57.08,0:00:59.16,Sub,,0,0,0,,gần như đã biến\Nmất khỏi thị trường
+Dialogue: 0,0:00:59.16,0:01:00.55,Sub,,0,0,0,,Cho nên, nếu\Nbạn thấy bất lực
+Dialogue: 0,0:01:00.55,0:01:02.95,Sub,,0,0,0,,thấy mệt, thì Anh Hai\Nxin nói thẳng một câu
+Dialogue: 0,0:01:02.95,0:01:05.13,Sub,,0,0,0,,đó không phải vì bạn lười
+Dialogue: 0,0:01:05.13,0:01:05.91,Sub,,0,0,0,,cũng không phải\Nvì bạn kém cỏi
+Dialogue: 0,0:01:05.91,0:01:08.19,Sub,,0,0,0,,Bài toán này, ngay cả người\Nthu nhập tốt cũng đang chật vật
+Dialogue: 0,0:01:08.19,0:01:11.10,Sub,,0,0,0,,Nhưng hôm nay, Anh Hai không\Nkể chuyện này để bạn buông xuôi
+Dialogue: 0,0:01:11.10,0:01:12.53,Sub,,0,0,0,,Ngược lại là đằng khác
+Dialogue: 0,0:01:12.53,0:01:13.99,Sub,,0,0,0,,Vì trong cơn khát nhà đó
+Dialogue: 0,0:01:13.99,0:01:17.17,Sub,,0,0,0,,có một cái bẫy còn nguy hiểm\Nhơn cả việc chưa mua được nhà
+Dialogue: 0,0:01:17.17,0:01:18.37,Sub,,0,0,0,,Đó là cố\Nmua cho bằng được
+Dialogue: 0,0:01:18.37,0:01:20.57,Sub,,0,0,0,,bằng mọi giá, rồi mắc kẹt
+Dialogue: 0,0:01:20.57,0:01:22.14,Sub,,0,0,0,,Và để hiểu cái bẫy này
+Dialogue: 0,0:01:22.14,0:01:23.96,Sub,,0,0,0,,mời bạn nghe câu\Nchuyện của anh Tuấn
+Dialogue: 0,0:01:23.96,0:01:25.16,Sub,,0,0,0,,Anh Tuấn, ba mươi lăm tuổi
+Dialogue: 0,0:01:25.16,0:01:26.07,Sub,,0,0,0,,đi làm văn phòng
+Dialogue: 0,0:01:26.07,0:01:27.42,Sub,,0,0,0,,thu nhập thuộc hàng khá
+Dialogue: 0,0:01:27.42,0:01:28.67,Sub,,0,0,0,,Sau nhiều năm cày cuốc
+Dialogue: 0,0:01:28.67,0:01:31.48,Sub,,0,0,0,,anh cũng gom đủ để làm\Nđiều mà bao người mơ ước
+Dialogue: 0,0:01:31.48,0:01:33.64,Sub,,0,0,0,,mua một căn hộ dự án
+Dialogue: 0,0:01:33.64,0:01:34.63,Sub,,0,0,0,,giá khoảng hai tỷ
+Dialogue: 0,0:01:34.63,0:01:35.83,Sub,,0,0,0,,Trong túi anh\Ncó chừng ba phần
+Dialogue: 0,0:01:35.83,0:01:37.67,Sub,,0,0,0,,còn lại bảy phần\Nlà tiền vay ngân hàng
+Dialogue: 0,0:01:37.67,0:01:38.66,Sub,,0,0,0,,Ngày ký hợp đồng
+Dialogue: 0,0:01:38.66,0:01:39.80,Sub,,0,0,0,,ai cũng mừng cho anh
+Dialogue: 0,0:01:39.80,0:01:41.40,Sub,,0,0,0,,Ba mươi mấy tuổi\Ncó căn nhà thành phố
+Dialogue: 0,0:01:41.40,0:01:42.18,Sub,,0,0,0,,còn gì bằng
+Dialogue: 0,0:01:42.18,0:01:44.91,Sub,,0,0,0,,Bản thân anh cũng tin chắc\Nmình vừa thắng một ván lớn
+Dialogue: 0,0:01:44.91,0:01:46.42,Sub,,0,0,0,,Nhưng đời không\Nđi theo bản vẽ
+Dialogue: 0,0:01:46.42,0:01:47.70,Sub,,0,0,0,,Và anh Tuấn sắp vỡ mộng
+Dialogue: 0,0:01:47.70,0:01:49.41,Sub,,0,0,0,,không phải một,\Nmà tới bốn lần
+Dialogue: 0,0:01:49.41,0:01:51.17,Sub,,0,0,0,,Niềm tin đầu tiên của anh
+Dialogue: 0,0:01:51.17,0:01:53.43,Sub,,0,0,0,,cũng là niềm tin\Ncủa cả một thế hệ
+Dialogue: 0,0:01:53.43,0:01:55.46,Sub,,0,0,0,,là bất động sản\Nthì chỉ có lên
+Dialogue: 0,0:01:55.46,0:01:57.05,Sub,,0,0,0,,Đất chật người đông
+Dialogue: 0,0:01:57.05,0:01:58.63,Sub,,0,0,0,,nhà năm nào chẳng tăng giá
+Dialogue: 0,0:01:58.63,0:02:00.82,Sub,,0,0,0,,cứ ôm vài năm\Nrồi bán là lời
+Dialogue: 0,0:02:00.82,0:02:01.82,Sub,,0,0,0,,Nghe rất hợp lý
+Dialogue: 0,0:02:01.82,0:02:04.06,Sub,,0,0,0,,Nhưng rồi hết\Nthời gian ưu đãi
+Dialogue: 0,0:02:04.06,0:02:06.96,Sub,,0,0,0,,lãi suất khoản vay của\Nanh bắt đầu thả nổi
+Dialogue: 0,0:02:06.96,0:02:07.97,Sub,,0,0,0,,Nó nhích dần lên
+Dialogue: 0,0:02:07.97,0:02:09.50,Sub,,0,0,0,,mười hai, rồi mười\Nmấy phần trăm một năm
+Dialogue: 0,0:02:09.50,0:02:12.20,Sub,,0,0,0,,Trong khi đó, tiền gửi tiết\Nkiệm ngoài kia chỉ được sáu
+Dialogue: 0,0:02:12.20,0:02:13.63,Sub,,0,0,0,,bảy phần trăm
+Dialogue: 0,0:02:13.63,0:02:14.41,Sub,,0,0,0,,Bạn thấy điều bất thường chưa?
+Dialogue: 0,0:02:14.41,0:02:15.84,Sub,,0,0,0,,Đồng tiền anh Tuấn\Nvay để ôm nhà
+Dialogue: 0,0:02:15.84,0:02:17.68,Sub,,0,0,0,,đang đắt gần gấp đôi\Nđồng tiền người ta để dành
+Dialogue: 0,0:02:17.68,0:02:19.52,Sub,,0,0,0,,Mỗi tháng, dù giá\Nnhà có tăng hay không
+Dialogue: 0,0:02:19.52,0:02:20.82,Sub,,0,0,0,,anh vẫn phải trả\Nmột khoản lãi đều đặn
+Dialogue: 0,0:02:20.82,0:02:22.71,Sub,,0,0,0,,cứ thế ăn\Nthẳng vào thu nhập
+Dialogue: 0,0:02:22.71,0:02:24.29,Sub,,0,0,0,,Và đây là\Nbài học đầu tiên
+Dialogue: 0,0:02:24.29,0:02:27.13,Sub,,0,0,0,,cũng là bài học nhiều người\Ntrả giá đắt nhất để hiểu
+Dialogue: 0,0:02:27.13,0:02:29.27,Sub,,0,0,0,,dòng tiền quan trọng\Nhơn giá trên giấy
+Dialogue: 0,0:02:29.27,0:02:30.56,Sub,,0,0,0,,Một căn nhà tăng\Ngiá trên giấy tờ
+Dialogue: 0,0:02:30.56,0:02:32.40,Sub,,0,0,0,,nhưng mỗi tháng bắt bạn\Nmóc túi ra nuôi nó
+Dialogue: 0,0:02:32.40,0:02:33.72,Sub,,0,0,0,,thì thật ra\Nnó đang giữ bạn
+Dialogue: 0,0:02:33.72,0:02:35.28,Sub,,0,0,0,,chứ không phải\Nbạn đang giữ nó
+Dialogue: 0,0:02:35.28,0:02:36.42,Sub,,0,0,0,,Nhưng anh Tuấn chưa lo lắm
+Dialogue: 0,0:02:36.42,0:02:38.07,Sub,,0,0,0,,Vì anh còn một\Nniềm tin thứ hai
+Dialogue: 0,0:02:38.07,0:02:39.50,Sub,,0,0,0,,nghe cũng rất xuôi tai
+Dialogue: 0,0:02:39.50,0:02:41.80,Sub,,0,0,0,,trả góp thì coi như\Ntiền thuê nhà thôi mà
+Dialogue: 0,0:02:41.80,0:02:43.24,Sub,,0,0,0,,Thuê thì mất trắng
+Dialogue: 0,0:02:43.24,0:02:46.06,Sub,,0,0,0,,còn trả góp thì cuối\Ncùng nhà cũng thành của mình
+Dialogue: 0,0:02:46.06,0:02:47.20,Sub,,0,0,0,,Nghe qua thì đúng
+Dialogue: 0,0:02:47.20,0:02:48.08,Sub,,0,0,0,,Cho tới ngày anh cần tiền
+Dialogue: 0,0:02:48.08,0:02:50.15,Sub,,0,0,0,,và quyết định\Nbán căn hộ đi
+Dialogue: 0,0:02:50.15,0:02:51.05,Sub,,0,0,0,,Anh rao một tháng
+Dialogue: 0,0:02:51.05,0:02:51.83,Sub,,0,0,0,,Hai tháng
+Dialogue: 0,0:02:51.83,0:02:52.75,Sub,,0,0,0,,Rồi nửa năm
+Dialogue: 0,0:02:52.75,0:02:53.53,Sub,,0,0,0,,Chẳng mấy ai hỏi
+Dialogue: 0,0:02:53.53,0:02:56.52,Sub,,0,0,0,,Người hỏi thì trả giá thấp\Nđến mức anh không nỡ bán
+Dialogue: 0,0:02:56.52,0:02:59.01,Sub,,0,0,0,,Hoá ra, phòng trọ thì\Ntháng nào cũng có người thuê
+Dialogue: 0,0:02:59.01,0:03:00.51,Sub,,0,0,0,,còn căn hộ\Ntiền tỷ của anh
+Dialogue: 0,0:03:00.51,0:03:01.42,Sub,,0,0,0,,khi cần bán lại
+Dialogue: 0,0:03:01.42,0:03:02.77,Sub,,0,0,0,,thì không dễ tìm người mua
+Dialogue: 0,0:03:02.77,0:03:05.09,Sub,,0,0,0,,Và không chỉ\Nmình anh như vậy
+Dialogue: 0,0:03:05.09,0:03:05.99,Sub,,0,0,0,,Vào thời điểm đó
+Dialogue: 0,0:03:05.99,0:03:08.26,Sub,,0,0,0,,lượng bất động sản tồn kho\Ntrên cả nước đã lên tới
+Dialogue: 0,0:03:08.26,0:03:09.43,Sub,,0,0,0,,hơn năm trăm nghìn tỷ đồng
+Dialogue: 0,0:03:09.43,0:03:12.66,Sub,,0,0,0,,phần lớn là căn hộ và\Nđất nền nằm im chờ người mua
+Dialogue: 0,0:03:12.66,0:03:13.63,Sub,,0,0,0,,Bài học thứ hai lộ ra
+Dialogue: 0,0:03:13.63,0:03:15.34,Sub,,0,0,0,,đòn bẩy là\Ncon dao hai lưỡi
+Dialogue: 0,0:03:15.34,0:03:17.17,Sub,,0,0,0,,Vay để mua\Nlà chuyện bình thường
+Dialogue: 0,0:03:17.17,0:03:18.76,Sub,,0,0,0,,nhưng trước khi ký
+Dialogue: 0,0:03:18.76,0:03:20.10,Sub,,0,0,0,,hãy tự hỏi\Nkịch bản xấu nhất
+Dialogue: 0,0:03:20.10,0:03:22.52,Sub,,0,0,0,,Nếu lãi thả nổi\Nlên mười lăm phần trăm
+Dialogue: 0,0:03:22.52,0:03:24.13,Sub,,0,0,0,,nếu cả năm\Ntrời không bán được
+Dialogue: 0,0:03:24.13,0:03:25.68,Sub,,0,0,0,,mình còn gồng nổi không
+Dialogue: 0,0:03:25.68,0:03:27.41,Sub,,0,0,0,,Trả lời được câu\Nđó rồi hãy đặt bút
+Dialogue: 0,0:03:27.41,0:03:28.93,Sub,,0,0,0,,Tới đây, anh\NTuấn tự an ủi
+Dialogue: 0,0:03:28.93,0:03:30.19,Sub,,0,0,0,,thôi, chưa bán được thì chờ
+Dialogue: 0,0:03:30.19,0:03:32.28,Sub,,0,0,0,,ít ra nhà mình\Ncũng sắp được bàn giao
+Dialogue: 0,0:03:32.28,0:03:33.79,Sub,,0,0,0,,dọn vào ở là yên tâm
+Dialogue: 0,0:03:33.79,0:03:35.88,Sub,,0,0,0,,Anh tin vào\Nniềm tin thứ ba
+Dialogue: 0,0:03:35.88,0:03:37.18,Sub,,0,0,0,,chủ đầu tư lớn
+Dialogue: 0,0:03:37.18,0:03:38.51,Sub,,0,0,0,,dự án hoành tráng
+Dialogue: 0,0:03:38.51,0:03:39.97,Sub,,0,0,0,,thì chắc chắn không sao
+Dialogue: 0,0:03:39.97,0:03:41.14,Sub,,0,0,0,,Nhưng ngày bàn giao cứ lùi
+Dialogue: 0,0:03:41.14,0:03:41.96,Sub,,0,0,0,,Hết hứa quý này
+Dialogue: 0,0:03:41.96,0:03:43.91,Sub,,0,0,0,,lại tới hẹn quý khác
+Dialogue: 0,0:03:43.91,0:03:45.55,Sub,,0,0,0,,Anh chạy tới công trường
+Dialogue: 0,0:03:45.55,0:03:47.62,Sub,,0,0,0,,thì thấy nó\Nthi công cầm chừng
+Dialogue: 0,0:03:47.62,0:03:48.49,Sub,,0,0,0,,lúc làm lúc nghỉ
+Dialogue: 0,0:03:48.49,0:03:49.42,Sub,,0,0,0,,Hỏi ra mới biết
+Dialogue: 0,0:03:49.42,0:03:50.91,Sub,,0,0,0,,chính chủ đầu tư\Ncũng đang kẹt vốn
+Dialogue: 0,0:03:50.91,0:03:53.16,Sub,,0,0,0,,Họ ôm cùng lúc\Nquá nhiều dự án
+Dialogue: 0,0:03:53.16,0:03:54.17,Sub,,0,0,0,,vay nợ chồng chất
+Dialogue: 0,0:03:54.17,0:03:55.26,Sub,,0,0,0,,giờ bán hàng không được
+Dialogue: 0,0:03:55.26,0:03:56.88,Sub,,0,0,0,,dòng tiền âm, xoay không kịp
+Dialogue: 0,0:03:56.88,0:03:58.61,Sub,,0,0,0,,Hoá ra không\Nchỉ anh khát tiền
+Dialogue: 0,0:03:58.61,0:04:00.59,Sub,,0,0,0,,mà cả người bán nhà\Ncho anh cũng đang khát
+Dialogue: 0,0:04:00.59,0:04:01.37,Sub,,0,0,0,,Từ câu chuyện của anh
+Dialogue: 0,0:04:01.37,0:04:03.67,Sub,,0,0,0,,có thể rút ra ba dấu\Nhiệu một dự án đang gặp nguy
+Dialogue: 0,0:04:03.67,0:04:06.01,Sub,,0,0,0,,Thứ nhất, tiến\Nđộ cứ chậm dần
+Dialogue: 0,0:04:06.01,0:04:07.74,Sub,,0,0,0,,hứa hoài mà công\Ntrường thì im lìm
+Dialogue: 0,0:04:07.74,0:04:10.01,Sub,,0,0,0,,Thứ hai, chủ đầu\Ntư bỗng nhiên bán tháo
+Dialogue: 0,0:04:10.01,0:04:13.34,Sub,,0,0,0,,giảm giá sâu, tặng đủ thứ\Nđể gom tiền mặt cho thật nhanh
+Dialogue: 0,0:04:13.34,0:04:15.82,Sub,,0,0,0,,Thứ ba, một chủ đầu tư\Nôm cùng lúc quá nhiều dự
+Dialogue: 0,0:04:15.82,0:04:17.12,Sub,,0,0,0,,án, vay nợ chồng chất
+Dialogue: 0,0:04:17.12,0:04:18.68,Sub,,0,0,0,,Ba dấu hiệu\Nnày cùng bật lên
+Dialogue: 0,0:04:18.68,0:04:19.56,Sub,,0,0,0,,là lúc phải\Nhết sức thận trọng
+Dialogue: 0,0:04:19.56,0:04:21.08,Sub,,0,0,0,,Và đó là\Nbài học thứ ba
+Dialogue: 0,0:04:21.08,0:04:21.99,Sub,,0,0,0,,cái bạn bỏ tiền ra mua
+Dialogue: 0,0:04:21.99,0:04:23.59,Sub,,0,0,0,,nhiều khi không phải căn nhà
+Dialogue: 0,0:04:23.59,0:04:25.07,Sub,,0,0,0,,mà là một\Nlời hứa bàn giao
+Dialogue: 0,0:04:25.07,0:04:25.93,Sub,,0,0,0,,Và lời hứa đó
+Dialogue: 0,0:04:25.93,0:04:28.12,Sub,,0,0,0,,chỉ vững khi chủ\Nđầu tư còn dòng tiền
+Dialogue: 0,0:04:28.12,0:04:30.48,Sub,,0,0,0,,Trong lúc rối ren\Nvà cần tiền nhất
+Dialogue: 0,0:04:30.48,0:04:31.87,Sub,,0,0,0,,anh Tuấn gặp một lời mời
+Dialogue: 0,0:04:31.87,0:04:34.09,Sub,,0,0,0,,Có người giới thiệu cho\Nanh một dự án khác
+Dialogue: 0,0:04:34.09,0:04:35.62,Sub,,0,0,0,,mời anh góp vốn
+Dialogue: 0,0:04:35.62,0:04:37.40,Sub,,0,0,0,,cam kết trả lợi nhuận\Nmười tám phần trăm một năm
+Dialogue: 0,0:04:37.40,0:04:38.92,Sub,,0,0,0,,Đang bí, nghe con số đó
+Dialogue: 0,0:04:38.92,0:04:39.70,Sub,,0,0,0,,mắt anh sáng lên
+Dialogue: 0,0:04:39.70,0:04:40.48,Sub,,0,0,0,,Mười tám phần trăm
+Dialogue: 0,0:04:40.48,0:04:42.18,Sub,,0,0,0,,cao gấp mấy\Nlần gửi ngân hàng
+Dialogue: 0,0:04:42.18,0:04:43.46,Sub,,0,0,0,,gỡ gạc được biết bao nhiêu
+Dialogue: 0,0:04:43.46,0:04:44.38,Sub,,0,0,0,,Anh suýt nữa thì xuống tiền
+Dialogue: 0,0:04:44.38,0:04:45.71,Sub,,0,0,0,,Nhưng may, đúng lúc đó
+Dialogue: 0,0:04:45.71,0:04:46.73,Sub,,0,0,0,,anh khựng lại và\Ntự hỏi một câu
+Dialogue: 0,0:04:46.73,0:04:48.88,Sub,,0,0,0,,Ngân hàng cho vay còn\Ncó mười mấy phần trăm
+Dialogue: 0,0:04:48.88,0:04:50.64,Sub,,0,0,0,,Gửi tiết kiệm chỉ sáu
+Dialogue: 0,0:04:50.64,0:04:51.42,Sub,,0,0,0,,bảy phần trăm
+Dialogue: 0,0:04:51.42,0:04:54.10,Sub,,0,0,0,,Vậy cái dự án này lấy đâu\Nra lợi nhuận mười tám phần trăm
+Dialogue: 0,0:04:54.10,0:04:55.88,Sub,,0,0,0,,đều đặn để chia cho mình
+Dialogue: 0,0:04:55.88,0:04:58.76,Sub,,0,0,0,,trong khi chính họ cũng đang\Nphải đi vay để tồn tại?
+Dialogue: 0,0:04:58.76,0:05:01.84,Sub,,0,0,0,,Câu trả lời, thường là họ\Nlấy tiền của người vào sau
+Dialogue: 0,0:05:01.84,0:05:02.72,Sub,,0,0,0,,để trả cho người vào trước
+Dialogue: 0,0:05:02.72,0:05:04.97,Sub,,0,0,0,,Tới khi không còn\Nngười mới là sập
+Dialogue: 0,0:05:04.97,0:05:05.81,Sub,,0,0,0,,Bài học thứ tư
+Dialogue: 0,0:05:05.81,0:05:06.79,Sub,,0,0,0,,cũng là câu bùa hộ mệnh
+Dialogue: 0,0:05:06.79,0:05:09.19,Sub,,0,0,0,,trong tài chính, lợi nhuận càng\Ncao thì rủi ro càng lớn
+Dialogue: 0,0:05:09.19,0:05:11.21,Sub,,0,0,0,,Một lời hứa lợi\Nnhuận cao bất thường
+Dialogue: 0,0:05:11.21,0:05:12.47,Sub,,0,0,0,,không phải món quà
+Dialogue: 0,0:05:12.47,0:05:14.02,Sub,,0,0,0,,mà thường là một cái bẫy
+Dialogue: 0,0:05:14.02,0:05:15.68,Sub,,0,0,0,,Không có bữa trưa\Nnào miễn phí cả
+Dialogue: 0,0:05:15.68,0:05:17.26,Sub,,0,0,0,,Giờ, quay lại với bạn
+Dialogue: 0,0:05:17.26,0:05:18.72,Sub,,0,0,0,,người trẻ đang muốn mua nhà
+Dialogue: 0,0:05:18.72,0:05:21.67,Sub,,0,0,0,,Câu chuyện của anh Tuấn không\Nphải để bạn sợ hãi mà
+Dialogue: 0,0:05:21.67,0:05:23.07,Sub,,0,0,0,,chẳng dám làm gì
+Dialogue: 0,0:05:23.07,0:05:25.13,Sub,,0,0,0,,Nó là để\Nbạn nhớ bốn điều
+Dialogue: 0,0:05:25.13,0:05:26.52,Sub,,0,0,0,,để ngày bạn\Nđủ lực xuống tiền
+Dialogue: 0,0:05:26.52,0:05:28.10,Sub,,0,0,0,,bạn xuống cho tỉnh táo
+Dialogue: 0,0:05:28.10,0:05:30.06,Sub,,0,0,0,,chứ không mua trong tuyệt vọng
+Dialogue: 0,0:05:30.06,0:05:31.62,Sub,,0,0,0,,Dòng tiền quan trọng\Nhơn giá trên giấy
+Dialogue: 0,0:05:31.62,0:05:33.12,Sub,,0,0,0,,Đòn bẩy là dao hai lưỡi
+Dialogue: 0,0:05:33.12,0:05:34.18,Sub,,0,0,0,,luôn tính kịch bản xấu nhất
+Dialogue: 0,0:05:34.18,0:05:35.87,Sub,,0,0,0,,Đọc kỹ dấu hiệu\Nmột dự án rủi ro
+Dialogue: 0,0:05:35.87,0:05:38.88,Sub,,0,0,0,,Và lợi nhuận cao bất thường\Nthì luôn đi kèm rủi ro cao
+Dialogue: 0,0:05:38.88,0:05:40.14,Sub,,0,0,0,,Nhưng quan trọng hơn hết
+Dialogue: 0,0:05:40.14,0:05:42.10,Sub,,0,0,0,,Anh Hai muốn\Nbạn nghe câu này
+Dialogue: 0,0:05:42.10,0:05:43.28,Sub,,0,0,0,,Chưa mua được\Nnhà ở tuổi này
+Dialogue: 0,0:05:43.28,0:05:44.59,Sub,,0,0,0,,không có nghĩa\Nlà bạn thất bại
+Dialogue: 0,0:05:44.59,0:05:45.72,Sub,,0,0,0,,Với những con số ban nãy
+Dialogue: 0,0:05:45.72,0:05:47.18,Sub,,0,0,0,,cả một thế hệ\Nđang cùng cảnh với bạn
+Dialogue: 0,0:05:47.18,0:05:48.58,Sub,,0,0,0,,Trong lúc chờ đủ lực
+Dialogue: 0,0:05:48.58,0:05:51.29,Sub,,0,0,0,,tiền của bạn không nhất thiết\Nphải nằm chết trong một căn
+Dialogue: 0,0:05:51.29,0:05:52.96,Sub,,0,0,0,,hộ mà tháng nào\Nbạn cũng phải gồng lãi
+Dialogue: 0,0:05:52.96,0:05:55.13,Sub,,0,0,0,,Nó có thể\Nđược giữ linh hoạt
+Dialogue: 0,0:05:55.13,0:05:56.31,Sub,,0,0,0,,được để dành, được đầu tư
+Dialogue: 0,0:05:56.31,0:05:57.19,Sub,,0,0,0,,để đến đúng thời điểm
+Dialogue: 0,0:05:57.19,0:05:58.37,Sub,,0,0,0,,bạn ra quyết định\Ntừ thế chủ động
+Dialogue: 0,0:05:58.37,0:06:00.58,Sub,,0,0,0,,chứ không phải bị\Ndồn vào chân tường
+Dialogue: 0,0:06:00.58,0:06:01.60,Sub,,0,0,0,,Bởi vì căn nhà đẹp nhất
+Dialogue: 0,0:06:01.60,0:06:03.67,Sub,,0,0,0,,không phải căn khiến bạn\Nkiệt sức để trả nợ
+Dialogue: 0,0:06:03.67,0:06:05.72,Sub,,0,0,0,,mà là căn bạn mua\Nđược mà vẫn ngủ ngon
+Dialogue: 0,0:06:05.72,0:06:07.23,Sub,,0,0,0,,Tiền để trong bê tông\Nthì nghe thật vững chãi
+Dialogue: 0,0:06:07.23,0:06:08.05,Sub,,0,0,0,,nhưng tới lúc ngặt nghèo
+Dialogue: 0,0:06:08.05,0:06:09.43,Sub,,0,0,0,,nó lại không mua nổi\Ncho bạn một tô phở
+Dialogue: 0,0:06:09.43,0:06:10.21,Sub,,0,0,0,,Thứ thật sự\Ncho bạn tự do
+Dialogue: 0,0:06:10.21,0:06:11.82,Sub,,0,0,0,,là dòng tiền bạn\Ncòn nắm trong tay
+Dialogue: 0,0:06:11.82,0:06:13.76,Sub,,0,0,0,,Vậy còn bạn, bạn đang là\Nteam cố mua cho bằng được
+Dialogue: 0,0:06:13.76,0:06:15.57,Sub,,0,0,0,,hay team giữ tiền\Nchờ đúng thời điểm?
+Dialogue: 0,0:06:15.57,0:06:16.69,Sub,,0,0,0,,Kể Anh Hai nghe\Ntrong phần bình luận nhé
+Dialogue: 0,0:06:16.69,0:06:17.73,Sub,,0,0,0,,Còn bây giờ thì
+Dialogue: 0,0:06:17.73,0:06:18.51,Sub,,0,0,0,,giữ ví cho chặt
+Dialogue: 0,0:06:18.51,0:06:20.04,Sub,,0,0,0,,và hẹn gặp lại ở\Nnhững câu chuyện tiền tiếp theo

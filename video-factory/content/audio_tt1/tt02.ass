@@ -1,0 +1,32 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:01.72,Sub,,0,0,0,,Bà Sáu cả đời tằn tiện
+Dialogue: 0,0:00:01.72,0:00:03.41,Sub,,0,0,0,,gói một trăm triệu\Ntrong tấm vải
+Dialogue: 0,0:00:03.41,0:00:04.57,Sub,,0,0,0,,nhét tận đáy tủ
+Dialogue: 0,0:00:04.57,0:00:05.52,Sub,,0,0,0,,khóa hai lớp
+Dialogue: 0,0:00:05.52,0:00:06.92,Sub,,0,0,0,,Mười năm sau bà mở ra
+Dialogue: 0,0:00:06.92,0:00:08.88,Sub,,0,0,0,,đếm đi đếm lại\Nvẫn đủ một trăm triệu
+Dialogue: 0,0:00:08.88,0:00:09.79,Sub,,0,0,0,,không thiếu tờ nào
+Dialogue: 0,0:00:09.79,0:00:10.71,Sub,,0,0,0,,bà mừng lắm
+Dialogue: 0,0:00:10.71,0:00:11.57,Sub,,0,0,0,,Nhưng ngày bà cất
+Dialogue: 0,0:00:11.57,0:00:12.99,Sub,,0,0,0,,bát phở đầu\Nngõ ba mươi nghìn
+Dialogue: 0,0:00:12.99,0:00:14.21,Sub,,0,0,0,,giờ đã năm mươi nghìn
+Dialogue: 0,0:00:14.21,0:00:15.17,Sub,,0,0,0,,Cũng số tiền đó
+Dialogue: 0,0:00:15.17,0:00:17.13,Sub,,0,0,0,,ngày xưa mua được\Nhơn ba nghìn bát phở
+Dialogue: 0,0:00:17.13,0:00:18.46,Sub,,0,0,0,,giờ chỉ còn hai nghìn
+Dialogue: 0,0:00:18.46,0:00:19.97,Sub,,0,0,0,,Tiền không hề\Nbốc hơi khỏi tủ
+Dialogue: 0,0:00:19.97,0:00:21.18,Sub,,0,0,0,,nó vẫn nằm im đấy
+Dialogue: 0,0:00:21.18,0:00:22.36,Sub,,0,0,0,,Nó bốc hơi ở chỗ khác
+Dialogue: 0,0:00:22.36,0:00:24.02,Sub,,0,0,0,,mỗi năm giá cả\Nnhích lên một chút
+Dialogue: 0,0:00:24.02,0:00:26.62,Sub,,0,0,0,,đồng tiền nằm yên là\Nđồng tiền lặng lẽ mất giá

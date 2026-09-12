@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,46,&H00FFFFFF,&H00FFFFFF,&H00202018,&H90000000,-1,0,0,0,100,100,0,0,1,4,1,2,120,120,60,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.00,0:00:02.97,Sub,,0,0,0,,Ông chú kể, năm hai nghìn\Nông có trong tay một tỷ
+Dialogue: 0,0:00:02.97,0:00:04.38,Sub,,0,0,0,,hồi đó là\Nđại gia thứ thiệt
+Dialogue: 0,0:00:04.38,0:00:06.36,Sub,,0,0,0,,mua được liền mấy\Ncăn nhà mặt phố
+Dialogue: 0,0:00:06.36,0:00:07.43,Sub,,0,0,0,,Đứa cháu ngồi nghe
+Dialogue: 0,0:00:07.43,0:00:09.08,Sub,,0,0,0,,tròn mắt, một tỷ cơ à
+Dialogue: 0,0:00:09.08,0:00:10.72,Sub,,0,0,0,,Nhưng bây giờ cầm\Nmột tỷ ra phố
+Dialogue: 0,0:00:10.72,0:00:13.08,Sub,,0,0,0,,nhiều nơi còn chưa mua\Nnổi một căn nhà nhỏ
+Dialogue: 0,0:00:13.08,0:00:14.31,Sub,,0,0,0,,Vẫn là con số một tỷ
+Dialogue: 0,0:00:14.31,0:00:17.43,Sub,,0,0,0,,nhưng sức mua của nó rơi thẳng\Nđứng sau hơn hai mươi năm lạm phát
+Dialogue: 0,0:00:17.43,0:00:19.70,Sub,,0,0,0,,Tiền không mất giá trong\Nmột đêm cho mình giật mình
+Dialogue: 0,0:00:19.70,0:00:20.67,Sub,,0,0,0,,nó mất từ từ
+Dialogue: 0,0:00:20.67,0:00:21.57,Sub,,0,0,0,,mỗi năm một chút
+Dialogue: 0,0:00:21.57,0:00:23.51,Sub,,0,0,0,,đến lúc ngoảnh lại\Nmới thấy khác hẳn
+Dialogue: 0,0:00:23.51,0:00:25.99,Sub,,0,0,0,,Cho nên tỷ phú của\Nnăm hai nghìn với tỷ phú bây
+Dialogue: 0,0:00:25.99,0:00:27.79,Sub,,0,0,0,,giờ, là hai đẳng\Ncấp hoàn toàn khác nhau
