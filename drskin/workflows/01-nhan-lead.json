@@ -1,0 +1,284 @@
+{
+  "name": "DrSkin 01 - Nhan lead",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "drskin-lead",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "bac65f61-4efa-5b00-9699-be764437c8ca",
+      "name": "Webhook nhan lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        300
+      ],
+      "webhookId": "f1cc4052-28ce-5039-8182-a5dc84b99ce8"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "function chuanHoaSdt(raw) {\n  if (raw === null || raw === undefined) return { sdt: '', hopLe: false };\n  const goc = String(raw).trim();\n  const coDauCong = goc.startsWith('+');\n  let s = goc.replace(/\\D/g, '');\n  if (s.startsWith('00')) s = s.slice(2);\n  if (s.startsWith('84') && (coDauCong || s.length >= 11)) s = s.slice(2);\n  if (!s.startsWith('0')) s = '0' + s;\n  s = s.replace(/^0{2,}/, '0');\n  return { sdt: s, hopLe: /^0\\d{9,10}$/.test(s) };\n}\n\n// Danh sach nguon hop le. Nguon la khong co trong day se thanh \"khac\".\nconst NGUON_HOP_LE = ['facebook_ads','zalo_oa','website','trang_tour','tiktok','hotline','gioi_thieu','khac'];\n\n// Gio Viet Nam, dang YYYY-MM-DD HH:mm:ss\nfunction gioVN(t) {\n  return new Date(t).toLocaleString('sv-SE', { timeZone: 'Asia/Ho_Chi_Minh' });\n}\n\nconst ra = [];\nfor (const item of $input.all()) {\n  // Webhook dat du lieu trong body. Nguon khac co the gui thang.\n  const b = item.json.body ?? item.json;\n\n  // ANH XA TEN TRUONG. Them ten moi vao day khi noi them mot nguon lead.\n  const hoTen  = b.ho_ten ?? b.full_name ?? b.name ?? b.ten ?? '';\n  const sdtRaw = b.sdt ?? b.phone ?? b.phone_number ?? b.so_dien_thoai ?? '';\n  const email  = b.email ?? '';\n  const nguon  = String(b.nguon ?? b.source ?? 'khac').toLowerCase().trim();\n  const maCD   = b.ma_chien_dich ?? b.campaign_id ?? '';\n  const khoa   = b.khoa_quan_tam ?? b.course ?? '';\n  const ghiChu = b.ghi_chu ?? b.note ?? '';\n\n  const p = chuanHoaSdt(sdtRaw);\n  const now = gioVN(Date.now());\n\n  ra.push({ json: {\n    ho_ten: String(hoTen).trim() || 'Chua ro ten',\n    sdt: p.sdt,\n    sdt_goc: String(sdtRaw),\n    sdt_khong_hop_le: p.hopLe ? '' : 'x',\n    email: String(email).trim(),\n    nguon: NGUON_HOP_LE.includes(nguon) ? nguon : 'khac',\n    ma_chien_dich: String(maCD),\n    khoa_quan_tam: String(khoa),\n    ghi_chu: String(ghiChu),\n    thoi_gian_vao: now,\n    trang_thai: 'moi',\n    thoi_gian_goi_dau: '',\n    ly_do_mat: '',\n    khoa_dang_ky: '',\n    so_tien_da_thu: '',\n    lop_id: '',\n    tao_luc: now,\n    cap_nhat_luc: now,\n  }});\n}\nreturn ra;\n"
+      },
+      "id": "e5e34fe8-f918-5fd9-9fbe-ab9ebb99a5ed",
+      "name": "Chuan hoa du lieu",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        20,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": ""
+        },
+        "options": {}
+      },
+      "id": "1c025f0c-a30b-53f4-a083-bcf1e6fbec1a",
+      "name": "Doc bang LEAD",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        300
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "\n// DANH SACH TU VAN VIEN. Sua o day khi them bot nguoi.\n// Ten phai trung voi cot nguoi_phu_trach trong bang LEAD.\nconst TU_VAN_VIEN = ['Tu van vien A', 'Tu van vien B', 'Tu van vien C', 'Tu van vien D'];\n\nconst lead = $('Chuan hoa du lieu').first().json;\n\n// Cac dong dang co trong bang LEAD. Loc bo dong rong.\nconst rows = $input.all().map((i) => i.json).filter((r) => r && r.sdt);\nconst soLead = rows.length;\n\n// Chi chong trung khi so hop le. So sai dinh dang van tao lead moi.\nconst trung = lead.sdt_khong_hop_le\n  ? null\n  : rows.find((r) => String(r.sdt).trim() === lead.sdt) || null;\n\nif (trung) {\n  // Khach quay lai. Khong tao lead moi, chi ghi mot dong hoat dong.\n  return [{ json: {\n    la_lead_moi: false,\n    id: 'HD' + String(Date.now()).slice(-8),\n    lead_id: trung.lead_id || '',\n    loai: 'ghi_chu',\n    noi_dung: 'Khach quay lai tu nguon ' + lead.nguon + '. Trang thai dang la ' + (trung.trang_thai || 'chua ro') + '.',\n    nguoi_thuc_hien: 'he_thong',\n    thoi_gian: lead.thoi_gian_vao,\n    trang_thai_cu: trung.trang_thai || '',\n    nguoi_phu_trach_cu: trung.nguoi_phu_trach || '',\n  }}];\n}\n\n// Lead moi. Gan tu van vien luan phien theo so lead da co.\nconst nguoi = TU_VAN_VIEN[soLead % TU_VAN_VIEN.length];\n\nreturn [{ json: {\n  ...lead,\n  la_lead_moi: true,\n  lead_id: 'L' + String(soLead + 1).padStart(5, '0'),\n  nguoi_phu_trach: nguoi,\n}}];\n"
+      },
+      "id": "e7b57f0a-710d-525d-946a-e0968824f0dc",
+      "name": "Chong trung va gan tu van vien",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "397faf91-ca6e-51aa-88f5-7a4915e95fbf",
+              "leftValue": "={{ $json.la_lead_moi }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "343a4fca-75b7-5887-8152-374794a9848e",
+      "name": "La lead moi?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": ""
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "81ef31e1-94a2-5661-b341-ba103b22ed82",
+      "name": "Them dong LEAD",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        920,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list",
+          "cachedResultName": ""
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "68543797-1df6-5333-a3d3-88c0ee8a4dca",
+      "name": "Ghi khach quay lai",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        920,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, lead_id: $json.lead_id, la_lead_moi: $json.la_lead_moi }) }}",
+        "options": {}
+      },
+      "id": "f17afe82-9eb8-55d0-a3f5-4293221a1a53",
+      "name": "Tra loi",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1160,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook nhan lead": {
+      "main": [
+        [
+          {
+            "node": "Chuan hoa du lieu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chuan hoa du lieu": {
+      "main": [
+        [
+          {
+            "node": "Doc bang LEAD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Doc bang LEAD": {
+      "main": [
+        [
+          {
+            "node": "Chong trung va gan tu van vien",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chong trung va gan tu van vien": {
+      "main": [
+        [
+          {
+            "node": "La lead moi?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "La lead moi?": {
+      "main": [
+        [
+          {
+            "node": "Them dong LEAD",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ghi khach quay lai",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Them dong LEAD": {
+      "main": [
+        [
+          {
+            "node": "Tra loi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ghi khach quay lai": {
+      "main": [
+        [
+          {
+            "node": "Tra loi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}
