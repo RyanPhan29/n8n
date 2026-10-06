@@ -1,0 +1,319 @@
+{
+  "name": "DrSkin 04 canh han 2 gio",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000001",
+      "name": "Dinh ky 15 phut",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -160,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000002",
+      "name": "Doc bang LEAD",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        60,
+        300
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "/**\n * Giờ làm việc mặc định của học viện.\n *\n * ĐÂY LÀ CHỖ CẦN SỬA. Em đặt tạm 8 giờ sáng tới 8 giờ tối, làm cả bảy ngày,\n * vì spa và học viện thẩm mỹ thường đông nhất cuối tuần. Anh sửa lại cho đúng\n * thực tế rồi dán vào node Code trong workflow.\n */\nconst GIO_LAM_VIEC = {\n\tmo: '08:00',\n\tdong: '20:00',\n\t// 0 là Chủ nhật, 1 là thứ Hai, ... 6 là thứ Bảy.\n\t// Để rỗng là làm cả tuần. Muốn nghỉ Chủ nhật thì ghi [0].\n\tngayNghi: [],\n\t// Lệch múi giờ so với UTC. Việt Nam là 7.\n\tlechMuiGio: 7,\n};\n\n/** '08:30' thành 510 phút tính từ nửa đêm. Sai định dạng thì trả về null. */\nfunction phutTrongNgay(hhmm) {\n\tconst khop = /^(\\d{1,2}):(\\d{2})$/.exec(String(hhmm).trim());\n\tif (!khop) return null;\n\tconst gio = Number(khop[1]);\n\tconst phut = Number(khop[2]);\n\tif (gio > 24 || phut > 59) return null;\n\treturn gio * 60 + phut;\n}\n\n/**\n * Đổi thời điểm thành số phút tính từ mốc 1970, theo giờ địa phương.\n *\n * Phải tự chặn null và chuỗi rỗng trước khi gọi new Date, vì new Date(null)\n * không ra ngày sai mà ra đúng mốc 1970. Để nó lọt thì một lead thiếu cột\n * thoi_gian_vao sẽ bị tính là đã chờ mấy chục năm và lập tức báo trễ hạn.\n */\nfunction phutDiaPhuong(thoiDiem, lechMuiGio) {\n\tif (thoiDiem === null || thoiDiem === undefined) return null;\n\tif (typeof thoiDiem === 'string' && thoiDiem.trim() === '') return null;\n\n\tconst d = thoiDiem instanceof Date ? thoiDiem : new Date(thoiDiem);\n\tconst mili = d.getTime();\n\tif (!Number.isFinite(mili)) return null;\n\treturn Math.floor(mili / 60000) + lechMuiGio * 60;\n}\n\n/** 0 là Chủ nhật. Ngày 0 của mốc 1970 là thứ Năm nên cộng 4. */\nfunction thuTrongTuan(chiSoNgay) {\n\treturn (((chiSoNgay + 4) % 7) + 7) % 7;\n}\n\n/**\n * Số phút làm việc giữa hai thời điểm.\n *\n * @param {string|Date} tu    thời điểm bắt đầu, ví dụ lúc lead vào\n * @param {string|Date} den   thời điểm kết thúc, thường là bây giờ\n * @param {object} cauHinh    ghi đè GIO_LAM_VIEC, không bắt buộc\n * @returns {{phut: number, hopLe: boolean, lyDo?: string}}\n */\nfunction phutLamViecGiua(tu, den, cauHinh) {\n\tconst c = Object.assign({}, GIO_LAM_VIEC, cauHinh || {});\n\n\tconst mo = phutTrongNgay(c.mo);\n\tconst dong = phutTrongNgay(c.dong);\n\tif (mo === null || dong === null) {\n\t\treturn { phut: 0, hopLe: false, lyDo: 'gio_mo_dong_sai_dinh_dang' };\n\t}\n\tif (dong <= mo) {\n\t\treturn { phut: 0, hopLe: false, lyDo: 'gio_dong_khong_sau_gio_mo' };\n\t}\n\n\tconst batDau = phutDiaPhuong(tu, c.lechMuiGio);\n\tconst ketThuc = phutDiaPhuong(den, c.lechMuiGio);\n\tif (batDau === null || ketThuc === null) {\n\t\treturn { phut: 0, hopLe: false, lyDo: 'thoi_diem_sai_dinh_dang' };\n\t}\n\t// Mốc kết thúc trước mốc bắt đầu thì coi như chưa trôi phút nào, không\n\t// phải lỗi. Đồng hồ lệch vài giây là chuyện thường.\n\tif (ketThuc <= batDau) return { phut: 0, hopLe: true };\n\n\tconst ngayNghi = new Set((c.ngayNghi || []).map(Number));\n\tif (ngayNghi.size >= 7) {\n\t\treturn { phut: 0, hopLe: false, lyDo: 'nghi_ca_bay_ngay' };\n\t}\n\n\tconst ngayDau = Math.floor(batDau / 1440);\n\tconst ngayCuoi = Math.floor(ketThuc / 1440);\n\n\tlet tong = 0;\n\tfor (let ngay = ngayDau; ngay <= ngayCuoi; ngay++) {\n\t\tif (ngayNghi.has(thuTrongTuan(ngay))) continue;\n\t\tconst khungMo = ngay * 1440 + mo;\n\t\tconst khungDong = ngay * 1440 + dong;\n\t\tconst giao = Math.min(ketThuc, khungDong) - Math.max(batDau, khungMo);\n\t\tif (giao > 0) tong += giao;\n\t}\n\n\treturn { phut: tong, hopLe: true };\n}\n\n/** Đang trong giờ làm việc hay không. Dùng để không gửi cảnh báo lúc nửa đêm. */\nfunction dangTrongGioLamViec(thoiDiem, cauHinh) {\n\tconst c = Object.assign({}, GIO_LAM_VIEC, cauHinh || {});\n\tconst mo = phutTrongNgay(c.mo);\n\tconst dong = phutTrongNgay(c.dong);\n\tconst moc = phutDiaPhuong(thoiDiem, c.lechMuiGio);\n\tif (mo === null || dong === null || moc === null) return false;\n\n\tconst ngay = Math.floor(moc / 1440);\n\tif (new Set((c.ngayNghi || []).map(Number)).has(thuTrongTuan(ngay))) return false;\n\n\tconst trongNgay = moc - ngay * 1440;\n\treturn trongNgay >= mo && trongNgay < dong;\n}\n\n// ---------------------------------------------------------------------------\n// NGƯỠNG CANH. Sửa ở đây.\n// ---------------------------------------------------------------------------\nconst HAN_PHUT = 120;        // lời hứa gọi khách trong 2 giờ làm việc\nconst SAP_HAN_PHUT = 90;     // báo sớm khi còn 30 phút, để còn kịp cứu\n\nconst bayGio = new Date();\nconst rows = $input.all().map((i) => i.json).filter((r) => r && r.lead_id);\n\nconst treHan = [];\nconst sapHan = [];\nconst loi = [];\n\nfor (const r of rows) {\n\t// Đã gọi rồi thì thôi. Chỉ canh lead chưa ai gọi lần đầu.\n\tconst daGoi = String(r.thoi_gian_goi_dau || '').trim() !== '';\n\tif (daGoi) continue;\n\n\t// Lead đã chốt hoặc đã mất thì không canh nữa.\n\tconst trangThai = String(r.trang_thai || '').trim();\n\tif (['da_chot', 'mat', 'da_dang_ky'].includes(trangThai)) continue;\n\n\tconst kq = phutLamViecGiua(r.thoi_gian_vao, bayGio);\n\n\tif (!kq.hopLe) {\n\t\t// Không im lặng bỏ qua. Thiếu mốc thời gian cũng là một lỗi cần người xem.\n\t\tloi.push({\n\t\t\tlead_id: r.lead_id,\n\t\t\tho_ten: r.ho_ten || '',\n\t\t\tsdt: r.sdt || '',\n\t\t\tnguoi_phu_trach: r.nguoi_phu_trach || '',\n\t\t\tly_do: kq.lyDo,\n\t\t\tthoi_gian_vao_goc: r.thoi_gian_vao || '',\n\t\t});\n\t\tcontinue;\n\t}\n\n\tconst daCanhBao = String(r.muc_canh_bao || '').trim();\n\n\tconst ban = {\n\t\tlead_id: r.lead_id,\n\t\tho_ten: r.ho_ten || 'Chua ro ten',\n\t\tsdt: r.sdt || '',\n\t\tnguon: r.nguon || '',\n\t\tkhoa_quan_tam: r.khoa_quan_tam || '',\n\t\tnguoi_phu_trach: r.nguoi_phu_trach || 'Chua gan',\n\t\tthoi_gian_vao: r.thoi_gian_vao || '',\n\t\tphut_da_cho: kq.phut,\n\t};\n\n\t// Chỉ báo khi mức nặng hơn lần đã báo, nhờ vậy không kêu lại mỗi 15 phút.\n\tif (kq.phut > HAN_PHUT && daCanhBao !== 'tre_han') {\n\t\ttreHan.push(Object.assign({}, ban, { muc_canh_bao: 'tre_han' }));\n\t} else if (kq.phut > SAP_HAN_PHUT && kq.phut <= HAN_PHUT && daCanhBao === '') {\n\t\tsapHan.push(Object.assign({}, ban, { muc_canh_bao: 'sap_han' }));\n\t}\n}\n\nconst canhBao = treHan.concat(sapHan);\nconst trongGio = dangTrongGioLamViec(bayGio);\n\n// Ngoài giờ làm việc thì im, không gửi và cũng không đánh dấu.\n// Lý do: dựng người quản lý lúc 2 giờ sáng để báo một lead mà tới sáng mới gọi\n// được thì chỉ gây phiền. Vì không đánh dấu nên lần chạy đầu tiên sau giờ mở\n// cửa sẽ báo lại đầy đủ, không mất việc nào.\nconst coViecCanBao = trongGio && (canhBao.length > 0 || loi.length > 0);\n\n// Trả về một item cho mỗi lead cần báo, kèm một item tóm tắt ở đầu để node sau\n// biết có gì mà báo hay không.\nconst tomTat = {\n\tla_tom_tat: true,\n\tso_tre_han: treHan.length,\n\tso_sap_han: sapHan.length,\n\tso_loi_du_lieu: loi.length,\n\tco_viec_can_bao: coViecCanBao,\n\ttrong_gio_lam_viec: trongGio,\n\tthoi_diem_kiem: bayGio.toISOString(),\n\tdanh_sach: canhBao,\n\tloi_du_lieu: loi,\n};\n\nreturn [{ json: tomTat }].concat(canhBao.map((c) => ({ json: c })));\n"
+      },
+      "id": "a1000000-0000-4000-8000-000000000003",
+      "name": "Tim lead tre han",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        280,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.co_viec_can_bao }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000004",
+      "name": "Co viec can bao?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Soạn một tin gọn cho người quản lý đọc trên điện thoại.\nconst tomTat = $input.all().map((i) => i.json).find((j) => j.la_tom_tat);\nif (!tomTat) return [];\n\nconst dong = [];\nconst gio = (iso) => {\n\tconst d = new Date(iso);\n\tif (!Number.isFinite(d.getTime())) return String(iso || '');\n\t// Giờ Việt Nam cho người đọc.\n\treturn new Date(d.getTime() + 7 * 3600 * 1000)\n\t\t.toISOString()\n\t\t.slice(0, 16)\n\t\t.replace('T', ' ');\n};\n\nconst treHan = tomTat.danh_sach.filter((c) => c.muc_canh_bao === 'tre_han');\nconst sapHan = tomTat.danh_sach.filter((c) => c.muc_canh_bao === 'sap_han');\n\nif (treHan.length) {\n\tdong.push(`TRE HAN: ${treHan.length} lead da qua 2 gio ma chua ai goi`);\n\tfor (const c of treHan) {\n\t\tdong.push(\n\t\t\t`  ${c.ho_ten} | ${c.sdt} | ${c.nguoi_phu_trach} | cho ${c.phut_da_cho} phut lam viec | vao luc ${gio(c.thoi_gian_vao)}`,\n\t\t);\n\t}\n\tdong.push('');\n}\n\nif (sapHan.length) {\n\tdong.push(`SAP HET HAN: ${sapHan.length} lead con duoi 30 phut`);\n\tfor (const c of sapHan) {\n\t\tdong.push(`  ${c.ho_ten} | ${c.sdt} | ${c.nguoi_phu_trach} | cho ${c.phut_da_cho} phut lam viec`);\n\t}\n\tdong.push('');\n}\n\nif (tomTat.loi_du_lieu.length) {\n\tdong.push(`LOI DU LIEU: ${tomTat.loi_du_lieu.length} lead khong tinh duoc han`);\n\tfor (const l of tomTat.loi_du_lieu) {\n\t\tdong.push(`  ${l.lead_id} | ${l.ho_ten} | ${l.sdt} | ly do: ${l.ly_do} | cot thoi_gian_vao: \"${l.thoi_gian_vao_goc}\"`);\n\t}\n\tdong.push('');\n}\n\ndong.push(`Kiem luc ${gio(tomTat.thoi_diem_kiem)} gio Viet Nam.`);\n\nconst tieuDe = treHan.length\n\t? `[DrSkin] ${treHan.length} lead TRE HAN goi dau`\n\t: sapHan.length\n\t\t? `[DrSkin] ${sapHan.length} lead sap het han 2 gio`\n\t\t: '[DrSkin] Loi du lieu bang LEAD';\n\nreturn [{ json: { tieu_de: tieuDe, noi_dung: dong.join('\\n') } }];\n"
+      },
+      "id": "a1000000-0000-4000-8000-000000000005",
+      "name": "Soan tin canh bao",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        740,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "NGUOI-NHAN-CANH-BAO@vidu.com",
+        "subject": "={{ $json.tieu_de }}",
+        "emailType": "text",
+        "message": "={{ $json.noi_dung }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000006",
+      "name": "Gui canh bao qua email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        980,
+        180
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Chỉ gửi đúng hai cột cần ghi đè, tránh ghi nhầm lên cột khác.\nreturn $input.all()\n\t.map((i) => i.json)\n\t.filter((j) => !j.la_tom_tat)\n\t.map((c) => ({ json: { lead_id: c.lead_id, muc_canh_bao: c.muc_canh_bao } }))\n"
+      },
+      "id": "a1000000-0000-4000-8000-00000000000a",
+      "name": "Soan cot danh dau",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "lead_id"
+          ],
+          "schema": []
+        },
+        "options": {},
+        "operation": "update"
+      },
+      "id": "a1000000-0000-4000-8000-000000000007",
+      "name": "Danh dau da canh bao",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        740,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Đổi mỗi lead cần báo thành một dòng của bảng HOAT_DONG.\nconst items = $input.all().map((i) => i.json).filter((j) => !j.la_tom_tat);\nconst bayGio = new Date().toISOString();\nreturn items.map((c) => ({\n\tjson: {\n\t\tid: `${c.lead_id}-${c.muc_canh_bao}-${bayGio.slice(0, 16)}`,\n\t\tlead_id: c.lead_id,\n\t\tloai: c.muc_canh_bao === 'tre_han' ? 'tre_han_goi_dau' : 'sap_het_han_goi_dau',\n\t\tnoi_dung: `Da cho ${c.phut_da_cho} phut lam viec ma chua co cuoc goi dau. Nguoi phu trach: ${c.nguoi_phu_trach}.`,\n\t\tnguoi_thuc_hien: 'He thong',\n\t\tthoi_gian: bayGio,\n\t},\n}))\n"
+      },
+      "id": "a1000000-0000-4000-8000-000000000009",
+      "name": "Soan dong so hoat dong",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        740,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {},
+        "operation": "append"
+      },
+      "id": "a1000000-0000-4000-8000-000000000008",
+      "name": "Ghi so hoat dong",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        980,
+        420
+      ]
+    }
+  ],
+  "connections": {
+    "Dinh ky 15 phut": {
+      "main": [
+        [
+          {
+            "node": "Doc bang LEAD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Doc bang LEAD": {
+      "main": [
+        [
+          {
+            "node": "Tim lead tre han",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tim lead tre han": {
+      "main": [
+        [
+          {
+            "node": "Co viec can bao?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Co viec can bao?": {
+      "main": [
+        [
+          {
+            "node": "Soan tin canh bao",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Soan cot danh dau",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Soan dong so hoat dong",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Soan tin canh bao": {
+      "main": [
+        [
+          {
+            "node": "Gui canh bao qua email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Soan cot danh dau": {
+      "main": [
+        [
+          {
+            "node": "Danh dau da canh bao",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Soan dong so hoat dong": {
+      "main": [
+        [
+          {
+            "node": "Ghi so hoat dong",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

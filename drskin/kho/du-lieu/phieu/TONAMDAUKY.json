@@ -1,0 +1,80 @@
+{
+  "doi_tac": "",
+  "dong": [
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP010489",
+      "so_luong": 1
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP010384",
+      "so_luong": 1
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP010358",
+      "so_luong": 10
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP010315",
+      "so_luong": 20
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP001132",
+      "so_luong": 1
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP001041",
+      "so_luong": 2
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP000608",
+      "so_luong": 430
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP000276",
+      "so_luong": 25
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP000260",
+      "so_luong": 5
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP000149",
+      "so_luong": 471
+    },
+    {
+      "han_dung": "",
+      "lo": "",
+      "ma": "SP000119",
+      "so_luong": 7
+    }
+  ],
+  "ghi_chu": "Tồn âm chuyển nguyên trạng từ KiotViet. Âm kho nghĩa là đã xuất mà chưa ai ghi phiếu nhập. Cần đối chiếu rồi ghi phiếu nhập bù.",
+  "loai": "xuat",
+  "lop": "",
+  "ly_do": "kiem_thieu",
+  "ngay": "2026-10-05",
+  "nguoi_lap": "",
+  "nguoi_lap_ten": "Nhập từ KiotViet",
+  "so_hoc_vien": 0,
+  "tao_luc": "2026-10-05T08:57:26.318669Z"
+}
